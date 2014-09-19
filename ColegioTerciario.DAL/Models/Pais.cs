@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ColegioTerciario.DAL.Models
 {
-    public class Paises
+    [Table("Paises")]
+    public class Pais
     {
-        public Paises()
+        public Pais()
         {
-            this.PERSONAS = new HashSet<Personas>();
+            this.PERSONAS = new HashSet<Persona>();
         }
     
         public int ID { get; set; }
@@ -25,6 +27,6 @@ namespace ColegioTerciario.DAL.Models
         public string PAIS_ALTERNATE_NAMES { get; set; }
         public string PAIS_PHONE { get; set; }
     
-        public virtual ICollection<Personas> PERSONAS { get; set; }
+        public virtual ICollection<Persona> PERSONAS { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace ColegioTerciario.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class kk : IMigrationMetadata
+    public sealed partial class PrimeraVersion : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(kk));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(PrimeraVersion));
         
         string IMigrationMetadata.Id
         {
-            get { return "201409182304106_kk"; }
+            get { return "201409190229272_PrimeraVersion"; }
         }
         
         string IMigrationMetadata.Source
