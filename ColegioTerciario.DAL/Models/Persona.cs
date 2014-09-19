@@ -51,12 +51,6 @@ namespace ColegioTerciario.DAL.Models
         public string PERSONA_OBSERVACION { get; set; }
         [Display(Name = "Foto")]
         public string PERSONA_FOTO { get; set; }
-        [Display(Name = "Pais de Nacimiento")]
-        public string PERSONA_NACIMIENTO_PAIS_NOMBRE { get; set; }
-        [Display(Name = "Provincia de Nacimiento")]
-        public string PERSONA_NACIMIENTO_PROVINCIA_NOMBRE { get; set; }
-        [Display(Name = "Ciudad de Nacimiento")]
-        public string PERSONA_NACIMIENTO_CIUDAD_NOMBRE { get; set; }
         [Display(Name = "CUIL")]
         public string PERSONA_CUIL { get; set; }
         [Display(Name = "Es Alumno")]        
