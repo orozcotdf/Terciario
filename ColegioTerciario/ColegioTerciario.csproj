@@ -183,6 +183,10 @@
     <Compile Include="Migrations\201409191855505_MODI Personas Campos Requeridos.Designer.cs">
       <DependentUpon>201409191855505_MODI Personas Campos Requeridos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs" />
+    <Compile Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.Designer.cs">
+      <DependentUpon>201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ColegioTerciarioContext.cs" />
@@ -282,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409191855505_MODI Personas Campos Requeridos.resx">
       <DependentUpon>201409191855505_MODI Personas Campos Requeridos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.resx">
+      <DependentUpon>201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
