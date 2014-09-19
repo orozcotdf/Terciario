@@ -19,16 +19,21 @@ namespace ColegioTerciario.DAL.Models
         [Display(Name = "Clave")]
         public string PERSONA_CLAVE { get; set; }
         [Display(Name="Nombre")]
+        [Required]
         public string PERSONA_NOMBRE { get; set; }
         [Display(Name = "Apellido")]
+        [Required]
         public string PERSONA_APELLIDO { get; set; }
         [Display(Name = "Tipo de Documento")]
         public string PERSONA_DOCUMENTO_TIPO { get; set; }
         [Display(Name = "Documento Nro")]
+        [Required]
         public string PERSONA_DOCUMENTO_NUMERO { get; set; }
         [Display(Name = "Fecha de Nacimiento")]
         public Nullable<System.DateTime> PERSONA_NACIMIENTO_FECHA { get; set; }
         [Display(Name = "Email")]
+        [Required]
+        [DataType(DataType.EmailAddress, ErrorMessage = "El Email no es valido")]
         public string PERSONA_EMAIL { get; set; }
         [Display(Name = "Domicilio")]
         public string PERSONA_DOMICILIO { get; set; }
@@ -62,11 +67,11 @@ namespace ColegioTerciario.DAL.Models
         public bool PERSONA_ES_NODOCENTE { get; set; }
 
         [Display(Name = "Pais de Nacimiento")]
-        public int PERSONA_NACIMIENTO_PAIS_ID { get; set; }
+        public int? PERSONA_NACIMIENTO_PAIS_ID { get; set; }
         [Display(Name = "Provincia de Nacimiento")]
-        public int PERSONA_NACIMIENTO_PROVINCIA_ID { get; set; }
+        public int? PERSONA_NACIMIENTO_PROVINCIA_ID { get; set; }
         [Display(Name = "Ciudad de Nacimiento",Prompt="Seleccione una Ciudad")]
-        public int PERSONA_NACIMIENTO_CIUDAD_ID { get; set; }
+        public int? PERSONA_NACIMIENTO_CIUDAD_ID { get; set; }
 
         [ForeignKey("PERSONA_NACIMIENTO_PAIS_ID")]        
         public Pais PERSONA_NACIMIENTO_PAIS { get; set; }
