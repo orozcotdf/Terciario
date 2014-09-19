@@ -46,10 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Ciudades.cs" />
-    <Compile Include="Models\Paises.cs" />
-    <Compile Include="Models\Personas.cs" />
-    <Compile Include="Models\Provincias.cs" />
+    <Compile Include="Models\Ciudad.cs" />
+    <Compile Include="Models\Pais.cs" />
+    <Compile Include="Models\Persona.cs" />
+    <Compile Include="Models\Provincia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿@model ColegioTerciario.DAL.Models.Personas
+﻿@model ColegioTerciario.DAL.Models.Persona
 
 @{
     ViewBag.Title = "Create";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Personas</h4>
+        <h4>Persona</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -152,26 +152,26 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_PAIS_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_PAIS_NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_NACIMIENTO_PAIS_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_PAIS_ID, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PERSONA_NACIMIENTO_PAIS_NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_PAIS_NOMBRE, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_NOMBRE, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_LOCALIDAD_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_CIUDAD_NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_NACIMIENTO_LOCALIDAD_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_LOCALIDAD_ID, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PERSONA_NACIMIENTO_CIUDAD_NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_CIUDAD_NOMBRE, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -180,14 +180,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PERSONA_CUIL, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PERSONA_CUIL, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_BARRIO_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_BARRIO_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_BARRIO_ID, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -218,6 +210,30 @@
                     @Html.EditorFor(model => model.PERSONA_ES_NODOCENTE)
                     @Html.ValidationMessageFor(model => model.PERSONA_ES_NODOCENTE, "", new { @class = "text-danger" })
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_PAIS_ID, "PERSONA_NACIMIENTO_PAIS_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PERSONA_NACIMIENTO_PAIS_ID", null, "Seleccione una Provincia", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_PAIS_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID, "PERSONA_NACIMIENTO_PROVINCIA_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PERSONA_NACIMIENTO_PROVINCIA_ID", null, "Seleccione una Provincia", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_CIUDAD_ID, "PERSONA_NACIMIENTO_CIUDAD_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PERSONA_NACIMIENTO_CIUDAD_ID", null, "Seleccione una Provincia", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_CIUDAD_ID, "", new { @class = "text-danger" })
             </div>
         </div>
 

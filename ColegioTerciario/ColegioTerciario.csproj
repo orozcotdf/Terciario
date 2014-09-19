@@ -171,25 +171,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409181732267_InitialCreate.cs" />
-    <Compile Include="Migrations\201409181732267_InitialCreate.Designer.cs">
-      <DependentUpon>201409181732267_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201409190229272_PrimeraVersion.cs" />
+    <Compile Include="Migrations\201409190229272_PrimeraVersion.Designer.cs">
+      <DependentUpon>201409190229272_PrimeraVersion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409182239104_modi localidades.cs" />
-    <Compile Include="Migrations\201409182239104_modi localidades.Designer.cs">
-      <DependentUpon>201409182239104_modi localidades.cs</DependentUpon>
+    <Compile Include="Migrations\201409191846188_MODI Personas Ubicacion Nullable.cs" />
+    <Compile Include="Migrations\201409191846188_MODI Personas Ubicacion Nullable.Designer.cs">
+      <DependentUpon>201409191846188_MODI Personas Ubicacion Nullable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409182247291_MODI PERSON.cs" />
-    <Compile Include="Migrations\201409182247291_MODI PERSON.Designer.cs">
-      <DependentUpon>201409182247291_MODI PERSON.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409182250207_MODI PERSONA.cs" />
-    <Compile Include="Migrations\201409182250207_MODI PERSONA.Designer.cs">
-      <DependentUpon>201409182250207_MODI PERSONA.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409182304106_kk.cs" />
-    <Compile Include="Migrations\201409182304106_kk.Designer.cs">
-      <DependentUpon>201409182304106_kk.cs</DependentUpon>
+    <Compile Include="Migrations\201409191855505_MODI Personas Campos Requeridos.cs" />
+    <Compile Include="Migrations\201409191855505_MODI Personas Campos Requeridos.Designer.cs">
+      <DependentUpon>201409191855505_MODI Personas Campos Requeridos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -284,20 +276,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201409181732267_InitialCreate.resx">
-      <DependentUpon>201409181732267_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201409190229272_PrimeraVersion.resx">
+      <DependentUpon>201409190229272_PrimeraVersion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409182239104_modi localidades.resx">
-      <DependentUpon>201409182239104_modi localidades.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201409191846188_MODI Personas Ubicacion Nullable.resx">
+      <DependentUpon>201409191846188_MODI Personas Ubicacion Nullable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409182247291_MODI PERSON.resx">
-      <DependentUpon>201409182247291_MODI PERSON.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409182250207_MODI PERSONA.resx">
-      <DependentUpon>201409182250207_MODI PERSONA.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409182304106_kk.resx">
-      <DependentUpon>201409182304106_kk.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201409191855505_MODI Personas Campos Requeridos.resx">
+      <DependentUpon>201409191855505_MODI Personas Campos Requeridos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

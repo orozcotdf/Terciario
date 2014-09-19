@@ -10,7 +10,6 @@ namespace ColegioTerciario.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "ColegioTerciario.Models.ColegioTerciarioContext";
         }
 
         protected override void Seed(ColegioTerciario.Models.ColegioTerciarioContext context)

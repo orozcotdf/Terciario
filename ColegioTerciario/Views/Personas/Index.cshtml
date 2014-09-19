@@ -1,64 +1,189 @@
-﻿
-@model PagedList.IPagedList<ColegioTerciario.DAL.Models.Personas>
-@using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+﻿@model IEnumerable<ColegioTerciario.DAL.Models.Persona>
 
 @{
-    ViewBag.Title = "Casi Personas y Personajes";
+    ViewBag.Title = "Index";
 }
 
-<h2>Personas</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@using (Html.BeginForm("Index", "Personas", FormMethod.Get))
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
-}
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Apellido", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_CIUDAD.CIUDAD_NAME)
         </th>
         <th>
-            @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PAIS.PAIS_NAME)
         </th>
         <th>
-            @Html.ActionLink("Fecha Nacimiento", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PROVINCIA.PROVINCIA_NAME_ASCII)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_CODIGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_USUARIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_CLAVE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_APELLIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_DOCUMENTO_TIPO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_DOCUMENTO_NUMERO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_FECHA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_EMAIL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_DOMICILIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_TELEFONO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_SEXO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_FECHA_ALTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_FECHA_BAJA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_TITULO_SECUNDARIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_OBSERVACION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_FOTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PAIS_NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_CIUDAD_NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_CUIL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_ES_ALUMNO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_ES_DOCENTE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_ES_NODOCENTE)
         </th>
         <th></th>
     </tr>
 
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PERSONA_APELLIDO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PERSONA_NOMBRE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_FECHA)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_CIUDAD.CIUDAD_NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_PAIS.PAIS_NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_PROVINCIA.PROVINCIA_NAME_ASCII)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_CODIGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_USUARIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_CLAVE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_APELLIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_DOCUMENTO_TIPO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_DOCUMENTO_NUMERO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_FECHA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_EMAIL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_DOMICILIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_TELEFONO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_SEXO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_FECHA_ALTA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_FECHA_BAJA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_TITULO_SECUNDARIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_OBSERVACION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_FOTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_PAIS_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_PROVINCIA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_CIUDAD_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_CUIL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_ES_ALUMNO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_ES_DOCENTE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_ES_NODOCENTE)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
 
 </table>
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
-

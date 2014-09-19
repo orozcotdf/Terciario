@@ -1,4 +1,4 @@
-﻿@model ColegioTerciario.DAL.Models.Personas
+﻿@model ColegioTerciario.DAL.Models.Persona
 
 @{
     ViewBag.Title = "Details";
@@ -7,9 +7,33 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Personas</h4>
+    <h4>Persona</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_CIUDAD.CIUDAD_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_CIUDAD.CIUDAD_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PAIS.PAIS_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_PAIS.PAIS_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PROVINCIA.PROVINCIA_NAME_ASCII)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_PROVINCIA.PROVINCIA_NAME_ASCII)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.PERSONA_CODIGO)
         </dt>
@@ -147,27 +171,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PAIS_ID)
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PAIS_NOMBRE)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_PAIS_ID)
+            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_PAIS_NOMBRE)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID)
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_NOMBRE)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID)
+            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_NOMBRE)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_LOCALIDAD_ID)
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_CIUDAD_NOMBRE)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_LOCALIDAD_ID)
+            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_CIUDAD_NOMBRE)
         </dd>
 
         <dt>
@@ -176,14 +200,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.PERSONA_CUIL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PERSONA_BARRIO_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PERSONA_BARRIO_ID)
         </dd>
 
         <dt>

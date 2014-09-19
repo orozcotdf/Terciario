@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ColegioTerciario.DAL.Models
 {
-    public class Ciudades
+    [Table("Ciudades")]
+    public class Ciudad
     {
-        public Ciudades()
+        public Ciudad()
         {
-            this.PERSONAS = new HashSet<Personas>();
+            this.PERSONAS = new HashSet<Persona>();
         }
     
         public int ID { get; set; }
@@ -28,6 +30,6 @@ namespace ColegioTerciario.DAL.Models
         public Nullable<long> CIUDAD_POPULATION { get; set; }
         public string CIUDAD_FEATURE_CODE { get; set; }
     
-        public virtual ICollection<Personas> PERSONAS { get; set; }
+        public virtual ICollection<Persona> PERSONAS { get; set; }
     }
 }

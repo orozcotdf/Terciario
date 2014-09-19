@@ -19,7 +19,10 @@ namespace ColegioTerciario.Models
         {
         }
 
-        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Personas> Personas { get; set; }
-        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Ciudades> Ciudades { get; set; }
+        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Persona> Personas { get; set; }
+        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Pais> Paises { get; set; }
+        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Ciudad> Ciudades { get; set; }
+
+        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Provincia> Provincias { get; set; }
     }
 }
