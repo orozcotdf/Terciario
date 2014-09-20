@@ -165,6 +165,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CiclosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
@@ -186,6 +187,14 @@
     <Compile Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs" />
     <Compile Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.Designer.cs">
       <DependentUpon>201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409200001056_Agrega Tabla Ciclos y Carreras.cs" />
+    <Compile Include="Migrations\201409200001056_Agrega Tabla Ciclos y Carreras.Designer.cs">
+      <DependentUpon>201409200001056_Agrega Tabla Ciclos y Carreras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409200007051_Agrega tabla Matricula.cs" />
+    <Compile Include="Migrations\201409200007051_Agrega tabla Matricula.Designer.cs">
+      <DependentUpon>201409200007051_Agrega tabla Matricula.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -262,6 +271,11 @@
     <Content Include="Views\Personas\Details.cshtml" />
     <Content Include="Views\Personas\Edit.cshtml" />
     <Content Include="Views\Personas\Index.cshtml" />
+    <Content Include="Views\Ciclos\Create.cshtml" />
+    <Content Include="Views\Ciclos\Delete.cshtml" />
+    <Content Include="Views\Ciclos\Details.cshtml" />
+    <Content Include="Views\Ciclos\Edit.cshtml" />
+    <Content Include="Views\Ciclos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -291,6 +305,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.resx">
       <DependentUpon>201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409200001056_Agrega Tabla Ciclos y Carreras.resx">
+      <DependentUpon>201409200001056_Agrega Tabla Ciclos y Carreras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409200007051_Agrega tabla Matricula.resx">
+      <DependentUpon>201409200007051_Agrega tabla Matricula.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

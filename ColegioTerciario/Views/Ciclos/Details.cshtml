@@ -1,0 +1,66 @@
+﻿@model ColegioTerciario.DAL.Models.Ciclo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ciclo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_FIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_FIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_ANIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_ANIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_MATRICULA_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_MATRICULA_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_MATRICULA_FIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_MATRICULA_FIN)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

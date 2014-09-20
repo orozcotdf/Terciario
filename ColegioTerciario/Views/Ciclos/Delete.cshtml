@@ -1,0 +1,72 @@
+﻿@model ColegioTerciario.DAL.Models.Ciclo
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Ciclo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_FIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_FIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_ANIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_ANIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_MATRICULA_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_MATRICULA_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CICLO_MATRICULA_FIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CICLO_MATRICULA_FIN)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

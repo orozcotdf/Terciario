@@ -22,7 +22,9 @@ namespace ColegioTerciario.Models
         public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Persona> Personas { get; set; }
         public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Pais> Paises { get; set; }
         public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Ciudad> Ciudades { get; set; }
-
         public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Provincia> Provincias { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Ciclo> Ciclos { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Carrera> Carreras { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Matricula> Matriculas { get; set; }
     }
 }

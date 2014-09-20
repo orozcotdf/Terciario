@@ -46,7 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Carrera.cs" />
+    <Compile Include="Models\Ciclo.cs" />
     <Compile Include="Models\Ciudad.cs" />
+    <Compile Include="Models\Matricula.cs" />
     <Compile Include="Models\Pais.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Provincia.cs" />
