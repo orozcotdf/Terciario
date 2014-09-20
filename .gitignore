@@ -154,3 +154,5 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+ColegioTerciario/App_Data/ColegioTerciarioContext-20140918131331.mdf
+ColegioTerciario/App_Data/ColegioTerciarioContext-20140918131331_log.ldf
