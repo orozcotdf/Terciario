@@ -1,0 +1,58 @@
+﻿@model ColegioTerciario.DAL.Models.Matricula
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Matricula</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MATRICULA_CARRERA.CARRERA_CODIGO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATRICULA_CARRERA.CARRERA_CODIGO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATRICULA_CICLO.CICLO_NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATRICULA_CICLO.CICLO_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATRICULA_PERSONA.PERSONA_CODIGO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATRICULA_PERSONA.PERSONA_CODIGO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATRICULA_NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATRICULA_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATRICULA_FECHA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATRICULA_FECHA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

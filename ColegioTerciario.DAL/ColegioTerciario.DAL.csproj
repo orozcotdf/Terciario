@@ -46,13 +46,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Acta_Examen.cs" />
+    <Compile Include="Models\Acta_Examen_Detalle.cs" />
     <Compile Include="Models\Carrera.cs" />
     <Compile Include="Models\Ciclo.cs" />
     <Compile Include="Models\Ciudad.cs" />
+    <Compile Include="Models\Cursada.cs" />
+    <Compile Include="Models\Hora.cs" />
+    <Compile Include="Models\Horario_Cursada.cs" />
+    <Compile Include="Models\Materia.cs" />
+    <Compile Include="Models\Materia_x_Curso.cs" />
     <Compile Include="Models\Matricula.cs" />
     <Compile Include="Models\Pais.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Provincia.cs" />
+    <Compile Include="Models\Turno_Examen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

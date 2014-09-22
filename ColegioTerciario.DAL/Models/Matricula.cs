@@ -8,21 +8,22 @@ using System.Threading.Tasks;
 
 namespace ColegioTerciario.DAL.Models
 {
+    [Table("Matriculas")]
     public class Matricula
     {
         public int ID { get; set; }
         [Required]
         public string MATRICULA_NOMBRE { get; set; }
         public Nullable<DateTime> MATRICULA_FECHA { get; set; }
-        public int MATRICULA_PERSONA_ID { get; set; }
-        public int MATRICULA_CARRERA_ID { get; set; }
-        public int MATRICULA_CICLO_ID { get; set; }
+        public int MATRICULA_PERSONAS_ID { get; set; }
+        public int MATRICULA_CARRERAS_ID { get; set; }
+        public int MATRICULA_CICLOS_ID { get; set; }
 
-        [ForeignKey("MATRICULA_PERSONA_ID")]
-        public Persona MATRICULA_PERSONA { get; set; }
-        [ForeignKey("MATRICULA_CARRERA_ID")]
+        [ForeignKey("MATRICULA_PERSONAS_ID")]
+        public Persona MATRICULA_ALUMNO { get; set; }
+        [ForeignKey("MATRICULA_CARRERAS_ID")]
         public Carrera MATRICULA_CARRERA { get; set; }
-        [ForeignKey("MATRICULA_CICLO_ID")]
+        [ForeignKey("MATRICULA_CICLOS_ID")]
         public Ciclo MATRICULA_CICLO { get; set; }
     }
 }

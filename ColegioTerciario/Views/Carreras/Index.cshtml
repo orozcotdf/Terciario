@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ColegioTerciario.DAL.Models.Carrera>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CARRERA_CODIGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARRERA_FECHA_DESDE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARRERA_FECHA_HASTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARRERA_NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARRERA_NOMBRE_CORTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARRERA_RESOLUCION_PLAN)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARRERA_CODIGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARRERA_FECHA_DESDE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARRERA_FECHA_HASTA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARRERA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARRERA_NOMBRE_CORTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARRERA_RESOLUCION_PLAN)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

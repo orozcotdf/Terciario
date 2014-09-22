@@ -1,0 +1,66 @@
+﻿@model ColegioTerciario.DAL.Models.Carrera
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Carrera</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CARRERA_CODIGO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CARRERA_CODIGO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CARRERA_FECHA_DESDE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CARRERA_FECHA_DESDE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CARRERA_FECHA_HASTA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CARRERA_FECHA_HASTA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CARRERA_NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CARRERA_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CARRERA_NOMBRE_CORTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CARRERA_NOMBRE_CORTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CARRERA_RESOLUCION_PLAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CARRERA_RESOLUCION_PLAN)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

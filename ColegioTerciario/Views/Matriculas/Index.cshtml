@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ColegioTerciario.DAL.Models.Matricula>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MATRICULA_CARRERA.CARRERA_CODIGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATRICULA_CICLO.CICLO_NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATRICULA_PERSONA.PERSONA_CODIGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATRICULA_NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATRICULA_FECHA)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATRICULA_CARRERA.CARRERA_CODIGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATRICULA_CICLO.CICLO_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATRICULA_PERSONA.PERSONA_CODIGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATRICULA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATRICULA_FECHA)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

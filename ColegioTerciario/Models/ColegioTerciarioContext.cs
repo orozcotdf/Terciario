@@ -26,5 +26,22 @@ namespace ColegioTerciario.Models
         public DbSet<ColegioTerciario.DAL.Models.Ciclo> Ciclos { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Carrera> Carreras { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Matricula> Matriculas { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Materia> Materias { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Acta_Examen> Actas_Examenes { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Acta_Examen_Detalle> Actas_Examenes_Detalles { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Cursada> Cursadas { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Hora> Horas { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Horario_Cursada> Horarios_Cursadas { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Materia_x_Curso> Materias_X_Cursos { get; set; }
+        public DbSet<ColegioTerciario.DAL.Models.Turno_Examen> Turnos_Examenes { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new ActaExamenConfig());
+            base.OnModelCreating(modelBuilder);
+            
+        }
     }
+
+    
 }

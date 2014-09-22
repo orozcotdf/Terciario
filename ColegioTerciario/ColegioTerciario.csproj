@@ -165,9 +165,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CarrerasController.cs" />
     <Compile Include="Controllers\CiclosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MatriculasController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -196,8 +198,17 @@
     <Compile Include="Migrations\201409200007051_Agrega tabla Matricula.Designer.cs">
       <DependentUpon>201409200007051_Agrega tabla Matricula.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201409200032113_Agrega Tabla Materia.cs" />
+    <Compile Include="Migrations\201409200032113_Agrega Tabla Materia.Designer.cs">
+      <DependentUpon>201409200032113_Agrega Tabla Materia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409221731502_Agrega Tablas.cs" />
+    <Compile Include="Migrations\201409221731502_Agrega Tablas.Designer.cs">
+      <DependentUpon>201409221731502_Agrega Tablas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Configs\ActaExamenConfig.cs" />
     <Compile Include="Models\ColegioTerciarioContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -276,6 +287,16 @@
     <Content Include="Views\Ciclos\Details.cshtml" />
     <Content Include="Views\Ciclos\Edit.cshtml" />
     <Content Include="Views\Ciclos\Index.cshtml" />
+    <Content Include="Views\Carreras\Create.cshtml" />
+    <Content Include="Views\Carreras\Delete.cshtml" />
+    <Content Include="Views\Carreras\Details.cshtml" />
+    <Content Include="Views\Carreras\Edit.cshtml" />
+    <Content Include="Views\Carreras\Index.cshtml" />
+    <Content Include="Views\Matriculas\Create.cshtml" />
+    <Content Include="Views\Matriculas\Delete.cshtml" />
+    <Content Include="Views\Matriculas\Details.cshtml" />
+    <Content Include="Views\Matriculas\Edit.cshtml" />
+    <Content Include="Views\Matriculas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -311,6 +332,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409200007051_Agrega tabla Matricula.resx">
       <DependentUpon>201409200007051_Agrega tabla Matricula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409200032113_Agrega Tabla Materia.resx">
+      <DependentUpon>201409200032113_Agrega Tabla Materia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409221731502_Agrega Tablas.resx">
+      <DependentUpon>201409221731502_Agrega Tablas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

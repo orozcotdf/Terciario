@@ -20,5 +20,11 @@ namespace ColegioTerciario.DAL.Models
         public Nullable<DateTime> CICLO_MATRICULA_INICIO { get; set; }
         public Nullable<DateTime> CICLO_MATRICULA_FIN { get; set; }
 
+        public Nullable<DateTime> CICLO_SEMESTRE_1_INICIO { get; set; }
+        public Nullable<DateTime> CICLO_SEMESTRE_1_FIN { get; set; }
+        public Nullable<DateTime> CICLO_SEMESTRE_2_INICIO { get; set; }
+        public Nullable<DateTime> CICLO_SEMESTRE_2_FIN { get; set; }
+
+        public virtual ICollection<Turno_Examen> TURNOS_EXAMENES { get; set; }
     }
 }
