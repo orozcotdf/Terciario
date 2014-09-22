@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ColegioTerciario.DAL.Models;
+using ColegioTerciario.Models.Configs;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -27,7 +29,7 @@ namespace ColegioTerciario.Models
         public DbSet<ColegioTerciario.DAL.Models.Carrera> Carreras { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Matricula> Matriculas { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Materia> Materias { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Acta_Examen> Actas_Examenes { get; set; }
+        public IDbSet<Acta_Examen> Actas_Examenes { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Acta_Examen_Detalle> Actas_Examenes_Detalles { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Cursada> Cursadas { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Hora> Horas { get; set; }
@@ -39,6 +41,7 @@ namespace ColegioTerciario.Models
         {
             modelBuilder.Configurations.Add(new ActaExamenConfig());
             base.OnModelCreating(modelBuilder);
+            
             
         }
     }

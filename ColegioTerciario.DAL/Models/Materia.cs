@@ -30,5 +30,6 @@ namespace ColegioTerciario.DAL.Models
 
         public virtual ICollection<Acta_Examen> Actas_Examenes { get; set; }
 
+
     }
 }

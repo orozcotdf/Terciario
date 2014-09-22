@@ -19,5 +19,7 @@ namespace ColegioTerciario.DAL.Models
         public string CARRERA_NOMBRE { get; set; }
         public string CARRERA_NOMBRE_CORTO { get; set; }
         public string CARRERA_RESOLUCION_PLAN { get; set; }
+
+        public virtual ICollection<Acta_Examen> ACTAS_EXAMENES { get; set; }
     }
 }

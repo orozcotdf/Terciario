@@ -25,7 +25,7 @@ namespace ColegioTerciario.DAL.Models
         #region Navegacion
         [ForeignKey("TURNO_EXAMEN_CICLOS_ID")]
         public Ciclo TURNO_EXAMEN_CICLO { get; set; }
-
+        public ICollection<Acta_Examen> ACTAS_EXAMENES { get; set; }
         #endregion
     }
 }

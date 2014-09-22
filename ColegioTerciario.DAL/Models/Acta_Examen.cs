@@ -32,17 +32,13 @@ namespace ColegioTerciario.DAL.Models
 
 
         #region Navegacion
-        [ForeignKey("ACTA_EXAMEN_TURNOS_EXAMENES_ID")]
-        public Turno_Examen ACTA_EXAMEN_TURNO_EXAMEN { get; set; }
-        [ForeignKey("ACTA_EXAMEN_CARRERAS_ID")]
-        public Carrera ACTA_EXAMEN_CARRERA { get; set; }
+
+        public virtual Turno_Examen ACTA_EXAMEN_TURNO_EXAMEN { get; set; }
         public virtual Materia ACTA_EXAMEN_MATERIA { get; set; }
-        [ForeignKey("ACTA_EXAMEN_PRESIDENTE_ID")]
-        public Persona ACTA_EXAMEN_PRESIDENTE { get; set; }
-        [ForeignKey("ACTA_EXAMEN_VOCAL1_ID")]
-        public Persona ACTA_EXAMEN_VOCAL1 { get; set; }
-        [ForeignKey("ACTA_EXAMEN_VOCAL2_ID")]
-        public Persona ACTA_EXAMEN_VOCAL2 { get; set; }
+        public virtual Carrera ACTA_EXAMEN_CARRERA { get; set; }
+        public virtual Persona ACTA_EXAMEN_PRESIDENTE { get; set; }
+        public virtual Persona ACTA_EXAMEN_VOCAL1 { get; set; }
+        public virtual Persona ACTA_EXAMEN_VOCAL2 { get; set; }
         #endregion
 
 

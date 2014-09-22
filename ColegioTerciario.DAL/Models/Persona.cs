@@ -54,11 +54,11 @@ namespace ColegioTerciario.DAL.Models
         [Display(Name = "CUIL")]
         public string PERSONA_CUIL { get; set; }
         [Display(Name = "Es Alumno")]        
-        public bool PERSONA_ES_ALUMNO { get; set; }
+        public bool? PERSONA_ES_ALUMNO { get; set; }
         [Display(Name = "Es Docente")]
-        public bool PERSONA_ES_DOCENTE { get; set; }
+        public bool? PERSONA_ES_DOCENTE { get; set; }
         [Display(Name = "Es NO Docente")]
-        public bool PERSONA_ES_NODOCENTE { get; set; }
+        public bool? PERSONA_ES_NODOCENTE { get; set; }
 
         [Display(Name = "Pais de Nacimiento")]
         public int? PERSONA_NACIMIENTO_PAIS_ID { get; set; }
@@ -78,6 +78,11 @@ namespace ColegioTerciario.DAL.Models
         
         //public virtual Barrio PERSONA_BARRIO { get; set; }
 
-   
+        public virtual ICollection<Acta_Examen> ACTAS_PRECIDIDAS { get; set; }
+        public virtual ICollection<Acta_Examen> ACTAS_VOCAL1 { get; set; }
+        public virtual ICollection<Acta_Examen> ACTAS_VOCAL2 { get; set; }
+
+
+        /* TODO: AGREGAR BARRIO_ID Y NOMBRE_PARA_MOSTRAR */
     }
 }
