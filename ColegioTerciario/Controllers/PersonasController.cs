@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
+using PagedList;
 
 namespace ColegioTerciario.Controllers
 {
@@ -16,10 +17,68 @@ namespace ColegioTerciario.Controllers
         private ColegioTerciarioContext db = new ColegioTerciarioContext();
 
         // GET: Personas
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    var personas = db.Personas.Include(p => p.PERSONA_BARRIO).Include(p => p.PERSONA_NACIMIENTO_CIUDAD).Include(p => p.PERSONA_NACIMIENTO_PAIS).Include(p => p.PERSONA_NACIMIENTO_PROVINCIA);
+        //    return View(personas.ToList());
+        //}
+        //public ActionResult Index(string sortOrder,  string searchString)
+        
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var personas = db.Personas.Include(p => p.PERSONA_BARRIO).Include(p => p.PERSONA_NACIMIENTO_CIUDAD).Include(p => p.PERSONA_NACIMIENTO_PAIS).Include(p => p.PERSONA_NACIMIENTO_PROVINCIA);
-            return View(personas.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NombreSortParm = sortOrder == "nombre" ? "nombre_desc" : "nombre";
+            ViewBag.ApellidoSortParm = sortOrder == "apellido" ? "apellido_desc" : "apellido";
+            ViewBag.DocSortParm = sortOrder == "documento" ? "documento_desc" : "documento";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            var personas = from s in db.Personas
+                           select s;
+            
+            //busqueda
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                personas = personas.Where(s => s.PERSONA_NOMBRE.ToUpper().Contains(searchString.ToUpper())
+                                            || s.PERSONA_APELLIDO.ToUpper().Contains(searchString.ToUpper())
+                                            || s.PERSONA_DOCUMENTO_NUMERO.ToUpper().Contains(searchString.ToUpper())
+                                       );
+            }
+
+
+            switch (sortOrder)
+            {
+                case "nombre":
+                    personas = personas.OrderBy(s => s.PERSONA_NOMBRE);
+                    break;
+                case "nombre_desc":
+                    personas = personas.OrderByDescending(s => s.PERSONA_NOMBRE);
+                    break;
+                case "documento":
+                    personas = personas.OrderBy(s => s.PERSONA_DOCUMENTO_NUMERO);
+                    break;
+                case "documento_desc":
+                    personas = personas.OrderByDescending(s => s.PERSONA_DOCUMENTO_NUMERO);
+                    break;
+                case "apellido_desc":
+                    personas = personas.OrderByDescending(s => s.PERSONA_APELLIDO);
+                    break;
+                default:
+                    personas = personas.OrderBy(s => s.PERSONA_APELLIDO); //por defecto orden por apellido ascendente
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(personas.ToPagedList(pageNumber, pageSize));
+            //return View(personas.ToList());
         }
 
         // GET: Personas/Details/5
