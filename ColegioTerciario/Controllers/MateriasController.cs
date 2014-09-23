@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
+using PagedList;
 
 namespace ColegioTerciario.Controllers
 {
@@ -16,10 +17,79 @@ namespace ColegioTerciario.Controllers
         private ColegioTerciarioContext db = new ColegioTerciarioContext();
 
         // GET: Materias
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var materias = db.Materias.Include(m => m.MATERIA_CARRERA);
-            return View(materias.ToList());
+            #region Preparando variables para ordenado
+            ViewBag.NombreSort = sortOrder == "nombre" ? "nombre_desc" : "nombre";
+            ViewBag.NombreCortoSort = sortOrder == "nombre_corto" ? "nombre_corto_desc" : "nombre_corto";
+            ViewBag.AnioSort = sortOrder == "anio" ? "anio_desc" : "anio";
+            ViewBag.DuracionSort = sortOrder == "duracion" ? "duracion_desc" : "duracion";
+            ViewBag.HorasCatedraSort = sortOrder == "horas_catedra" ? "horas_catedra_desc" : "horas_catedra";
+            #endregion
+
+            IQueryable<Materia> materias = from m in db.Materias select m;
+
+            #region Busqueda
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                materias = materias.Where(m => m.MATERIA_NOMBRE.ToUpper().Contains(searchString.ToUpper())
+                                            || m.MATERIA_NOMBRE.ToUpper().Contains(searchString.ToUpper())
+                                       );
+            }
+            #endregion  
+
+            #region Ordenando en funcion de las variables
+            switch (sortOrder)
+            {
+                case "nombre":
+                    materias = materias.OrderBy(m => m.MATERIA_NOMBRE);
+                    break;
+                case "nombre_desc":
+                    materias = materias.OrderByDescending(m => m.MATERIA_NOMBRE);
+                    break;
+                case "nombre_corto":
+                    materias = materias.OrderBy(m => m.MATERIA_NOMBRE_CORTO);
+                    break;
+                case "nombre_corto_desc":
+                    materias = materias.OrderByDescending(m => m.MATERIA_NOMBRE_CORTO);
+                    break;
+                case "anio":
+                    materias = materias.OrderBy(m => m.MATERIA_ANIO);
+                    break;
+                case "anio_desc":
+                    materias = materias.OrderByDescending(m => m.MATERIA_ANIO);
+                    break;
+                case "duracion":
+                    materias = materias.OrderBy(m => m.MATERIA_DURACION);
+                    break;
+                case "duracion_desc":
+                    materias = materias.OrderByDescending(m => m.MATERIA_DURACION);
+                    break;
+                case "horas_catedra":
+                    materias = materias.OrderBy(m => m.MATERIA_HORAS_CATEDRA);
+                    break;
+                case "horas_catedra_desc":
+                    materias = materias.OrderByDescending(m => m.MATERIA_HORAS_CATEDRA);
+                    break;
+                default:
+                    materias = materias.OrderBy(m => m.MATERIA_NOMBRE);
+                    break;
+            }
+            #endregion
+
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+            return View(materias.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Materias/Details/5

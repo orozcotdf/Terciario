@@ -1,5 +1,6 @@
-﻿@model IEnumerable<ColegioTerciario.DAL.Models.Materia>
-
+﻿@model PagedList.IPagedList<ColegioTerciario.DAL.Models.Materia>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
 }
@@ -9,40 +10,30 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "Materias", FormMethod.Get))
+{
+    <p>
+        Filtro  @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Filtrar" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MATERIA_CARRERA.CARRERA_CODIGO)
+            @Html.ActionLink("NOMBRE", "Index", new { sortOrder = ViewBag.NombreSort, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MATERIA_CODIGO)
+            @Html.ActionLink("NOMBRE CORTO", "Index", new { sortOrder = ViewBag.NombreCortoSort, currentFilter = ViewBag.CurrentFilter })
+        </th>
+
+        <th>
+            @Html.ActionLink("AÑO", "Index", new { sortOrder = ViewBag.AnioSort, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MATERIA_ANIO)
+            @Html.ActionLink("DURACION", "Index", new { sortOrder = ViewBag.DuracionSort, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MATERIA_APROBADAS_PARA_CURSAR)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MATERIA_APROBADAS_PARA_RENDIR)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MATERIA_CURSADAS_PARA_CURSAR)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MATERIA_CURSADAS_PARA_RENDIR)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MATERIA_DURACION)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MATERIA_HORAS_CATEDRA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MATERIA_NOMBRE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MATERIA_NOMBRE_CORTO)
+            @Html.ActionLink("HORAS CATEDRA", "Index", new { sortOrder = ViewBag.HorasCatedraSort, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -50,25 +41,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.MATERIA_CARRERA.CARRERA_CODIGO)
+            @Html.DisplayFor(modelItem => item.MATERIA_NOMBRE)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MATERIA_CODIGO)
+            @Html.DisplayFor(modelItem => item.MATERIA_NOMBRE_CORTO)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MATERIA_ANIO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MATERIA_APROBADAS_PARA_CURSAR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MATERIA_APROBADAS_PARA_RENDIR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MATERIA_CURSADAS_PARA_CURSAR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MATERIA_CURSADAS_PARA_RENDIR)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MATERIA_DURACION)
@@ -76,12 +55,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.MATERIA_HORAS_CATEDRA)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MATERIA_NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MATERIA_NOMBRE_CORTO)
-        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
@@ -91,3 +65,8 @@
 }
 
 </table>
+<div>
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
