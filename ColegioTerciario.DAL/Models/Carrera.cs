@@ -21,5 +21,10 @@ namespace ColegioTerciario.DAL.Models
         public string CARRERA_RESOLUCION_PLAN { get; set; }
 
         public virtual ICollection<Acta_Examen> ACTAS_EXAMENES { get; set; }
+
+        public override string ToString()
+        {
+            return this.CARRERA_NOMBRE;
+        }
     }
 }

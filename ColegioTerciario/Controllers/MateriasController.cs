@@ -40,7 +40,7 @@ namespace ColegioTerciario.Controllers
         // GET: Materias/Create
         public ActionResult Create()
         {
-            ViewBag.MATERIA_CARRERAS_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO");
+            ViewBag.MATERIA_CARRERAS_ID = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
             return View();
         }
 
