@@ -39,6 +39,8 @@ namespace ColegioTerciario.DAL.Models
         public virtual Persona ACTA_EXAMEN_PRESIDENTE { get; set; }
         public virtual Persona ACTA_EXAMEN_VOCAL1 { get; set; }
         public virtual Persona ACTA_EXAMEN_VOCAL2 { get; set; }
+
+        public virtual ICollection<Acta_Examen_Detalle> ACTAS_EXAMENES_DETALLES { get; set; }
         #endregion
 
 

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ColegioTerciario.DAL.Models.Materia>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_CARRERA.CARRERA_CODIGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_CODIGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_ANIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_APROBADAS_PARA_CURSAR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_APROBADAS_PARA_RENDIR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_CURSADAS_PARA_CURSAR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_CURSADAS_PARA_RENDIR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_DURACION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_HORAS_CATEDRA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERIA_NOMBRE_CORTO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_CARRERA.CARRERA_CODIGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_CODIGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_ANIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_APROBADAS_PARA_CURSAR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_APROBADAS_PARA_RENDIR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_CURSADAS_PARA_CURSAR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_CURSADAS_PARA_RENDIR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_DURACION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_HORAS_CATEDRA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERIA_NOMBRE_CORTO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

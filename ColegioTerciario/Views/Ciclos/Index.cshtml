@@ -29,6 +29,18 @@
         <th>
             @Html.DisplayNameFor(model => model.CICLO_MATRICULA_FIN)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CICLO_SEMESTRE_1_INICIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CICLO_SEMESTRE_1_FIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CICLO_SEMESTRE_2_INICIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CICLO_SEMESTRE_2_FIN)
+        </th>
         <th></th>
     </tr>
 
@@ -51,6 +63,18 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CICLO_MATRICULA_FIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CICLO_SEMESTRE_1_INICIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CICLO_SEMESTRE_1_FIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CICLO_SEMESTRE_2_INICIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CICLO_SEMESTRE_2_FIN)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

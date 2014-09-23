@@ -30,7 +30,7 @@ namespace ColegioTerciario.Models
         public DbSet<ColegioTerciario.DAL.Models.Matricula> Matriculas { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Materia> Materias { get; set; }
         public IDbSet<Acta_Examen> Actas_Examenes { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Acta_Examen_Detalle> Actas_Examenes_Detalles { get; set; }
+        public IDbSet<Acta_Examen_Detalle> Actas_Examenes_Detalles { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Cursada> Cursadas { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Hora> Horas { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Horario_Cursada> Horarios_Cursadas { get; set; }
@@ -40,6 +40,7 @@ namespace ColegioTerciario.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ActaExamenConfig());
+            modelBuilder.Configurations.Add(new ActaExamenDetalleConfig());
             base.OnModelCreating(modelBuilder);
             
             

@@ -1,0 +1,106 @@
+﻿@model ColegioTerciario.DAL.Models.Materia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Materia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_CARRERA.CARRERA_CODIGO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_CARRERA.CARRERA_CODIGO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_CODIGO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_CODIGO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_ANIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_ANIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_APROBADAS_PARA_CURSAR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_APROBADAS_PARA_CURSAR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_APROBADAS_PARA_RENDIR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_APROBADAS_PARA_RENDIR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_CURSADAS_PARA_CURSAR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_CURSADAS_PARA_CURSAR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_CURSADAS_PARA_RENDIR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_CURSADAS_PARA_RENDIR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_DURACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_DURACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_HORAS_CATEDRA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_HORAS_CATEDRA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATERIA_NOMBRE_CORTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATERIA_NOMBRE_CORTO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

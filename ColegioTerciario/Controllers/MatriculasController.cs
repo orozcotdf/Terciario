@@ -18,7 +18,7 @@ namespace ColegioTerciario.Controllers
         // GET: Matriculas
         public ActionResult Index()
         {
-            var matriculas = db.Matriculas.Include(m => m.MATRICULA_CARRERA).Include(m => m.MATRICULA_CICLO).Include(m => m.MATRICULA_ALUMNO);
+            var matriculas = db.Matriculas.Include(m => m.MATRICULA_ALUMNO).Include(m => m.MATRICULA_CARRERA).Include(m => m.MATRICULA_CICLO);
             return View(matriculas.ToList());
         }
 
@@ -40,9 +40,9 @@ namespace ColegioTerciario.Controllers
         // GET: Matriculas/Create
         public ActionResult Create()
         {
-            ViewBag.MATRICULA_CARRERA_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO");
-            ViewBag.MATRICULA_CICLO_ID = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE");
-            ViewBag.MATRICULA_PERSONA_ID = new SelectList(db.Personas, "ID", "PERSONA_CODIGO");
+            ViewBag.MATRICULA_PERSONAS_ID = new SelectList(db.Personas, "ID", "PERSONA_CODIGO");
+            ViewBag.MATRICULA_CARRERAS_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO");
+            ViewBag.MATRICULA_CICLOS_ID = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE");
             return View();
         }
 
@@ -51,7 +51,7 @@ namespace ColegioTerciario.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,MATRICULA_NOMBRE,MATRICULA_FECHA,MATRICULA_PERSONA_ID,MATRICULA_CARRERA_ID,MATRICULA_CICLO_ID")] Matricula matricula)
+        public ActionResult Create([Bind(Include = "ID,MATRICULA_NOMBRE,MATRICULA_FECHA,MATRICULA_PERSONAS_ID,MATRICULA_CARRERAS_ID,MATRICULA_CICLOS_ID")] Matricula matricula)
         {
             if (ModelState.IsValid)
             {
@@ -60,9 +60,9 @@ namespace ColegioTerciario.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MATRICULA_CARRERA_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO", matricula.MATRICULA_CARRERAS_ID);
-            ViewBag.MATRICULA_CICLO_ID = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE", matricula.MATRICULA_CICLOS_ID);
-            ViewBag.MATRICULA_PERSONA_ID = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE", matricula.MATRICULA_PERSONAS_ID);
+            ViewBag.MATRICULA_PERSONAS_ID = new SelectList(db.Personas, "ID", "PERSONA_CODIGO", matricula.MATRICULA_PERSONAS_ID);
+            ViewBag.MATRICULA_CARRERAS_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO", matricula.MATRICULA_CARRERAS_ID);
+            ViewBag.MATRICULA_CICLOS_ID = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE", matricula.MATRICULA_CICLOS_ID);
             return View(matricula);
         }
 
@@ -78,9 +78,9 @@ namespace ColegioTerciario.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MATRICULA_CARRERA_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO", matricula.MATRICULA_CARRERAS_ID);
-            ViewBag.MATRICULA_CICLO_ID = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE", matricula.MATRICULA_CICLOS_ID);
-            ViewBag.MATRICULA_PERSONA_ID = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE", matricula.MATRICULA_PERSONAS_ID);
+            ViewBag.MATRICULA_PERSONAS_ID = new SelectList(db.Personas, "ID", "PERSONA_CODIGO", matricula.MATRICULA_PERSONAS_ID);
+            ViewBag.MATRICULA_CARRERAS_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO", matricula.MATRICULA_CARRERAS_ID);
+            ViewBag.MATRICULA_CICLOS_ID = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE", matricula.MATRICULA_CICLOS_ID);
             return View(matricula);
         }
 
@@ -89,7 +89,7 @@ namespace ColegioTerciario.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,MATRICULA_NOMBRE,MATRICULA_FECHA,MATRICULA_PERSONA_ID,MATRICULA_CARRERA_ID,MATRICULA_CICLO_ID")] Matricula matricula)
+        public ActionResult Edit([Bind(Include = "ID,MATRICULA_NOMBRE,MATRICULA_FECHA,MATRICULA_PERSONAS_ID,MATRICULA_CARRERAS_ID,MATRICULA_CICLOS_ID")] Matricula matricula)
         {
             if (ModelState.IsValid)
             {
@@ -97,9 +97,9 @@ namespace ColegioTerciario.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MATRICULA_CARRERA_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO", matricula.MATRICULA_CARRERAS_ID);
-            ViewBag.MATRICULA_CICLO_ID = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE", matricula.MATRICULA_CICLOS_ID);
-            ViewBag.MATRICULA_PERSONA_ID = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE", matricula.MATRICULA_PERSONAS_ID);
+            ViewBag.MATRICULA_PERSONAS_ID = new SelectList(db.Personas, "ID", "PERSONA_CODIGO", matricula.MATRICULA_PERSONAS_ID);
+            ViewBag.MATRICULA_CARRERAS_ID = new SelectList(db.Carreras, "ID", "CARRERA_CODIGO", matricula.MATRICULA_CARRERAS_ID);
+            ViewBag.MATRICULA_CICLOS_ID = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE", matricula.MATRICULA_CICLOS_ID);
             return View(matricula);
         }
 
