@@ -220,7 +220,35 @@
 
     </dl>
 </div>
+
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Detalles</legend>
+        <div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">Apellido</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputEmail" placeholder=@Html.DisplayFor(model => model.PERSONA_APELLIDO)>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Nombre</label>
+            <div class="col-lg-10">
+                <input type="password" class="form-control" id="inputPassword" placeholder=@Html.DisplayFor(model => model.PERSONA_NOMBRE)>
+                ><div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Checkbox
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+    </fieldset>
+</form>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
