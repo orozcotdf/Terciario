@@ -158,3 +158,4 @@ ColegioTerciario/App_Data/ColegioTerciarioContext-20140918131331.mdf
 ColegioTerciario/App_Data/ColegioTerciarioContext-20140918131331_log.ldf
 *.csproj
 packages/
+ColegioTerciario/App_Data/
