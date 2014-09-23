@@ -17,12 +17,6 @@ namespace ColegioTerciario.Controllers
         private ColegioTerciarioContext db = new ColegioTerciarioContext();
 
         // GET: Personas
-        //public ActionResult Index()
-        //{
-        //    var personas = db.Personas.Include(p => p.PERSONA_BARRIO).Include(p => p.PERSONA_NACIMIENTO_CIUDAD).Include(p => p.PERSONA_NACIMIENTO_PAIS).Include(p => p.PERSONA_NACIMIENTO_PROVINCIA);
-        //    return View(personas.ToList());
-        //}
-        //public ActionResult Index(string sortOrder,  string searchString)
         
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -78,7 +72,6 @@ namespace ColegioTerciario.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(personas.ToPagedList(pageNumber, pageSize));
-            //return View(personas.ToList());
         }
 
         // GET: Personas/Details/5
