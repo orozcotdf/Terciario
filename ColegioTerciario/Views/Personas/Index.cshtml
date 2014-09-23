@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.PERSONA_BARRIO.BARRIO_NOMBRE)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_CIUDAD.CIUDAD_NAME)
         </th>
         <th>
@@ -34,6 +37,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PERSONA_APELLIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSONA_NOMBRE_PARA_MOSTRAR)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PERSONA_DOCUMENTO_TIPO)
@@ -89,6 +95,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_BARRIO.BARRIO_NOMBRE)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.PERSONA_NACIMIENTO_CIUDAD.CIUDAD_NAME)
         </td>
         <td>
@@ -111,6 +120,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PERSONA_APELLIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSONA_NOMBRE_PARA_MOSTRAR)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PERSONA_DOCUMENTO_TIPO)

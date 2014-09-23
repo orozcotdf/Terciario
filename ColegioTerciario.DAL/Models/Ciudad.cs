@@ -31,5 +31,6 @@ namespace ColegioTerciario.DAL.Models
         public string CIUDAD_FEATURE_CODE { get; set; }
     
         public virtual ICollection<Persona> PERSONAS { get; set; }
+        public virtual ICollection<Barrio> BARRIOS { get; set; }
     }
 }

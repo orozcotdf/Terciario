@@ -24,6 +24,8 @@ namespace ColegioTerciario.DAL.Models
         [Display(Name = "Apellido")]
         [Required]
         public string PERSONA_APELLIDO { get; set; }
+        [Display(Name="Nombre Para Mostrar")]
+        public string PERSONA_NOMBRE_PARA_MOSTRAR { get; set; }
         [Display(Name = "Tipo de Documento")]
         public string PERSONA_DOCUMENTO_TIPO { get; set; }
         [Display(Name = "Documento Nro")]
@@ -60,23 +62,18 @@ namespace ColegioTerciario.DAL.Models
         [Display(Name = "Es NO Docente")]
         public bool? PERSONA_ES_NODOCENTE { get; set; }
 
-        [Display(Name = "Pais de Nacimiento")]
+        [Display(Name = "Pais de Nacimiento", Prompt = "Seleccione un Pais")]
         public int? PERSONA_NACIMIENTO_PAIS_ID { get; set; }
-        [Display(Name = "Provincia de Nacimiento")]
+        [Display(Name = "Provincia de Nacimiento", Prompt = "Seleccione una Provincia")]
         public int? PERSONA_NACIMIENTO_PROVINCIA_ID { get; set; }
         [Display(Name = "Ciudad de Nacimiento",Prompt="Seleccione una Ciudad")]
         public int? PERSONA_NACIMIENTO_CIUDAD_ID { get; set; }
-
-        [ForeignKey("PERSONA_NACIMIENTO_PAIS_ID")]        
-        public Pais PERSONA_NACIMIENTO_PAIS { get; set; }
-
-        [ForeignKey("PERSONA_NACIMIENTO_PROVINCIA_ID")]
-        public Provincia PERSONA_NACIMIENTO_PROVINCIA { get; set; }
-
-        [ForeignKey("PERSONA_NACIMIENTO_CIUDAD_ID")]
-        public Ciudad PERSONA_NACIMIENTO_CIUDAD { get; set; }
-        
-        //public virtual Barrio PERSONA_BARRIO { get; set; }
+        [Display(Name = "Barrio", Prompt = "Seleccione un Barrio")]
+        public int? PERSONA_NACIMIENTO_BARRIO_ID { get; set; }
+        public virtual Pais PERSONA_NACIMIENTO_PAIS { get; set; }
+        public virtual Provincia PERSONA_NACIMIENTO_PROVINCIA { get; set; }
+        public virtual Ciudad PERSONA_NACIMIENTO_CIUDAD { get; set; }
+        public virtual Barrio PERSONA_BARRIO { get; set; }
 
         public virtual ICollection<Acta_Examen> ACTAS_PRECIDIDAS { get; set; }
         public virtual ICollection<Acta_Examen> ACTAS_VOCAL1 { get; set; }
