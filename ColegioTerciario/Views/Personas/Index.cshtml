@@ -10,9 +10,10 @@
 
 <p>
     @Html.ActionLink("Agregar Nuevo", "Create")
+
 </p>
 
-@using (Html.BeginForm("Index", "Persona", FormMethod.Get))
+@using (Html.BeginForm("Index", "Personas", FormMethod.Get))
 {
     <p>
         Filtro  @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)

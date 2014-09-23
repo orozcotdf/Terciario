@@ -20,6 +20,10 @@ namespace ColegioTerciario.Controllers
         
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.EmailSortParam = sortOrder;
+            ViewBag.DomicilioSortParm = sortOrder;
+            ViewBag.TelefonoSortParm = sortOrder;
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NombreSortParm = sortOrder == "nombre" ? "nombre_desc" : "nombre";
             ViewBag.ApellidoSortParm = sortOrder == "apellido" ? "apellido_desc" : "apellido";
