@@ -8,18 +8,25 @@
 
 <h2>Personas (Alumnos - Docentes - No docentes)</h2>
 
-<p>
-    @Html.ActionLink("Agregar Nuevo", "Create")
+<table>
+<tr>
+    <th>
+        <p>
+            @Html.ActionLink("Agregar Nuevo", "Create")
+        </p>
+    </th>
+    <th align="right">
+        @using (Html.BeginForm("Index", "Personas", FormMethod.Get))
+        {
+            <p>
+                Filtro  @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Filtrar" />
+            </p>
+        }
+    </th>
+</tr>
+</table>
 
-</p>
-
-@using (Html.BeginForm("Index", "Personas", FormMethod.Get))
-{
-    <p>
-        Filtro  @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Filtrar" />
-    </p>
-}
 
 <table class="table">
     <tr>
