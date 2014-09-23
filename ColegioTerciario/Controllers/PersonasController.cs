@@ -51,7 +51,7 @@ namespace ColegioTerciario.Controllers
                                        );
             }
 
-
+            //Orden
             switch (sortOrder)
             {
                 case "nombre":
@@ -73,7 +73,7 @@ namespace ColegioTerciario.Controllers
                     personas = personas.OrderBy(s => s.PERSONA_APELLIDO); //por defecto orden por apellido ascendente
                     break;
             }
-            int pageSize = 10;
+            int pageSize = 12;
             int pageNumber = (page ?? 1);
             return View(personas.ToPagedList(pageNumber, pageSize));
         }
