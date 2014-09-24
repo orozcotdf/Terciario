@@ -1,0 +1,56 @@
+﻿@model ColegioTerciario.DAL.Models.Hora
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Hora</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HORA_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HORA_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HORA_FIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HORA_FIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HORA_NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HORA_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HORA_TURNO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HORA_TURNO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
