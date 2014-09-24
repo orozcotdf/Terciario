@@ -63,6 +63,7 @@
     <Compile Include="Models\Pais.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Provincia.cs" />
+    <Compile Include="Models\Sede.cs" />
     <Compile Include="Models\Turno_Examen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,9 +17,8 @@ namespace ColegioTerciario.DAL.Models
         public int? MATERIA_X_CURSO_CARRERAS_ID { get; set; }
         public int? MATERIA_X_CURSO_MATERIAS_ID { get; set; }
         public int? MATERIA_X_CURSO_DOCENTE_ID { get; set; }
+        public int? MATERIA_X_CURSO_SEDES_ID { get; set; }
         #endregion
-
-
 
         #region Navegacion
         [ForeignKey("MATERIA_X_CURSO_CICLOS_ID")]
@@ -30,16 +29,12 @@ namespace ColegioTerciario.DAL.Models
         public Materia MATERIA_X_CURSO_MATERIA { get; set; }
         [ForeignKey("MATERIA_X_CURSO_DOCENTE_ID")]
         public Persona MATERIA_X_CURSO_DOCENTE { get; set; }
-       // [ForeignKey("MATERIA_X_CURSO_HORARIOS_CURSADAS_ID")]
-        //public Horario_Cursada MATERIA_X_CURSO_HORARIO_CURSADA { get; set; }
-
+        [ForeignKey("MATERIA_X_CURSO_SEDES_ID")]
+        public virtual Sede MATERIA_X_CURSO_SEDE { get; set; }
+        public virtual ICollection<Horario_Cursada> Horarios_Cursadas { get; set; }
         #endregion
 
-        public virtual ICollection<Horario_Cursada> Horarios_Cursadas { get; set; }
-
-
-
-        public string MATERIA_X_CURSO_CURSO { get; set; }
+        public string MATERIA_X_CURSO_CURSO_NOMBRE { get; set; }
         public bool MATERIA_X_CURSO_ES_PROMOCIONAL { get; set; }
         public Nullable<DateTime> MATERIA_X_CURSO_P1_FECHA { get; set; }
         public Nullable<DateTime> MATERIA_X_CURSO_P2_FECHA { get; set; }

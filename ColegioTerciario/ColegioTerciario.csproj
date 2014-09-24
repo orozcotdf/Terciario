@@ -185,6 +185,7 @@
     <Compile Include="Controllers\MateriasController.cs" />
     <Compile Include="Controllers\MatriculasController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
+    <Compile Include="Controllers\SedesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,6 +232,10 @@
     <Compile Include="Migrations\201409232328112_Agrega Nombre de Titulo a Carrera.cs" />
     <Compile Include="Migrations\201409232328112_Agrega Nombre de Titulo a Carrera.Designer.cs">
       <DependentUpon>201409232328112_Agrega Nombre de Titulo a Carrera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409241237210_Agrega Sedes.cs" />
+    <Compile Include="Migrations\201409241237210_Agrega Sedes.Designer.cs">
+      <DependentUpon>201409241237210_Agrega Sedes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -347,6 +352,11 @@
     <Content Include="Views\Horas\Details.cshtml" />
     <Content Include="Views\Horas\Edit.cshtml" />
     <Content Include="Views\Horas\Index.cshtml" />
+    <Content Include="Views\Sedes\Create.cshtml" />
+    <Content Include="Views\Sedes\Delete.cshtml" />
+    <Content Include="Views\Sedes\Details.cshtml" />
+    <Content Include="Views\Sedes\Edit.cshtml" />
+    <Content Include="Views\Sedes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -394,6 +404,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409232328112_Agrega Nombre de Titulo a Carrera.resx">
       <DependentUpon>201409232328112_Agrega Nombre de Titulo a Carrera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409241237210_Agrega Sedes.resx">
+      <DependentUpon>201409241237210_Agrega Sedes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

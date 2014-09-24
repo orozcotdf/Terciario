@@ -37,6 +37,7 @@ namespace ColegioTerciario.Models
         public DbSet<ColegioTerciario.DAL.Models.Horario_Cursada> Horarios_Cursadas { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Materia_x_Curso> Materias_X_Cursos { get; set; }
         public DbSet<ColegioTerciario.DAL.Models.Turno_Examen> Turnos_Examenes { get; set; }
+        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Sede> Sedes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -48,6 +49,8 @@ namespace ColegioTerciario.Models
             
             
         }
+
+
     }
 
     
