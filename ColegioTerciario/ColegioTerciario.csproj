@@ -179,6 +179,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarrerasController.cs" />
     <Compile Include="Controllers\CiclosController.cs" />
+    <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorasController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -237,6 +238,10 @@
     <Compile Include="Migrations\201409241237210_Agrega Sedes.Designer.cs">
       <DependentUpon>201409241237210_Agrega Sedes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201409241759238_Cambios en ciclos.cs" />
+    <Compile Include="Migrations\201409241759238_Cambios en ciclos.Designer.cs">
+      <DependentUpon>201409241759238_Cambios en ciclos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ColegioTerciarioContext.cs" />
@@ -246,6 +251,8 @@
     <Compile Include="Models\Configs\PersonaConfig.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Repositories\IMateriasXCursoRepository.cs" />
+    <Compile Include="Models\Repositories\MateriasXCursoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -357,6 +364,8 @@
     <Content Include="Views\Sedes\Details.cshtml" />
     <Content Include="Views\Sedes\Edit.cshtml" />
     <Content Include="Views\Sedes\Index.cshtml" />
+    <Content Include="Views\Cursos\Create.cshtml" />
+    <Content Include="Views\Cursos\Resumen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -407,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409241237210_Agrega Sedes.resx">
       <DependentUpon>201409241237210_Agrega Sedes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409241759238_Cambios en ciclos.resx">
+      <DependentUpon>201409241759238_Cambios en ciclos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
