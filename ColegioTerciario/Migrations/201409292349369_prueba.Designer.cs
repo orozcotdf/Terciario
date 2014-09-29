@@ -7,13 +7,13 @@ namespace ColegioTerciario.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class MODIPersonasCamposRequeridos : IMigrationMetadata
+    public sealed partial class prueba : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MODIPersonasCamposRequeridos));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(prueba));
         
         string IMigrationMetadata.Id
         {
-            get { return "201409191855505_MODI Personas Campos Requeridos"; }
+            get { return "201409292349369_prueba"; }
         }
         
         string IMigrationMetadata.Source

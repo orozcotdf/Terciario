@@ -198,10 +198,6 @@
     <Compile Include="Migrations\201409191846188_MODI Personas Ubicacion Nullable.Designer.cs">
       <DependentUpon>201409191846188_MODI Personas Ubicacion Nullable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409191855505_MODI Personas Campos Requeridos.cs" />
-    <Compile Include="Migrations\201409191855505_MODI Personas Campos Requeridos.Designer.cs">
-      <DependentUpon>201409191855505_MODI Personas Campos Requeridos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs" />
     <Compile Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.Designer.cs">
       <DependentUpon>201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs</DependentUpon>
@@ -241,6 +237,10 @@
     <Compile Include="Migrations\201409241759238_Cambios en ciclos.cs" />
     <Compile Include="Migrations\201409241759238_Cambios en ciclos.Designer.cs">
       <DependentUpon>201409241759238_Cambios en ciclos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409292349369_prueba.cs" />
+    <Compile Include="Migrations\201409292349369_prueba.Designer.cs">
+      <DependentUpon>201409292349369_prueba.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -387,9 +387,6 @@
     <EmbeddedResource Include="Migrations\201409191846188_MODI Personas Ubicacion Nullable.resx">
       <DependentUpon>201409191846188_MODI Personas Ubicacion Nullable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409191855505_MODI Personas Campos Requeridos.resx">
-      <DependentUpon>201409191855505_MODI Personas Campos Requeridos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.resx">
       <DependentUpon>201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs</DependentUpon>
     </EmbeddedResource>
@@ -419,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409241759238_Cambios en ciclos.resx">
       <DependentUpon>201409241759238_Cambios en ciclos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409292349369_prueba.resx">
+      <DependentUpon>201409292349369_prueba.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

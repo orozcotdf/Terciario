@@ -19,22 +19,22 @@ namespace ColegioTerciario.DAL.Models
         [Display(Name = "Clave")]
         public string PERSONA_CLAVE { get; set; }
         [Display(Name="Nombre")]
-        [Required]
+        //[Required]
         public string PERSONA_NOMBRE { get; set; }
         [Display(Name = "Apellido")]
-        [Required]
+        //[Required]
         public string PERSONA_APELLIDO { get; set; }
         [Display(Name="Nombre Para Mostrar")]
         public string PERSONA_NOMBRE_PARA_MOSTRAR { get; set; }
         [Display(Name = "Tipo de Documento")]
         public string PERSONA_DOCUMENTO_TIPO { get; set; }
         [Display(Name = "Documento Nro")]
-        [Required]
+        //[Required]
         public string PERSONA_DOCUMENTO_NUMERO { get; set; }
         [Display(Name = "Fecha de Nacimiento")]
         public Nullable<System.DateTime> PERSONA_NACIMIENTO_FECHA { get; set; }
         [Display(Name = "Email")]
-        [Required]
+       // [Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "El Email no es valido")]
         public string PERSONA_EMAIL { get; set; }
         [Display(Name = "Domicilio")]
