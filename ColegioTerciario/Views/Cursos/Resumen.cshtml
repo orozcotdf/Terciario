@@ -1,6 +1,40 @@
-﻿@{
+﻿@model IEnumerable<ColegioTerciario.DAL.Models.Materia_x_Curso>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h1>Nuevos Cursos</h1>
 
-Resumen, ciclo @ViewBag.ciclo_nombre
+<table class="table">
+    <thead>
+        <tr>
+            <th>Curso</th>
+            <th>Ciclo</th>
+            <th>Carrera</th>
+            <th>Materia</th>
+            <th>Sede</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CURSO_NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

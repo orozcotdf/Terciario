@@ -31,13 +31,14 @@ namespace ColegioTerciario.Controllers
             ViewBag.CICLOS = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE");
             ViewBag.CARRERAS = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
             ViewBag.SEDES = new SelectList(db.Sedes, "ID", "SEDE_NOMBRE");
+            ViewBag.error = Session["error"];
             return View();
         }
 
         // POST: Cursos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int SEDE, int CICLO, int CARRERA, int AÑO)
+        public ActionResult Create(int SEDE, int CICLO, int CARRERA, int AÑO, string[] NROS)
         {
             List<Materia_x_Curso> materias_x_cursos = new List<Materia_x_Curso>();
             MateriasXCursoRepository repo = new MateriasXCursoRepository(db);
@@ -51,17 +52,30 @@ namespace ColegioTerciario.Controllers
                 
                 foreach (Materia materia in materias)
                 {
-                    materias_x_cursos.Add(new Materia_x_Curso()
+                    NROS = NROS.Where(nro => nro != "false").ToArray();
+                    foreach (string NRO in NROS)
                     {
-                        MATERIA_X_CURSO_CARRERA = carrera,
-                        MATERIA_X_CURSO_CICLO = ciclo,
-                        MATERIA_X_CURSO_CURSO_NOMBRE = AÑO + "A",
-                        MATERIA_X_CURSO_MATERIA = materia,
-                        MATERIA_X_CURSO_SEDE = sede,
-                    });
-
+                        materias_x_cursos.Add(new Materia_x_Curso()
+                        {
+                            MATERIA_X_CURSO_CARRERA = carrera,
+                            MATERIA_X_CURSO_CICLO = ciclo,
+                            MATERIA_X_CURSO_CURSO_NOMBRE = carrera.CARRERA_CODIGO + "-" + AÑO + "" + NRO,
+                            MATERIA_X_CURSO_MATERIA = materia,
+                            MATERIA_X_CURSO_SEDE = sede,
+                        });
+                    }
                 }
-                Session["materias_x_cursos_ids"] = repo.InsertMateriasXCursos(materias_x_cursos);
+
+                try
+                {
+                    Session["materias_x_cursos_ids"] = repo.InsertMateriasXCursos(materias_x_cursos);
+                }
+                catch (Exception)
+                {
+                    Session["error"] = "El Curso ya existe con esta definición";
+                    return RedirectToAction("create");
+                }
+                
 
                 return RedirectToAction("Resumen");
             }
@@ -76,8 +90,12 @@ namespace ColegioTerciario.Controllers
             if (Session["materias_x_cursos_ids"] != null)
             { 
                 ICollection<int> ids = Session["materias_x_cursos_ids"] as ICollection<int>;
-                ICollection<Materia_x_Curso> materias_x_cursos = (from m in db.Materias_X_Cursos where ids.Contains(m.ID) select m).ToList();
-                return View();
+                ICollection<Materia_x_Curso> materias_x_cursos = db.Materias_X_Cursos.
+                    Include("MATERIA_X_CURSO_CICLO").
+                    Include("MATERIA_X_CURSO_CARRERA").
+                    Include("MATERIA_X_CURSO_MATERIA").
+                    Where(c => ids.Contains(c.ID)).ToList(); //(from m in db.Materias_X_Cursos where ids.Contains(m.ID) select m) .ToList();
+                return View(materias_x_cursos);
             }
             return Redirect("/");
             

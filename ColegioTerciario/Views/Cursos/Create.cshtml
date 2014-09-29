@@ -1,8 +1,13 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
+@if (ViewBag.error != null)
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>Error!</strong> @ViewBag.error.
+    </div>
+}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -28,10 +33,32 @@
         </div>
         <div class="form-group">
             @Html.Label("AÑO", "AÑO", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.RadioButton("AÑO", 1 ) 1
-                @Html.RadioButton("AÑO", 2) 2
-                @Html.RadioButton("AÑO", 3) 3
+            <div class="col-md-4">
+                <table class="table">
+                    <tr>
+                        <td>@Html.RadioButton("AÑO", 1) 1</td>
+                        <td>@Html.RadioButton("AÑO", 2) 2</td>
+                        <td>@Html.RadioButton("AÑO", 3) 3</td>
+                    </tr>
+                </table>
+                
+                
+               
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("NROS", "Numeros", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <table class="table">
+                    <tr>
+                        <td>@Html.CheckBox("NROS[0]", false, new { value = "A" }) A</td>
+                        <td>@Html.CheckBox("NROS[1]", false, new { value = "B" }) B</td>
+                        <td>@Html.CheckBox("NROS[2]", false, new { value = "C" }) C</td>
+                    </tr>
+                </table>
+
+
+
             </div>
         </div>
 

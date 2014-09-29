@@ -25,6 +25,13 @@ namespace ColegioTerciario.Models.Repositories
 
         public List<int> InsertMateriasXCursos(List<DAL.Models.Materia_x_Curso> materias_x_cursos)
         {
+            foreach (DAL.Models.Materia_x_Curso materia_x_curso in materias_x_cursos)
+            {
+                if (ChequeaSiExisteCurso(materia_x_curso)) throw new Exception();
+            }
+
+
+
             List<int> ids = new List<int>();
             using (var dbTransact = this.dbContext.Database.BeginTransaction())
             {
@@ -73,6 +80,17 @@ namespace ColegioTerciario.Models.Repositories
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+
+        public bool ChequeaSiExisteCurso(DAL.Models.Materia_x_Curso materia_x_curso)
+        {
+            var temp = dbContext.Materias_X_Cursos.
+                Where(m => m.MATERIA_X_CURSO_CURSO_NOMBRE == materia_x_curso.MATERIA_X_CURSO_CURSO_NOMBRE && m.MATERIA_X_CURSO_CICLO.ID == materia_x_curso.MATERIA_X_CURSO_CICLO.ID).Count();
+            if (temp > 0)
+                return true;
+            else
+                return false;
         }
     }
 }
