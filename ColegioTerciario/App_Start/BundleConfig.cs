@@ -21,12 +21,16 @@ namespace ColegioTerciario
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/DataTables-1.10.2/jquery.dataTables.js",
+                      "~/Scripts/DataTables-1.10.2/jquery.bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/simple_sidebar.css"));
+                      "~/Content/simple_sidebar.css",
+                      //"~/Content/DataTables-1.10.2/css/jquery.dataTables.css",
+                      "~/Content/DataTables-1.10.2/css/dataTables.bootstrap.css"));
 
             // Para la depuración, establezca EnableOptimizations en false. Para obtener más información,
             // visite http://go.microsoft.com/fwlink/?LinkId=301862

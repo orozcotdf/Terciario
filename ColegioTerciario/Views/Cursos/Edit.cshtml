@@ -1,0 +1,63 @@
+﻿@model ColegioTerciario.DAL.Models.Materia_x_Curso
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Curso @Model.MATERIA_X_CURSO_CURSO_NOMBRE - @Model.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE</h2>
+<h3>@Model.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE</h3>
+<h4>@Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE</h4>
+
+<table class="table data-table table-bordered table-read-status">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Agregar</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            
+            <td colspan="6" class="dataTables_empty">
+                                 Loading data from server
+                
+            </td>
+            
+        </tr>
+        
+    </tbody>
+
+    </table>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+         var $dataTable = $('.data-table').dataTable({
+             "aaSorting": [[1, "desc"]], // default sort to Name
+             "bServerSide": true,
+             "sAjaxSource": "/personas/indexJSON",
+             "aoColumnDefs": [
+                 { "aTargets": [0], "name": "ID" },
+                 { "aTargets": [1], "name": "Nombre" },
+                 { "aTargets": [2], "name": "Apellido" },
+                 { "aTargets": [3], "name": "DNI" },
+                 {
+                     "aTargets": [4],
+                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                         //$(nTd).css('text-align', 'center'); // center the link                        
+                     },
+                     "mData": null,
+                     "mRender": function (data, type, full) {
+                         var id = data[0];
+                         return '<td><a href="#" class="add" data-id="' + id + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
+                         // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
+                     }
+                 }
+             ]
+         });
+     </script>
+     }

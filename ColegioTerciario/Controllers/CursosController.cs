@@ -103,7 +103,11 @@ namespace ColegioTerciario.Controllers
         // GET: Cursos/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var curso = db.Materias_X_Cursos
+                .Include("MATERIA_X_CURSO_CARRERA")
+                .Include("MATERIA_X_CURSO_MATERIA")
+                .Include("MATERIA_X_CURSO_CICLO").SingleOrDefault(c => c.ID == id);
+            return View(curso);
         }
 
         // POST: Cursos/Edit/5

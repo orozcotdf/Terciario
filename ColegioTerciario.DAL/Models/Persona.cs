@@ -32,6 +32,7 @@ namespace ColegioTerciario.DAL.Models
         //[Required]
         public string PERSONA_DOCUMENTO_NUMERO { get; set; }
         [Display(Name = "Fecha de Nacimiento")]
+        [Column(TypeName = "Date")]
         public Nullable<System.DateTime> PERSONA_NACIMIENTO_FECHA { get; set; }
         [Display(Name = "Email")]
        // [Required]
@@ -44,8 +45,10 @@ namespace ColegioTerciario.DAL.Models
         [Display(Name = "Sexo")]
         public string PERSONA_SEXO { get; set; }
         [Display(Name = "Fecha de Alta")]
+        [Column(TypeName = "Date")]
         public Nullable<System.DateTime> PERSONA_FECHA_ALTA { get; set; }
         [Display(Name = "Fecha de Baja")]
+        [Column(TypeName = "Date")]
         public Nullable<System.DateTime> PERSONA_FECHA_BAJA { get; set; }
         [Display(Name = "Titulo Secundario")]
         public string PERSONA_TITULO_SECUNDARIO { get; set; }

@@ -10,6 +10,7 @@ using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
 using PagedList;
 
+
 namespace ColegioTerciario.Controllers
 {
     public class PersonasController : Controller
@@ -76,6 +77,65 @@ namespace ColegioTerciario.Controllers
             int pageSize = 12;
             int pageNumber = (page ?? 1);
             return View(personas.ToPagedList(pageNumber, pageSize));
+        }
+
+        public JsonResult IndexJSON(JQueryDataTableParamModel param)
+        {
+            var personas = db.Personas.ToList();
+
+
+            var result = from p in personas.Skip(param.iDisplayStart)
+                         .Take(param.iDisplayLength)
+                         select new[]  {
+                             Convert.ToString(p.ID),
+                             p.PERSONA_NOMBRE,
+                             p.PERSONA_APELLIDO,
+                             p.PERSONA_DOCUMENTO_NUMERO
+                         };
+            
+            return Json(new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = personas.Count,
+                iTotalDisplayRecords = personas.Count,
+                iDisplayStart = param.iDisplayStart,
+                iDisplayLength = param.iDisplayLength,
+                aaData = result
+            },
+            JsonRequestBehavior.AllowGet);
+            
+
+            /*
+             * public ActionResult MasterDetailsAjaxHandler(
+             JQueryDataTableParamModel param, int? CompanyID)
+    {
+
+        var employees = DataRepository.GetEmployees();
+
+        //"Business logic" method that filters employees by the employer id
+        var companyEmployees = (from e in employees
+                                where (CompanyID == null || e.CompanyID == CompanyID)
+                                select e).ToList();
+
+        //UI processing logic that filter company employees by name and paginates them
+        var filteredEmployees = (from e in companyEmployees
+                                 where (param.sSearch == null || 
+                                 e.Name.ToLower().Contains(param.sSearch.ToLower()))
+                                 select e).ToList();
+        var result = from emp in filteredEmployees.Skip(
+                     param.iDisplayStart).Take(param.iDisplayLength)
+                     select new[] { Convert.ToString(emp.EmployeeID), 
+                     emp.Name, emp.Position };
+
+        return Json(new
+        {
+            sEcho = param.sEcho,
+            iTotalRecords = companyEmployees.Count,
+            iTotalDisplayRecords = filteredEmployees.Count,
+            aaData = result
+        },
+        JsonRequestBehavior.AllowGet);
+    }*/
         }
 
         // GET: Personas/Details/5
