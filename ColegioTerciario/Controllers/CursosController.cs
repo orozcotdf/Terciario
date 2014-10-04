@@ -35,6 +35,45 @@ namespace ColegioTerciario.Controllers
             return View();
         }
 
+        // POST: Cursos/agregarAlumnos
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult agregarAlumnos(int MATERIA_X_CURSO_ID, int[] alumnos)
+        {
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (int personaId in alumnos)
+                    {
+                        var cursadasConEstaPersona = db.Cursadas.Where(c => c.CURSADA_ALUMNOS_ID == personaId && c.CURSADA_MATERIAS_X_CURSOS_ID == MATERIA_X_CURSO_ID).Count();
+                        if (cursadasConEstaPersona == 0)
+                        { 
+                            Cursada nuevaCursada = new Cursada()
+                            {
+                                CURSADA_ALUMNOS_ID = personaId,
+                                CURSADA_MATERIAS_X_CURSOS_ID = MATERIA_X_CURSO_ID
+                            };
+                            db.Cursadas.Add(nuevaCursada);
+                            db.SaveChanges();
+                        }
+                        
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    return View();
+                }
+                
+            }
+            return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                {"Controller", "Cursos"}, 
+                {"Action", "Edit"},
+                {"id", MATERIA_X_CURSO_ID}
+            });
+        }
         // POST: Cursos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

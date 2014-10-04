@@ -83,8 +83,13 @@ namespace ColegioTerciario.Controllers
         {
             var personas = db.Personas.ToList();
 
+            var personasFiltradas = (from e in personas
+                                     where (param.sSearch == null ||
+                                     e.PERSONA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
+                                     e.PERSONA_APELLIDO.ToLower().Contains(param.sSearch.ToLower()))
+                                     select e).ToList();
 
-            var result = from p in personas.Skip(param.iDisplayStart)
+            var result = from p in personasFiltradas.Skip(param.iDisplayStart)
                          .Take(param.iDisplayLength)
                          select new[]  {
                              Convert.ToString(p.ID),
@@ -97,7 +102,7 @@ namespace ColegioTerciario.Controllers
             {
                 sEcho = param.sEcho,
                 iTotalRecords = personas.Count,
-                iTotalDisplayRecords = personas.Count,
+                iTotalDisplayRecords = personasFiltradas.Count,
                 iDisplayStart = param.iDisplayStart,
                 iDisplayLength = param.iDisplayLength,
                 aaData = result

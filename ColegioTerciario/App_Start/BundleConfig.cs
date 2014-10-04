@@ -23,7 +23,8 @@ namespace ColegioTerciario
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/DataTables-1.10.2/jquery.dataTables.js",
-                      "~/Scripts/DataTables-1.10.2/jquery.bootstrap.js"));
+                      "~/Scripts/DataTables-1.10.2/dataTables.bootstrap.js",
+                      "~/Scripts/cent11.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

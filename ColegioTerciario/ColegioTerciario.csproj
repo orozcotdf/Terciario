@@ -337,6 +337,7 @@
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\cent11.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.bootstrap.js" />
@@ -373,6 +374,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\storage.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
