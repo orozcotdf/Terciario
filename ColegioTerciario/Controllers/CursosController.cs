@@ -20,7 +20,11 @@ namespace ColegioTerciario.Controllers
             if (Request.IsAjaxRequest())
             {
                 var cursos = db.Materias_X_Cursos
-                    .Include("MATERIA_X_CURSO_CARRERA").Include("MATERIA_X_CURSO_CICLO").Include("MATERIA_X_CURSO_SEDE").ToList();
+                    .Include("MATERIA_X_CURSO_CARRERA")
+                    .Include("MATERIA_X_CURSO_CICLO")
+                    .Include("MATERIA_X_CURSO_SEDE")
+                    .Include("MATERIA_X_CURSO_MATERIA")
+                    .ToList();
 
                 var cursosFiltrados = (from c in cursos
                                          where (param.sSearch == null ||
@@ -34,9 +38,10 @@ namespace ColegioTerciario.Controllers
                              .Take(param.iDisplayLength)
                              select new[]  {
                              Convert.ToString(c.ID),
-                             c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,
                              c.MATERIA_X_CURSO_CICLO != null ? c.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE : null,
                              c.MATERIA_X_CURSO_SEDE != null ? c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE : null,
+                             c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,
+                             c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE,                             
                              c.MATERIA_X_CURSO_CURSO_NOMBRE
                          };
 

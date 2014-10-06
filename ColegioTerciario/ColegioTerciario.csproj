@@ -345,6 +345,7 @@
     <Content Include="Scripts\DataTables-1.10.2\dataTables.colReorder.min.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.colVis.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.colVis.min.js" />
+    <Content Include="Scripts\DataTables-1.10.2\datatables.es.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.fixedColumns.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.fixedColumns.min.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.fixedHeader.js" />
