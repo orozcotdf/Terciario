@@ -7,6 +7,7 @@ using ColegioTerciario.Models;
 using ColegioTerciario.DAL.Models;
 using System.Web.Script.Serialization;
 using ColegioTerciario.Models.Repositories;
+using PagedList;
 
 namespace ColegioTerciario.Controllers
 {
@@ -14,8 +15,42 @@ namespace ColegioTerciario.Controllers
     {
         ColegioTerciarioContext db = new ColegioTerciarioContext();
         // GET: Cursos
-        public ActionResult Index()
+        public ActionResult Index(JQueryDataTableParamModel param)
         {
+            if (Request.IsAjaxRequest())
+            {
+                var cursos = db.Materias_X_Cursos
+                    .Include("MATERIA_X_CURSO_CARRERA").Include("MATERIA_X_CURSO_CICLO").Include("MATERIA_X_CURSO_SEDE").ToList();
+
+                var cursosFiltrados = (from c in cursos
+                                         where (param.sSearch == null ||
+                                         c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
+                                         c.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
+                                         c.MATERIA_X_CURSO_CURSO_NOMBRE.ToLower().Contains(param.sSearch.ToLower())
+                                         )
+                                         select c).ToList();
+
+                var result = from c in cursosFiltrados.Skip(param.iDisplayStart)
+                             .Take(param.iDisplayLength)
+                             select new[]  {
+                             Convert.ToString(c.ID),
+                             c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,
+                             c.MATERIA_X_CURSO_CICLO != null ? c.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE : null,
+                             c.MATERIA_X_CURSO_SEDE != null ? c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE : null,
+                             c.MATERIA_X_CURSO_CURSO_NOMBRE
+                         };
+
+                return Json(new
+                {
+                    sEcho = param.sEcho,
+                    iTotalRecords = cursos.Count,
+                    iTotalDisplayRecords = cursosFiltrados.Count,
+                    iDisplayStart = param.iDisplayStart,
+                    iDisplayLength = param.iDisplayLength,
+                    aaData = result
+                },
+                JsonRequestBehavior.AllowGet);
+            }
             return View();
         }
 

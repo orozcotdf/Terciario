@@ -1,36 +1,27 @@
-﻿/*
-$(document).ready(function () {
-    var alumnos = [];
-    // limpio storage
-    localStorage.removeItem('alumnos');
-
-    $(document).on('click', '.agregar-persona-a-curso', function () {
-        $(this).css('pointer-events', 'none').css('color','black');
-        alumnos.push($(this).data('id'));
-        console.log(alumnos);
-        localStorage.setItem('alumnos', JSON.stringify(alumnos));
-
-        //console.log(JSON.parse(localStorage.getItem('alumnos')));
-        /*
-        if (localStorage.getItem('alumnos')) {
-            console.log("EXISTEN ALUMNOS");
-
-            var alumnos = JSON.parse(localStorage.getItem('alumnos'));
-            console.log(alumnos);
-            //alumnos.push($(this).data('id'));
-            //localStorage['alumnos'] = alumnos;
-
-            //console.log(localStorage['alumnos']);
-        } else {
-            console.log("NO EXISTEN ALUMNOS");
-            var alumnos = [];
-            alumnos.push($(this).data('id'));
-            localStorage['alumnos'] = JSON.stringify(alumnos);
-            console.log(localStorage['alumnos']);
+﻿$.extend(true, $.fn.dataTable.defaults, {
+    "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-4'i><'col-xs-8'p>>",
+    "language": {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         }
-        //var personas = localStorage['alumnos'] ? JSON.parse(localStorage['alumnos']) : [];
-        //localStorage['alumnos'] = JSON.stringify(personas);
-
-    });
+    }
 });
-*/

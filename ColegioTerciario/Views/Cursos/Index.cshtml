@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ColegioTerciario.DAL.Models.Materia_x_Curso>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Nuevo Curso", "Create")
+</p>
+<table class="table data-table table-bordered table-read-status">
+    <thead>
+        <tr>
+            <th style="display: none;">ID</th>
+            <th>CARRERA</th>
+            <th>MATERIA</th>
+            <th>SEDE</th>
+            <th>NOMBRE</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+
+            <td colspan="6" class="dataTables_empty">
+                Cargando datos del servidor..
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
+
+@section scripts {
+
+    <script type="text/javascript">
+        var alumnos = [];
+
+        
+
+        $(document).on('click', '.agregar-persona-a-curso', function () {
+            $(this).css('pointer-events', 'none').css('color','black');
+            alumnos.push($(this).data('id'));
+            $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
+        });
+         var $dataTable = $('.data-table').dataTable({
+             "aaSorting": [[1, "desc"]], // default sort to Name
+             "bServerSide": true,
+             "sAjaxSource": "/cursos/index",
+             "iDisplayLength": 10,
+             "aoColumnDefs": [
+                 {
+                     "aTargets": [0],
+                     'mData': null,
+                     'mRender': function (data, type, full) {
+                         return '<td style="display:none;">' + data[0] + '</td>';
+                     },
+                     'visible': false
+                 },
+                 { "aTargets": [1], "name": "Carrera" },
+                 { "aTargets": [2], "name": "Ciclo" },
+                 { "aTargets": [3], "name": "Sede" },
+                 { "aTargets": [4], "name": "Nombre" }
+             ]
+         });
+
+         $('.data-table').on('page.dt', function (e, settings) {
+             console.log(settings.aoColumns[0].mRender);
+         });
+    </script>
+}
