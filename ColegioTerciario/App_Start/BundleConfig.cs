@@ -28,10 +28,10 @@ namespace ColegioTerciario
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
                       "~/Content/simple_sidebar.css",
                       //"~/Content/DataTables-1.10.2/css/jquery.dataTables.css",
-                      "~/Content/DataTables-1.10.2/css/dataTables.bootstrap.css"));
+                      "~/Content/DataTables-1.10.2/css/dataTables.bootstrap.css",
+                      "~/Content/site.css"));
 
             // Para la depuración, establezca EnableOptimizations en false. Para obtener más información,
             // visite http://go.microsoft.com/fwlink/?LinkId=301862

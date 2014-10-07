@@ -104,7 +104,11 @@ namespace ColegioTerciario.Controllers
                 }
                 catch (Exception)
                 {
-                    return View();
+                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                        {"Controller", "Cursos"}, 
+                        {"Action", "Edit"},
+                        {"id", MATERIA_X_CURSO_ID}
+                    });
                 }
                 
             }

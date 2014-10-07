@@ -18,6 +18,7 @@
             <th>CARRERA</th>
             <th>MATERIA</th>
             <th>NOMBRE</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -64,7 +65,22 @@
                  { "aTargets": [2], "name": "Sede" },
                  { "aTargets": [3], "name": "Carrera" },
                  { "aTargets": [4], "name": "Materia" },
-                 { "aTargets": [5], "name": "Nombre" }
+                 { "aTargets": [5], "name": "Nombre" },
+                 {
+                     "aTargets": [6],
+                     "mData": null,
+                     "mRender": function (data, type, full) {
+                         var id = data[0];
+                         return '<td><a href="/Cursos/Edit/' + id + '"><i class="cus-plus" title="Agregar"></i>Editar</a></td>';
+                         // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
+                     },
+                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                         var id = parseInt(sData[0]);
+
+                         console.log(id);
+                         //$(this).css('pointer-events', 'none').css('color', 'black');
+                     }
+                 }
              ]
          });
 
