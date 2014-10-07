@@ -15,7 +15,9 @@ namespace ColegioTerciario.DAL.Models
         public int TURNO_EXAMEN_NUMERO { get; set; }
         [Required]
         public string TURNO_EXAMEN_NOMBRE { get; set; }
+        [Column(TypeName = "Date")]
         public Nullable<DateTime> TURNO_EXAMEN_FECHA_INICIO { get; set; }
+        [Column(TypeName = "Date")]
         public Nullable<DateTime> TURNO_EXAMEN_FECHA_FIN { get; set; }
 
         #region Foreign Keys
