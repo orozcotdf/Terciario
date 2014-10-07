@@ -121,8 +121,13 @@ namespace ColegioTerciario.Controllers
         // POST: Cursos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int SEDE, int CICLO, int CARRERA, int AÑO, string[] NROS)
+        public ActionResult Create(int SEDE, int CICLO, int CARRERA, int? AÑO, string[] NROS)
         {
+            if (AÑO == null || NROS.All(n => n == "false"))
+            {
+                Session["error"] = "Debe definir todos los campos";
+                return RedirectToAction("create");
+            }
             List<Materia_x_Curso> materias_x_cursos = new List<Materia_x_Curso>();
             MateriasXCursoRepository repo = new MateriasXCursoRepository(db);
             try
@@ -130,7 +135,9 @@ namespace ColegioTerciario.Controllers
                 Sede sede = db.Sedes.Find(SEDE);
                 Ciclo ciclo = db.Ciclos.Find(CICLO);
                 Carrera carrera = db.Carreras.Find(CARRERA);
-                ICollection<Materia> materias = carrera.MATERIAS;
+                ICollection<Materia> materias = (from m in carrera.MATERIAS
+                                                where m.MATERIA_ANIO == AÑO.ToString()
+                                                select m).ToList();
                 
                 
                 foreach (Materia materia in materias)
