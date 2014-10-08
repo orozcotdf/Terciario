@@ -190,61 +190,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409190229272_PrimeraVersion.cs" />
-    <Compile Include="Migrations\201409190229272_PrimeraVersion.Designer.cs">
-      <DependentUpon>201409190229272_PrimeraVersion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409191846188_MODI Personas Ubicacion Nullable.cs" />
-    <Compile Include="Migrations\201409191846188_MODI Personas Ubicacion Nullable.Designer.cs">
-      <DependentUpon>201409191846188_MODI Personas Ubicacion Nullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs" />
-    <Compile Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.Designer.cs">
-      <DependentUpon>201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409200001056_Agrega Tabla Ciclos y Carreras.cs" />
-    <Compile Include="Migrations\201409200001056_Agrega Tabla Ciclos y Carreras.Designer.cs">
-      <DependentUpon>201409200001056_Agrega Tabla Ciclos y Carreras.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409200007051_Agrega tabla Matricula.cs" />
-    <Compile Include="Migrations\201409200007051_Agrega tabla Matricula.Designer.cs">
-      <DependentUpon>201409200007051_Agrega tabla Matricula.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409200032113_Agrega Tabla Materia.cs" />
-    <Compile Include="Migrations\201409200032113_Agrega Tabla Materia.Designer.cs">
-      <DependentUpon>201409200032113_Agrega Tabla Materia.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409221731502_Agrega Tablas.cs" />
-    <Compile Include="Migrations\201409221731502_Agrega Tablas.Designer.cs">
-      <DependentUpon>201409221731502_Agrega Tablas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409222349118_Campos booleanos a NULL en Personas.cs" />
-    <Compile Include="Migrations\201409222349118_Campos booleanos a NULL en Personas.Designer.cs">
-      <DependentUpon>201409222349118_Campos booleanos a NULL en Personas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409231252362_cambios .cs" />
-    <Compile Include="Migrations\201409231252362_cambios .Designer.cs">
-      <DependentUpon>201409231252362_cambios .cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409232328112_Agrega Nombre de Titulo a Carrera.cs" />
-    <Compile Include="Migrations\201409232328112_Agrega Nombre de Titulo a Carrera.Designer.cs">
-      <DependentUpon>201409232328112_Agrega Nombre de Titulo a Carrera.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409241237210_Agrega Sedes.cs" />
-    <Compile Include="Migrations\201409241237210_Agrega Sedes.Designer.cs">
-      <DependentUpon>201409241237210_Agrega Sedes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409241759238_Cambios en ciclos.cs" />
-    <Compile Include="Migrations\201409241759238_Cambios en ciclos.Designer.cs">
-      <DependentUpon>201409241759238_Cambios en ciclos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409292349369_prueba.cs" />
-    <Compile Include="Migrations\201409292349369_prueba.Designer.cs">
-      <DependentUpon>201409292349369_prueba.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410022251218_cambio en campos fecha de personas.cs" />
-    <Compile Include="Migrations\201410022251218_cambio en campos fecha de personas.Designer.cs">
-      <DependentUpon>201410022251218_cambio en campos fecha de personas.cs</DependentUpon>
+    <Compile Include="Migrations\201410080010591_Primera Version.cs" />
+    <Compile Include="Migrations\201410080010591_Primera Version.Designer.cs">
+      <DependentUpon>201410080010591_Primera Version.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -469,51 +417,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201409190229272_PrimeraVersion.resx">
-      <DependentUpon>201409190229272_PrimeraVersion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409191846188_MODI Personas Ubicacion Nullable.resx">
-      <DependentUpon>201409191846188_MODI Personas Ubicacion Nullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.resx">
-      <DependentUpon>201409192310431_ELIMINACION Campos Nombre de Lugar Nacimiento.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409200001056_Agrega Tabla Ciclos y Carreras.resx">
-      <DependentUpon>201409200001056_Agrega Tabla Ciclos y Carreras.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409200007051_Agrega tabla Matricula.resx">
-      <DependentUpon>201409200007051_Agrega tabla Matricula.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409200032113_Agrega Tabla Materia.resx">
-      <DependentUpon>201409200032113_Agrega Tabla Materia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409221731502_Agrega Tablas.resx">
-      <DependentUpon>201409221731502_Agrega Tablas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409222349118_Campos booleanos a NULL en Personas.resx">
-      <DependentUpon>201409222349118_Campos booleanos a NULL en Personas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409231252362_cambios .resx">
-      <DependentUpon>201409231252362_cambios .cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409232328112_Agrega Nombre de Titulo a Carrera.resx">
-      <DependentUpon>201409232328112_Agrega Nombre de Titulo a Carrera.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409241237210_Agrega Sedes.resx">
-      <DependentUpon>201409241237210_Agrega Sedes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409241759238_Cambios en ciclos.resx">
-      <DependentUpon>201409241759238_Cambios en ciclos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409292349369_prueba.resx">
-      <DependentUpon>201409292349369_prueba.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410022251218_cambio en campos fecha de personas.resx">
-      <DependentUpon>201410022251218_cambio en campos fecha de personas.cs</DependentUpon>
-    </EmbeddedResource>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <EmbeddedResource Include="Migrations\201410080010591_Primera Version.resx">
+      <DependentUpon>201410080010591_Primera Version.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
