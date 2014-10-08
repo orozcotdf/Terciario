@@ -18,7 +18,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nombre de aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("CENT N° 11 - Sistema de Administración Académica", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -31,20 +31,16 @@
     <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Modulos
-                    </a>
-                </li>
-                <li>@Html.ActionLink("Sedes", "Index", "Sedes")</li>
-                <li>@Html.ActionLink("Cursos", "Index", "Cursos")</li>
-                <li>@Html.ActionLink("Personas", "Index", "Personas")</li>
-                <li>@Html.ActionLink("Materias", "Index", "Materias")</li>
-                <li>@Html.ActionLink("Carreras", "Index", "Carreras")</li>
-                <li>@Html.ActionLink("Ciclos", "Index", "Ciclos")</li>
-                <li>@Html.ActionLink("Horas", "Index", "Horas")</li>
+            <ul id="sidebar" class="nav nav-pills nav-stacked" style="max-width: 200px;">
+                <li class="btn-default"><a href="#"><span class="glyphicon glyphicon-home"></span>  Inicio </a></li>
+                <li><a href="~/Personas/Index"><span class="glyphicon glyphicon-user"></span>  Personas</a></li>
+                <li><a href="~/Cursos/Index"><span class="glyphicon glyphicon-list-alt"></span>  Cursos</a></li>
+                <li><a href="~/Carreras/Index"><span class="glyphicon glyphicon-send"></span>  Carreras</a></li>
+                <li><a href="~/Meterias/Index"><span class="glyphicon glyphicon-book"></span>  Materias</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-stats"></span>  Estadisticas</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>  Configuración</a></li>
             </ul>
+
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
@@ -58,6 +54,10 @@
             </div>
         </div>
     </div>
+
+
+
+
     <!-- /#page-content-wrapper -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
