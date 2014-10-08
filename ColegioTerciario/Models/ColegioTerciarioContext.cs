@@ -46,8 +46,6 @@ namespace ColegioTerciario.Models
             modelBuilder.Configurations.Add(new PersonaConfig());
             modelBuilder.Configurations.Add(new BarrioConfig());
             base.OnModelCreating(modelBuilder);
-            
-            
         }
 
 

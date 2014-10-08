@@ -24,6 +24,7 @@ namespace ColegioTerciario
                       "~/Scripts/respond.js",
                       "~/Scripts/DataTables-1.10.2/jquery.dataTables.js",
                       "~/Scripts/DataTables-1.10.2/dataTables.bootstrap.js",
+                      "~/Scripts/bootstrap-editable.js",
                       "~/Scripts/cent11.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -31,6 +32,7 @@ namespace ColegioTerciario
                       "~/Content/simple_sidebar.css",
                       //"~/Content/DataTables-1.10.2/css/jquery.dataTables.css",
                       "~/Content/DataTables-1.10.2/css/dataTables.bootstrap.css",
+                      "~/Content/bootstrap-editable.css",
                       "~/Content/site.css"));
 
             // Para la depuración, establezca EnableOptimizations en false. Para obtener más información,

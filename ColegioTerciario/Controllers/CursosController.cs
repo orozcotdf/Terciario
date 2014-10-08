@@ -118,6 +118,35 @@ namespace ColegioTerciario.Controllers
                 {"id", MATERIA_X_CURSO_ID}
             });
         }
+
+        [HttpPost]
+        public JsonResult ponerNota(int pk, string value, string name)
+        {
+            Cursada cursada = db.Cursadas.Find(pk);
+            string nota = value;
+            switch (name)
+            {
+                case("P1"):
+                    cursada.CURSADA_NOTA_P1 = nota;
+                    break;
+                case "R1":
+                    cursada.CURSADA_NOTA_R1 = nota;
+                    break;
+                case "P2":
+                    cursada.CURSADA_NOTA_P2 = nota;
+                    break;
+                case "R2":
+                    cursada.CURSADA_NOTA_R2 = nota;
+                    break;
+                default:
+                    break;
+            }
+            db.SaveChanges();
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+
         // POST: Cursos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -197,6 +226,9 @@ namespace ColegioTerciario.Controllers
                 .Include("MATERIA_X_CURSO_CARRERA")
                 .Include("MATERIA_X_CURSO_MATERIA")
                 .Include("MATERIA_X_CURSO_CICLO").SingleOrDefault(c => c.ID == id);
+            ViewBag.alumnos = db.Cursadas
+                .Include("CURSADA_ALUMNO").Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id).ToList();
+                          
             return View(curso);
         }
 

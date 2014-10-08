@@ -13,3 +13,14 @@
 #page-content-wrapper  {
     margin-top: 45px;
 }
+
+.table ul {
+    padding-left: 0px;
+}
+.table li {
+    list-style: none;
+}
+
+.alumnos-curso th:nth-child(1) {
+    width: 250px;
+}
