@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ColegioTerciario.DAL.Models.Acta_Examen>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_FECHA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_LIBRO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_FOLIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_TURNOS_EXAMENES_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_CARRERAS_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_MATERIAS_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_PRESIDENTE_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_VOCAL1_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_VOCAL2_ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FECHA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_LIBRO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FOLIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_PRESIDENTE.PERSONA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL1.PERSONA_NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL2.PERSONA_NOMBRE)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

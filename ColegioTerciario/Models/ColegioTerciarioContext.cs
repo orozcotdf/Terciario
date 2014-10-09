@@ -1,5 +1,4 @@
 ﻿using ColegioTerciario.DAL.Models;
-using ColegioTerciario.Models.Configs;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,32 +20,29 @@ namespace ColegioTerciario.Models
         {
         }
 
-        public IDbSet<Persona> Personas { get; set; }
-        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Pais> Paises { get; set; }
-        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Ciudad> Ciudades { get; set; }
-        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Provincia> Provincias { get; set; }
-        public IDbSet<Barrio> Barrios { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Ciclo> Ciclos { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Carrera> Carreras { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Matricula> Matriculas { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Materia> Materias { get; set; }
-        public IDbSet<Acta_Examen> Actas_Examenes { get; set; }
-        public IDbSet<Acta_Examen_Detalle> Actas_Examenes_Detalles { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Cursada> Cursadas { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Hora> Horas { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Horario_Cursada> Horarios_Cursadas { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Materia_x_Curso> Materias_X_Cursos { get; set; }
-        public DbSet<ColegioTerciario.DAL.Models.Turno_Examen> Turnos_Examenes { get; set; }
-        public System.Data.Entity.DbSet<ColegioTerciario.DAL.Models.Sede> Sedes { get; set; }
+        public DbSet<Persona> Personas { get; set; }
+        public DbSet<Pais> Paises { get; set; }
+        public DbSet<Ciudad> Ciudades { get; set; }
+        public DbSet<Provincia> Provincias { get; set; }
+        public DbSet<Barrio> Barrios { get; set; }
+        public DbSet<Ciclo> Ciclos { get; set; }
+        public DbSet<Carrera> Carreras { get; set; }
+        public DbSet<Matricula> Matriculas { get; set; }
+        public DbSet<Materia> Materias { get; set; }
+        public DbSet<Acta_Examen> Actas_Examenes { get; set; }
+        public DbSet<Acta_Examen_Detalle> Actas_Examenes_Detalles { get; set; }
+        public DbSet<Cursada> Cursadas { get; set; }
+        public DbSet<Hora> Horas { get; set; }
+        public DbSet<Horario_Cursada> Horarios_Cursadas { get; set; }
+        public DbSet<Materia_x_Curso> Materias_X_Cursos { get; set; }
+        public DbSet<Turno_Examen> Turnos_Examenes { get; set; }
+        public DbSet<Sede> Sedes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new ActaExamenConfig());
-            modelBuilder.Configurations.Add(new ActaExamenDetalleConfig());
-            modelBuilder.Configurations.Add(new PersonaConfig());
-            modelBuilder.Configurations.Add(new BarrioConfig());
             base.OnModelCreating(modelBuilder);
         }
+
 
 
     }

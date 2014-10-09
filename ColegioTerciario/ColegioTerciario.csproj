@@ -177,6 +177,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActaExamenController.cs" />
     <Compile Include="Controllers\CarrerasController.cs" />
     <Compile Include="Controllers\CiclosController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
@@ -194,13 +195,21 @@
     <Compile Include="Migrations\201410080010591_Primera Version.Designer.cs">
       <DependentUpon>201410080010591_Primera Version.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410082218433_Campo DATE en Acta_Examen.cs" />
+    <Compile Include="Migrations\201410082218433_Campo DATE en Acta_Examen.Designer.cs">
+      <DependentUpon>201410082218433_Campo DATE en Acta_Examen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410082330515_Barrios Cascade.cs" />
+    <Compile Include="Migrations\201410082330515_Barrios Cascade.Designer.cs">
+      <DependentUpon>201410082330515_Barrios Cascade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410082339088_Acta examen campos estadisticos no obligatorios.cs" />
+    <Compile Include="Migrations\201410082339088_Acta examen campos estadisticos no obligatorios.Designer.cs">
+      <DependentUpon>201410082339088_Acta examen campos estadisticos no obligatorios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ColegioTerciarioContext.cs" />
-    <Compile Include="Models\Configs\ActaExamenConfig.cs" />
-    <Compile Include="Models\Configs\ActaExamenDetalleConfig.cs" />
-    <Compile Include="Models\Configs\BarrioConfig.cs" />
-    <Compile Include="Models\Configs\PersonaConfig.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JqueryDataTableParamModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -402,6 +411,11 @@
     <Content Include="Views\Cursos\Resumen.cshtml" />
     <Content Include="Views\Cursos\Edit.cshtml" />
     <Content Include="Views\Cursos\Index.cshtml" />
+    <Content Include="Views\ActaExamen\Create.cshtml" />
+    <Content Include="Views\ActaExamen\Delete.cshtml" />
+    <Content Include="Views\ActaExamen\Details.cshtml" />
+    <Content Include="Views\ActaExamen\Edit.cshtml" />
+    <Content Include="Views\ActaExamen\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -422,6 +436,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201410080010591_Primera Version.resx">
       <DependentUpon>201410080010591_Primera Version.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410082218433_Campo DATE en Acta_Examen.resx">
+      <DependentUpon>201410082218433_Campo DATE en Acta_Examen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410082330515_Barrios Cascade.resx">
+      <DependentUpon>201410082330515_Barrios Cascade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410082339088_Acta examen campos estadisticos no obligatorios.resx">
+      <DependentUpon>201410082339088_Acta examen campos estadisticos no obligatorios.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

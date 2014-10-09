@@ -1,0 +1,128 @@
+﻿@model ColegioTerciario.DAL.Models.Acta_Examen
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Acta_Examen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_FECHA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_FECHA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_INSCRIPTOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_INSCRIPTOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_APROBADOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_APROBADOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_REPROBADOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_REPROBADOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_AUSENTES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_AUSENTES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_LIBRO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_LIBRO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_FOLIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_FOLIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_TURNOS_EXAMENES_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_TURNOS_EXAMENES_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_CARRERAS_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_CARRERAS_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_MATERIAS_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_MATERIAS_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_PRESIDENTE_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_PRESIDENTE_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_VOCAL1_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_VOCAL1_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_VOCAL2_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_VOCAL2_ID)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

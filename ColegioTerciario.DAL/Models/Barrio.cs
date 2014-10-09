@@ -13,6 +13,9 @@ namespace ColegioTerciario.DAL.Models
         public int ID { get; set; }
         public string BARRIO_NOMBRE { get; set; }
         public int? BARRIO_CIUDAD_ID { get; set; }
+
+
+        [ForeignKey("BARRIO_CIUDAD_ID"),InverseProperty("BARRIOS")]
         public virtual Ciudad BARRIO_CIUDAD { get; set; }
         public virtual ICollection<Persona> PERSONAS { get; set; }
     }

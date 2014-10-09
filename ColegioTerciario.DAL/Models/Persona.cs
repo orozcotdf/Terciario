@@ -73,9 +73,14 @@ namespace ColegioTerciario.DAL.Models
         public int? PERSONA_NACIMIENTO_CIUDAD_ID { get; set; }
         [Display(Name = "Barrio", Prompt = "Seleccione un Barrio")]
         public int? PERSONA_NACIMIENTO_BARRIO_ID { get; set; }
+
+        [ForeignKey("PERSONA_NACIMIENTO_PAIS_ID")]
         public virtual Pais PERSONA_NACIMIENTO_PAIS { get; set; }
+        [ForeignKey("PERSONA_NACIMIENTO_PROVINCIA_ID")]
         public virtual Provincia PERSONA_NACIMIENTO_PROVINCIA { get; set; }
+        [ForeignKey("PERSONA_NACIMIENTO_CIUDAD_ID")]
         public virtual Ciudad PERSONA_NACIMIENTO_CIUDAD { get; set; }
+        [ForeignKey("PERSONA_NACIMIENTO_BARRIO_ID")]
         public virtual Barrio PERSONA_BARRIO { get; set; }
 
         public virtual ICollection<Acta_Examen> ACTAS_PRECIDIDAS { get; set; }

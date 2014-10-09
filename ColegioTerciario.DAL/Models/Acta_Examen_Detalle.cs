@@ -20,7 +20,9 @@ namespace ColegioTerciario.DAL.Models
         #endregion
 
         #region Navegacion
+        [ForeignKey("ACTA_EXAMEN_DETALLE_ALUMNOS_ID")]
         public Persona ACTA_EXAMEN_DETALLE_ALUMNO { get; set; }
+        [ForeignKey("ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID")]
         public Acta_Examen ACTA_EXAMEN_DETALLE_ACTA_EXAMEN { get; set; }
         #endregion
     }
