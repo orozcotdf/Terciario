@@ -63,8 +63,12 @@
     </tbody>
 </table>
 
+@Html.Partial("_AgregaAlumnos", Model, new ViewDataDictionary() {
+    {"ForeignKey", "MATERIA_X_CURSO_ID" },
+    { "Controlador", "Cursos"}
+} )
 
-
+<!--
 <div class="modal fade" id="agregarAlumnosModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -110,10 +114,11 @@
                 }
                 
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div><!-- /.modal-content --
+    </div><!-- /.modal-dialog --
+</div><!-- /.modal --
 
+-->
 
 
 
@@ -122,79 +127,79 @@
     <script type="text/javascript">
         var alumnos = [];
 
-        
+
 
         $.extend(true, $.fn.dataTable.defaults, {
             "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-4'i><'col-xs-8'p>>",
         });
 
         $(document).on('click', '.agregar-persona-a-curso', function () {
-            $(this).css('pointer-events', 'none').css('color','black');
+            $(this).css('pointer-events', 'none').css('color', 'black');
             alumnos.push($(this).data('id'));
             $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
         });
-         var $dataTable = $('.data-table').dataTable({
-             "aaSorting": [[1, "desc"]], // default sort to Name
-             "bServerSide": true,
-             "sAjaxSource": "/personas/indexJSON",
-             "iDisplayLength": 4,
-             "aoColumnDefs": [
-                 {
-                     "aTargets": [0],
-                     'mData': null,
-                     'mRender': function (data, type, full) {
-                         return '<td style="display:none;">' + data[0] + '</td>';
-                     },
-                     'visible': false
-                 },
-                 { "aTargets": [1], "name": "Nombre" },
-                 { "aTargets": [2], "name": "Apellido" },
-                 { "aTargets": [3], "name": "DNI" },
-                 {
-                     "aTargets": [4],
-                     "mData": null,
-                     "mRender": function (data, type, full) {
-                         var id = data[0];
-                         return '<td><a href="#" class="add agregar-persona-a-curso" data-id="' + id + '" data-nombre="' + data[1] + " " + data[2] + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
-                         // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
-                     },
-                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                         var id = parseInt(sData[0]);
-                         
-                         var enArray = $.inArray(id, alumnos);
-                         if (enArray > -1) {
-                             var $link = $(nTd).find('a');
-                             $link.css('pointer-events', 'none').css('color','black');
-                         }
-                         //$(this).css('pointer-events', 'none').css('color', 'black');
-                     }
-                 }
-             ]
-         });
+        var $dataTable = $('.data-table').dataTable({
+            "aaSorting": [[1, "desc"]], // default sort to Name
+            "bServerSide": true,
+            "sAjaxSource": "/personas/indexJSON",
+            "iDisplayLength": 4,
+            "aoColumnDefs": [
+                {
+                    "aTargets": [0],
+                    'mData': null,
+                    'mRender': function (data, type, full) {
+                        return '<td style="display:none;">' + data[0] + '</td>';
+                    },
+                    'visible': false
+                },
+                { "aTargets": [1], "name": "Nombre" },
+                { "aTargets": [2], "name": "Apellido" },
+                { "aTargets": [3], "name": "DNI" },
+                {
+                    "aTargets": [4],
+                    "mData": null,
+                    "mRender": function (data, type, full) {
+                        var id = data[0];
+                        return '<td><a href="#" class="add agregar-persona-a-curso" data-id="' + id + '" data-nombre="' + data[1] + " " + data[2] + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
+                        // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
+                    },
+                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        var id = parseInt(sData[0]);
 
-         $('.data-table').on('page.dt', function (e, settings) {
-             console.log(settings.aoColumns[0].mRender);
-         });
+                        var enArray = $.inArray(id, alumnos);
+                        if (enArray > -1) {
+                            var $link = $(nTd).find('a');
+                            $link.css('pointer-events', 'none').css('color', 'black');
+                        }
+                        //$(this).css('pointer-events', 'none').css('color', 'black');
+                    }
+                }
+            ]
+        });
 
-         $(document).ready(function () {
-             /* EDITABLE */
-             $('.xEditable').editable({
-                 url: '/Cursos/ponerNota',
-                 prepend: [{ value: 0, text: "Seleccione una nota"}],
-                 source: [
-                     { value: 1, text: "1" },
-                     { value: 2, text: "2" },
-                     { value: 3, text: "3" },
-                     { value: 4, text: "4" },
-                     { value: 5, text: "5" },
-                     { value: 6, text: "6" },
-                     { value: 7, text: "7" },
-                     { value: 8, text: "8" },
-                     { value: 9, text: "9" },
-                     { value: 10, text: "10" },
-                     { value: "Ausente", text: "Ausente" },
-                 ]
-             });
-         });
-     </script>
-     }
+        $('.data-table').on('page.dt', function (e, settings) {
+            console.log(settings.aoColumns[0].mRender);
+        });
+
+        $(document).ready(function () {
+            /* EDITABLE */
+            $('.xEditable').editable({
+                url: '/Cursos/ponerNota',
+                prepend: [{ value: 0, text: "Seleccione una nota" }],
+                source: [
+                    { value: 1, text: "1" },
+                    { value: 2, text: "2" },
+                    { value: 3, text: "3" },
+                    { value: 4, text: "4" },
+                    { value: 5, text: "5" },
+                    { value: 6, text: "6" },
+                    { value: 7, text: "7" },
+                    { value: 8, text: "8" },
+                    { value: 9, text: "9" },
+                    { value: 10, text: "10" },
+                    { value: "Ausente", text: "Ausente" },
+                ]
+            });
+        });
+    </script>
+}

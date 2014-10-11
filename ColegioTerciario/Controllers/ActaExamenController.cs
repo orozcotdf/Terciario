@@ -29,6 +29,60 @@ namespace ColegioTerciario.Controllers
             return View(actas_examenes);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult agregarAlumnos(int ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID, int[] alumnos)
+        {
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (int personaId in alumnos)
+                    {
+                        if (db.Actas_Examenes_Detalles.Where(
+                            a => a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == personaId
+                            && a.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID == ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID).Count() == 0)
+                        { 
+                        Acta_Examen_Detalle nuevoDetalle = new Acta_Examen_Detalle()
+                            {
+                                ACTA_EXAMEN_DETALLE_ALUMNOS_ID = personaId,
+                                ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID = ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID
+                            };
+                            db.Actas_Examenes_Detalles.Add(nuevoDetalle);
+                            db.SaveChanges();
+                        }
+
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                        {"Controller", "ActaExamen"}, 
+                        {"Action", "Edit"},
+                        {"id", ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID}
+                    });
+                }
+
+            }
+            return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                {"Controller", "ActaExamen"}, 
+                {"Action", "Edit"},
+                {"id", ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID}
+            });
+        }
+
+        [HttpPost]
+        public JsonResult ponerNota(int pk, string value, string name)
+        {
+            Acta_Examen_Detalle detalle = db.Actas_Examenes_Detalles.Find(pk);
+            detalle.ACTA_EXAMEN_DETALLE_NOTA = value;
+            db.SaveChanges();
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: ActaExamen/Details/5
         public ActionResult Details(int? id)
         {
@@ -88,6 +142,11 @@ namespace ColegioTerciario.Controllers
             ViewBag.MATERIAS = new SelectList(db.Materias, "ID", "MATERIA_NOMBRE");
             ViewBag.PERSONAS = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE");
             ViewBag.TURNOS = new SelectList(db.Turnos_Examenes.Include(t => t.TURNO_EXAMEN_CICLO), "ID", "TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR");
+            ViewBag.ALUMNOS = db.Actas_Examenes_Detalles
+                .Include("ACTA_EXAMEN_DETALLE_ALUMNO")
+                .Where(c => c.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID == id)
+                .OrderBy(a => a.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO)
+                .ToList();
             return View(acta_Examen);
         }
 

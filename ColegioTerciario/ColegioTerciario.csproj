@@ -292,6 +292,7 @@
     <Content Include="Content\DataTables-1.10.2\css\dataTables.responsive.scss" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.jqueryui.scss" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap-editable.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\cent11.js" />
@@ -416,6 +417,8 @@
     <Content Include="Views\ActaExamen\Details.cshtml" />
     <Content Include="Views\ActaExamen\Edit.cshtml" />
     <Content Include="Views\ActaExamen\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ShortDateTime.cshtml" />
+    <Content Include="Views\Shared\_AgregaAlumnos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

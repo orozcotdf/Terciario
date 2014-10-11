@@ -1,0 +1,49 @@
+﻿<div class="modal fade" id="agregarAlumnosModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Agregar Alumnos</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table data-table table-bordered table-read-status">
+                    <thead>
+                        <tr>
+                            <th style="display: none;">ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>DNI</th>
+                            <th>Agregar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+
+                            <td colspan="6" class="dataTables_empty">
+                                Loading data from server
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("agregarAlumnos", (string)ViewData["Controlador"], FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden((string)ViewData["ForeignKey"], (int)Model.ID)
+                    <ul id="alumnosSeleccionados"></ul>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                }
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
