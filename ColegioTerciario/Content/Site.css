@@ -1,4 +1,19 @@
-﻿#sidebar-wrapper, .sidebar-nav {
+﻿.navegacion-contextual  {
+    position: fixed;
+    display: block;
+    width: 100%;
+    top: 45px;
+    left: 200px;
+    background-color: #ccc;
+    height: 41px;
+    padding: 6px;
+}
+
+.nav-secundaria .navbar-collapse {
+    margin-left: -30px !important;
+}
+
+#sidebar-wrapper, .sidebar-nav {
     width: 200px !important;
 }
 #sidebar-wrapper {
@@ -24,6 +39,9 @@
 .alumnos-curso th:nth-child(1) {
     min-width: 250px;
 }
+.alumnos-curso td {
+    max-width: 120px;
+}
 
 .editable-inline select.input-sm {
     padding: 0;
@@ -36,4 +54,12 @@
     padding: 3px 6px;
     display: inline-block;
     vertical-align: top;
+}
+
+.nav>li>a { padding: 13px 15px; }
+
+@media (min-width: 768px) {
+    #page-content-wrapper {
+        padding: 0;
+    }
 }

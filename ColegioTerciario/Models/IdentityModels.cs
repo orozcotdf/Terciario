@@ -18,6 +18,7 @@ namespace ColegioTerciario.Models
         }
     }
 
+    /*
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -29,5 +30,5 @@ namespace ColegioTerciario.Models
         {
             return new ApplicationDbContext();
         }
-    }
+    }*/
 }

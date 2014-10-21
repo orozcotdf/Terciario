@@ -2,13 +2,27 @@
 
 @{
     ViewBag.Title = "Index";
+    var grid = new WebGrid(
+        Model, rowsPerPage: 10
+        //columnNames: new[]  {"FECHA","LIBRO","FOLIO","TURNO"}
+    );
 }
 
-<h2>Index</h2>
+@section navegacionContextual {
+    <ul class="nav navbar-nav">
+         <li>@Html.ActionLink("Nueva Acta", "Create")</li>
+    </ul>
+    
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+        <form class="navbar-form navbar-right" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Busqueda">
+    </div>
+    <button type="submit" class="btn btn-default">Buscar</button>
+</form>
+
+}
+
 <table class="table">
     <tr>
         <th>
@@ -41,41 +55,42 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FECHA, "ShortDateTime")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_LIBRO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FOLIO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_PRESIDENTE.PERSONA_NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL1.PERSONA_NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL2.PERSONA_NOMBRE)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FECHA, "ShortDateTime")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_LIBRO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FOLIO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_PRESIDENTE.PERSONA_NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL1.PERSONA_NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL2.PERSONA_NOMBRE)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

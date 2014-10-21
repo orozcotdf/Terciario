@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
+using ColegioTerciario.Models.Repositories;
 
 namespace ColegioTerciario.Controllers
 {
@@ -90,11 +91,25 @@ namespace ColegioTerciario.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Acta_Examen acta_Examen = db.Actas_Examenes.Find(id);
+            Acta_Examen acta_Examen = db.Actas_Examenes
+                .Include(a => a.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_CICLO)
+                .Include(a => a.ACTA_EXAMEN_CARRERA)
+                .Include(a => a.ACTA_EXAMEN_MATERIA)
+                .Include(a => a.ACTA_EXAMEN_PRESIDENTE)
+                .Include(a => a.ACTA_EXAMEN_VOCAL1)
+                .Include(a => a.ACTA_EXAMEN_VOCAL2)
+                .SingleOrDefault(a => a.ID.Equals(id.Value));
+
             if (acta_Examen == null)
             {
                 return HttpNotFound();
             }
+            //var repo = new PersonasRepository();
+            //ViewBag.ALUMNOS = repo.GetPersonasByActa(acta_Examen.ID);
+            ViewBag.DETALLES = db.Actas_Examenes_Detalles
+                .Include(a => a.ACTA_EXAMEN_DETALLE_ALUMNO)
+                .Where(a => a.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID == id).ToList();
+
             return View(acta_Examen);
         }
 

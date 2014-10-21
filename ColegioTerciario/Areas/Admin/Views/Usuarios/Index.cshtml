@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ColegioTerciario.Models.UserViewModel>
+
+@{
+    ViewBag.Title = "View";
+}
+
+@section navegacionContextual  {
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Nuevo Usuario", "Create")</li>
+    </ul>
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Roles</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.UserName</td>
+                <td>@item.RoleName</td>
+                <td>@item.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>

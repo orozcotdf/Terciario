@@ -88,6 +88,14 @@ namespace ColegioTerciario.DAL.Models
         public virtual ICollection<Acta_Examen> ACTAS_VOCAL2 { get; set; }
         public virtual ICollection<Acta_Examen_Detalle> ACTAS_EXAMENES_DETALLES { get; set; }
 
-        /* TODO: AGREGAR BARRIO_ID Y NOMBRE_PARA_MOSTRAR */
+        #region Metodos
+
+        public string PERSONA_NOMBRE_COMPLETO {
+            get {
+                return PERSONA_APELLIDO + ", " + PERSONA_NOMBRE;
+            }
+        }
+
+        #endregion
     }
 }

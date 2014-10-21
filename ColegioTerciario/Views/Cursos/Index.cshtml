@@ -4,11 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@section navegacionContextual {
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Nuevo Curso", "Create")</li>
+    </ul>
 
-<p>
-    @Html.ActionLink("Nuevo Curso", "Create")
-</p>
+
+    <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Busqueda">
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+    </form>
+
+}
+
 <table class="table data-table table-bordered table-read-status">
     <thead>
         <tr>

@@ -38,14 +38,31 @@
                 <li><a href="~/ActaExamen/Index"><span class="glyphicon glyphicon-list-alt"></span>  Actas</a></li>
                 <li><a href="~/Carreras/Index"><span class="glyphicon glyphicon-send"></span>  Carreras</a></li>
                 <li><a href="~/Meterias/Index"><span class="glyphicon glyphicon-book"></span>  Materias</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-stats"></span>  Estadisticas</a></li>
+                <li><a href=""><span class="glyphicon glyphicon-stats"></span>  Estadisticas</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>  Configuración</a></li>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <li><a href="~/Admin/Usuarios">Usuarios</a></li>
+                    <li><a href="~/Admin/Roles">Roles</a></li>
+                }
             </ul>
 
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
+            <!--
+            <div class="navegacion-contextual">
+                
+            </div>
+                -->
+            <nav class="navbar navbar-default navbar-lower nav-secundaria" role="navigation">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse collapse-buttons">
+                        @RenderSection("navegacionContextual", required: false)
+                    </div>
+                </div>
+            </nav>
             <div class="container body-content">
                 @RenderBody()
                 <hr />

@@ -1,4 +1,5 @@
 ﻿using ColegioTerciario.DAL.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace ColegioTerciario.Models
 {
-    public class ColegioTerciarioContext : DbContext
+    public class ColegioTerciarioContext : IdentityDbContext<ApplicationUser>
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -44,6 +45,10 @@ namespace ColegioTerciario.Models
         }
 
 
+        public static ColegioTerciarioContext Create()
+        {
+            return new ColegioTerciarioContext();
+        }
 
     }
 
