@@ -11,6 +11,11 @@
 
 }
 
+@if (ViewBag.error != null)
+{
+    @Html.Partial("Error", null, new ViewDataDictionary { {"error", ViewBag.error} })
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -18,6 +23,7 @@
             <th>Usuario</th>
             <th>Roles</th>
             <th>Email</th>
+            <th>Persona</th>
         </tr>
     </thead>
     <tbody>
@@ -29,6 +35,7 @@
                 <td>@item.UserName</td>
                 <td>@item.RoleName</td>
                 <td>@item.Email</td>
+                <td>@item.Persona</td>
             </tr>
         }
     </tbody>

@@ -44,5 +44,11 @@ namespace ColegioTerciario.Models.Repositories
             }
             this.disposed = true;
         }
+
+
+        public IEnumerable<Persona> GetAlumnos()
+        {
+            return dbContext.Personas.OrderBy(a => a.PERSONA_APELLIDO).ToList();
+        }
     }
 }

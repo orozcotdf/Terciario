@@ -9,7 +9,7 @@ namespace ColegioTerciario.Areas.Admin.Models
     public class NewUserViewModel : ColegioTerciario.Models.RegisterViewModel
     {
         [Required]
-        public string PERSONA_USER_ID { get; set; }
-        public virtual ColegioTerciario.Models.ApplicationUser PERSONA_USER { get; set; }
+        public int USER_PERSONA_ID { get; set; }
+        public virtual ColegioTerciario.Models.ApplicationUser USER_PERSONA { get; set; }
     }
 }

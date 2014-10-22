@@ -10,5 +10,6 @@ namespace ColegioTerciario.Models.Repositories
     interface IPersonasRepository : IDisposable
     {
         IEnumerable<Persona> GetPersonasByActa(int acta_examen_id);
+        IEnumerable<Persona> GetAlumnos();
     }
 }

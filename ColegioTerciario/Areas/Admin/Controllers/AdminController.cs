@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ColegioTerciario.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private ColegioTerciarioContext _db;
