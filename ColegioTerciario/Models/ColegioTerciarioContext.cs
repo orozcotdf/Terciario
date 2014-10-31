@@ -1,9 +1,14 @@
-﻿using ColegioTerciario.DAL.Models;
+﻿using ColegioTerciario.DAL.Interfaces;
+using ColegioTerciario.DAL.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace ColegioTerciario.Models
@@ -38,7 +43,6 @@ namespace ColegioTerciario.Models
         public DbSet<Materia_x_Curso> Materias_X_Cursos { get; set; }
         public DbSet<Turno_Examen> Turnos_Examenes { get; set; }
         public DbSet<Sede> Sedes { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

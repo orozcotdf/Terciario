@@ -10,15 +10,18 @@ using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ColegioTerciario.Areas.Admin.Models;
 using ColegioTerciario.Models.Repositories;
+using System.Net;
 
 namespace ColegioTerciario.Areas.Admin.Controllers
 {
     public class UsuariosController : AdminController
     {
+        private UserRepository _repo;
         private ColegioTerciarioContext context;
         public UsuariosController()
         {
             context = GetContext();
+            _repo = new UserRepository();
         }
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
@@ -32,6 +35,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
                 _userManager = value;
             }
         }
+
         // GET: Admin/Seguridad
         public ActionResult Index()
         {
@@ -100,5 +104,72 @@ namespace ColegioTerciario.Areas.Admin.Controllers
             return View(newUserViewModel); 
 
         }
+
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.ALUMNOS = new SelectList(new PersonasRepository().GetAlumnos(), "ID", "PERSONA_NOMBRE_COMPLETO");
+            ApplicationUser user = _repo.GetUser(id);
+            EditUserViewModel vm = new EditUserViewModel
+            {
+                Email = user.Email,
+                USER_PERSONA_ID = user.USER_PERSONA_ID.Value
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditUserViewModel vm)
+        {
+            ViewBag.ALUMNOS = new SelectList(new PersonasRepository().GetAlumnos(), "ID", "PERSONA_NOMBRE_COMPLETO");
+            if (ModelState.IsValid)
+            {
+                var db = new ColegioTerciarioContext();
+                var usuario = db.Users.Find(vm.ID);
+                if (usuario.Email != vm.Email)
+                {
+                    usuario.Email = vm.Email;
+                    usuario.UserName = vm.Email;
+                };
+                usuario.USER_PERSONA_ID = vm.USER_PERSONA_ID;
+
+                db.SaveChanges();
+
+                if (vm.Password != null)
+                {
+                    UserManager.RemovePassword(usuario.Id);
+                    var result = UserManager.AddPassword(usuario.Id, vm.Password);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    
+                    AddErrors(result);
+                    return View(vm);
+                }
+                
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                
+                return View(vm);
+            }
+        }
+
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
     }
 }

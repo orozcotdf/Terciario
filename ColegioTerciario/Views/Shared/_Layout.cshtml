@@ -40,7 +40,7 @@
                 <li><a href="~/Meterias/Index"><span class="glyphicon glyphicon-book"></span>  Materias</a></li>
                 <li><a href=""><span class="glyphicon glyphicon-stats"></span>  Estadisticas</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>  Configuración</a></li>
-                @if (User.IsInRole("Administrador"))
+                @if (User.IsInRole("Admin"))
                 {
                     <li><a href="~/Admin/Usuarios">Usuarios</a></li>
                     <li><a href="~/Admin/Roles">Roles</a></li>

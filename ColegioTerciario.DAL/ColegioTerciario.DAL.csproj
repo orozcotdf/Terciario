@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDescriptible.cs" />
     <Compile Include="Models\Acta_Examen.cs" />
     <Compile Include="Models\Acta_Examen_Detalle.cs" />
     <Compile Include="Models\Barrio.cs" />

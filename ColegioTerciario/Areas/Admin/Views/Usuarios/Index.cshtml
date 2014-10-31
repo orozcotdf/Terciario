@@ -19,8 +19,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Usuario</th>
             <th>Roles</th>
             <th>Email</th>
             <th>Persona</th>
@@ -31,11 +29,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Id</td>
-                <td>@item.UserName</td>
                 <td>@item.RoleName</td>
                 <td>@item.Email</td>
                 <td>@item.Persona</td>
+                <td>@Html.ActionLink("Editar", "edit", new {id = @item.Id})</td>
             </tr>
         }
     </tbody>

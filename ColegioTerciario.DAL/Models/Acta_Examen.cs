@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColegioTerciario.DAL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +10,8 @@ using System.Threading.Tasks;
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Actas_Examenes")]
-    public class Acta_Examen
+    [Serializable]
+    public class Acta_Examen : IDescriptible
     {
         public Acta_Examen()
         {
@@ -66,5 +68,10 @@ namespace ColegioTerciario.DAL.Models
         #endregion
 
 
+
+        public string Describir()
+        {
+            return "ACTA " + this.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR;
+        }
     }
 }

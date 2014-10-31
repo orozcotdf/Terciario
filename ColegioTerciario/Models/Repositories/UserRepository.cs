@@ -45,5 +45,10 @@ namespace ColegioTerciario.Models.Repositories
             //context.Users.Where(u => u.USER_PERSONA_ID == persona_id).SingleOrDefault();
             return manager.Users.Where(u => u.USER_PERSONA_ID == persona_id).SingleOrDefault();
         }
+
+        public ApplicationUser GetUser(string user_id)
+        {
+            return manager.Users.FirstOrDefault(u => u.Id == user_id);
+        }
     }
 }

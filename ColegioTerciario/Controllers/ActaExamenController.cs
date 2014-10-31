@@ -108,7 +108,9 @@ namespace ColegioTerciario.Controllers
             //ViewBag.ALUMNOS = repo.GetPersonasByActa(acta_Examen.ID);
             ViewBag.DETALLES = db.Actas_Examenes_Detalles
                 .Include(a => a.ACTA_EXAMEN_DETALLE_ALUMNO)
-                .Where(a => a.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID == id).ToList();
+                .Where(a => a.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID == id)
+                .OrderBy(a => a.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO)
+                .ToList();
 
             return View(acta_Examen);
         }

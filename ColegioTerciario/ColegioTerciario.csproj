@@ -179,6 +179,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuariosController.cs" />
+    <Compile Include="Areas\Admin\Models\EditUserViewModel.cs" />
     <Compile Include="Areas\Admin\Models\NewUserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActaExamenController.cs" />
@@ -296,12 +297,10 @@
     <Content Include="Content\DataTables-1.10.2\swf\copy_csv_xls_pdf.swf" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\simple_sidebar.css" />
-    <Content Include="Content\yeti.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\yeti.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -313,6 +312,8 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Usuarios\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Usuarios\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuarios\Edit.cshtml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-editable.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -325,7 +326,6 @@
     <Content Include="Scripts\DataTables-1.10.2\dataTables.colReorder.min.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.colVis.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.colVis.min.js" />
-    <Content Include="Scripts\DataTables-1.10.2\datatables.es.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.fixedColumns.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.fixedColumns.min.js" />
     <Content Include="Scripts\DataTables-1.10.2\dataTables.fixedHeader.js" />
@@ -356,7 +356,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -445,6 +447,7 @@
     <Content Include="Areas\Admin\Views\Roles\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\ManageUserRoles.cshtml" />
     <Content Include="Views\Shared\_PrintLayout.cshtml" />
+    <Content Include="Views\ActaExamen\Details Backup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

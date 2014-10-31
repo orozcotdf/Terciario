@@ -1,0 +1,111 @@
+﻿@model ColegioTerciario.DAL.Models.Acta_Examen
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+
+<h2>Acta de Examen</h2>
+
+<div>
+    <h4>@Model.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_CICLO.CICLO_NOMBRE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_FECHA)
+        </dt>
+
+        <dd>
+            @String.Format("{0:MM/dd/yyyy}", Model.ACTA_EXAMEN_FECHA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_LIBRO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_LIBRO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_FOLIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_FOLIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_TURNOS_EXAMENES_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_CARRERAS_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_MATERIAS_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_PRESIDENTE_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_PRESIDENTE.PERSONA_NOMBRE_COMPLETO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_VOCAL1_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_VOCAL1.PERSONA_NOMBRE_COMPLETO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_VOCAL2_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTA_EXAMEN_VOCAL2.PERSONA_NOMBRE_COMPLETO)
+        </dd>
+    </dl>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Calificacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <!--@@foreach (ColegioTerciario.DAL.Models.Persona alumno in ViewBag.alumnos)-->
+        @foreach(ColegioTerciario.DAL.Models.Acta_Examen_Detalle detalle in ViewBag.DETALLES)
+        {
+            <tr>
+                <td>@detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_DOCUMENTO_NUMERO</td>
+                <td>@detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_NOMBRE</td>
+                <td>@detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO</td>
+                <td>@detalle.ACTA_EXAMEN_DETALLE_NOTA</td>
+            </tr>
+        }
+        
+    </tbody>
+</table>

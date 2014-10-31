@@ -59,7 +59,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FECHA, "ShortDateTime")
+                @if (item.ACTA_EXAMEN_FECHA != null)
+                {
+                    @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FECHA, "ShortDateTime")
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_LIBRO)
