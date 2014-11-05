@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace ColegioTerciario.DAL.Models
         }
     
         public int ID { get; set; }
+        [Display(Name="Ciudad")]
         public string CIUDAD_NAME { get; set; }
         public string CIUDAD_NAME_ASCII { get; set; }
         public string CIUDAD_SLUG { get; set; }

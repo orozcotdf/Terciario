@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace ColegioTerciario.DAL.Models
     public class Barrio
     {
         public int ID { get; set; }
+        [Display(Name="Barrio")]
         public string BARRIO_NOMBRE { get; set; }
         public int? BARRIO_CIUDAD_ID { get; set; }
 

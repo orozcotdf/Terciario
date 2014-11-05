@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace ColegioTerciario.DAL.Models
         public int ID { get; set; }
         public string PROVINCIA_NAME_ASCII { get; set; }
         public string PROVINCIA_SLUG { get; set; }
+        [Display(Name="Provincia")]
         public string PROVINCIA_NAME { get; set; }
         public string PROVINCIA_GEONAME_CODE { get; set; }
         public int PROVINCIA_COUNTRY_ID { get; set; }

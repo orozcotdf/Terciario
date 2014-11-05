@@ -82,13 +82,21 @@ namespace ColegioTerciario.Controllers
         public JsonResult IndexJSON(JQueryDataTableParamModel param)
         {
             var personas = db.Personas.ToList();
+            List<Persona> personasFiltradas;
 
-            var personasFiltradas = (from e in personas
-                                     where (param.sSearch == null ||
-                                     e.PERSONA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
-                                     e.PERSONA_APELLIDO.ToLower().Contains(param.sSearch.ToLower()))
-                                     select e).ToList();
-
+            if (param.sSearch == null)
+            {
+                personasFiltradas = personas;
+            }
+            else
+            {
+                personasFiltradas = (from e in personas
+                                    where (
+                                    e.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(param.sSearch.ToLower()) ||
+                                    e.PERSONA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
+                                    e.PERSONA_APELLIDO.ToLower().Contains(param.sSearch.ToLower()))
+                                    select e).ToList();
+            }
             var result = from p in personasFiltradas.Skip(param.iDisplayStart)
                          .Take(param.iDisplayLength)
                          select new[]  {
@@ -179,7 +187,7 @@ namespace ColegioTerciario.Controllers
             {
                 db.Personas.Add(persona);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = persona.ID });
             }
 
             ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(db.Barrios, "ID", "BARRIO_NOMBRE", persona.PERSONA_NACIMIENTO_BARRIO_ID);
@@ -219,7 +227,7 @@ namespace ColegioTerciario.Controllers
             {
                 db.Entry(persona).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = persona.ID });
             }
             ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(db.Barrios, "ID", "BARRIO_NOMBRE", persona.PERSONA_NACIMIENTO_BARRIO_ID);
             ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(db.Ciudades, "ID", "CIUDAD_NAME", persona.PERSONA_NACIMIENTO_CIUDAD_ID);

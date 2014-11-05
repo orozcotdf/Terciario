@@ -35,11 +35,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PROVINCIA.PROVINCIA_NAME_ASCII)
+            @Html.DisplayNameFor(model => model.PERSONA_NACIMIENTO_PROVINCIA.PROVINCIA_NAME)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_PROVINCIA.PROVINCIA_NAME_ASCII)
+            @Html.DisplayFor(model => model.PERSONA_NACIMIENTO_PROVINCIA.PROVINCIA_NAME)
         </dd>
 
         <dt>
@@ -220,7 +220,7 @@
 
     </dl>
 </div>
-
+<!--
 <form class="form-horizontal">
     <fieldset>
         <legend>Detalles</legend>
@@ -246,9 +246,10 @@
 
     </fieldset>
 </form>
-
+    -->
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Volver a la lista", "Index") |
+    @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID })
 </p>
 
