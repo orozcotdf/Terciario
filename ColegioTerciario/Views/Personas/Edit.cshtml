@@ -265,7 +265,7 @@
                     //How long the user has to pause their typing before sending the next request
                     quietMillis: 150,
                     //The url of the json service
-                    url: "http://localhost:63440/Datos/GetPaises",
+                    url: "/Datos/GetPaises",
                     dataType: 'jsonp',
                     //Our search term and what page we are on
                     data: function (term, page) {
@@ -288,7 +288,7 @@
                     // using its formatResult renderer - that way the repository name is shown preselected
                     var id = $(element).val();
                     if (id !== "") {
-                        $.ajax("http://localhost:63440/Datos/GetPais/" + id, {
+                        $.ajax("/Datos/GetPais/" + id, {
                             dataType: "json"
                         }).done(function (data) { callback(data); });
                     }
@@ -305,7 +305,7 @@
                     //How long the user has to pause their typing before sending the next request
                     quietMillis: 150,
                     //The url of the json service
-                    url: "http://localhost:63440/Datos/GetProvincias",
+                    url: "/Datos/GetProvincias",
                     dataType: 'jsonp',
                     //Our search term and what page we are on
                     data: function (term, page) {
@@ -328,7 +328,7 @@
                     // using its formatResult renderer - that way the repository name is shown preselected
                     var id = $(element).val();
                     if (id !== "") {
-                        $.ajax("http://localhost:63440/Datos/GetProvincia/" + id, {
+                        $.ajax("/Datos/GetProvincia/" + id, {
                             dataType: "json"
                         }).done(function (data) { callback(data); });
                     }
@@ -345,7 +345,7 @@
                     //How long the user has to pause their typing before sending the next request
                     quietMillis: 150,
                     //The url of the json service
-                    url: "http://localhost:63440/Datos/GetCiudades",
+                    url: "/Datos/GetCiudades",
                     dataType: 'jsonp',
                     //Our search term and what page we are on
                     data: function (term, page) {
@@ -368,7 +368,7 @@
                     // using its formatResult renderer - that way the repository name is shown preselected
                     var id = $(element).val();
                     if (id !== "") {
-                        $.ajax("http://localhost:63440/Datos/GetCiudad/" + id, {
+                        $.ajax("/Datos/GetCiudad/" + id, {
                             dataType: "json"
                         }).done(function (data) { callback(data); });
                     }
@@ -385,7 +385,7 @@
                     //How long the user has to pause their typing before sending the next request
                     quietMillis: 150,
                     //The url of the json service
-                    url: "http://localhost:63440/Datos/GetBarrios",
+                    url: "/Datos/GetBarrios",
                     dataType: 'jsonp',
                     //Our search term and what page we are on
                     data: function (term, page) {
@@ -408,7 +408,7 @@
                     // using its formatResult renderer - that way the repository name is shown preselected
                     var id = $(element).val();
                     if (id !== "") {
-                        $.ajax("http://localhost:63440/Datos/GetBarrio/" + id, {
+                        $.ajax("/Datos/GetBarrio/" + id, {
                             dataType: "json"
                         }).done(function (data) { callback(data); });
                     }

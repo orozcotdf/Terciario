@@ -15,6 +15,13 @@
 <table class="table alumnos-curso">
     <thead>
         <tr>
+            <th>Fechas: </th>
+            <td><a href="#" data-name="P1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}",Model.MATERIA_X_CURSO_P1_FECHA)</a></td>
+            <td><a href="#" data-name="R1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_R1_FECHA)</a></td>
+            <td><a href="#" data-name="P2_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_P2_FECHA)</a></td>
+            <td><a href="#" data-name="R2_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_R2_FECHA)</a></td>
+        </tr>
+        <tr>
             <th>Alumno</th>
             <th>P1</th>
             <th>R1</th>
@@ -199,6 +206,16 @@
                     { value: 10, text: "10" },
                     { value: "Ausente", text: "Ausente" },
                 ]
+            });
+
+            $('.date').editable({
+                url: '/Cursos/SetearFecha',
+                type: 'combodate',
+                mode: 'popup',
+                pk: @Model.ID,
+                viewformat: "DD/MM/YYYY",
+                locale: "es",
+                language: "es"
             });
         });
     </script>

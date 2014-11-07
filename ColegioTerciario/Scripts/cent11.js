@@ -1,4 +1,6 @@
-﻿$.extend(true, $.fn.dataTable.defaults, {
+﻿moment().locale("es");
+
+$.extend(true, $.fn.dataTable.defaults, {
     "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-4'i><'col-xs-8'p>>",
     "language": {
         "sProcessing": "Procesando...",
@@ -48,4 +50,5 @@ $(function () {
         language: 'es',
         format: 'dd/mm/yyyy'
     });
+    
 });

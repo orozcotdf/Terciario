@@ -22,11 +22,10 @@
 <table class="table data-table table-bordered table-read-status">
     <thead>
         <tr>
-            <th style="display: none;">ID</th>
+            <!--<th style="display: none;">ID</th>-->
             <th>CICLO</th>
             <th>SEDE</th>
             <th>CARRERA</th>
-            <th>MATERIA</th>
             <th>NOMBRE</th>
             <th></th>
         </tr>
@@ -57,12 +56,15 @@
             alumnos.push($(this).data('id'));
             $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
         });
+        $(document).ready(function () {
+            console.log("DATA");
          var $dataTable = $('.data-table').dataTable({
              "aaSorting": [[1, "desc"]], // default sort to Name
              "bServerSide": true,
              "sAjaxSource": "/cursos/index",
              "iDisplayLength": 10,
              "aoColumnDefs": [
+                 /*
                  {
                      "aTargets": [0],
                      'mData': null,
@@ -70,30 +72,30 @@
                          return '<td style="display:none;">' + data[0] + '</td>';
                      },
                      'visible': false
-                 },
-                 { "aTargets": [1], "name": "Ciclo" },
-                 { "aTargets": [2], "name": "Sede" },
-                 { "aTargets": [3], "name": "Carrera" },
-                 { "aTargets": [4], "name": "Materia" },
-                 { "aTargets": [5], "name": "Nombre" },
+                 },*/
+                 { "aTargets": [0], "name": "Ciclo" },
+                 { "aTargets": [1], "name": "Sede" },
+                 { "aTargets": [2], "name": "Carrera" },
+                 { "aTargets": [3], "name": "Nombre" },
                  {
-                     "aTargets": [6],
+                     "aTargets": [4],
                      "mData": null,
                      "mRender": function (data, type, full) {
-                         var id = data[0];
-                         return '<td><a href="/Cursos/Edit/' + id + '"><i class="cus-plus" title="Agregar"></i>Editar</a></td>';
+                         var anio = data[0];
+                         var nombre = data[3];
+                         return '<td><a href="/Curso/' + anio + '/' + nombre + '"><i class="cus-plus" title="Agregar"></i>Editar</a></td>';
                          // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
                      },
                      "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                          var id = parseInt(sData[0]);
 
-                         console.log(id);
+                         //console.log(id);
                          //$(this).css('pointer-events', 'none').css('color', 'black');
                      }
                  }
              ]
          });
-
+        });
          $('.data-table').on('page.dt', function (e, settings) {
              console.log(settings.aoColumns[0].mRender);
          });

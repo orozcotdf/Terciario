@@ -8,6 +8,7 @@ using ColegioTerciario.DAL.Models;
 using System.Web.Script.Serialization;
 using ColegioTerciario.Models.Repositories;
 using PagedList;
+using Newtonsoft.Json;
 
 namespace ColegioTerciario.Controllers
 {
@@ -19,13 +20,21 @@ namespace ColegioTerciario.Controllers
         {
             if (Request.IsAjaxRequest())
             {
+                var cursosIDS = db.Materias_X_Cursos.Select(c => c.MATERIA_X_CURSO_CURSO_NOMBRE).Distinct().ToList();
                 var cursos = db.Materias_X_Cursos
                     .Include("MATERIA_X_CURSO_CARRERA")
                     .Include("MATERIA_X_CURSO_CICLO")
                     .Include("MATERIA_X_CURSO_SEDE")
-                    .Include("MATERIA_X_CURSO_MATERIA")
+                    .Select(c => new {
+                          c.MATERIA_X_CURSO_CARRERA,
+                          c.MATERIA_X_CURSO_CICLO,
+                          c.MATERIA_X_CURSO_CURSO_NOMBRE,
+                          c.MATERIA_X_CURSO_SEDE
+                     })
+                    .Distinct()
                     .ToList();
-
+                
+                             
                 var cursosFiltrados = (from c in cursos
                                          where (param.sSearch == null ||
                                          c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
@@ -37,11 +46,9 @@ namespace ColegioTerciario.Controllers
                 var result = from c in cursosFiltrados.Skip(param.iDisplayStart)
                              .Take(param.iDisplayLength)
                              select new[]  {
-                             Convert.ToString(c.ID),
-                             c.MATERIA_X_CURSO_CICLO != null ? c.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE : null,
+                             c.MATERIA_X_CURSO_CICLO.CICLO_ANIO,
                              c.MATERIA_X_CURSO_SEDE != null ? c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE : null,
-                             c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,
-                             c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE,                             
+                             c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,                       
                              c.MATERIA_X_CURSO_CURSO_NOMBRE
                          };
 
@@ -117,6 +124,95 @@ namespace ColegioTerciario.Controllers
                 {"Action", "Edit"},
                 {"id", MATERIA_X_CURSO_ID}
             });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult agregarAlumnosACurso(string ciclo, string nombre, int[] alumnos)
+        {
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try { 
+                var cursos = db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA").Where(
+                   c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == ciclo &&
+                        c.MATERIA_X_CURSO_CURSO_NOMBRE == nombre
+                   ).ToList();
+
+                foreach(Materia_x_Curso curso in cursos)
+                {
+                    foreach(int alumnoId in alumnos)
+                    {
+                        var cursadasConEstaPersona = db.Cursadas.Where(c => c.CURSADA_ALUMNOS_ID == alumnoId && c.CURSADA_MATERIAS_X_CURSOS_ID == curso.ID).Count();
+                        if (cursadasConEstaPersona == 0)
+                        {
+                            Cursada nuevaCursada = new Cursada()
+                            {
+                                CURSADA_ALUMNOS_ID = alumnoId,
+                                CURSADA_MATERIAS_X_CURSOS_ID = curso.ID
+                            };
+                            db.Cursadas.Add(nuevaCursada);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                transaction.Commit();
+                return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                        {"Controller", "Cursos"}, 
+                        {"Action", "editarCurso"},
+                        {"ciclo", ciclo},
+                        {"nombre", nombre}
+                    });
+                }
+                catch (Exception)
+                {
+                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                        {"Controller", "Cursos"}, 
+                        {"Action", "editarCurso"},
+                        {"ciclo", ciclo},
+                        {"nombre", nombre}
+                    });
+                }
+
+            }
+            /*
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (int personaId in alumnos)
+                    {
+                        var cursadasConEstaPersona = db.Cursadas.Where(c => c.CURSADA_ALUMNOS_ID == personaId && c.CURSADA_MATERIAS_X_CURSOS_ID == MATERIA_X_CURSO_ID).Count();
+                        if (cursadasConEstaPersona == 0)
+                        {
+                            Cursada nuevaCursada = new Cursada()
+                            {
+                                CURSADA_ALUMNOS_ID = personaId,
+                                CURSADA_MATERIAS_X_CURSOS_ID = MATERIA_X_CURSO_ID
+                            };
+                            db.Cursadas.Add(nuevaCursada);
+                            db.SaveChanges();
+                        }
+
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                        {"Controller", "Cursos"}, 
+                        {"Action", "Edit"},
+                        {"id", MATERIA_X_CURSO_ID}
+                    });
+                }
+
+            }
+            return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                {"Controller", "Cursos"}, 
+                {"Action", "Edit"},
+                {"id", MATERIA_X_CURSO_ID}
+            });*/
+            return View();
         }
 
         [HttpPost]
@@ -219,6 +315,19 @@ namespace ColegioTerciario.Controllers
             return Redirect("/");
             
         }
+
+        [HttpGet]
+        public ActionResult editarCurso(string ciclo, string nombre)
+        {
+            
+            var cursos = db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA").Where(
+                c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == ciclo &&
+                     c.MATERIA_X_CURSO_CURSO_NOMBRE == nombre
+                ).ToList();
+            ViewBag.CICLO = ciclo;
+            ViewBag.NOMBRE = nombre;
+            return View(cursos);
+        }
         // GET: Cursos/Edit/5
         public ActionResult Edit(int id)
         {
@@ -268,6 +377,44 @@ namespace ColegioTerciario.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public JsonResult SetearFecha(int pk, DateTime? value, string name)
+        {
+            try
+            {
+                Materia_x_Curso curso = db.Materias_X_Cursos.Find(pk);
+                switch (name)
+                {
+                    case "P1_FECHA":
+                        curso.MATERIA_X_CURSO_P1_FECHA = value;
+                        
+                        break;
+                    case "R1_FECHA":
+                        curso.MATERIA_X_CURSO_R1_FECHA = value;
+                        break;
+                    case "P2_FECHA":
+                        curso.MATERIA_X_CURSO_P2_FECHA = value;
+                        break;
+                    case "R2_FECHA":
+                        curso.MATERIA_X_CURSO_R2_FECHA = value;
+                        break;
+                    default:
+                        break;
+                }
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string json = JsonConvert.SerializeObject(new Dictionary<string, string>
+                {
+                    {"error", ex.Message}
+                });
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+           
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
     }
 }
