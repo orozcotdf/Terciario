@@ -9,6 +9,9 @@ using System.Web.Script.Serialization;
 using ColegioTerciario.Models.Repositories;
 using PagedList;
 using Newtonsoft.Json;
+using Rotativa.MVC;
+using ColegioTerciario.Lib;
+using ColegioTerciario.Models.ViewModels;
 
 namespace ColegioTerciario.Controllers
 {
@@ -174,45 +177,6 @@ namespace ColegioTerciario.Controllers
                 }
 
             }
-            /*
-            using (var transaction = db.Database.BeginTransaction())
-            {
-                try
-                {
-                    foreach (int personaId in alumnos)
-                    {
-                        var cursadasConEstaPersona = db.Cursadas.Where(c => c.CURSADA_ALUMNOS_ID == personaId && c.CURSADA_MATERIAS_X_CURSOS_ID == MATERIA_X_CURSO_ID).Count();
-                        if (cursadasConEstaPersona == 0)
-                        {
-                            Cursada nuevaCursada = new Cursada()
-                            {
-                                CURSADA_ALUMNOS_ID = personaId,
-                                CURSADA_MATERIAS_X_CURSOS_ID = MATERIA_X_CURSO_ID
-                            };
-                            db.Cursadas.Add(nuevaCursada);
-                            db.SaveChanges();
-                        }
-
-                    }
-
-                    transaction.Commit();
-                }
-                catch (Exception)
-                {
-                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
-                        {"Controller", "Cursos"}, 
-                        {"Action", "Edit"},
-                        {"id", MATERIA_X_CURSO_ID}
-                    });
-                }
-
-            }
-            return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
-                {"Controller", "Cursos"}, 
-                {"Action", "Edit"},
-                {"id", MATERIA_X_CURSO_ID}
-            });*/
-            return View();
         }
 
         [HttpPost]
@@ -242,6 +206,31 @@ namespace ColegioTerciario.Controllers
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult Set(int pk, string value, string name)
+        {
+            Materia_x_Curso mat_x_curso = db.Materias_X_Cursos.Find(pk);
+            if (value != "")
+            {
+                string nota = value;
+                switch (name)
+                {
+                    case ("MATERIA_X_CURSO_DOCENTE_ID"):
+                        mat_x_curso.MATERIA_X_CURSO_DOCENTE_ID = int.Parse(value);
+                        break;
+                    default:
+                        break;
+                }
+               
+            }
+            else
+            {
+                mat_x_curso.MATERIA_X_CURSO_DOCENTE_ID = null;
+            }
+            db.SaveChanges();
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
 
         // POST: Cursos/Create
         [HttpPost]
@@ -334,9 +323,13 @@ namespace ColegioTerciario.Controllers
             var curso = db.Materias_X_Cursos
                 .Include("MATERIA_X_CURSO_CARRERA")
                 .Include("MATERIA_X_CURSO_MATERIA")
-                .Include("MATERIA_X_CURSO_CICLO").SingleOrDefault(c => c.ID == id);
+                .Include("MATERIA_X_CURSO_CICLO")
+                .Include("MATERIA_X_CURSO_DOCENTE")
+                .SingleOrDefault(c => c.ID == id);
             ViewBag.alumnos = db.Cursadas
-                .Include("CURSADA_ALUMNO").Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id).ToList();
+                .Include("CURSADA_ALUMNO")
+                .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
+                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id).ToList();
                           
             return View(curso);
         }
@@ -415,6 +408,70 @@ namespace ColegioTerciario.Controllers
             }
            
             return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PDF(int id, string instancia)
+        {
+            int notaMinima = 6;
+
+            var curso = db.Materias_X_Cursos
+                .Include("MATERIA_X_CURSO_CARRERA")
+                .Include("MATERIA_X_CURSO_MATERIA")
+                .Include("MATERIA_X_CURSO_DOCENTE")
+                .Include("MATERIA_X_CURSO_CICLO").SingleOrDefault(c => c.ID == id);
+
+            var reporte = new ParcialPDF();
+            reporte.Instancia = instancia;
+            reporte.Ciclo = curso.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE;
+            reporte.Integrantes = new List<Integrante>();
+            foreach (var cursada in db.Cursadas
+                .Include("CURSADA_ALUMNO")
+                .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
+                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id)) {
+
+                    var integrante = new Integrante();
+                    
+                    switch (reporte.Instancia)
+                    {
+                        case "P1":
+                            reporte.Nombre = "Primer Parcial";
+                            integrante.Calificacion = cursada.CURSADA_NOTA_P1;
+                            break;
+                        case "R1":
+                            reporte.Nombre = "Primer Recuperatorio";
+                            integrante.Calificacion = cursada.CURSADA_NOTA_R1;
+                            break;
+                        case "P2":
+                            reporte.Nombre = "Segundo Parcial";
+                            integrante.Calificacion = cursada.CURSADA_NOTA_P2;
+                            break;
+                        case "R2":
+                            reporte.Nombre = "Segundo Recuperatorio";
+                            integrante.Calificacion = cursada.CURSADA_NOTA_R2;
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    // Setea Ausente si no tiene nota
+                    integrante.Calificacion = integrante.Calificacion != null ? integrante.Calificacion : "Ausente";
+                    integrante.Persona = cursada.CURSADA_ALUMNO;
+                    reporte.Integrantes.Add(integrante);
+            }
+            reporte.Carrera = curso.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE;
+            reporte.Docente = curso.MATERIA_X_CURSO_DOCENTE != null ? curso.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO : "";
+            reporte.Materia = curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE;
+            reporte.Sede = curso.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE;
+            reporte.Fecha = curso.MATERIA_X_CURSO_P1_FECHA;
+
+            reporte.Inscriptos = reporte.Integrantes.Count();
+
+            reporte.Examinados = reporte.Integrantes.Where(a => a.Calificacion != null).Count();
+            reporte.Aprobados = reporte.Integrantes.Where(a => ColegioTerciario.Lib.Helpers.ToNullableInt32(a.Calificacion) >= notaMinima).Count();
+            reporte.Desaprobados = reporte.Integrantes.Where(a => ColegioTerciario.Lib.Helpers.ToNullableInt32(a.Calificacion) < notaMinima).Count();
+            reporte.Ausentes = reporte.Integrantes.Where(a => a.Calificacion == null).Count();
+
+            return new ViewAsPdf(reporte);
         }
     }
 }

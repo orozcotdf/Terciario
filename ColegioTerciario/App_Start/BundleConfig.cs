@@ -21,9 +21,10 @@ namespace ColegioTerciario
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      
                       "~/Scripts/DataTables-1.10.3/jquery.dataTables.js",
                       "~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js",
-                      "~/Scripts/respond.js",
+                      "~/Scripts/respond.js",                      
                       "~/Scripts/bootstrap-editable.js",
                       "~/Scripts/select2.js",
                       "~/Scripts/Select2-locales/select2_locale_es.js",

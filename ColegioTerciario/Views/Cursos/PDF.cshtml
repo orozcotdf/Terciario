@@ -1,0 +1,91 @@
+﻿@model ColegioTerciario.Models.ViewModels.ParcialPDF
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+    int num = 1;
+}
+
+<div class="row">
+    <div class="col-xs-10">
+        <h1>Ministerio de Educación</h1>
+        <h2>Cent Nº 11 "Ciudad de Ushuaia"</h2>
+    </div> 
+    <div class="col-xs-2">
+        <h1>Cent11</h1>
+        <h4>Acta</h4>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>Carrera</th>
+                <td>@Model.Carrera</td>
+                <th>Ciclo</th>
+                <td>@Model.Ciclo</td>
+            </tr>
+            <tr>
+                <th>Materia</th>
+                <td>@Model.Materia</td>
+                <th>Fecha</th>
+                <td>@String.Format("{0:MM/dd/yyyy}", Model.Fecha)</td>
+            </tr>
+            <tr>
+                <th>Docente</th>
+                <td>@Model.Docente</td>
+                <th>Sede</th>
+                <td>@Model.Sede</td>
+            </tr>
+            <tr>
+                <th>Instancia</th>
+                <td>@Model.Nombre</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+<h4>ALUMNOS</h4>
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Num</th>
+            <th>DNI</th>
+            <th>Apellido y Nombre</th>
+            <th>Calificación</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <!--@@foreach (ColegioTerciario.DAL.Models.Persona alumno in ViewBag.alumnos)-->
+        @foreach (ColegioTerciario.Models.ViewModels.Integrante integrante in Model.Integrantes)
+        {
+            <tr>
+                <td>@(num++)</td>
+                <td>@integrante.Persona.PERSONA_DOCUMENTO_NUMERO</td>
+                <td>@integrante.Persona.PERSONA_NOMBRE_COMPLETO</td>
+                <td>@integrante.Calificacion</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<table class="table table-bordered table-condensed text-center">
+    <tr>
+        <td>Inscriptos</td>
+        <td>@Model.Inscriptos</td>
+        <td>Examinados</td>
+        <td>@Model.Examinados</td>
+        <td>Aprobados</td>
+        <td>@Model.Aprobados</td>
+        <td>Desaprobados</td>
+        <td>@Model.Desaprobados</td>
+        <td>Ausentes</td>
+        <td>@Model.Ausentes</td>
+    </tr>
+
+</table>

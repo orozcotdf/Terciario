@@ -20,7 +20,50 @@ namespace ColegioTerciario.Controllers
     } 
     public class DatosController : Controller
     {
-        
+        [HttpGet]
+        public ActionResult GetPersonas(string searchTerm, int pageSize, int pageNum)
+        {
+            //Get the paged results and the total count of the results for this query. 
+            ColegioTerciarioContext db = new ColegioTerciarioContext();
+            List<Persona> personas = (from e in db.Personas
+                                    where (
+                                    e.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(searchTerm.ToLower()) ||
+                                    e.PERSONA_NOMBRE.ToLower().Contains(searchTerm.ToLower()) ||
+                                    e.PERSONA_APELLIDO.ToLower().Contains(searchTerm.ToLower()))
+                                    select e)
+                .OrderBy(p => p.PERSONA_APELLIDO)
+                .Skip(pageSize * (pageNum - 1))
+                .Take(pageSize)
+                .ToList();
+
+            int count = (from e in db.Personas
+                         where (
+                         e.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(searchTerm.ToLower()) ||
+                         e.PERSONA_NOMBRE.ToLower().Contains(searchTerm.ToLower()) ||
+                         e.PERSONA_APELLIDO.ToLower().Contains(searchTerm.ToLower()))
+                         select e).Count();
+
+            //Translate the attendees into a format the select2 dropdown expects
+            Select2PagedResult pagedAttendees = PersonasToSelect2Format(personas, count);
+
+            //Return the data as a jsonp result
+            return new JsonpResult
+            {
+                Data = pagedAttendees,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+        [HttpGet]
+        public ActionResult GetPersona(int id)
+        {
+            ColegioTerciarioContext db = new ColegioTerciarioContext();
+            Persona persona = db.Personas.Find(id);
+            return new JsonpResult
+            {
+                Data = new Select2Result { id = persona.ID.ToString(), text = persona.PERSONA_NOMBRE_COMPLETO },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
         [HttpGet]
         public ActionResult GetPaises(string searchTerm, int pageSize, int pageNum)
         {
@@ -179,6 +222,22 @@ namespace ColegioTerciario.Controllers
             foreach (Pais a in attendees)
             {
                 jsonAttendees.Results.Add(new Select2Result { id = a.ID.ToString(), text = a.PAIS_NAME });
+            }
+            //Set the total count of the results from the query.
+            jsonAttendees.Total = totalAttendees;
+
+            return jsonAttendees;
+        }
+
+        private Select2PagedResult PersonasToSelect2Format(List<Persona> personas, int totalAttendees)
+        {
+            Select2PagedResult jsonAttendees = new Select2PagedResult();
+            jsonAttendees.Results = new List<Select2Result>();
+
+            //Loop through our attendees and translate it into a text value and an id for the select list
+            foreach (Persona a in personas)
+            {
+                jsonAttendees.Results.Add(new Select2Result { id = a.ID.ToString(), text = a.PERSONA_NOMBRE_COMPLETO });
             }
             //Set the total count of the results from the query.
             jsonAttendees.Total = totalAttendees;

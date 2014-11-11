@@ -6,16 +6,22 @@
 <h2>Curso @Model.MATERIA_X_CURSO_CURSO_NOMBRE - @Model.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE</h2>
 <h3>@Model.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE</h3>
 <h4>@Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE</h4>
+<h4>
+    Docente: <a href="#" id="MATERIA_X_CURSO_DOCENTE_ID" name="MATERIA_X_CURSO_DOCENTE_ID" data-value="@Model.MATERIA_X_CURSO_DOCENTE_ID">
+        @(Model.MATERIA_X_CURSO_DOCENTE != null ? Model.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO : "")</a>
+    
+</h4>
 
 <!-- Button trigger modal -->
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregarAlumnosModal">
     Agregar alumnos al curso
 </button>
 
+
 <table class="table alumnos-curso">
     <thead>
         <tr>
-            <th>Fechas: </th>
+            <th style="border: none;">Fechas: </th>
             <td><a href="#" data-name="P1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}",Model.MATERIA_X_CURSO_P1_FECHA)</a></td>
             <td><a href="#" data-name="R1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_R1_FECHA)</a></td>
             <td><a href="#" data-name="P2_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_P2_FECHA)</a></td>
@@ -133,7 +139,7 @@
 
     <script type="text/javascript">
         var alumnos = [];
-
+        var pageSize = 5;
 
 
         $.extend(true, $.fn.dataTable.defaults, {
@@ -145,6 +151,13 @@
             alumnos.push($(this).data('id'));
             $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
         });
+        
+        $('.alumnos-curso').DataTable({
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+        });
+
         var $dataTable = $('.data-table').dataTable({
             "aaSorting": [[1, "desc"]], // default sort to Name
             "bServerSide": true,
@@ -183,11 +196,11 @@
                 }
             ]
         });
-
+        
         $('.data-table').on('page.dt', function (e, settings) {
             console.log(settings.aoColumns[0].mRender);
         });
-
+        
         $(document).ready(function () {
             /* EDITABLE */
             $('.xEditable').editable({
@@ -208,6 +221,41 @@
                 ]
             });
 
+            $("#MATERIA_X_CURSO_DOCENTE_ID").editable({
+                type: 'select2', 
+                pk: @Model.ID,
+                url: "/Cursos/Set",
+                emptytext: "Seleccione un Docente",
+                select2:  {
+                    placeholder: "Seleccione un docente",
+                    minimumInputLength: 3,
+                    allowClear: true,
+                    dropdownCssClass: "bigdrop",
+                    ajax: {
+                        //How long the user has to pause their typing before sending the next request
+                        quietMillis: 150,
+                        //The url of the json service
+                        url: "/Datos/GetPersonas",
+                        dataType: 'json',
+                        //Our search term and what page we are on
+                        data: function (term, page) {
+                            return {
+                                pageSize: pageSize,
+                                pageNum: page,
+                                searchTerm: term
+                            };
+                        },
+                        results: function (data, page) {
+                            
+                            var more = (page * pageSize) < data.Total; // whether or not there are more results available
+
+                            // notice we return the value of more so Select2 knows if more results can be loaded
+                            return { results: data.Results, more: more };
+                        }
+                    }
+                }
+                
+            });
             $('.date').editable({
                 url: '/Cursos/SetearFecha',
                 type: 'combodate',
@@ -215,7 +263,8 @@
                 pk: @Model.ID,
                 viewformat: "DD/MM/YYYY",
                 locale: "es",
-                language: "es"
+                language: "es",
+                emptytext: "Editar fecha"
             });
         });
     </script>
