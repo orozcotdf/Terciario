@@ -30,7 +30,11 @@
                     </tbody>
 
                 </table>
+                <div class="row">
+                    <div class="col-md-12 listadoAlumnosParaAgregar">
 
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 @using (Html.BeginForm("agregarAlumnos", (string)ViewData["Controlador"], FormMethod.Post))
@@ -39,7 +43,7 @@
                     @Html.Hidden((string)ViewData["ForeignKey"], (int)Model.ID)
                     <ul id="alumnosSeleccionados"></ul>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                    <input id="AgregarAlumnos" type="submit" class="btn btn-primary" value="Guardar" />
                 }
 
             </div>

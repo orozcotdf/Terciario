@@ -81,12 +81,12 @@ namespace ColegioTerciario.Controllers
 
         public JsonResult IndexJSON(JQueryDataTableParamModel param)
         {
-            var personas = db.Personas.ToList();
+            var personas = db.Personas;
             List<Persona> personasFiltradas;
 
             if (param.sSearch == null)
             {
-                personasFiltradas = personas;
+                personasFiltradas = personas.ToList();
             }
             else
             {
@@ -109,7 +109,7 @@ namespace ColegioTerciario.Controllers
             return Json(new
             {
                 sEcho = param.sEcho,
-                iTotalRecords = personas.Count,
+                iTotalRecords = personas.Count(),
                 iTotalDisplayRecords = personasFiltradas.Count,
                 iDisplayStart = param.iDisplayStart,
                 iDisplayLength = param.iDisplayLength,

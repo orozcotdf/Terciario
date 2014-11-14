@@ -21,7 +21,7 @@ namespace ColegioTerciario
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      
+                      "~/Scripts/bootbox.js",
                       "~/Scripts/DataTables-1.10.3/jquery.dataTables.js",
                       "~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js",
                       "~/Scripts/respond.js",                      
@@ -37,6 +37,7 @@ namespace ColegioTerciario
                       "~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css",
                       "~/Content/bootstrap-editable.css",
                       "~/Content/select2.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/site.css"));
 
             // Para la depuración, establezca EnableOptimizations en false. Para obtener más información,

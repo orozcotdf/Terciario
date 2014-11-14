@@ -1,5 +1,6 @@
 ﻿using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
+using ColegioTerciario.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,7 @@ using System.Web.Mvc;
 
 namespace ColegioTerciario.Controllers
 {
-    public class Select2PagedResult
-    {
-        public int Total { get; set; }
-        public List<Select2Result> Results { get; set; }
-    }
-    public class Select2Result
-    {
-        public string id { get; set; }
-        public string text { get; set; }
-    } 
+
     public class DatosController : Controller
     {
         [HttpGet]
@@ -28,8 +20,7 @@ namespace ColegioTerciario.Controllers
             List<Persona> personas = (from e in db.Personas
                                     where (
                                     e.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(searchTerm.ToLower()) ||
-                                    e.PERSONA_NOMBRE.ToLower().Contains(searchTerm.ToLower()) ||
-                                    e.PERSONA_APELLIDO.ToLower().Contains(searchTerm.ToLower()))
+                                    (e.PERSONA_NOMBRE + " " + e.PERSONA_APELLIDO).Contains(searchTerm.ToLower()))
                                     select e)
                 .OrderBy(p => p.PERSONA_APELLIDO)
                 .Skip(pageSize * (pageNum - 1))
@@ -39,8 +30,8 @@ namespace ColegioTerciario.Controllers
             int count = (from e in db.Personas
                          where (
                          e.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(searchTerm.ToLower()) ||
-                         e.PERSONA_NOMBRE.ToLower().Contains(searchTerm.ToLower()) ||
-                         e.PERSONA_APELLIDO.ToLower().Contains(searchTerm.ToLower()))
+                         (e.PERSONA_NOMBRE + " " + e.PERSONA_APELLIDO).Contains(searchTerm.ToLower()))
+                         
                          select e).Count();
 
             //Translate the attendees into a format the select2 dropdown expects

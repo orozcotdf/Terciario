@@ -40,6 +40,7 @@
         {
             <tr>
                 <th>
+                    <a href="#" class="eliminar-integrante" data-id="@cursada.ID"><i class="fa fa-remove"></i></a>
                     <ul>
                         <li>@cursada.CURSADA_ALUMNO.PERSONA_APELLIDO, @cursada.CURSADA_ALUMNO.PERSONA_NOMBRE</li>
                         <li>@cursada.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO</li>
@@ -81,58 +82,6 @@
     { "Controlador", "Cursos"}
 } )
 
-<!--
-<div class="modal fade" id="agregarAlumnosModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Agregar Alumnos</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table data-table table-bordered table-read-status">
-                    <thead>
-                        <tr>
-                            <th style="display: none;">ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>DNI</th>
-                            <th>Agregar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-
-                            <td colspan="6" class="dataTables_empty">
-                                Loading data from server
-
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-                
-            </div>
-            <div class="modal-footer">
-                @using (Html.BeginForm("agregarAlumnos", "Cursos", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("MATERIA_X_CURSO_ID", @Model.ID)
-                    <ul id="alumnosSeleccionados"></ul>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <input type="submit" class="btn btn-primary" value="Guardar" />
-                }
-                
-            </div>
-        </div><!-- /.modal-content --
-    </div><!-- /.modal-dialog --
-</div><!-- /.modal --
-
--->
-
 
 
 @section scripts {
@@ -149,6 +98,13 @@
         $(document).on('click', '.agregar-persona-a-curso', function () {
             $(this).css('pointer-events', 'none').css('color', 'black');
             alumnos.push($(this).data('id'));
+            if (alumnos.length > 1)
+                $('#AgregarAlumnos').val("Agregar " + alumnos.length + " alumnos");
+            else
+                $('#AgregarAlumnos').val("Agregar " + alumnos.length + " alumno");
+
+            $('.listadoAlumnosParaAgregar').append($(this).data('nombre') + " | ");
+            
             $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
         });
         
@@ -161,34 +117,30 @@
         var $dataTable = $('.data-table').dataTable({
             "aaSorting": [[1, "desc"]], // default sort to Name
             "bServerSide": true,
-            "sAjaxSource": "/personas/indexJSON",
+            "sAjaxSource": "/api/Personas",
             "iDisplayLength": 4,
-            "aoColumnDefs": [
+            columns:  [
+                {data: "ID",visible: false},
+                {data: "PERSONA_NOMBRE"},
+                {data: "PERSONA_APELLIDO"},
+                {data: "PERSONA_DOCUMENTO_NUMERO"},
+                {data: null}
+            ],
+            columnDefs: [
                 {
-                    "aTargets": [0],
-                    'mData': null,
-                    'mRender': function (data, type, full) {
-                        return '<td style="display:none;">' + data[0] + '</td>';
+                    targets: 4,
+                    data: null,
+                    render: function(data, type, row){
+                        var id = row["ID"];
+                        var nombre = row["PERSONA_NOMBRE"];
+                        var apellido = row["PERSONA_APELLIDO"];
+                        return '<td><a href="#" class="add agregar-persona-a-curso" data-id="' + id + '" data-nombre="' + nombre + " " + apellido + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
                     },
-                    'visible': false
-                },
-                { "aTargets": [1], "name": "Nombre" },
-                { "aTargets": [2], "name": "Apellido" },
-                { "aTargets": [3], "name": "DNI" },
-                {
-                    "aTargets": [4],
-                    "mData": null,
-                    "mRender": function (data, type, full) {
-                        var id = data[0];
-                        return '<td><a href="#" class="add agregar-persona-a-curso" data-id="' + id + '" data-nombre="' + data[1] + " " + data[2] + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
-                        // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
-                    },
-                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        var id = parseInt(sData[0]);
-
+                    createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
+                        var id = parseInt(rowData["ID"]);
                         var enArray = $.inArray(id, alumnos);
                         if (enArray > -1) {
-                            var $link = $(nTd).find('a');
+                            var $link = $(cell).find('a');
                             $link.css('pointer-events', 'none').css('color', 'black');
                         }
                         //$(this).css('pointer-events', 'none').css('color', 'black');
@@ -256,6 +208,7 @@
                 }
                 
             });
+
             $('.date').editable({
                 url: '/Cursos/SetearFecha',
                 type: 'combodate',
@@ -265,6 +218,23 @@
                 locale: "es",
                 language: "es",
                 emptytext: "Editar fecha"
+            });
+
+            $('.eliminar-integrante').click(function(e){
+                e.preventDefault();
+                var id = $(this).data('id');
+                var row = $(this).parents('tr');
+                bootbox.confirm("Esta seguro?", function() {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/Api/Cursadas/" + id,
+                        success: function(){
+                            //location.reload();
+                            row.fadeOut('slow', function(){
+                            })
+                        }
+                    })
+                });
             });
         });
     </script>

@@ -117,37 +117,34 @@
             
             $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
         });
+
         var $dataTable = $('.data-table').dataTable({
             "aaSorting": [[1, "desc"]], // default sort to Name
             "bServerSide": true,
-            "sAjaxSource": "/Personas/indexJSON",
+            "sAjaxSource": "/api/Personas",
             "iDisplayLength": 4,
-            "aoColumnDefs": [
+            columns: [
+                { data: "ID", visible: false },
+                { data: "PERSONA_NOMBRE" },
+                { data: "PERSONA_APELLIDO" },
+                { data: "PERSONA_DOCUMENTO_NUMERO" },
+                { data: null }
+            ],
+            columnDefs: [
                 {
-                    "aTargets": [0],
-                    'mData': null,
-                    'mRender': function (data, type, full) {
-                        return '<td style="display:none;">' + data[0] + '</td>';
+                    targets: 4,
+                    data: null,
+                    render: function (data, type, row) {
+                        var id = row["ID"];
+                        var nombre = row["PERSONA_NOMBRE"];
+                        var apellido = row["PERSONA_APELLIDO"];
+                        return '<td><a href="#" class="add agregar-persona-a-curso" data-id="' + id + '" data-nombre="' + nombre + " " + apellido + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
                     },
-                    'visible': false
-                },
-                { "aTargets": [1], "name": "Nombre" },
-                { "aTargets": [2], "name": "Apellido" },
-                { "aTargets": [3], "name": "DNI" },
-                {
-                    "aTargets": [4],
-                    "mData": null,
-                    "mRender": function (data, type, full) {
-                        var id = data[0];
-                        return '<td><a href="#" class="add agregar-persona-a-curso" data-id="' + id + '" data-nombre="' + data[1] + " " + data[2] + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
-                        // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
-                    },
-                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        var id = parseInt(sData[0]);
-
+                    createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
+                        var id = parseInt(rowData["ID"]);
                         var enArray = $.inArray(id, alumnos);
                         if (enArray > -1) {
-                            var $link = $(nTd).find('a');
+                            var $link = $(cell).find('a');
                             $link.css('pointer-events', 'none').css('color', 'black');
                         }
                         //$(this).css('pointer-events', 'none').css('color', 'black');

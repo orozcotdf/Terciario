@@ -201,6 +201,7 @@ namespace ColegioTerciario.Controllers
                 default:
                     break;
             }
+            
             db.SaveChanges();
 
             return Json(new { }, JsonRequestBehavior.AllowGet);
@@ -469,7 +470,7 @@ namespace ColegioTerciario.Controllers
             reporte.Examinados = reporte.Integrantes.Where(a => a.Calificacion != null).Count();
             reporte.Aprobados = reporte.Integrantes.Where(a => ColegioTerciario.Lib.Helpers.ToNullableInt32(a.Calificacion) >= notaMinima).Count();
             reporte.Desaprobados = reporte.Integrantes.Where(a => ColegioTerciario.Lib.Helpers.ToNullableInt32(a.Calificacion) < notaMinima).Count();
-            reporte.Ausentes = reporte.Integrantes.Where(a => a.Calificacion == null).Count();
+            reporte.Ausentes = reporte.Integrantes.Where(a => a.Calificacion == "Ausente").Count();
 
             return new ViewAsPdf(reporte);
         }

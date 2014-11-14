@@ -42,6 +42,12 @@
 .alumnos-curso td {
     max-width: 120px;
 }
+.alumnos-curso th:nth-child(1) i {
+    float: left;
+    margin-right: 30px;
+    margin-top: 15px;
+    color: red;
+}
 
 .editable-inline select.input-sm {
     padding: 0;
