@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
+using ColegioTerciario.Models.ViewModels;
 using PagedList;
 
 
@@ -79,7 +80,7 @@ namespace ColegioTerciario.Controllers
             return View(personas.ToPagedList(pageNumber, pageSize));
         }
 
-        public JsonResult IndexJSON(JQueryDataTableParamModel param)
+        public JsonResult IndexJSON(DataTableParamModel param)
         {
             var personas = db.Personas;
             List<Persona> personasFiltradas;
@@ -120,7 +121,7 @@ namespace ColegioTerciario.Controllers
 
             /*
              * public ActionResult MasterDetailsAjaxHandler(
-             JQueryDataTableParamModel param, int? CompanyID)
+             DataTableParamModel param, int? CompanyID)
     {
 
         var employees = DataRepository.GetEmployees();

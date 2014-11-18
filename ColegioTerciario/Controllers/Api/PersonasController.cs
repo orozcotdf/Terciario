@@ -1,31 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 using System.Web.Http.Description;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
-using System.Web.Mvc;
+using ColegioTerciario.Models.ViewModels;
+using System.Web.Http;
 
 namespace ColegioTerciario.Controllers.Api
 {
     public class PersonasController : ApiController
     {
-        private ColegioTerciarioContext db = new ColegioTerciarioContext();
+        private readonly ColegioTerciarioContext _db = new ColegioTerciarioContext();
 
         // GET: api/Personas
-        //[HttpGet]
-        public object GetPersonas([FromUri]string sSearch, [FromUri] string sEcho, [FromUri]int iDisplayStart, [FromUri]int iDisplayLength)
+        [HttpGet]
+        public object GetPersonas([FromUri]DataTableParamModel param)
         {
-            var personas = db.Personas.AsQueryable();
+            var personas = _db.Personas.AsQueryable();
             IQueryable<Persona> personasFiltradas;
 
-            if (sSearch == null)
+            if (param.sSearch == null)
             {
                 personasFiltradas = personas;
             }
@@ -33,32 +29,31 @@ namespace ColegioTerciario.Controllers.Api
             {
                 personasFiltradas = (from e in personas
                                      where (
-                                     e.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(sSearch.ToLower()) ||
-                                     e.PERSONA_NOMBRE.ToLower().Contains(sSearch.ToLower()) ||
-                                     e.PERSONA_APELLIDO.ToLower().Contains(sSearch.ToLower()))
+                                     e.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(param.sSearch.ToLower()) ||
+                                     e.PERSONA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
+                                     e.PERSONA_APELLIDO.ToLower().Contains(param.sSearch.ToLower()))
                                      select e);
             }
-            var result = personasFiltradas
+            var result = personasFiltradas.Select(p => new{p.PERSONA_NOMBRE, p.PERSONA_APELLIDO, p.ID, p.PERSONA_DOCUMENTO_NUMERO})
                             .OrderBy(p => p.PERSONA_APELLIDO)
-                            .Skip(iDisplayStart)
-                            .Take(iDisplayLength);
-            var json = new
+                            .Skip(param.iDisplayStart)
+                            .Take(param.iDisplayLength);
+            return new
             {
-                sEcho = sEcho,
+                sEcho = param.sEcho,
                 iTotalRecords = personas.Count(),
                 iTotalDisplayRecords = personasFiltradas.Count(),
-                iDisplayStart = iDisplayStart,
-                iDisplayLength = iDisplayLength,
+                iDisplayStart = param.iDisplayStart,
+                iDisplayLength = param.iDisplayLength,
                 aaData = result
             };
-            return json;
         }
 
         // GET: api/Personas/5
         [ResponseType(typeof(Persona))]
         public IHttpActionResult GetPersona(int id)
         {
-            Persona persona = db.Personas.Find(id);
+            Persona persona = _db.Personas.Find(id);
             if (persona == null)
             {
                 return NotFound();
@@ -81,11 +76,11 @@ namespace ColegioTerciario.Controllers.Api
                 return BadRequest();
             }
 
-            db.Entry(persona).State = EntityState.Modified;
+            _db.Entry(persona).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -111,8 +106,8 @@ namespace ColegioTerciario.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            db.Personas.Add(persona);
-            db.SaveChanges();
+            _db.Personas.Add(persona);
+            _db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = persona.ID }, persona);
         }
@@ -121,14 +116,14 @@ namespace ColegioTerciario.Controllers.Api
         [ResponseType(typeof(Persona))]
         public IHttpActionResult DeletePersona(int id)
         {
-            Persona persona = db.Personas.Find(id);
+            Persona persona = _db.Personas.Find(id);
             if (persona == null)
             {
                 return NotFound();
             }
 
-            db.Personas.Remove(persona);
-            db.SaveChanges();
+            _db.Personas.Remove(persona);
+            _db.SaveChanges();
 
             return Ok(persona);
         }
@@ -137,14 +132,14 @@ namespace ColegioTerciario.Controllers.Api
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool PersonaExists(int id)
         {
-            return db.Personas.Count(e => e.ID == id) > 0;
+            return _db.Personas.Count(e => e.ID == id) > 0;
         }
     }
 }

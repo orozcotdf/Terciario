@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ColegioTerciario.DAL.Models
 {
@@ -20,7 +15,7 @@ namespace ColegioTerciario.DAL.Models
         #endregion
 
         #region Navegacion
-        [ForeignKey("ACTA_EXAMEN_DETALLE_ALUMNOS_ID")]
+        [ForeignKey("ACTA_EXAMEN_DETALLE_ALUMNOS_ID"), InverseProperty("ACTAS_EXAMENES_DETALLES")]
         public Persona ACTA_EXAMEN_DETALLE_ALUMNO { get; set; }
         [ForeignKey("ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID")]
         public Acta_Examen ACTA_EXAMEN_DETALLE_ACTA_EXAMEN { get; set; }

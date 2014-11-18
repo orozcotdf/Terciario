@@ -3,9 +3,22 @@
     ViewBag.Title = "Edit";
 }
 
+@section navegacionContextual {
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Volver al Curso", "EditarCurso", new{ciclo=Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre=Model.MATERIA_X_CURSO_CURSO_NOMBRE})</li>
+        <li></li>
+    </ul>
+    <div class="pull-left">
+    
+    @Html.DropDownList("MATERIAS", null, new { @class = "select" })
+    
+    </div>
+}
+
 <h2>Curso @Model.MATERIA_X_CURSO_CURSO_NOMBRE - @Model.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE</h2>
 <h3>@Model.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE</h3>
-<h4>@Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE</h4>
+<h4 class="materia_actual">@Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE</h4>
+
 <h4>
     Docente: <a href="#" id="MATERIA_X_CURSO_DOCENTE_ID" name="MATERIA_X_CURSO_DOCENTE_ID" data-value="@Model.MATERIA_X_CURSO_DOCENTE_ID">
         @(Model.MATERIA_X_CURSO_DOCENTE != null ? Model.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO : "")</a>
@@ -50,25 +63,25 @@
                 <td>
                     
                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P1" data-value="0">
-                        @(cursada.CURSADA_NOTA_P1 == null ? "Inserte la nota" : cursada.CURSADA_NOTA_P1)
+                        @(cursada.CURSADA_NOTA_P1 ?? "Inserte la nota")
                     </a>         
                 </td>
                 <td>
 
                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R1" data-value="0">
-                        @(cursada.CURSADA_NOTA_R1 == null ? "Inserte la nota" : cursada.CURSADA_NOTA_R1)
+                        @(cursada.CURSADA_NOTA_R1 ?? "Inserte la nota")
                     </a>
                 </td>
                 <td>
 
                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P2" data-value="0">
-                        @(cursada.CURSADA_NOTA_P2 == null ? "Inserte la nota" : cursada.CURSADA_NOTA_P2)
+                        @(cursada.CURSADA_NOTA_P2 ?? "Inserte la nota")
                     </a>
                 </td>
                 <td>
 
                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R2" data-value="0">
-                        @(cursada.CURSADA_NOTA_R2 == null ? "Inserte la nota" : cursada.CURSADA_NOTA_R2)
+                        @(cursada.CURSADA_NOTA_R2 ?? "Inserte la nota")
                     </a>
                 </td>
 
@@ -78,7 +91,7 @@
 </table>
 
 @Html.Partial("_AgregaAlumnos", Model, new ViewDataDictionary() {
-    {"ForeignKey", "MATERIA_X_CURSO_ID" },
+    {"ForeignKey", "materiaXCursoId" },
     { "Controlador", "Cursos"}
 } )
 
@@ -114,10 +127,10 @@
             "info":     false
         });
 
-        var $dataTable = $('.data-table').dataTable({
+        $('.data-table').dataTable({
             "aaSorting": [[1, "desc"]], // default sort to Name
             "bServerSide": true,
-            "sAjaxSource": "/api/Personas",
+            "sAjaxSource": "/api/Personas/GetPersonas",
             "iDisplayLength": 4,
             columns:  [
                 {data: "ID",visible: false},
@@ -152,11 +165,16 @@
         $('.data-table').on('page.dt', function (e, settings) {
             console.log(settings.aoColumns[0].mRender);
         });
-        
+
+        $("#MATERIAS").find('option:contains("' +$('.materia_actual').text() + '")').prop("selected", true);
+        $("#MATERIAS").change(function() {
+            var id = $(this).find("option:selected").val();
+            location.href = id;
+        });
         $(document).ready(function () {
             /* EDITABLE */
             $('.xEditable').editable({
-                url: '/Cursos/ponerNota',
+                url: '/Cursos/PonerNota',
                 prepend: [{ value: 0, text: "Seleccione una nota" }],
                 source: [
                     { value: 1, text: "1" },
@@ -227,7 +245,7 @@
                 bootbox.confirm("Esta seguro?", function() {
                     $.ajax({
                         type: "DELETE",
-                        url: "/Api/Cursadas/" + id,
+                        url: "/api/Cursadas/DeleteCursada/" + id,
                         success: function(){
                             //location.reload();
                             row.fadeOut('slow', function(){

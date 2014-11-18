@@ -48,11 +48,11 @@
             $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
         });
         $(document).ready(function () {
-            console.log("DATA");
-         var $dataTable = $('.data-table').dataTable({
+        
+         $('.data-table').dataTable({
              "aaSorting": [[1, "desc"]], // default sort to Name
              "bServerSide": true,
-             "sAjaxSource": "/cursos/index",
+             "sAjaxSource": "/api/Cursos/GetCursos",
              "iDisplayLength": 10,
              "aoColumnDefs": [
                  /*

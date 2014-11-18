@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ColegioTerciario.Models;
 using ColegioTerciario.DAL.Models;
-using System.Web.Script.Serialization;
 using ColegioTerciario.Models.Repositories;
-using PagedList;
 using Newtonsoft.Json;
 using Rotativa.MVC;
 using ColegioTerciario.Lib;
@@ -17,55 +16,16 @@ namespace ColegioTerciario.Controllers
 {
     public class CursosController : Controller
     {
-        ColegioTerciarioContext db = new ColegioTerciarioContext();
-        // GET: Cursos
-        public ActionResult Index(JQueryDataTableParamModel param)
+        readonly ColegioTerciarioContext _db;
+
+        public CursosController()
         {
-            if (Request.IsAjaxRequest())
-            {
-                var cursosIDS = db.Materias_X_Cursos.Select(c => c.MATERIA_X_CURSO_CURSO_NOMBRE).Distinct().ToList();
-                var cursos = db.Materias_X_Cursos
-                    .Include("MATERIA_X_CURSO_CARRERA")
-                    .Include("MATERIA_X_CURSO_CICLO")
-                    .Include("MATERIA_X_CURSO_SEDE")
-                    .Select(c => new {
-                          c.MATERIA_X_CURSO_CARRERA,
-                          c.MATERIA_X_CURSO_CICLO,
-                          c.MATERIA_X_CURSO_CURSO_NOMBRE,
-                          c.MATERIA_X_CURSO_SEDE
-                     })
-                    .Distinct()
-                    .ToList();
-                
-                             
-                var cursosFiltrados = (from c in cursos
-                                         where (param.sSearch == null ||
-                                         c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
-                                         c.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
-                                         c.MATERIA_X_CURSO_CURSO_NOMBRE.ToLower().Contains(param.sSearch.ToLower())
-                                         )
-                                         select c).ToList();
+            _db = new ColegioTerciarioContext();
+        }
 
-                var result = from c in cursosFiltrados.Skip(param.iDisplayStart)
-                             .Take(param.iDisplayLength)
-                             select new[]  {
-                             c.MATERIA_X_CURSO_CICLO.CICLO_ANIO,
-                             c.MATERIA_X_CURSO_SEDE != null ? c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE : null,
-                             c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,                       
-                             c.MATERIA_X_CURSO_CURSO_NOMBRE
-                         };
-
-                return Json(new
-                {
-                    sEcho = param.sEcho,
-                    iTotalRecords = cursos.Count,
-                    iTotalDisplayRecords = cursosFiltrados.Count,
-                    iDisplayStart = param.iDisplayStart,
-                    iDisplayLength = param.iDisplayLength,
-                    aaData = result
-                },
-                JsonRequestBehavior.AllowGet);
-            }
+        // GET: Cursos
+        public ActionResult Index(DataTableParamModel param)
+        {
             return View();
         }
 
@@ -78,9 +38,9 @@ namespace ColegioTerciario.Controllers
         // GET: Cursos/Create
         public ActionResult Create()
         {
-            ViewBag.CICLOS = new SelectList(db.Ciclos, "ID", "CICLO_NOMBRE");
-            ViewBag.CARRERAS = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
-            ViewBag.SEDES = new SelectList(db.Sedes, "ID", "SEDE_NOMBRE");
+            ViewBag.CICLOS = new SelectList(_db.Ciclos, "ID", "CICLO_NOMBRE");
+            ViewBag.CARRERAS = new SelectList(_db.Carreras, "ID", "CARRERA_NOMBRE");
+            ViewBag.SEDES = new SelectList(_db.Sedes, "ID", "SEDE_NOMBRE");
             ViewBag.error = Session["error"];
             return View();
         }
@@ -88,24 +48,25 @@ namespace ColegioTerciario.Controllers
         // POST: Cursos/agregarAlumnos
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult agregarAlumnos(int MATERIA_X_CURSO_ID, int[] alumnos)
+        public ActionResult AgregarAlumnos(int materiaXCursoId, int[] alumnos)
         {
-            using (var transaction = db.Database.BeginTransaction())
+            using (var transaction = _db.Database.BeginTransaction())
             {
                 try
                 {
                     foreach (int personaId in alumnos)
                     {
-                        var cursadasConEstaPersona = db.Cursadas.Where(c => c.CURSADA_ALUMNOS_ID == personaId && c.CURSADA_MATERIAS_X_CURSOS_ID == MATERIA_X_CURSO_ID).Count();
+                        int id = personaId;
+                        var cursadasConEstaPersona = _db.Cursadas.Count(c => c.CURSADA_ALUMNOS_ID == id && c.CURSADA_MATERIAS_X_CURSOS_ID == materiaXCursoId);
                         if (cursadasConEstaPersona == 0)
                         { 
-                            Cursada nuevaCursada = new Cursada()
+                            var nuevaCursada = new Cursada
                             {
                                 CURSADA_ALUMNOS_ID = personaId,
-                                CURSADA_MATERIAS_X_CURSOS_ID = MATERIA_X_CURSO_ID
+                                CURSADA_MATERIAS_X_CURSOS_ID = materiaXCursoId
                             };
-                            db.Cursadas.Add(nuevaCursada);
-                            db.SaveChanges();
+                            _db.Cursadas.Add(nuevaCursada);
+                            _db.SaveChanges();
                         }
                         
                     }
@@ -114,29 +75,31 @@ namespace ColegioTerciario.Controllers
                 }
                 catch (Exception)
                 {
-                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary
+                    { 
                         {"Controller", "Cursos"}, 
                         {"Action", "Edit"},
-                        {"id", MATERIA_X_CURSO_ID}
+                        {"id", materiaXCursoId}
                     });
                 }
                 
             }
-            return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+            return RedirectToRoute(new System.Web.Routing.RouteValueDictionary
+            { 
                 {"Controller", "Cursos"}, 
                 {"Action", "Edit"},
-                {"id", MATERIA_X_CURSO_ID}
+                {"id", materiaXCursoId}
             });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult agregarAlumnosACurso(string ciclo, string nombre, int[] alumnos)
+        public ActionResult AgregarAlumnosACurso(string ciclo, string nombre, int[] alumnos)
         {
-            using (var transaction = db.Database.BeginTransaction())
+            using (var transaction = _db.Database.BeginTransaction())
             {
                 try { 
-                var cursos = db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA").Where(
+                var cursos = _db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA").Where(
                    c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == ciclo &&
                         c.MATERIA_X_CURSO_CURSO_NOMBRE == nombre
                    ).ToList();
@@ -145,21 +108,24 @@ namespace ColegioTerciario.Controllers
                 {
                     foreach(int alumnoId in alumnos)
                     {
-                        var cursadasConEstaPersona = db.Cursadas.Where(c => c.CURSADA_ALUMNOS_ID == alumnoId && c.CURSADA_MATERIAS_X_CURSOS_ID == curso.ID).Count();
+                        int id = alumnoId;
+                        int cursoId = curso.ID;
+                        var cursadasConEstaPersona = _db.Cursadas.Count(c => c.CURSADA_ALUMNOS_ID == id && c.CURSADA_MATERIAS_X_CURSOS_ID == cursoId);
                         if (cursadasConEstaPersona == 0)
                         {
-                            Cursada nuevaCursada = new Cursada()
+                            var nuevaCursada = new Cursada
                             {
                                 CURSADA_ALUMNOS_ID = alumnoId,
                                 CURSADA_MATERIAS_X_CURSOS_ID = curso.ID
                             };
-                            db.Cursadas.Add(nuevaCursada);
-                            db.SaveChanges();
+                            _db.Cursadas.Add(nuevaCursada);
+                            _db.SaveChanges();
                         }
                     }
                 }
                 transaction.Commit();
-                return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                return RedirectToRoute(new System.Web.Routing.RouteValueDictionary
+                { 
                         {"Controller", "Cursos"}, 
                         {"Action", "editarCurso"},
                         {"ciclo", ciclo},
@@ -168,7 +134,8 @@ namespace ColegioTerciario.Controllers
                 }
                 catch (Exception)
                 {
-                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary() { 
+                    return RedirectToRoute(new System.Web.Routing.RouteValueDictionary
+                    { 
                         {"Controller", "Cursos"}, 
                         {"Action", "editarCurso"},
                         {"ciclo", ciclo},
@@ -180,9 +147,9 @@ namespace ColegioTerciario.Controllers
         }
 
         [HttpPost]
-        public JsonResult ponerNota(int pk, string value, string name)
+        public JsonResult PonerNota(int pk, string value, string name)
         {
-            Cursada cursada = db.Cursadas.Find(pk);
+            Cursada cursada = _db.Cursadas.Find(pk);
             string nota = value;
             switch (name)
             {
@@ -198,11 +165,9 @@ namespace ColegioTerciario.Controllers
                 case "R2":
                     cursada.CURSADA_NOTA_R2 = nota;
                     break;
-                default:
-                    break;
             }
             
-            db.SaveChanges();
+            _db.SaveChanges();
 
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
@@ -210,25 +175,22 @@ namespace ColegioTerciario.Controllers
         [HttpPost]
         public JsonResult Set(int pk, string value, string name)
         {
-            Materia_x_Curso mat_x_curso = db.Materias_X_Cursos.Find(pk);
+            Materia_x_Curso matXCurso = _db.Materias_X_Cursos.Find(pk);
             if (value != "")
             {
-                string nota = value;
                 switch (name)
                 {
                     case ("MATERIA_X_CURSO_DOCENTE_ID"):
-                        mat_x_curso.MATERIA_X_CURSO_DOCENTE_ID = int.Parse(value);
-                        break;
-                    default:
+                        matXCurso.MATERIA_X_CURSO_DOCENTE_ID = int.Parse(value);
                         break;
                 }
                
             }
             else
             {
-                mat_x_curso.MATERIA_X_CURSO_DOCENTE_ID = null;
+                matXCurso.MATERIA_X_CURSO_DOCENTE_ID = null;
             }
-            db.SaveChanges();
+            _db.SaveChanges();
 
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
@@ -236,35 +198,36 @@ namespace ColegioTerciario.Controllers
         // POST: Cursos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int SEDE, int CICLO, int CARRERA, int? AÑO, string[] NROS)
+        //public ActionResult Create(int SEDE, int CICLO, int CARRERA, int? AÑO, string[] NROS)
+        public ActionResult Create(CreateCurso parametros)
         {
-            if (AÑO == null || NROS.All(n => n == "false"))
+            if (parametros.Año == 0 || parametros.Nros.All(n => n == "false"))
             {
                 Session["error"] = "Debe definir todos los campos";
                 return RedirectToAction("create");
             }
-            List<Materia_x_Curso> materias_x_cursos = new List<Materia_x_Curso>();
-            MateriasXCursoRepository repo = new MateriasXCursoRepository(db);
+            var materiasXCursos = new List<Materia_x_Curso>();
+            var repo = new MateriasXCursoRepository(_db);
             try
             {
-                Sede sede = db.Sedes.Find(SEDE);
-                Ciclo ciclo = db.Ciclos.Find(CICLO);
-                Carrera carrera = db.Carreras.Find(CARRERA);
+                Sede sede = _db.Sedes.Find(parametros.Sede);
+                Ciclo ciclo = _db.Ciclos.Find(parametros.Ciclo);
+                Carrera carrera = _db.Carreras.Find(parametros.Carrera);
                 ICollection<Materia> materias = (from m in carrera.MATERIAS
-                                                where m.MATERIA_ANIO == AÑO.ToString()
+                                                where m.MATERIA_ANIO == parametros.Año.ToString(CultureInfo.InvariantCulture)
                                                 select m).ToList();
                 
                 
                 foreach (Materia materia in materias)
                 {
-                    NROS = NROS.Where(nro => nro != "false").ToArray();
-                    foreach (string NRO in NROS)
+                    parametros.Nros = parametros.Nros.Where(nro => nro != "false").ToArray();
+                    foreach (string nro in parametros.Nros)
                     {
-                        materias_x_cursos.Add(new Materia_x_Curso()
+                        materiasXCursos.Add(new Materia_x_Curso
                         {
                             MATERIA_X_CURSO_CARRERA = carrera,
                             MATERIA_X_CURSO_CICLO = ciclo,
-                            MATERIA_X_CURSO_CURSO_NOMBRE = carrera.CARRERA_CODIGO + "-" + AÑO + "" + NRO,
+                            MATERIA_X_CURSO_CURSO_NOMBRE = carrera.CARRERA_CODIGO + "-" + parametros.Año + "" + nro,
                             MATERIA_X_CURSO_MATERIA = materia,
                             MATERIA_X_CURSO_SEDE = sede,
                         });
@@ -273,7 +236,7 @@ namespace ColegioTerciario.Controllers
 
                 try
                 {
-                    Session["materias_x_cursos_ids"] = repo.InsertMateriasXCursos(materias_x_cursos);
+                    Session["materias_x_cursos_ids"] = repo.InsertMateriasXCursos(materiasXCursos);
                 }
                 catch (Exception)
                 {
@@ -294,23 +257,23 @@ namespace ColegioTerciario.Controllers
         {
             if (Session["materias_x_cursos_ids"] != null)
             { 
-                ICollection<int> ids = Session["materias_x_cursos_ids"] as ICollection<int>;
-                ICollection<Materia_x_Curso> materias_x_cursos = db.Materias_X_Cursos.
+                var ids = Session["materias_x_cursos_ids"] as ICollection<int>;
+                ICollection<Materia_x_Curso> materiasXCursos = _db.Materias_X_Cursos.
                     Include("MATERIA_X_CURSO_CICLO").
                     Include("MATERIA_X_CURSO_CARRERA").
                     Include("MATERIA_X_CURSO_MATERIA").
                     Where(c => ids.Contains(c.ID)).ToList(); //(from m in db.Materias_X_Cursos where ids.Contains(m.ID) select m) .ToList();
-                return View(materias_x_cursos);
+                return View(materiasXCursos);
             }
             return Redirect("/");
             
         }
 
         [HttpGet]
-        public ActionResult editarCurso(string ciclo, string nombre)
+        public ActionResult EditarCurso(string ciclo, string nombre)
         {
             
-            var cursos = db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA").Where(
+            var cursos = _db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA").Where(
                 c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == ciclo &&
                      c.MATERIA_X_CURSO_CURSO_NOMBRE == nombre
                 ).ToList();
@@ -321,17 +284,37 @@ namespace ColegioTerciario.Controllers
         // GET: Cursos/Edit/5
         public ActionResult Edit(int id)
         {
-            var curso = db.Materias_X_Cursos
+            var materiasSelectList = new Dictionary<string, string>();
+            var curso = _db.Materias_X_Cursos
                 .Include("MATERIA_X_CURSO_CARRERA")
                 .Include("MATERIA_X_CURSO_MATERIA")
                 .Include("MATERIA_X_CURSO_CICLO")
                 .Include("MATERIA_X_CURSO_DOCENTE")
-                .SingleOrDefault(c => c.ID == id);
-            ViewBag.alumnos = db.Cursadas
+                .FirstOrDefault(c => c.ID == id);
+
+            var materias = _db.Materias_X_Cursos.Include("MATERIA_X_CURSO_CICLO").Include("MATERIA_X_CURSO_MATERIA").Where(
+                c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == curso.MATERIA_X_CURSO_CICLO.CICLO_ANIO &&
+                     c.MATERIA_X_CURSO_CURSO_NOMBRE == curso.MATERIA_X_CURSO_CURSO_NOMBRE
+                ).Select(c => new {c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE, c.MATERIA_X_CURSO_MATERIA.ID}).ToList();
+
+            foreach (var materia in materias)
+            {
+                var a =
+                    _db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA")
+                    .SingleOrDefault(c => c.MATERIA_X_CURSO_CURSO_NOMBRE == curso.MATERIA_X_CURSO_CURSO_NOMBRE &&
+                        c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == curso.MATERIA_X_CURSO_CICLO.CICLO_ANIO &&
+                        c.MATERIA_X_CURSO_MATERIAS_ID == materia.ID);
+                //materiasSelectList.Add(new SelectListItem(){ Value = a.ID.ToString(), Text = a.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE});
+                materiasSelectList.Add(a.ID.ToString(), a.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
+            }
+
+            ViewBag.alumnos = _db.Cursadas
                 .Include("CURSADA_ALUMNO")
                 .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
                 .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id).ToList();
-                          
+
+            var selectListMaterias = new SelectList(materiasSelectList,"Key", "Value", curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
+            ViewBag.MATERIAS = selectListMaterias;
             return View(curso);
         }
 
@@ -341,7 +324,7 @@ namespace ColegioTerciario.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+               
 
                 return RedirectToAction("Index");
             }
@@ -363,8 +346,6 @@ namespace ColegioTerciario.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -378,7 +359,7 @@ namespace ColegioTerciario.Controllers
         {
             try
             {
-                Materia_x_Curso curso = db.Materias_X_Cursos.Find(pk);
+                Materia_x_Curso curso = _db.Materias_X_Cursos.Find(pk);
                 switch (name)
                 {
                     case "P1_FECHA":
@@ -394,10 +375,8 @@ namespace ColegioTerciario.Controllers
                     case "R2_FECHA":
                         curso.MATERIA_X_CURSO_R2_FECHA = value;
                         break;
-                    default:
-                        break;
                 }
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -411,21 +390,23 @@ namespace ColegioTerciario.Controllers
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PDF(int id, string instancia)
+        public ActionResult Pdf(int id, string instancia)
         {
-            int notaMinima = 6;
+            const int notaMinima = 6;
 
-            var curso = db.Materias_X_Cursos
+            var curso = _db.Materias_X_Cursos
                 .Include("MATERIA_X_CURSO_CARRERA")
                 .Include("MATERIA_X_CURSO_MATERIA")
                 .Include("MATERIA_X_CURSO_DOCENTE")
                 .Include("MATERIA_X_CURSO_CICLO").SingleOrDefault(c => c.ID == id);
 
-            var reporte = new ParcialPDF();
-            reporte.Instancia = instancia;
-            reporte.Ciclo = curso.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE;
-            reporte.Integrantes = new List<Integrante>();
-            foreach (var cursada in db.Cursadas
+            var reporte = new ParcialPDF
+            {
+                Instancia = instancia,
+                Ciclo = curso.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE,
+                Integrantes = new List<Integrante>()
+            };
+            foreach (var cursada in _db.Cursadas
                 .Include("CURSADA_ALUMNO")
                 .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
                 .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id)) {
@@ -450,12 +431,10 @@ namespace ColegioTerciario.Controllers
                             reporte.Nombre = "Segundo Recuperatorio";
                             integrante.Calificacion = cursada.CURSADA_NOTA_R2;
                             break;
-                        default:
-                            break;
                     }
                     
                     // Setea Ausente si no tiene nota
-                    integrante.Calificacion = integrante.Calificacion != null ? integrante.Calificacion : "Ausente";
+                    integrante.Calificacion = integrante.Calificacion ?? "Ausente";
                     integrante.Persona = cursada.CURSADA_ALUMNO;
                     reporte.Integrantes.Add(integrante);
             }
@@ -467,10 +446,10 @@ namespace ColegioTerciario.Controllers
 
             reporte.Inscriptos = reporte.Integrantes.Count();
 
-            reporte.Examinados = reporte.Integrantes.Where(a => a.Calificacion != null).Count();
-            reporte.Aprobados = reporte.Integrantes.Where(a => ColegioTerciario.Lib.Helpers.ToNullableInt32(a.Calificacion) >= notaMinima).Count();
-            reporte.Desaprobados = reporte.Integrantes.Where(a => ColegioTerciario.Lib.Helpers.ToNullableInt32(a.Calificacion) < notaMinima).Count();
-            reporte.Ausentes = reporte.Integrantes.Where(a => a.Calificacion == "Ausente").Count();
+            reporte.Examinados = reporte.Integrantes.Count(a => a.Calificacion != null);
+            reporte.Aprobados = reporte.Integrantes.Count(a => a.Calificacion.ToNullableInt32() >= notaMinima);
+            reporte.Desaprobados = reporte.Integrantes.Count(a => a.Calificacion.ToNullableInt32() < notaMinima);
+            reporte.Ausentes = reporte.Integrantes.Count(a => a.Calificacion == "Ausente");
 
             return new ViewAsPdf(reporte);
         }

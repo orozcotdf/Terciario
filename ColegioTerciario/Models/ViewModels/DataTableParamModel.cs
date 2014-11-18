@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ColegioTerciario.Models
+﻿namespace ColegioTerciario.Models.ViewModels
 {
-    public class JQueryDataTableParamModel
+    public class DataTableParamModel
     {
         public string sEcho { get; set; }
 

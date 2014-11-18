@@ -69,21 +69,31 @@
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(model => model.ACTA_EXAMEN_PRESIDENTE_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("ACTA_EXAMEN_PRESIDENTE_ID", (SelectList)ViewBag.PERSONAS, htmlAttributes: new { @class = "form-control" })
+                            @{
+                                
+                    //Html.DropDownList("ACTA_EXAMEN_PRESIDENTE_ID", (SelectList)ViewBag.PERSONAS, htmlAttributes: new { @class = "form-control" })
+                            }  
+                            <input type="text" id="ACTA_EXAMEN_PRESIDENTE_ID" name="ACTA_EXAMEN_PRESIDENTE_ID" value="@Model.ACTA_EXAMEN_PRESIDENTE_ID"/>
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(model => model.ACTA_EXAMEN_VOCAL1_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
+                            @*
                             @Html.DropDownList("ACTA_EXAMEN_VOCAL1_ID", (SelectList)ViewBag.PERSONAS, htmlAttributes: new { @class = "form-control" })
+                    *@
+                            <input type="text" id="ACTA_EXAMEN_VOCAL1_ID" name="ACTA_EXAMEN_VOCAL1_ID" value="@Model.ACTA_EXAMEN_VOCAL1_ID" />
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(model => model.ACTA_EXAMEN_VOCAL2_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
+                @*
                             @Html.DropDownList("ACTA_EXAMEN_VOCAL2_ID", (SelectList)ViewBag.PERSONAS, htmlAttributes: new { @class = "form-control" })
+*@
+                            <input type="text" id="ACTA_EXAMEN_VOCAL2_ID" name="ACTA_EXAMEN_VOCAL2_ID" value="@Model.ACTA_EXAMEN_VOCAL2_ID" />
                         </div>
                     </div>
 
@@ -142,7 +152,7 @@
 
     <script type="text/javascript">
         var alumnos = [];
-
+        var pageSize = 5;
 
 
         $.extend(true, $.fn.dataTable.defaults, {
@@ -197,6 +207,47 @@
              console.log(settings.aoColumns[0].mRender);
          });
 
+         $("#ACTA_EXAMEN_PRESIDENTE_ID, #ACTA_EXAMEN_VOCAL1_ID, #ACTA_EXAMEN_VOCAL2_ID").select2({
+             placeholder: "Seleccione un docente",
+             minimumInputLength: 3,
+             allowClear: true,
+             dropdownCssClass: "bigdrop",
+             width:"100%",
+             ajax: {
+                 //How long the user has to pause their typing before sending the next request
+                 quietMillis: 150,
+                 //The url of the json service
+                 url: "/Datos/GetPersonas",
+                 dataType: 'json',
+                 //Our search term and what page we are on
+                 data: function (term, page) {
+                     return {
+                         pageSize: pageSize,
+                         pageNum: page,
+                         searchTerm: term
+                     };
+                 },
+                 results: function (data, page) {
+
+                     var more = (page * pageSize) < data.Total; // whether or not there are more results available
+
+                     // notice we return the value of more so Select2 knows if more results can be loaded
+                     return { results: data.Results, more: more };
+                 },
+                 cache: true
+             },
+             initSelection: function (element, callback) {
+                 // the input tag has a value attribute preloaded that points to a preselected repository's id
+                 // this function resolves that id attribute to an object that select2 can render
+                 // using its formatResult renderer - that way the repository name is shown preselected
+                 var id = $(element).val();
+                 if (id !== "") {
+                     $.ajax("/Datos/GetPersona/" + id, {
+                         dataType: "json"
+                     }).done(function (data) { callback(data); });
+                 }
+             },
+         });
          $(document).ready(function () {
              /* EDITABLE */
              $('.xEditable').editable({
@@ -216,6 +267,8 @@
                      { value: "Ausente", text: "Ausente" },
                  ]
              });
+
+             
          });
     </script>
 }

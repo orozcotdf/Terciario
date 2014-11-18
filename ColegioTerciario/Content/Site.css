@@ -73,3 +73,8 @@
 .select2-container {
         width:200px;
     }
+
+#MATERIAS {
+    height: 30px;
+    margin-top: 8px;
+}

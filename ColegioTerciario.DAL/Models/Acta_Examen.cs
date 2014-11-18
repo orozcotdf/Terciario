@@ -23,6 +23,7 @@ namespace ColegioTerciario.DAL.Models
         public int ID { get; set; }
         [Column(TypeName = "Date")]
         [Display(Name="Fecha")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> ACTA_EXAMEN_FECHA { get; set; }
         public int? ACTA_EXAMEN_INSCRIPTOS { get; set; }
         public int? ACTA_EXAMEN_APROBADOS { get; set; }

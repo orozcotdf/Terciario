@@ -134,9 +134,7 @@ namespace ColegioTerciario.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            int count = db.Paises.Where(
-                p => p.PAIS_NAME.Contains(searchTerm))
-                .Count();
+            int count = db.Paises.Count(p => p.PAIS_NAME.Contains(searchTerm));
 
             //Translate the attendees into a format the select2 dropdown expects
             Select2PagedResult pagedAttendees = ProvinciasToSelect2Format(provincias, count);
@@ -161,9 +159,7 @@ namespace ColegioTerciario.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            int count = db.Paises.Where(
-                p => p.PAIS_NAME.Contains(searchTerm))
-                .Count();
+            int count = db.Paises.Count(p => p.PAIS_NAME.Contains(searchTerm));
 
             //Translate the attendees into a format the select2 dropdown expects
             Select2PagedResult pagedAttendees = CiudadesToSelect2Format(ciudades, count);
@@ -222,7 +218,7 @@ namespace ColegioTerciario.Controllers
 
         private Select2PagedResult PersonasToSelect2Format(List<Persona> personas, int totalAttendees)
         {
-            Select2PagedResult jsonAttendees = new Select2PagedResult();
+            var jsonAttendees = new Select2PagedResult();
             jsonAttendees.Results = new List<Select2Result>();
 
             //Loop through our attendees and translate it into a text value and an id for the select list

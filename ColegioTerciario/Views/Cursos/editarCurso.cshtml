@@ -121,7 +121,7 @@
         var $dataTable = $('.data-table').dataTable({
             "aaSorting": [[1, "desc"]], // default sort to Name
             "bServerSide": true,
-            "sAjaxSource": "/api/Personas",
+            "sAjaxSource": "/api/Personas/GetPersonas",
             "iDisplayLength": 4,
             columns: [
                 { data: "ID", visible: false },
@@ -147,7 +147,6 @@
                             var $link = $(cell).find('a');
                             $link.css('pointer-events', 'none').css('color', 'black');
                         }
-                        //$(this).css('pointer-events', 'none').css('color', 'black');
                     }
                 }
             ]

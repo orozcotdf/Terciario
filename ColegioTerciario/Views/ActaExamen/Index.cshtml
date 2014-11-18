@@ -80,18 +80,18 @@
                 @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_PRESIDENTE.PERSONA_NOMBRE)
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_PRESIDENTE.PERSONA_NOMBRE_COMPLETO)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL1.PERSONA_NOMBRE)
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL1.PERSONA_NOMBRE_COMPLETO)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL2.PERSONA_NOMBRE)
+                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL2.PERSONA_NOMBRE_COMPLETO)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
             </td>
         </tr>
     }
