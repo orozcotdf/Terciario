@@ -31,7 +31,7 @@
 </button>
 
 
-<table class="table alumnos-curso">
+<table class="table table-hover table-condensed alumnos-curso">
     <thead>
         <tr>
             <th style="border: none;">Fechas: </th>
@@ -175,7 +175,8 @@
             /* EDITABLE */
             $('.xEditable').editable({
                 url: '/Cursos/PonerNota',
-                prepend: [{ value: 0, text: "Seleccione una nota" }],
+                //prepend: [{ value: 0, text: "Inserte la nota" }],
+                emptyText: "Inserte la nota",
                 source: [
                     { value: 1, text: "1" },
                     { value: 2, text: "2" },
@@ -188,6 +189,7 @@
                     { value: 9, text: "9" },
                     { value: 10, text: "10" },
                     { value: "Ausente", text: "Ausente" },
+                    { value: "Eliminar", text: "Inserte la nota"}
                 ]
             });
 
@@ -228,7 +230,7 @@
             });
 
             $('.date').editable({
-                url: '/Cursos/SetearFecha',
+                url: '/api/Cursos/SetearFecha',
                 type: 'combodate',
                 mode: 'popup',
                 pk: @Model.ID,

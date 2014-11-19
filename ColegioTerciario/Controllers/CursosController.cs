@@ -150,7 +150,8 @@ namespace ColegioTerciario.Controllers
         public JsonResult PonerNota(int pk, string value, string name)
         {
             Cursada cursada = _db.Cursadas.Find(pk);
-            string nota = value;
+            string nota = value != "Eliminar" ? value : null;
+            
             switch (name)
             {
                 case("P1"):
@@ -169,7 +170,8 @@ namespace ColegioTerciario.Controllers
             
             _db.SaveChanges();
 
-            return Json(new { }, JsonRequestBehavior.AllowGet);
+            var result = value != "Eliminar" ? "" : "Inserte la Nota";
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

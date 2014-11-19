@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -7,9 +9,16 @@ using System.Web.Http.Description;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.ViewModels;
+using Newtonsoft.Json;
 
 namespace ColegioTerciario.Controllers.Api
 {
+    public class FechaViewModel
+    {
+        public DateTime? value { get; set; }
+        public int pk { get; set; }
+        public string name { get; set; }
+    }
     public class CursosController : ApiController
     {
         private readonly ColegioTerciarioContext _db;
@@ -92,6 +101,44 @@ namespace ColegioTerciario.Controllers.Api
             return new {};
         }
 
+
+
+        [HttpPost]
+        public IHttpActionResult SetearFecha([FromBody]FechaViewModel param)
+        {
+            try
+            {
+                Materia_x_Curso curso = _db.Materias_X_Cursos.Find(param.pk);
+                switch (param.name)
+                {
+                    case "P1_FECHA":
+                        curso.MATERIA_X_CURSO_P1_FECHA = param.value;
+
+                        break;
+                    case "R1_FECHA":
+                        curso.MATERIA_X_CURSO_R1_FECHA = param.value;
+                        break;
+                    case "P2_FECHA":
+                        curso.MATERIA_X_CURSO_P2_FECHA = param.value;
+                        break;
+                    case "R2_FECHA":
+                        curso.MATERIA_X_CURSO_R2_FECHA = param.value;
+                        break;
+                }
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                /*string json = JsonConvert.SerializeObject(new Dictionary<string, string>
+                {
+                    {"error", ex.Message}
+                });
+                return Json(json, JsonRequestBehavior.AllowGet);*/
+                return NotFound();
+            }
+
+            return Ok();
+        }
 
         protected override void Dispose(bool disposing)
         {
