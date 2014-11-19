@@ -7,9 +7,8 @@ using ColegioTerciario.DAL.Models;
 
 namespace ColegioTerciario.Models.Repositories
 {
-    public interface IMateriasXCursoRepository : IDisposable
+    public interface IMateriasXCursoRepository : IRepository<Materia_x_Curso>
     {
-        IEnumerable<Materia_x_Curso> GetMateriasXCursos();
         List<int> InsertMateriasXCursos(List<Materia_x_Curso> materias_x_cursos);
         int InsertMateriaXCurso(Materia_x_Curso materia_x_curso);
         bool ChequeaSiExisteCurso(Materia_x_Curso materia_x_curso);
