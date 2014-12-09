@@ -4,94 +4,104 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Actas de Examen Final</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">Nueva Acta de Examen Final</div>
+            <div class="portlet body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_FECHA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ACTA_EXAMEN_FECHA, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_FECHA, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_FECHA, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ACTA_EXAMEN_FECHA, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_FECHA, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_LIBRO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ACTA_EXAMEN_LIBRO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_LIBRO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_LIBRO, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ACTA_EXAMEN_LIBRO, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_LIBRO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_FOLIO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ACTA_EXAMEN_FOLIO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_FOLIO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_FOLIO, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ACTA_EXAMEN_FOLIO, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_FOLIO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_TURNOS_EXAMENES_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ACTA_EXAMEN_TURNOS_EXAMENES_ID", (SelectList)ViewBag.TURNOS, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_TURNOS_EXAMENES_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("ACTA_EXAMEN_TURNOS_EXAMENES_ID", (SelectList)ViewBag.TURNOS, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_CARRERAS_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ACTA_EXAMEN_CARRERAS_ID", (SelectList)ViewBag.CARRERAS, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_CARRERAS_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_CARRERAS_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("ACTA_EXAMEN_CARRERAS_ID", (SelectList)ViewBag.CARRERAS, "Seleccione una Carrera", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_CARRERAS_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_MATERIAS_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ACTA_EXAMEN_MATERIAS_ID", (SelectList)ViewBag.MATERIAS, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_MATERIAS_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <select id="ACTA_EXAMEN_MATERIAS_ID" name="ACTA_EXAMEN_MATERIAS_ID" class="form-control">
+                                    <option val="0">Elija una carrera</option>
+                                </select>
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_PRESIDENTE_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="ACTA_EXAMEN_PRESIDENTE_ID" name="ACTA_EXAMEN_PRESIDENTE_ID" value="" />
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_PRESIDENTE_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="text" id="ACTA_EXAMEN_PRESIDENTE_ID" name="ACTA_EXAMEN_PRESIDENTE_ID" value="" />
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_VOCAL1_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="ACTA_EXAMEN_VOCAL1_ID" name="ACTA_EXAMEN_VOCAL1_ID" value="" />
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_VOCAL1_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="text" id="ACTA_EXAMEN_VOCAL1_ID" name="ACTA_EXAMEN_VOCAL1_ID" value="" />
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ACTA_EXAMEN_VOCAL2_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="ACTA_EXAMEN_VOCAL2_ID" name="ACTA_EXAMEN_VOCAL2_ID" value="" />
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACTA_EXAMEN_VOCAL2_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="text" id="ACTA_EXAMEN_VOCAL2_ID" name="ACTA_EXAMEN_VOCAL2_ID" value="" />
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Volver a la Lista", "Index", null, new {@class="btn btn-default"})
+                </div>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+
 
 @section scripts {
     <script type="text/javascript">
@@ -136,6 +146,22 @@
                     }).done(function (data) { callback(data); });
                 }
             },
+        });
+
+        $(document).ready(function() {
+            $('#ACTA_EXAMEN_CARRERAS_ID').change(function() {
+                var carreraId = $(this).find('option:selected').val();
+                $.getJSON("/api/Materias/GetPorCarrera", {
+                    carreraId: carreraId
+                }, function (data, status) {
+                    $('#ACTA_EXAMEN_MATERIAS_ID').find('option').remove();
+                    $.each(data, function () {
+                        
+                        $('#ACTA_EXAMEN_MATERIAS_ID').append($("<option />").val(this.ID).text(this.MATERIA_NOMBRE));
+                    });
+
+                });
+            });
         });
     </script>
 }

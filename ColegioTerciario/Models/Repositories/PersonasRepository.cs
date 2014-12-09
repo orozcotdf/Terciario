@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ColegioTerciario.Models.ViewModels;
 
 namespace ColegioTerciario.Models.Repositories
 {
@@ -13,15 +14,15 @@ namespace ColegioTerciario.Models.Repositories
 
         public IEnumerable<Persona> GetPersonasByActa(int acta_examen_id)
         {
-            List<Persona> alumnos = new List<Persona>();
+            var alumnos = new List<Persona>();
             
-            var actas_detalles = dbContext.Actas_Examenes_Detalles
+            var actasDetalles = dbContext.Actas_Examenes_Detalles
                .Include("ACTA_EXAMEN_DETALLE_ALUMNO")
                .Where(c => c.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID == acta_examen_id)
                .OrderBy(a => a.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO)
                .ToList();
 
-            foreach (Acta_Examen_Detalle detalle in actas_detalles)
+            foreach (Acta_Examen_Detalle detalle in actasDetalles)
             {
                 alumnos.Add(detalle.ACTA_EXAMEN_DETALLE_ALUMNO);
             }
@@ -45,10 +46,94 @@ namespace ColegioTerciario.Models.Repositories
             this.disposed = true;
         }
 
-
         public IEnumerable<Persona> GetAlumnos()
         {
             return dbContext.Personas.OrderBy(a => a.PERSONA_APELLIDO).ToList();
+        }
+
+
+        public IQueryable<SituacionAcademicaPorCiclosViewModel> GetSituacionAcademicaPorCiclos(Persona persona)
+        {
+            var cursadas = from c in dbContext.Cursadas
+                           where c.CURSADA_ALUMNOS_ID == persona.ID
+                           group c by c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE into grp
+                           select new SituacionAcademicaPorCiclosViewModel()
+                           {
+                               Carrera = grp.Key,
+                               Cursadas = grp.GroupBy(m => m.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CICLO).Select(g => new SituacionAcademicaCursadasViewModel()
+                               {
+                                   Ciclo = g.Key.CICLO_NOMBRE,
+                                   Materias = g.Select(c => new SituacionAcademicaMateriasViewModel()
+                                   {
+                                       MateriaNombre = c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE,
+                                       P1 = c.CURSADA_NOTA_P1,
+                                       R1 = c.CURSADA_NOTA_R1,
+                                       P2 = c.CURSADA_NOTA_P2,
+                                       R2 = c.CURSADA_NOTA_R2,
+                                       P1Fecha = c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_P1_FECHA,
+                                       R1Fecha = c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_R1_FECHA,
+                                       P2Fecha = c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_P2_FECHA,
+                                       R2Fecha = c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_R2_FECHA
+                                   }
+                                   )
+                               })
+                           };
+            return cursadas;
+        }
+
+        public IQueryable<SituacionAcademicaPorMateriasViewModel> GetSituacionAcademicaPorMaterias(Persona persona)
+        {
+            var cursadas = from c in dbContext.Cursadas
+                            where c.CURSADA_ALUMNOS_ID == persona.ID
+                            group c by c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE into grp
+                            select new SituacionAcademicaPorMateriasViewModel()
+                            {
+                                Carrera = grp.Key,
+                                Materias = grp.GroupBy(m => m.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_MATERIA).Select(c => new SituacionAcademicaPorMateriasMateriasViewModel()
+                                {
+                                    Materia = c.Key.MATERIA_NOMBRE,
+                                    Cursadas = c.Select(cursada => new SituacionAcademicaMateriasViewModel()
+                                    {
+                                        MateriaNombre  = cursada.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE,
+                                        P1 = cursada.CURSADA_NOTA_P1,
+                                        R1 = cursada.CURSADA_NOTA_R1,
+                                        P2 = cursada.CURSADA_NOTA_P2,
+                                        R2 = cursada.CURSADA_NOTA_R2,
+                                        P1Fecha = cursada.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_P1_FECHA,
+                                        R1Fecha = cursada.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_R1_FECHA,
+                                        P2Fecha = cursada.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_P2_FECHA,
+                                        R2Fecha = cursada.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_R2_FECHA
+                                    })
+                                })
+                            };
+
+            return cursadas;
+        }
+
+        public IQueryable<SituacionFinalesViewModel> GetFinales(Persona persona)
+        {
+            var actas = from a in dbContext.Actas_Examenes_Detalles
+                    where a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID
+                    group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA into carreras
+                        select new SituacionFinalesViewModel
+                    {
+                        Persona = persona.PERSONA_NOMBRE_COMPLETO,
+                        Carrera = carreras.Key.CARRERA_NOMBRE,
+                        Finales = carreras.GroupBy(c => c.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO).Select(a => new FinalesViewModel
+                        {
+                            Anio = a.Key == "1" ? "2012" : a.Key == "2" ? "2013" : a.Key == "3" ? "2014" : "",
+                            Examenes = a.Select(f => new ExamenesFinalesViewModel
+                            {
+                                ActaId = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ID,
+                                Anio = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO,
+                                Fecha = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FECHA,
+                                Materia = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE,
+                                Nota = f.ACTA_EXAMEN_DETALLE_NOTA,
+                                Estado = f.ACTA_EXAMEN_DETALLE_ESTADO
+                            })
+                        })
+                    };
+            return actas;
         }
     }
 }

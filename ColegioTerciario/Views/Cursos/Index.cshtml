@@ -1,94 +1,109 @@
 ﻿@model IEnumerable<ColegioTerciario.DAL.Models.Materia_x_Curso>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Parciales";
 }
 
-@section navegacionContextual {
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Nuevo Curso", "Create")</li>
-    </ul>
-}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    Parciales
+                </div>
+                <div class="actions">
+                    <a href="@Url.Action("Create")" class="btn btn-sm green">
+                        <i class="fa fa-plus"></i>
+                        Nuevo Curso
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-hover data-table table-bordered table-read-status">
+                    <thead>
+                        <tr>
+                            <!--<th style="display: none;">ID</th>-->
+                            <th>CICLO</th>
+                            <th>SEDE</th>
+                            <th>CARRERA</th>
+                            <th>NOMBRE</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-<table class="table table-hover data-table table-bordered table-read-status">
-    <thead>
-        <tr>
-            <!--<th style="display: none;">ID</th>-->
-            <th>CICLO</th>
-            <th>SEDE</th>
-            <th>CARRERA</th>
-            <th>NOMBRE</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+                        <tr>
 
-        <tr>
+                            <td colspan="6" class="dataTables_empty">
+                                Cargando datos del servidor..
+                            </td>
 
-            <td colspan="6" class="dataTables_empty">
-                Cargando datos del servidor..
-            </td>
+                        </tr>
 
-        </tr>
+                    </tbody>
 
-    </tbody>
+                </table>
+            </div>
+        </div>
 
-</table>
+    </div>
+</div>
+
 
 @section scripts {
 
     <script type="text/javascript">
         var alumnos = [];
 
-        
+
 
         $(document).on('click', '.agregar-persona-a-curso', function () {
-            $(this).css('pointer-events', 'none').css('color','black');
+            $(this).css('pointer-events', 'none').css('color', 'black');
             alumnos.push($(this).data('id'));
             $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
         });
         $(document).ready(function () {
-        
-         $('.data-table').dataTable({
-             "aaSorting": [[1, "desc"]], // default sort to Name
-             "bServerSide": true,
-             "sAjaxSource": "/api/Cursos/GetCursos",
-             "iDisplayLength": 10,
-             "aoColumnDefs": [
-                 /*
-                 {
-                     "aTargets": [0],
-                     'mData': null,
-                     'mRender': function (data, type, full) {
-                         return '<td style="display:none;">' + data[0] + '</td>';
-                     },
-                     'visible': false
-                 },*/
-                 { "aTargets": [0], "name": "Ciclo" },
-                 { "aTargets": [1], "name": "Sede" },
-                 { "aTargets": [2], "name": "Carrera" },
-                 { "aTargets": [3], "name": "Nombre" },
-                 {
-                     "aTargets": [4],
-                     "mData": null,
-                     "mRender": function (data, type, full) {
-                         var anio = data[0];
-                         var nombre = data[3];
-                         return '<td><a href="/Curso/' + anio + '/' + nombre + '"><i class="cus-plus" title="Agregar"></i>Editar</a></td>';
-                         // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
-                     },
-                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                         var id = parseInt(sData[0]);
 
-                         //console.log(id);
-                         //$(this).css('pointer-events', 'none').css('color', 'black');
-                     }
-                 }
-             ]
-         });
+            $('.data-table').dataTable({
+                "aaSorting": [[1, "desc"]], // default sort to Name
+                "bServerSide": true,
+                "sAjaxSource": "/api/Cursos/GetCursos",
+                "iDisplayLength": 10,
+                "aoColumnDefs": [
+                    /*
+                    {
+                        "aTargets": [0],
+                        'mData': null,
+                        'mRender': function (data, type, full) {
+                            return '<td style="display:none;">' + data[0] + '</td>';
+                        },
+                        'visible': false
+                    },*/
+                    { "aTargets": [0], "name": "Ciclo" },
+                    { "aTargets": [1], "name": "Sede" },
+                    { "aTargets": [2], "name": "Carrera" },
+                    { "aTargets": [3], "name": "Nombre" },
+                    {
+                        "aTargets": [4],
+                        "mData": null,
+                        "mRender": function (data, type, full) {
+                            var anio = data[0];
+                            var nombre = data[3];
+                            return '<td><a href="/Curso/' + anio + '/' + nombre + '" class="btn btn-xs default green-stripe"><i class="cus-plus" title="Editar"></i>Editar</a></td>';
+                            // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
+                        },
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            var id = parseInt(sData[0]);
+
+                            //console.log(id);
+                            //$(this).css('pointer-events', 'none').css('color', 'black');
+                        }
+                    }
+                ]
+            });
         });
-         $('.data-table').on('page.dt', function (e, settings) {
-             console.log(settings.aoColumns[0].mRender);
-         });
+        $('.data-table').on('page.dt', function (e, settings) {
+            console.log(settings.aoColumns[0].mRender);
+        });
     </script>
 }

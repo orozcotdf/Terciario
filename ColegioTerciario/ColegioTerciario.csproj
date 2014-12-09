@@ -93,7 +93,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -101,8 +101,9 @@
     <Reference Include="PagedList.Mvc">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Rotativa.Core">
-      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rotativa.Core.2.0.1\lib\net45\Rotativa.Core.dll</HintPath>
     </Reference>
     <Reference Include="Rotativa.MVC">
       <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
@@ -211,8 +212,10 @@
     <Compile Include="Areas\Admin\Models\NewUserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActaExamenController.cs" />
+    <Compile Include="Controllers\Api\ActasController.cs" />
     <Compile Include="Controllers\Api\CursadasController.cs" />
     <Compile Include="Controllers\Api\CursosController.cs" />
+    <Compile Include="Controllers\Api\MateriasController.cs" />
     <Compile Include="Controllers\Api\PersonasController.cs" />
     <Compile Include="Controllers\Api\pruebasController.cs" />
     <Compile Include="Controllers\CarrerasController.cs" />
@@ -256,10 +259,15 @@
     <Compile Include="Migrations\201410212215201_PERSONA_ID en USER.Designer.cs">
       <DependentUpon>201410212215201_PERSONA_ID en USER.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412092312562_Actas Cascade on Delete.cs" />
+    <Compile Include="Migrations\201412092312562_Actas Cascade on Delete.Designer.cs">
+      <DependentUpon>201412092312562_Actas Cascade on Delete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ColegioTerciarioContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\Actas.cs" />
     <Compile Include="Models\ViewModels\DataTableParamModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Repositories\IMateriasXCursoRepository.cs" />
@@ -272,6 +280,7 @@
     <Compile Include="Models\ViewModels\CreateCurso.cs" />
     <Compile Include="Models\ViewModels\ParcialPDF.cs" />
     <Compile Include="Models\ViewModels\Select2.cs" />
+    <Compile Include="Models\ViewModels\SituacionAcademicaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -340,7 +349,68 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\img\clear.png" />
     <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\LogoCENT_60x180.png" />
+    <Content Include="Content\img\LogoCENT_60x180_Transparente.png" />
+    <Content Include="Content\metronic\css\components-rounded.css" />
+    <Content Include="Content\metronic\css\custom.css" />
+    <Content Include="Content\metronic\css\default.css" />
+    <Content Include="Content\metronic\css\layout.css" />
+    <Content Include="Content\metronic\css\metronic.css">
+      <DependentUpon>metronic.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Content\metronic\css\metronic.min.css">
+      <DependentUpon>metronic.css</DependentUpon>
+    </Content>
+    <Content Include="Content\metronic\css\plugins.css" />
+    <Content Include="Content\metronic\img\ajax-loading.gif" />
+    <Content Include="Content\metronic\img\ajax-modal-loading.gif" />
+    <Content Include="Content\metronic\img\avatar.png" />
+    <Content Include="Content\metronic\img\avatar1.jpg" />
+    <Content Include="Content\metronic\img\avatar10.jpg" />
+    <Content Include="Content\metronic\img\avatar11.jpg" />
+    <Content Include="Content\metronic\img\avatar2.jpg" />
+    <Content Include="Content\metronic\img\avatar3.jpg" />
+    <Content Include="Content\metronic\img\avatar4.jpg" />
+    <Content Include="Content\metronic\img\avatar5.jpg" />
+    <Content Include="Content\metronic\img\avatar6.jpg" />
+    <Content Include="Content\metronic\img\avatar7.jpg" />
+    <Content Include="Content\metronic\img\avatar8.jpg" />
+    <Content Include="Content\metronic\img\avatar9.jpg" />
+    <Content Include="Content\metronic\img\icon-color-close.png" />
+    <Content Include="Content\metronic\img\icon-color.png" />
+    <Content Include="Content\metronic\img\loading-spinner-blue.gif" />
+    <Content Include="Content\metronic\img\loading-spinner-default.gif" />
+    <Content Include="Content\metronic\img\loading-spinner-grey.gif" />
+    <Content Include="Content\metronic\img\loading.gif" />
+    <Content Include="Content\metronic\img\logo-big-white.png" />
+    <Content Include="Content\metronic\img\logo-big.png" />
+    <Content Include="Content\metronic\img\logo-blue-hoki.png" />
+    <Content Include="Content\metronic\img\logo-blue-steel.png" />
+    <Content Include="Content\metronic\img\logo-default.png" />
+    <Content Include="Content\metronic\img\logo-green-haze.png" />
+    <Content Include="Content\metronic\img\logo-purple-plum.png" />
+    <Content Include="Content\metronic\img\logo-purple-studio.png" />
+    <Content Include="Content\metronic\img\logo-red-intense.png" />
+    <Content Include="Content\metronic\img\logo-red-sunglo.png" />
+    <Content Include="Content\metronic\img\logo-yellow-crusta.png" />
+    <Content Include="Content\metronic\img\logo-yellow-orange.png" />
+    <Content Include="Content\metronic\img\logo.png" />
+    <Content Include="Content\metronic\img\menu-toggler.png" />
+    <Content Include="Content\metronic\js\layout.js" />
+    <Content Include="Content\metronic\js\metronic.js" />
+    <Content Include="Content\metronic\js\metronic_scripts.js">
+      <DependentUpon>metronic_scripts.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Content\metronic\js\metronic_scripts.min.js">
+      <DependentUpon>metronic_scripts.js</DependentUpon>
+    </Content>
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\plugins.css">
+      <DependentUpon>plugins.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Content\plugins.min.css">
+      <DependentUpon>plugins.css</DependentUpon>
+    </Content>
     <Content Include="Content\select2-spinner.gif" />
     <Content Include="Content\select2.css" />
     <Content Include="Content\select2.png" />
@@ -357,16 +427,24 @@
     <Content Include="Areas\Admin\Views\Usuarios\Edit.cshtml" />
     <Content Include="Content\DataTables-1.10.3\css\dataTables.responsive.scss" />
     <Content Include="Content\DataTables-1.10.3\css\dataTables.jqueryui.scss" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\plugins.css.bundle" />
+    <Content Include="Content\metronic\css\metronic.css.bundle" />
+    <Content Include="Content\metronic\js\metronic_scripts.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\metronic\js\metronic_scripts.min.js.map">
+      <DependentUpon>metronic_scripts.min.js</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
@@ -412,6 +490,13 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\plugins.js">
+      <DependentUpon>plugins.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Scripts\plugins.min.js">
+      <DependentUpon>plugins.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -559,6 +644,11 @@
     <Content Include="Views\ActaExamen\Details Backup.cshtml" />
     <Content Include="Views\Cursos\editarCurso.cshtml" />
     <Content Include="Views\Cursos\PDF.cshtml" />
+    <Content Include="Scripts\plugins.js.bundle" />
+    <Content Include="Scripts\plugins.min.js.map">
+      <DependentUpon>plugins.min.js</DependentUpon>
+    </Content>
+    <Content Include="Views\Personas\_PersonaForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -596,6 +686,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410212215201_PERSONA_ID en USER.resx">
       <DependentUpon>201410212215201_PERSONA_ID en USER.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412092312562_Actas Cascade on Delete.resx">
+      <DependentUpon>201412092312562_Actas Cascade on Delete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

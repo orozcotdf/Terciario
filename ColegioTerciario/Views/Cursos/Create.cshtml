@@ -11,64 +11,77 @@
         <strong>Error!</strong> @ViewBag.error.
     </div>
 }
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">Agregar Cursos</div>
+            </div>
+            <div class="portlet-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <div class="form-group">
-            @Html.Label("SEDE", "Sedes", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SEDE", ViewBag.SEDES as SelectList, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("CICLO", "Ciclos", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CICLO", ViewBag.CICLOS as SelectList, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("CARRERA", "Carreras", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CARRERA", (SelectList)ViewBag.CARRERAS, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("AÑO", "AÑO", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                <table class="table">
-                    <tr>
-                        <td>@Html.RadioButton("AÑO", 1) 1</td>
-                        <td>@Html.RadioButton("AÑO", 2) 2</td>
-                        <td>@Html.RadioButton("AÑO", 3) 3</td>
-                    </tr>
-                </table>
-                
-                
-               
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("NROS", "Numeros", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                <table class="table">
-                    <tr>
-                        <td>@Html.CheckBox("NROS[0]", false, new { value = "A" }) A</td>
-                        <td>@Html.CheckBox("NROS[1]", false, new { value = "B" }) B</td>
-                        <td>@Html.CheckBox("NROS[2]", false, new { value = "C" }) C</td>
-                    </tr>
-                </table>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.Label("SEDE", "Sedes", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("SEDE", ViewBag.SEDES as SelectList, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("CICLO", "Ciclos", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("CICLO", ViewBag.CICLOS as SelectList, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("CARRERA", "Carreras", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("CARRERA", (SelectList)ViewBag.CARRERAS, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("AÑO", "AÑO", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <table class="table">
+                                    <tr>
+                                        <td>@Html.RadioButton("AÑO", 1) 1</td>
+                                        <td>@Html.RadioButton("AÑO", 2) 2</td>
+                                        <td>@Html.RadioButton("AÑO", 3) 3</td>
+                                    </tr>
+                                </table>
 
 
 
-            </div>
-        </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("NROS", "Numeros", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <table class="table">
+                                    <tr>
+                                        <td>@Html.CheckBox("NROS[0]", false, new { value = "A" }) A</td>
+                                        <td>@Html.CheckBox("NROS[1]", false, new { value = "B" }) B</td>
+                                        <td>@Html.CheckBox("NROS[2]", false, new { value = "C" }) C</td>
+                                    </tr>
+                                </table>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
-}
+</div>
+
+

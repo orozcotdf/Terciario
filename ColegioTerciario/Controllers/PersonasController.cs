@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
+using ColegioTerciario.Models.Repositories;
 using ColegioTerciario.Models.ViewModels;
 using PagedList;
 
@@ -16,7 +17,14 @@ namespace ColegioTerciario.Controllers
 {
     public class PersonasController : Controller
     {
-        private ColegioTerciarioContext db = new ColegioTerciarioContext();
+        private readonly ColegioTerciarioContext _db;
+        private readonly PersonasRepository _repo;
+
+        public PersonasController()
+        {
+            _db = new ColegioTerciarioContext();
+            _repo = new PersonasRepository();
+        }
 
         // GET: Personas
         
@@ -41,7 +49,7 @@ namespace ColegioTerciario.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
-            var personas = from s in db.Personas
+            var personas = from s in _db.Personas
                            select s;
             
             //busqueda
@@ -82,7 +90,7 @@ namespace ColegioTerciario.Controllers
 
         public JsonResult IndexJSON(DataTableParamModel param)
         {
-            var personas = db.Personas;
+            var personas = _db.Personas;
             List<Persona> personasFiltradas;
 
             if (param.sSearch == null)
@@ -117,39 +125,7 @@ namespace ColegioTerciario.Controllers
                 aaData = result
             },
             JsonRequestBehavior.AllowGet);
-            
 
-            /*
-             * public ActionResult MasterDetailsAjaxHandler(
-             DataTableParamModel param, int? CompanyID)
-    {
-
-        var employees = DataRepository.GetEmployees();
-
-        //"Business logic" method that filters employees by the employer id
-        var companyEmployees = (from e in employees
-                                where (CompanyID == null || e.CompanyID == CompanyID)
-                                select e).ToList();
-
-        //UI processing logic that filter company employees by name and paginates them
-        var filteredEmployees = (from e in companyEmployees
-                                 where (param.sSearch == null || 
-                                 e.Name.ToLower().Contains(param.sSearch.ToLower()))
-                                 select e).ToList();
-        var result = from emp in filteredEmployees.Skip(
-                     param.iDisplayStart).Take(param.iDisplayLength)
-                     select new[] { Convert.ToString(emp.EmployeeID), 
-                     emp.Name, emp.Position };
-
-        return Json(new
-        {
-            sEcho = param.sEcho,
-            iTotalRecords = companyEmployees.Count,
-            iTotalDisplayRecords = filteredEmployees.Count,
-            aaData = result
-        },
-        JsonRequestBehavior.AllowGet);
-    }*/
         }
 
         // GET: Personas/Details/5
@@ -159,7 +135,7 @@ namespace ColegioTerciario.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Persona persona = db.Personas.Find(id);
+            Persona persona = _db.Personas.Find(id);
             if (persona == null)
             {
                 return HttpNotFound();
@@ -170,10 +146,10 @@ namespace ColegioTerciario.Controllers
         // GET: Personas/Create
         public ActionResult Create()
         {
-            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(db.Barrios, "ID", "BARRIO_NOMBRE");
-            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(db.Ciudades, "ID", "CIUDAD_NAME");
-            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(db.Paises, "ID", "PAIS_NAME");
-            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(db.Provincias, "ID", "PROVINCIA_NAME_ASCII");
+            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(_db.Barrios, "ID", "BARRIO_NOMBRE");
+            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(_db.Ciudades, "ID", "CIUDAD_NAME");
+            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(_db.Paises, "ID", "PAIS_NAME");
+            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(_db.Provincias, "ID", "PROVINCIA_NAME_ASCII");
             return View();
         }
 
@@ -186,15 +162,15 @@ namespace ColegioTerciario.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Personas.Add(persona);
-                db.SaveChanges();
+                _db.Personas.Add(persona);
+                _db.SaveChanges();
                 return RedirectToAction("Details", new { id = persona.ID });
             }
-
-            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(db.Barrios, "ID", "BARRIO_NOMBRE", persona.PERSONA_NACIMIENTO_BARRIO_ID);
-            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(db.Ciudades, "ID", "CIUDAD_NAME", persona.PERSONA_NACIMIENTO_CIUDAD_ID);
-            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(db.Paises, "ID", "PAIS_NAME", persona.PERSONA_NACIMIENTO_PAIS_ID);
-            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(db.Provincias, "ID", "PROVINCIA_NAME_ASCII", persona.PERSONA_NACIMIENTO_PROVINCIA_ID);
+            
+            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(_db.Barrios, "ID", "BARRIO_NOMBRE", persona.PERSONA_NACIMIENTO_BARRIO_ID);
+            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(_db.Ciudades, "ID", "CIUDAD_NAME", persona.PERSONA_NACIMIENTO_CIUDAD_ID);
+            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(_db.Paises, "ID", "PAIS_NAME", persona.PERSONA_NACIMIENTO_PAIS_ID);
+            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(_db.Provincias, "ID", "PROVINCIA_NAME_ASCII", persona.PERSONA_NACIMIENTO_PROVINCIA_ID);
             return View(persona);
         }
 
@@ -205,15 +181,21 @@ namespace ColegioTerciario.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Persona persona = db.Personas.Find(id);
+            Persona persona = _db.Personas.Find(id);
             if (persona == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(db.Barrios, "ID", "BARRIO_NOMBRE", persona.PERSONA_NACIMIENTO_BARRIO_ID);
-            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(db.Ciudades, "ID", "CIUDAD_NAME", persona.PERSONA_NACIMIENTO_CIUDAD_ID);
-            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(db.Paises, "ID", "PAIS_NAME", persona.PERSONA_NACIMIENTO_PAIS_ID);
-            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(db.Provincias, "ID", "PROVINCIA_NAME_ASCII", persona.PERSONA_NACIMIENTO_PROVINCIA_ID);
+            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(_db.Barrios, "ID", "BARRIO_NOMBRE", persona.PERSONA_NACIMIENTO_BARRIO_ID);
+            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(_db.Ciudades, "ID", "CIUDAD_NAME", persona.PERSONA_NACIMIENTO_CIUDAD_ID);
+            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(_db.Paises, "ID", "PAIS_NAME", persona.PERSONA_NACIMIENTO_PAIS_ID);
+            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(_db.Provincias, "ID", "PROVINCIA_NAME_ASCII", persona.PERSONA_NACIMIENTO_PROVINCIA_ID);
+            if (persona.PERSONA_ES_ALUMNO == true)
+            {
+                ViewBag.SITUACIONPORCICLOS = _repo.GetSituacionAcademicaPorCiclos(persona).ToList();
+                ViewBag.SITUACIONPORMATERIAS = _repo.GetSituacionAcademicaPorMaterias(persona).ToList();
+                ViewBag.FINALES = _repo.GetFinales(persona).ToList();
+            }
             return View(persona);
         }
 
@@ -226,14 +208,14 @@ namespace ColegioTerciario.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(persona).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(persona).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Details", new { id = persona.ID });
             }
-            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(db.Barrios, "ID", "BARRIO_NOMBRE", persona.PERSONA_NACIMIENTO_BARRIO_ID);
-            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(db.Ciudades, "ID", "CIUDAD_NAME", persona.PERSONA_NACIMIENTO_CIUDAD_ID);
-            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(db.Paises, "ID", "PAIS_NAME", persona.PERSONA_NACIMIENTO_PAIS_ID);
-            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(db.Provincias, "ID", "PROVINCIA_NAME_ASCII", persona.PERSONA_NACIMIENTO_PROVINCIA_ID);
+            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(_db.Barrios, "ID", "BARRIO_NOMBRE", persona.PERSONA_NACIMIENTO_BARRIO_ID);
+            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(_db.Ciudades, "ID", "CIUDAD_NAME", persona.PERSONA_NACIMIENTO_CIUDAD_ID);
+            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(_db.Paises, "ID", "PAIS_NAME", persona.PERSONA_NACIMIENTO_PAIS_ID);
+            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(_db.Provincias, "ID", "PROVINCIA_NAME_ASCII", persona.PERSONA_NACIMIENTO_PROVINCIA_ID);
             return View(persona);
         }
 
@@ -244,7 +226,7 @@ namespace ColegioTerciario.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Persona persona = db.Personas.Find(id);
+            Persona persona = _db.Personas.Find(id);
             if (persona == null)
             {
                 return HttpNotFound();
@@ -257,9 +239,9 @@ namespace ColegioTerciario.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Persona persona = db.Personas.Find(id);
-            db.Personas.Remove(persona);
-            db.SaveChanges();
+            Persona persona = _db.Personas.Find(id);
+            _db.Personas.Remove(persona);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -267,7 +249,7 @@ namespace ColegioTerciario.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

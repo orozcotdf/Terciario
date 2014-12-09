@@ -3,38 +3,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Nuevos Cursos</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-body">
+                Resumen
+            </div>
+            <div class="portlet-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Curso</th>
+                            <th>Ciclo</th>
+                            <th>Carrera</th>
+                            <th>Materia</th>
+                            <th>Sede</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var m in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CURSO_NOMBRE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Curso</th>
-            <th>Ciclo</th>
-            <th>Carrera</th>
-            <th>Materia</th>
-            <th>Sede</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var m in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CURSO_NOMBRE)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => m.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+

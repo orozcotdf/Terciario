@@ -4,39 +4,63 @@
     ViewBag.Title = "editarCurso";
 }
 
-<h2>Materias del curso</h2>
-<h3>Ciclo @ViewBag.CICLO</h3>
-<h4>Curso @ViewBag.NOMBRE</h4>
 
 
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregarAlumnosModal">
-    Agregar alumnos al curso
-</button>
-
-
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Acciones</th>
-            <th>Imprimir Actas</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model)
-{
-    <tr>
-        <td>@Html.ActionLink("Editar", "Edit", new { id = item.ID })
-            | @Html.ActionLink("P1", "PDF", new { id = item.ID, instancia = "P1" })
-            | @Html.ActionLink("R1", "PDF", new { id = item.ID, instancia = "R1" })
-            | @Html.ActionLink("P2", "PDF", new { id = item.ID, instancia = "P2" })
-            | @Html.ActionLink("R2", "PDF", new { id = item.ID, instancia = "R2" })
-        
-        </td>
-        <td>@item.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE</td>
-    </tr>
+@section navegacionContextual {
+    <div class="page-head">
+        <div class="container-fluid">
+            <div class="page-title">
+                <h1>
+                    Materias del curso @ViewBag.NOMBRE
+                    <small>Ciclo @ViewBag.CICLO</small>
+                </h1>
+            </div>
+        </div>
+    </div>
 }
-    </tbody>
-</table>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">Editar Curso</div>
+                <div class="actions">
+
+                    <a class="btn green btn-sm" data-toggle="modal" data-target="#agregarAlumnosModal">
+                        Agregar alumnos al curso
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Acciones</th>
+                            <th>Imprimir Actas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+                                    | @Html.ActionLink("P1", "PDF", new { id = item.ID, instancia = "P1" })
+                                    | @Html.ActionLink("R1", "PDF", new { id = item.ID, instancia = "R1" })
+                                    | @Html.ActionLink("P2", "PDF", new { id = item.ID, instancia = "P2" })
+                                    | @Html.ActionLink("R2", "PDF", new { id = item.ID, instancia = "R2" })
+
+                                </td>
+                                <td>@item.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="agregarAlumnosModal">
     <div class="modal-dialog">
@@ -77,12 +101,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                @using (Html.BeginForm("agregarAlumnosACurso", "Cursos",FormMethod.Post))
+                @using (Html.BeginForm("agregarAlumnosACurso", "Cursos", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("Ciclo", (string)ViewBag.CICLO)
                     @Html.Hidden("Nombre", (string)ViewBag.NOMBRE)
-                    
+
                     <ul id="alumnosSeleccionados"></ul>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <input id="AgregarAlumnos" type="submit" class="btn btn-primary" value="Guardar" />
@@ -92,8 +116,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
 @section scripts {
 
     <script type="text/javascript">
@@ -114,7 +136,7 @@
                 $('#AgregarAlumnos').val("Agregar " + alumnos.length + " alumno");
 
             $('.listadoAlumnosParaAgregar').append($(this).data('nombre') + " | ");
-            
+
             $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
         });
 

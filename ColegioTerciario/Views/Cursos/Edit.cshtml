@@ -4,91 +4,102 @@
 }
 
 @section navegacionContextual {
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Volver al Curso", "EditarCurso", new{ciclo=Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre=Model.MATERIA_X_CURSO_CURSO_NOMBRE})</li>
-        <li></li>
-    </ul>
-    <div class="pull-left">
-    
-    @Html.DropDownList("MATERIAS", null, new { @class = "select" })
-    
+    <div class="page-head">
+        <div class="container-fluid">
+            <div class="page-title">
+                <h1>
+                    Curso @Model.MATERIA_X_CURSO_CURSO_NOMBRE
+                    <small>
+                        @Model.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE | 
+                            Docente: <a href="@Url.Action("EditarCurso", new { ciclo = Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre = Model.MATERIA_X_CURSO_CURSO_NOMBRE })" id="MATERIA_X_CURSO_DOCENTE_ID" name="MATERIA_X_CURSO_DOCENTE_ID" data-value="@Model.MATERIA_X_CURSO_DOCENTE_ID">
+                            @(Model.MATERIA_X_CURSO_DOCENTE != null ? Model.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO : "")
+                    </a>
+                </small>
+            </h1>
+        </div>
+        </div>
     </div>
 }
 
-<h2>Curso @Model.MATERIA_X_CURSO_CURSO_NOMBRE - @Model.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE</h2>
-<h3>@Model.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE</h3>
-<h4 class="materia_actual">@Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE</h4>
-
-<h4>
-    Docente: <a href="#" id="MATERIA_X_CURSO_DOCENTE_ID" name="MATERIA_X_CURSO_DOCENTE_ID" data-value="@Model.MATERIA_X_CURSO_DOCENTE_ID">
-        @(Model.MATERIA_X_CURSO_DOCENTE != null ? Model.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO : "")</a>
-    
-</h4>
-
-<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregarAlumnosModal">
-    Agregar alumnos al curso
-</button>
-
-
-<table class="table table-hover table-condensed alumnos-curso">
-    <thead>
-        <tr>
-            <th style="border: none;">Fechas: </th>
-            <td><a href="#" data-name="P1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}",Model.MATERIA_X_CURSO_P1_FECHA)</a></td>
-            <td><a href="#" data-name="R1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_R1_FECHA)</a></td>
-            <td><a href="#" data-name="P2_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_P2_FECHA)</a></td>
-            <td><a href="#" data-name="R2_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_R2_FECHA)</a></td>
-        </tr>
-        <tr>
-            <th>Alumno</th>
-            <th>P1</th>
-            <th>R1</th>
-            <th>P2</th>
-            <th>R2</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (ColegioTerciario.DAL.Models.Cursada cursada in ViewBag.alumnos)
-        {
-            <tr>
-                <th>
-                    <a href="#" class="eliminar-integrante" data-id="@cursada.ID"><i class="fa fa-remove"></i></a>
-                    <ul>
-                        <li>@cursada.CURSADA_ALUMNO.PERSONA_APELLIDO, @cursada.CURSADA_ALUMNO.PERSONA_NOMBRE</li>
-                        <li>@cursada.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO</li>
-                    </ul>
-                </th>
-                @{ var cursadaId = cursada.ID; }
-                <td>
-                    
-                    <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P1" data-value="0">
-                        @(cursada.CURSADA_NOTA_P1 ?? "Inserte la nota")
-                    </a>         
-                </td>
-                <td>
-
-                    <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R1" data-value="0">
-                        @(cursada.CURSADA_NOTA_R1 ?? "Inserte la nota")
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    @Model.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE - @Html.DropDownList("MATERIAS", null, new { @class = "select" })
+                </div>
+                <div class="actions">
+                    <a href="#" class="btn btn-default btn-sm">Volver al Curso</a>
+                    <a class="btn green btn-sm" data-toggle="modal" data-target="#agregarAlumnosModal">
+                        Agregar alumnos al curso
                     </a>
-                </td>
-                <td>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-hover table-condensed alumnos-curso">
+                    <thead>
+                        <tr>
+                            <th style="border: none;">Fechas: </th>
+                            <td><a href="#" data-name="P1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_P1_FECHA)</a></td>
+                            <td><a href="#" data-name="R1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_R1_FECHA)</a></td>
+                            <td><a href="#" data-name="P2_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_P2_FECHA)</a></td>
+                            <td><a href="#" data-name="R2_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_R2_FECHA)</a></td>
+                        </tr>
+                        <tr>
+                            <th>Alumno</th>
+                            <th>P1</th>
+                            <th>R1</th>
+                            <th>P2</th>
+                            <th>R2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ColegioTerciario.DAL.Models.Cursada cursada in ViewBag.alumnos)
+                        {
+                            <tr>
+                                <th>
+                                    <a href="#" class="eliminar-integrante" data-id="@cursada.ID"><i class="fa fa-remove"></i></a>
+                                    <ul>
+                                        <li>@cursada.CURSADA_ALUMNO.PERSONA_APELLIDO, @cursada.CURSADA_ALUMNO.PERSONA_NOMBRE</li>
+                                        <li>@cursada.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO</li>
+                                    </ul>
+                                </th>
+                                @{ var cursadaId = cursada.ID; }
+                                <td>
 
-                    <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P2" data-value="0">
-                        @(cursada.CURSADA_NOTA_P2 ?? "Inserte la nota")
-                    </a>
-                </td>
-                <td>
+                                    <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P1" data-value="0">
+                                        @(cursada.CURSADA_NOTA_P1 ?? "Inserte la nota")
+                                    </a>
+                                </td>
+                                <td>
 
-                    <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R2" data-value="0">
-                        @(cursada.CURSADA_NOTA_R2 ?? "Inserte la nota")
-                    </a>
-                </td>
+                                    <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R1" data-value="0">
+                                        @(cursada.CURSADA_NOTA_R1 ?? "Inserte la nota")
+                                    </a>
+                                </td>
+                                <td>
 
-            </tr>
-        }
-    </tbody>
-</table>
+                                    <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P2" data-value="0">
+                                        @(cursada.CURSADA_NOTA_P2 ?? "Inserte la nota")
+                                    </a>
+                                </td>
+                                <td>
+
+                                    <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R2" data-value="0">
+                                        @(cursada.CURSADA_NOTA_R2 ?? "Inserte la nota")
+                                    </a>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @Html.Partial("_AgregaAlumnos", Model, new ViewDataDictionary() {
     {"ForeignKey", "materiaXCursoId" },
@@ -166,7 +177,7 @@
             console.log(settings.aoColumns[0].mRender);
         });
 
-        $("#MATERIAS").find('option:contains("' +$('.materia_actual').text() + '")').prop("selected", true);
+        $("#MATERIAS").find('option:contains(@Html.Raw(Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE))').prop("selected", true);
         $("#MATERIAS").change(function() {
             var id = $(this).find("option:selected").val();
             location.href = id;
@@ -244,16 +255,18 @@
                 e.preventDefault();
                 var id = $(this).data('id');
                 var row = $(this).parents('tr');
-                bootbox.confirm("Esta seguro?", function() {
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/api/Cursadas/DeleteCursada/" + id,
-                        success: function(){
-                            //location.reload();
-                            row.fadeOut('slow', function(){
-                            })
-                        }
-                    })
+                bootbox.confirm("Esta seguro?", function(result) {
+                    if (result == true) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/api/Cursadas/DeleteCursada/" + id,
+                            success: function() {
+                                //location.reload();
+                                row.fadeOut('slow', function() {
+                                });
+                            }
+                        });
+                    }
                 });
             });
         });

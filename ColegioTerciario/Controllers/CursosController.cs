@@ -420,18 +420,22 @@ namespace ColegioTerciario.Controllers
                         case "P1":
                             reporte.Nombre = "Primer Parcial";
                             integrante.Calificacion = cursada.CURSADA_NOTA_P1;
+                            reporte.Fecha = curso.MATERIA_X_CURSO_P1_FECHA;
                             break;
                         case "R1":
                             reporte.Nombre = "Primer Recuperatorio";
                             integrante.Calificacion = cursada.CURSADA_NOTA_R1;
+                            reporte.Fecha = curso.MATERIA_X_CURSO_R1_FECHA;
                             break;
                         case "P2":
                             reporte.Nombre = "Segundo Parcial";
                             integrante.Calificacion = cursada.CURSADA_NOTA_P2;
+                            reporte.Fecha = curso.MATERIA_X_CURSO_P2_FECHA;
                             break;
                         case "R2":
                             reporte.Nombre = "Segundo Recuperatorio";
                             integrante.Calificacion = cursada.CURSADA_NOTA_R2;
+                            reporte.Fecha = curso.MATERIA_X_CURSO_R2_FECHA;
                             break;
                     }
                     
@@ -444,8 +448,7 @@ namespace ColegioTerciario.Controllers
             reporte.Docente = curso.MATERIA_X_CURSO_DOCENTE != null ? curso.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO : "";
             reporte.Materia = curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE;
             reporte.Sede = curso.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE;
-            reporte.Fecha = curso.MATERIA_X_CURSO_P1_FECHA;
-
+            
             reporte.Inscriptos = reporte.Integrantes.Count();
 
             reporte.Examinados = reporte.Integrantes.Count(a => a.Calificacion != null);

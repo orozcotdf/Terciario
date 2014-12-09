@@ -8,92 +8,117 @@
     );
 }
 
-@section navegacionContextual {
-    <ul class="nav navbar-nav">
-         <li>@Html.ActionLink("Nueva Acta", "Create")</li>
-    </ul>
-    
 
-        <form class="navbar-form navbar-right" role="search">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Busqueda">
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">Actas de Examenes Finales</div>
+                <div class="actions">
+                    <a href="@Url.Action("Create")" class="btn btn-sm green">Nueva Acta de Final</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-hover data-table table-bordered table-read-status table-actas">
+                    <thead>
+                        <tr>
+                            <!--<th style="display: none;">ID</th>-->
+                            <th></th>
+                            <th>Fecha</th>
+                            <th>Libro</th>
+                            <th>Folio</th>
+                            <th>Turno</th>
+                            <th>Carrera</th>
+                            <th>Materia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+
+                            <td colspan="8" class="dataTables_empty">
+                                Cargando datos del servidor..
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-default">Buscar</button>
-</form>
+</div>
 
-}
-<h2>Actas de Examenes Finales</h2>
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_FECHA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_LIBRO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_FOLIO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_TURNOS_EXAMENES_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_CARRERAS_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_MATERIAS_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_PRESIDENTE_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_VOCAL1_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTA_EXAMEN_VOCAL2_ID)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @if (item.ACTA_EXAMEN_FECHA != null)
-                {
-                    @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FECHA, "ShortDateTime")
+
+@section scripts {
+    <script type="text/javascript">
+        var CAMPO_MATERIAS = 5;
+        $(document).ready(function() {
+            /* Formatting function for row details - modify as you need */
+            function format(d) {
+                // `d` is the original data object for the row
+                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                    '<tr>' +
+                        '<td>Presidente:</td>' +
+                        '<td>' + d.Presidente + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                        '<td>Vocal 1:</td>' +
+                        '<td>' + d.Vocal1 + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                        '<td>Vocal 2:</td>' +
+                        '<td>' + d.Vocal2 + '</td>' +
+                    '</tr>' +
+                '</table>';
+            }
+
+            var table = $('.data-table').DataTable({
+                "aaSorting": [[1, "desc"]], // default sort to Name
+                "bServerSide": true,
+                "sAjaxSource": "/api/Actas/GetActas",
+                "iDisplayLength": 10,
+                "columns": [
+                    {
+                        
+                        "class": 'details-control',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": '',
+                        "render": function (data, type, row) {
+                            return "<a href=/ActaExamen/Edit/" + row.ID + " class='btn btn-icon-only default' title='Editar'><i class='fa fa-pencil'></i></a>  " +
+                                "<a href=/ActaExamen/Details/" + row.ID + " class='btn btn-icon-only default' title='Imprimir'><i class='fa fa-bars'></i></a>  " +
+                                "<a href=/ActaExamen/Delete/" + row.ID + " class='btn btn-icon-only red' title='Eliminar'><i class='fa fa-trash'></i></a>";
+                        },
+                    },
+                    { "data": "Fecha" },
+                    { "data": "Libro" },
+                    { "data": "Folio" },
+                    { "data": "Turno" },
+                    { "data": "Carrera" },
+                    { "data": "Materia" }
+                ]
+            });
+
+            // Add event listener for opening and closing details
+            $('.data-table tbody').on('click', 'td:not(:first-child)', function (e) {
+                e.preventDefault();
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+                var icon = $(this).find('i');
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    icon.toggleClass('fa-search-plus fa-search-minus');
                 }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_LIBRO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_FOLIO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_PRESIDENTE.PERSONA_NOMBRE_COMPLETO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL1.PERSONA_NOMBRE_COMPLETO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACTA_EXAMEN_VOCAL2.PERSONA_NOMBRE_COMPLETO)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
-
-</table>
+                else {
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    icon.toggleClass('fa-search-plus fa-search-minus');
+                }
+            });
+        });
+    </script>
+}

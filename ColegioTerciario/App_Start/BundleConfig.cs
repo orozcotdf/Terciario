@@ -20,16 +20,7 @@ namespace ColegioTerciario
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/bootbox.js",
-                      "~/Scripts/DataTables-1.10.3/jquery.dataTables.js",
-                      "~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js",
-                      "~/Scripts/respond.js",                      
-                      "~/Scripts/bootstrap-editable.js",
-                      "~/Scripts/select2.js",
-                      "~/Scripts/Select2-locales/select2_locale_es.js",
-                      "~/Scripts/moment-with-locales.js",
-                      "~/Scripts/cent11.js"));
+                "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

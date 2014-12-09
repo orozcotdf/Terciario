@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColegioTerciario.Models.ViewModels;
 
 namespace ColegioTerciario.Models.Repositories
 {
@@ -11,5 +12,8 @@ namespace ColegioTerciario.Models.Repositories
     {
         IEnumerable<Persona> GetPersonasByActa(int acta_examen_id);
         IEnumerable<Persona> GetAlumnos();
+        IQueryable<SituacionAcademicaPorCiclosViewModel> GetSituacionAcademicaPorCiclos(Persona persona);
+        IQueryable<SituacionAcademicaPorMateriasViewModel> GetSituacionAcademicaPorMaterias(Persona persona);
+        IQueryable<SituacionFinalesViewModel> GetFinales(Persona persona);
     }
 }

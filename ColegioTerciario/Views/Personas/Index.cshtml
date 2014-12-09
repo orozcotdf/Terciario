@@ -6,88 +6,112 @@
     ViewBag.Title = "Personas";
 }
 
-<h2>Personas (Alumnos - Docentes - No docentes)</h2>
-
-<table>
-<tr>
-    <th>
-        <p>
-            @Html.ActionLink("Agregar Nuevo", "Create")
-        </p>
-    </th>
-    <th align="right">
-        @using (Html.BeginForm("Index", "Personas", FormMethod.Get))
-        {
-            <p>
-                Filtro  @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-                <input type="submit" value="Filtrar" />
-            </p>
-        }
-    </th>
-</tr>
-</table>
-
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("#DOCUMENTO", "Index", new { sortOrder = ViewBag.DocSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-
-        <th>
-            @Html.ActionLink("APELLIDO", "Index", new { sortOrder = ViewBag.ApellidoSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("NOMBRE", "Index", new { sortOrder = ViewBag.NombreSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("EMAIL", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-
-        <th>
-            @Html.ActionLink("DOMICILIO", "Index", new { sortOrder = ViewBag.DomicilioSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("TELEFONO", "Index", new { sortOrder = ViewBag.TelefonoSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PERSONA_DOCUMENTO_NUMERO)
-        </td>
-         <td>
-            @Html.DisplayFor(modelItem => item.PERSONA_APELLIDO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PERSONA_NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PERSONA_EMAIL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PERSONA_DOMICILIO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PERSONA_TELEFONO)
-        </td>
-
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Ver", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+@section navegacionContextual {
+    <div class="page-head">
+        <div class="container-fluid">
+            <div class="page-title">
+                <h1>Personas <small>(Alumnos - Docentes - No docentes)</small></h1>
+            </div>
+        </div>
+    </div>
 }
 
-</table>
-<div>
-    <ul class="pagination pagination-sm">
 
-        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("Index",
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    Listado
+                </div>
+                <div class="actions">
+                    <a href="@Url.Action("Create")" class="btn btn-sm green">
+                        <i class="fa fa-plus">
+                            Agregar Persona
+                        </i>
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table>
+                    <tr>
+                        <th align="right">
+                            @using (Html.BeginForm("Index", "Personas", FormMethod.Get))
+                            {
+                                <p>
+                                    Filtro  @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                                    <input type="submit" value="Filtrar" />
+                                </p>
+                            }
+                        </th>
+                    </tr>
+                </table>
+
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.ActionLink("#DOCUMENTO", "Index", new { sortOrder = ViewBag.DocSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+
+                        <th>
+                            @Html.ActionLink("APELLIDO", "Index", new { sortOrder = ViewBag.ApellidoSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+                        <th>
+                            @Html.ActionLink("NOMBRE", "Index", new { sortOrder = ViewBag.NombreSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+                        <th>
+                            @Html.ActionLink("EMAIL", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+
+                        <th>
+                            @Html.ActionLink("DOMICILIO", "Index", new { sortOrder = ViewBag.DomicilioSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+                        <th>
+                            @Html.ActionLink("TELEFONO", "Index", new { sortOrder = ViewBag.TelefonoSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PERSONA_DOCUMENTO_NUMERO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PERSONA_APELLIDO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PERSONA_NOMBRE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PERSONA_EMAIL)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PERSONA_DOMICILIO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PERSONA_TELEFONO)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.ID}, new {@class = "btn default btn-xs green-stripe" }) 
+                                @Html.ActionLink("Borrar", "Delete", new { id = item.ID }, new { @class = "btn default btn-xs red-stripe" })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div>
+                    <ul class="pagination pagination-sm">
+
+                        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+                        @Html.PagedListPager(Model, page => Url.Action("Index",
             new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-     </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

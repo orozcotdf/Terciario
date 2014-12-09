@@ -45,10 +45,9 @@ $.extend(true, $.fn.dataTable.defaults, {
 
 $.fn.editable.defaults.mode = 'inline';
 
-$(function () {
+$(document).ready(function () {
     $('.datepicker').datepicker({
         language: 'es',
         format: 'dd/mm/yyyy'
     });
-    
 });

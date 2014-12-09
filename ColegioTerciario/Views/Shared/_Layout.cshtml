@@ -1,72 +1,74 @@
 ﻿<!DOCTYPE html>
-<html>
+<!--[if IE 8]> <html lang="es" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="es" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>@ViewBag.Title - C.E.N.T. 11</title>
-    @Styles.Render("~/Content/css")
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="~/Content/plugins.min.css" rel="stylesheet" />
+    <link href="~/Content/metronic/css/metronic.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 
-    
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("CENT N° 11 - Sistema de Administración Académica", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>           
-                </ul>
-                
+    <div class="page-header">
+        <div class="page-header-top">
+            <div class="container-fluid">
+                <div class="page-logo">
+                    <a class="navbar-brand" href="/" title="CENT N° 11 - Sistema de Administración Académica">
+                        <img src="../../Content/img/LogoCENT_60x180_Transparente.png" alt="" class="pull-left" />
+                        <h2 class="pull-right hidden-sm hidden-xs">Sistema de Administración Académica</h2>
+                    </a>
+                </div>
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler"></a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <div class="top-menu">
                     @Html.Partial("_LoginPartial")
-                
+                </div>
+            </div>
+        </div>
+        <!-- END HEADER TOP -->
+        <!-- BEGIN HEADER MENU -->
+        <div class="page-header-menu">
+            <div class="container-fluid">
+                <div class="hor-menu ">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="~/Personas">Personas</a></li>
+                        <li><a href="~/Cursos">Parciales</a></li>
+                        <li><a href="~/ActaExamen">Finales</a></li>
+@*                        <li><a href="~/Carreras">Carreras</a></li>*@
+@*                        <li><a href="~/Materias">Materias</a></li>*@
+@*                        <li><a href="#">Estadisticas</a></li>*@
+@*                        <li><a href="#">Configuracion</a></li>*@
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li><a href="~/Admin/Usuarios">Usuarios</a></li>
+                            <li><a href="~/Admin/Roles">Roles</a></li>
+                        }
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul id="sidebar" class="nav nav-pills nav-stacked" style="max-width: 200px;">
-                <li class="btn-default"><a href="#"><span class="glyphicon glyphicon-home"></span>  Inicio </a></li>
-                <li><a href="~/Personas"><span class="glyphicon glyphicon-user"></span>  Personas</a></li>
-                <li><a href="~/Cursos"><span class="glyphicon glyphicon-list-alt"></span>  Cursos</a></li>
-                <li><a href="~/ActaExamen"><span class="glyphicon glyphicon-list-alt"></span>  Actas</a></li>
-                <li><a href="~/Carreras"><span class="glyphicon glyphicon-send"></span>  Carreras</a></li>
-                <li><a href="~/Materias"><span class="glyphicon glyphicon-book"></span>  Materias</a></li>
-                <li><a href=""><span class="glyphicon glyphicon-stats"></span>  Estadisticas</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>  Configuración</a></li>
-                @if (User.IsInRole("Admin"))
-                {
-                    <li><a href="~/Admin/Usuarios">Usuarios</a></li>
-                    <li><a href="~/Admin/Roles">Roles</a></li>
-                }
-            </ul>
 
-        </div>
-        <!-- /#sidebar-wrapper -->
+    <!-- BEGIN PAGE CONTAINER -->
+    <div class="page-container">
+
+        @RenderSection("navegacionContextual", required: false)
+
         <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <!--
-            <div class="navegacion-contextual">
-                
-            </div>
-                -->
-            <nav class="navbar navbar-default navbar-lower nav-secundaria" role="navigation">
-                <div class="container-fluid">
-                    <div class="collapse navbar-collapse collapse-buttons">
-                        @RenderSection("navegacionContextual", required: false)
-                    </div>
-                </div>
-            </nav>
-            <div class="container body-content">
+        <div class="page-content">
+
+            <div class="container-fluid">
                 @RenderBody()
                 <hr />
                 <footer>
@@ -75,13 +77,21 @@
             </div>
         </div>
     </div>
-
-
-
-
+    <!-- END PAGE CONTAINER -->
     <!-- /#page-content-wrapper -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/plugins.min.js"></script>
     @RenderSection("scripts", required: false)
+    <script src="~/Content/metronic/js/metronic_scripts.min.js"></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            //Demo.init(); // init demo features
+        });
+    </script>
 </body>
+
 </html>

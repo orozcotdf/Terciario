@@ -85,8 +85,7 @@ namespace ColegioTerciario.Models.Repositories
 
         public bool ChequeaSiExisteCurso(DAL.Models.Materia_x_Curso materia_x_curso)
         {
-            var temp = dbContext.Materias_X_Cursos.
-                Where(m => m.MATERIA_X_CURSO_CURSO_NOMBRE == materia_x_curso.MATERIA_X_CURSO_CURSO_NOMBRE && m.MATERIA_X_CURSO_CICLO.ID == materia_x_curso.MATERIA_X_CURSO_CICLO.ID).Count();
+            var temp = dbContext.Materias_X_Cursos.Count(m => m.MATERIA_X_CURSO_CURSO_NOMBRE == materia_x_curso.MATERIA_X_CURSO_CURSO_NOMBRE && m.MATERIA_X_CURSO_CICLO.ID == materia_x_curso.MATERIA_X_CURSO_CICLO.ID);
             if (temp > 0)
                 return true;
             else

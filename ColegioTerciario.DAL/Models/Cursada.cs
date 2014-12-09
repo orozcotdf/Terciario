@@ -22,7 +22,7 @@ namespace ColegioTerciario.DAL.Models
         #endregion
 
         #region Navegacion
-        [ForeignKey("CURSADA_ALUMNOS_ID")]
+        [ForeignKey("CURSADA_ALUMNOS_ID"), InverseProperty("PERSONA_CURSADAS")]
         public Persona CURSADA_ALUMNO { get; set; }
         [ForeignKey("CURSADA_MATERIAS_X_CURSOS_ID")]
         public Materia_x_Curso CURSADA_MATERIA_X_CURSO { get; set; }

@@ -1,4 +1,13 @@
-﻿.navegacion-contextual  {
+﻿html, html a {
+    -webkit-font-smoothing: antialiased !important;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+}
+
+.align-right {
+    text-align: right;
+}
+
+.navegacion-contextual  {
     position: fixed;
     display: block;
     width: 100%;
@@ -9,10 +18,23 @@
     padding: 6px;
 }
 
+.nav-secundaria {
+    min-height: 46px !important;
+    -ms-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
 .nav-secundaria .navbar-collapse {
     margin-left: -30px !important;
 }
 
+.nav-secundaria form {
+    margin: 5px 5px 0 0;
+}
+
+.nav-secundaria a {
+    height: 44px;
+}
 #sidebar-wrapper, .sidebar-nav {
     width: 200px !important;
 }
@@ -24,11 +46,6 @@
 #wrapper {
     padding-left: 200px !important;
 }
-
-#page-content-wrapper  {
-    margin-top: 45px;
-}
-
 .table ul {
     padding-left: 0px;
 }
@@ -66,7 +83,8 @@
 
 @media (min-width: 768px) {
     #page-content-wrapper {
-        padding: 0;
+        padding: 0 !important;
+        margin-top: 51px !important;
     }
 }
 
@@ -77,4 +95,43 @@
 #MATERIAS {
     height: 30px;
     margin-top: 8px;
+}
+
+.situacion-academica .align-right b {
+    margin-right: 10px;
+}
+
+.situacion-academica tr,
+.situacion-academica th {
+    text-align: center;
+}
+
+.situacion-academica td:first-child {
+    text-align: left;
+}
+
+.situacion-academica td:nth-child(even) {
+    max-width: 49px;
+}
+
+.data-table td.details-control {
+    cursor: pointer;
+    text-align: center;
+    width: 137px;
+}
+.data-table td.details-control a {
+    display: inline-block;
+}
+.data-table .btn-xs {
+    font-size: 14px;
+}
+    
+/*
+.data-table tr.shown td.details-control {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAANbY1E9YMgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAALbSURBVHjarFVNTFNBEJ4tFVuw0gaj1Jhe5OdgJV5Iaw+CGAMKIdET4Sgh4SIHDcYLN07oiZOGqyFcjOECISEhwRpoGxLExAMVAi9NadIgWNLW8t7bdWa7L0Ap6oFtvsy+3Zlvd2ZnpnYoP2yICsQFRKWa0zARhwhdzXmpob3km6k1J8KFuIyoVqSgyLKIDOIAkUcYCFHuVkTmQFxF3BoYGHgWDodnk8mkxjk3CTSnNdojHaXrULanyOhW1xGB6enpD7quH4ozBu2RDukqmxOkTLlU5/V6721sbHwjI57Pi9z8vNgdHhY7PT0i1d0tdl+8FNmZGcGzWUlMumSDttcUB2PqAShWvuXl5bFAINDB9/chMzEBuYWF4rGMgsSACQECTRyhENQMDkJFbS0sLS3NhkKh16i1TXG1XtIzNDT0oL+//zmYJtt7Mwa5xc+Al0AmDlwKJKMfrunaNhibm+Bsa4MbPt/NdDq9GovFNHokmyKs6e3tfcIYs+XDYciGvwA3TQnT5EXJaW6qdQ65lRU8dBHIpq+v76ny0m4RVjU2Nt4h7w7m5qRhKY4OOALp0mhqaiLbKoqjXSVtpdvtrqXNfDwuldE3qMcblBs/WlulLGxtSelyudxWAZQmtkx90zTgb8M0DPlQTNeLaYJuH68UWU6ZTGbP4/FcqfB64XciIZ/2e/CuSixVCMeErAJvnfxG25+qikybqsvc+vr6qrx+e7uKkXEEQ8WNcxXPorx0v10SxuPxNeIgLovw1+Tk5EfKZ3dHBzj8/qIxt0gUkUWMh1TW14Pn8SNKIz41NfVJ1bd+IrGj0ejblpaWhwVNA210FA6iEfSPFV203EZnq5ubwTcyAs6GBohEInPBYPAVbmiKtHzpHabTIvnuvVjr6hIx/20R9fvF185OkRgfF4WdndLSq7NK77yag/OsjnOqfaVSqYRFRPN/tS/2nw32otov/KvBsvP+C/gjwAC23ACdhngbNwAAAABJRU5ErkJggg==') no-repeat center center;
+}
+*/
+
+.table-actas tr:hover {
+    cursor: ns-resize;
 }

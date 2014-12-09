@@ -1,260 +1,189 @@
-﻿@model ColegioTerciario.DAL.Models.Persona
+﻿@using ColegioTerciario.Models
+@using Glimpse.Mvc.AlternateType
+@model ColegioTerciario.DAL.Models.Persona
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Editar</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">Editar Persona</div>
+            </div>
+            <div class="portlet-body">
+                @if (Model.PERSONA_ES_ALUMNO == true)
+                {
+                    <div class="tabbable-line">
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#datos-personales" aria-controls="datos-personales" role="tab" data-toggle="tab">Datos Personales</a></li>
+                            <li role="presentation"><a href="#cursadas_x_ciclos" aria-controls="cursadas" role="tab" data-toggle="tab">Cursadas Por Ciclos</a></li>
+                            <li role="presentation"><a href="#cursadas_x_materias" aria-controls="cursadas" role="tab" data-toggle="tab">Cursadas Por Materias</a></li>
+                            <li role="presentation"><a href="#finales" aria-controls="finales" role="tab" data-toggle="tab">Finales</a></li>
+                        </ul>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Persona</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-        <!--
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_CODIGO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_CODIGO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_CODIGO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="datos-personales">
+                                @Html.Partial("_PersonaForm", Model)
+                            </div>
+                            <div class="tab-pane" id="cursadas_x_ciclos" role="tabpanel">
+                                @foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaPorCiclosViewModel situacion in ViewBag.SITUACIONPORCICLOS)
+                                {
+                                    <h2>@situacion.Carrera</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_USUARIO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_USUARIO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_USUARIO, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_CLAVE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_CLAVE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_CLAVE, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_NOMBRE, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                    foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaCursadasViewModel cursada in situacion.Cursadas)
+                                    {
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_APELLIDO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_APELLIDO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_APELLIDO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <!--
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NOMBRE_PARA_MOSTRAR, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_NOMBRE_PARA_MOSTRAR, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_NOMBRE_PARA_MOSTRAR, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_DOCUMENTO_TIPO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_DOCUMENTO_TIPO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_DOCUMENTO_TIPO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                        <h3>
+                                            @cursada.Ciclo
+                                        </h3>
+                                        <table class="table table-condensed table-hover table-bordered situacion-academica">
+                                            <thead>
+                                                <tr>
+                                                    <th>Materia</th>
+                                                    <th>P1</th>
+                                                    <th>Fecha</th>
+                                                    <th>R1</th>
+                                                    <th>Fecha</th>
+                                                    <th>P2</th>
+                                                    <th>Fecha</th>
+                                                    <th>R2</th>
+                                                    <th>Fecha</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaMateriasViewModel materia in cursada.Materias)
+                                                {
+                                                    <tr>
+                                                        <td>@materia.MateriaNombre</td>
+                                                        <td><b>@materia.P1</b></td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", materia.P1Fecha)</td>
+                                                        <td><b>@materia.R1</b></td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", materia.R1Fecha)</td>
+                                                        <td><b>@materia.P2</b></td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", materia.P2Fecha)</td>
+                                                        <td><b>@materia.R2</b></td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", materia.R2Fecha)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_DOCUMENTO_NUMERO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_DOCUMENTO_NUMERO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_DOCUMENTO_NUMERO, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_FECHA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_NACIMIENTO_FECHA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_FECHA, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                }
+                            </div>
+                            <div class="tab-pane" id="cursadas_x_materias" role="tabpanel">
+                                @foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaPorMateriasViewModel situacion in ViewBag.SITUACIONPORMATERIAS)
+                                {
+                                    <h2>@situacion.Carrera</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_EMAIL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_EMAIL, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_DOMICILIO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_DOMICILIO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_DOMICILIO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                    foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaPorMateriasMateriasViewModel cursada in situacion.Materias)
+                                    {
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_TELEFONO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_TELEFONO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_TELEFONO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                        <h3>
+                                            @cursada.Materia
+                                        </h3>
+                                        <table class="table table-condensed table-hover table-bordered situacion-academica">
+                                            <thead>
+                                                <tr>
+                                                    <th>Materia</th>
+                                                    <th>P1</th>
+                                                    <th>Fecha</th>
+                                                    <th>R1</th>
+                                                    <th>Fecha</th>
+                                                    <th>P2</th>
+                                                    <th>Fecha</th>
+                                                    <th>R2</th>
+                                                    <th>Fecha</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaMateriasViewModel materia in cursada.Cursadas)
+                                                {
+                                                    <tr>
+                                                        <td>@materia.MateriaNombre</td>
+                                                        <td><b>@materia.P1</b></td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", materia.P1Fecha)</td>
+                                                        <td><b>@materia.R1</b></td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", materia.R1Fecha)</td>
+                                                        <td><b>@materia.P2</b></td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", materia.P2Fecha)</td>
+                                                        <td><b>@materia.R2</b></td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", materia.R2Fecha)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_SEXO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_SEXO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_SEXO, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_FECHA_ALTA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_FECHA_ALTA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_FECHA_ALTA, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                }
+                            </div>
+                            <div id="finales" class="tab-pane">
+                                @foreach (ColegioTerciario.Models.ViewModels.SituacionFinalesViewModel situacion in ViewBag.FINALES)
+                                {
+                                    <h2>@situacion.Carrera</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_FECHA_BAJA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_FECHA_BAJA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_FECHA_BAJA, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                    foreach (ColegioTerciario.Models.ViewModels.FinalesViewModel final in situacion.Finales)
+                                    {
+                                        <h2>@final.Anio</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_TITULO_SECUNDARIO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_TITULO_SECUNDARIO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_TITULO_SECUNDARIO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                        <table class="table table-condensed table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Acta</th>
+                                                    <th>Fecha</th>
+                                                    <th>Materia</th>
+                                                    <th>Nota</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ColegioTerciario.Models.ViewModels.ExamenesFinalesViewModel examen in final.Examenes)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.ActionLink("Ir a Acta", "Edit", "ActaExamen", new { id = examen.ActaId }, null)</td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}",@examen.Fecha)</td>
+                                                        <td>@examen.Materia</td>
+                                                        <td>@examen.Nota</td>
+                                                        <td>@examen.Estado</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_OBSERVACION, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_OBSERVACION, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_OBSERVACION, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_FOTO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_FOTO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_FOTO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_CUIL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PERSONA_CUIL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PERSONA_CUIL, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_ES_ALUMNO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.PERSONA_ES_ALUMNO)
-                    @Html.ValidationMessageFor(model => model.PERSONA_ES_ALUMNO, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_ES_DOCENTE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.PERSONA_ES_DOCENTE)
-                    @Html.ValidationMessageFor(model => model.PERSONA_ES_DOCENTE, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_ES_NODOCENTE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.PERSONA_ES_NODOCENTE)
-                    @Html.ValidationMessageFor(model => model.PERSONA_ES_NODOCENTE, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_PAIS_ID, "Pais", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input id="PERSONA_NACIMIENTO_PAIS_ID" name="PERSONA_NACIMIENTO_PAIS_ID" value="@Model.PERSONA_NACIMIENTO_PAIS_ID" type="text" />
-                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_PAIS_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID, "Provincia", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input id="PERSONA_NACIMIENTO_PROVINCIA_ID" name="PERSONA_NACIMIENTO_PROVINCIA_ID" value="@Model.PERSONA_NACIMIENTO_PROVINCIA_ID" type="text" />
-                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_PROVINCIA_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_CIUDAD_ID, "Ciudad", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input id="PERSONA_NACIMIENTO_CIUDAD_ID" name="PERSONA_NACIMIENTO_CIUDAD_ID" value="@Model.PERSONA_NACIMIENTO_CIUDAD_ID" type="text" />
-                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_CIUDAD_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PERSONA_NACIMIENTO_BARRIO_ID, "Barrio", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input id="PERSONA_NACIMIENTO_BARRIO_ID" name="PERSONA_NACIMIENTO_BARRIO_ID" value="@Model.PERSONA_NACIMIENTO_BARRIO_ID" type="text" />
-                @Html.ValidationMessageFor(model => model.PERSONA_NACIMIENTO_BARRIO_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.Partial("_PersonaForm", Model)
+                }
+                
+                    @Html.ActionLink("Volver a la lista", "Index") |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID })
+                
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Volver a la lista", "Index") | 
-    @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID })
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 
-<script type="text/javascript">
+
+@section Scripts {
+
+    <script type="text/javascript">
         var pageSize = 20;
         $(document).ready(function () {
-            $('#PERSONA_NACIMIENTO_FECHA').datepicker({
-                    format: "dd/mm/yyyy",
-                    language: "es"
-                });
-            
             $("#PERSONA_NACIMIENTO_PAIS_ID").select2(
             {
                 //placeholder: 'Enter name',
@@ -415,5 +344,5 @@
                 },
             });
         });
-</script>
+    </script>
 }

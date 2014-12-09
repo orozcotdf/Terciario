@@ -19,6 +19,7 @@ namespace ColegioTerciario.Controllers
         // GET: ActaExamen
         public ActionResult Index()
         {
+            ViewBag.MATERIAS = new SelectList(db.Materias, "ID", "MATERIA_NOMBRE");
             var actas_examenes = db.Actas_Examenes
                 .Include(a => a.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_CICLO)
                 .Include(a => a.ACTA_EXAMEN_MATERIA)
@@ -119,7 +120,7 @@ namespace ColegioTerciario.Controllers
         public ActionResult Create()
         {
             ViewBag.CARRERAS = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
-            ViewBag.MATERIAS = new SelectList(db.Materias, "ID", "MATERIA_NOMBRE");
+            //ViewBag.MATERIAS = new SelectList(db.Materias, "ID", "MATERIA_NOMBRE");
             ViewBag.PERSONAS = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE");
             ViewBag.TURNOS = new SelectList(db.Turnos_Examenes.Include(t => t.TURNO_EXAMEN_CICLO), "ID", "TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR");
             return View();
@@ -156,7 +157,6 @@ namespace ColegioTerciario.Controllers
                 return HttpNotFound();
             }
             ViewBag.CARRERAS = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
-            ViewBag.MATERIAS = new SelectList(db.Materias, "ID", "MATERIA_NOMBRE");
             ViewBag.PERSONAS = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE");
             ViewBag.TURNOS = new SelectList(db.Turnos_Examenes.Include(t => t.TURNO_EXAMEN_CICLO), "ID", "TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR");
             ViewBag.ALUMNOS = db.Actas_Examenes_Detalles
@@ -180,6 +180,14 @@ namespace ColegioTerciario.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CARRERAS = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
+            ViewBag.PERSONAS = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE");
+            ViewBag.TURNOS = new SelectList(db.Turnos_Examenes.Include(t => t.TURNO_EXAMEN_CICLO), "ID", "TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR");
+            ViewBag.ALUMNOS = db.Actas_Examenes_Detalles
+                .Include("ACTA_EXAMEN_DETALLE_ALUMNO")
+                .Where(c => c.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID == acta_Examen.ID)
+                .OrderBy(a => a.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO)
+                .ToList();
             return View(acta_Examen);
         }
 

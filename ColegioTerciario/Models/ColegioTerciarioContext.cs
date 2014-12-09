@@ -45,6 +45,12 @@ namespace ColegioTerciario.Models
         public DbSet<Sede> Sedes { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Acta_Examen>()
+                .HasMany(a => a.ACTAS_EXAMENES_DETALLES)
+                .WithOptional()
+                .HasForeignKey(a => a.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID)
+                .WillCascadeOnDelete(true);
+
             base.OnModelCreating(modelBuilder);
         }
 
