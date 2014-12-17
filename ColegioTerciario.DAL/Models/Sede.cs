@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
-    public class Sede
+    public class Sede : EntityBase
     {
         public int ID { get; set; }
         [Required]

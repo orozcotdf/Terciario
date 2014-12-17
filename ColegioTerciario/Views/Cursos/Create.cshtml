@@ -1,4 +1,6 @@
-﻿@{
+﻿@using System.Collections
+@using ColegioTerciario.DAL.Models
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @if (ViewBag.error != null)
@@ -38,7 +40,13 @@
                         <div class="form-group">
                             @Html.Label("CARRERA", "Carreras", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("CARRERA", (SelectList)ViewBag.CARRERAS, htmlAttributes: new { @class = "form-control" })
+                                <select class="form-control" id="CARRERA" name="Carrera">
+                                    @foreach (var carrera in ViewBag.CARRERAS)
+                                    {
+                                        <option value="@carrera.ID">@carrera.CARRERA_NOMBRE_CORTO - @carrera.CARRERA_RESOLUCION_PLAN</option>
+                                    }
+                                        
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

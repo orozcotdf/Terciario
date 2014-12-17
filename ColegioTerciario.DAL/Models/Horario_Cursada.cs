@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Horarios_Cursadas")]
-    public class Horario_Cursada // TABLA INTERMEDIA ENTRE HORA Y MATERIA_X_CURSO
+    public class Horario_Cursada : EntityBase // TABLA INTERMEDIA ENTRE HORA Y MATERIA_X_CURSO
     {
         public int ID { get; set; }
         public string HORARIO_CURSADA_DIA { get; set; }

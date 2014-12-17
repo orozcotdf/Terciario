@@ -284,6 +284,9 @@
          });
 
          $(document).ready(function () {
+             $('#agregarAlumnosModal').on('shown.bs.modal', function (e) {
+                 $(this).find('.dataTables_filter input').focus();
+             });
              /* EDITABLE */
              $('.xEditable').editable({
                  url: '/ActaExamen/ponerNota',

@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Horas")]
-    public class Hora
+    public class Hora : EntityBase
     {
         public int ID { get; set; }
         public Nullable<DateTime> HORA_INICIO { get; set; }

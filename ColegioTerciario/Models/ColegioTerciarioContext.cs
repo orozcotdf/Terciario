@@ -1,5 +1,9 @@
-﻿using ColegioTerciario.DAL.Interfaces;
+﻿using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
+using ColegioTerciario.DAL.Interfaces;
 using ColegioTerciario.DAL.Models;
+using ColegioTerciario.Models.Types;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -13,7 +17,8 @@ using System.Web;
 
 namespace ColegioTerciario.Models
 {
-    public class ColegioTerciarioContext : IdentityDbContext<ApplicationUser>
+    
+    public partial class ColegioTerciarioContext : IdentityDbContext<ApplicationUser>
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -45,11 +50,55 @@ namespace ColegioTerciario.Models
         public DbSet<Sede> Sedes { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Configurations.Add(new EntityBaseConfiguration());
             modelBuilder.Entity<Acta_Examen>()
                 .HasMany(a => a.ACTAS_EXAMENES_DETALLES)
                 .WithOptional()
                 .HasForeignKey(a => a.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID)
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Acta_Examen>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Acta_Examen_Detalle>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Persona>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Ciudad>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Provincia>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Pais>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Barrio>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Ciclo>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Carrera>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Materia>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Materia_x_Curso>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Turno_Examen>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Cursada>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Sede>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -60,7 +109,113 @@ namespace ColegioTerciario.Models
             return new ColegioTerciarioContext();
         }
 
+        public override int SaveChanges()
+        {
+            var changedEntities = ChangeTracker.Entries();
+
+            foreach (var changedEntity in changedEntities)
+            {/*
+                if (changedEntity.Entity is Entity)
+                {
+                    var entity = (Entity)changedEntity.Entity;
+
+                    switch (changedEntity.State)
+                    {
+                        case EntityState.Added:
+                            entity.OnBeforeInsert();
+                            break;
+
+                        case EntityState.Modified:
+                            entity.OnBeforeUpdate();
+                            break;
+
+                    }
+                }*/
+                
+                if (changedEntity.State == EntityState.Deleted)
+                {
+                    SoftDelete(changedEntity);
+                }
+            }
+
+            return base.SaveChanges();
+        }
+
+        private void SoftDelete(DbEntityEntry entry)
+        {
+            Type entryEntityType = entry.Entity.GetType();
+
+            string tableName = GetTableName(entryEntityType);
+            string primaryKeyName = GetPrimaryKeyName(entryEntityType);
+
+            string sql =
+                string.Format(
+                    "UPDATE {0} SET IsDeleted = 1, DeletedAt = GETDATE() WHERE {1} = @id",
+                        tableName, primaryKeyName);
+
+            Database.ExecuteSqlCommand(
+                sql,
+                new SqlParameter("@id", entry.OriginalValues[primaryKeyName]));
+
+            switch (tableName)
+            {
+                case "[dbo].[Actas_Examenes]":
+                    Database.ExecuteSqlCommand(
+                        "UPDATE dbo.Actas_Examenes_Detalles SET IsDeleted = 1, DeletedAt = GETDATE() WHERE ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID = @id",
+                        new SqlParameter("@id", entry.OriginalValues[primaryKeyName]));
+                    break;
+            }
+
+            // prevent hard delete            
+            entry.State = EntityState.Detached;
+        }
         
+    }
+
+    public partial class ColegioTerciarioContext
+    {
+        private static Dictionary<Type, EntitySetBase> _mappingCache =
+            new Dictionary<Type, EntitySetBase>();
+
+        private string GetTableName(Type type)
+        {
+            EntitySetBase es = GetEntitySet(type);
+
+            return string.Format("[{0}].[{1}]",
+                es.MetadataProperties["Schema"].Value,
+                es.MetadataProperties["Table"].Value);
+        }
+
+        private string GetPrimaryKeyName(Type type)
+        {
+            EntitySetBase es = GetEntitySet(type);
+
+            return es.ElementType.KeyMembers[0].Name;
+        }
+
+        private EntitySetBase GetEntitySet(Type type)
+        {
+            if (!_mappingCache.ContainsKey(type))
+            {
+                ObjectContext octx = ((IObjectContextAdapter)this).ObjectContext;
+
+                string typeName = ObjectContext.GetObjectType(type).Name;
+
+                var es = octx.MetadataWorkspace
+                                .GetItemCollection(DataSpace.SSpace)
+                                .GetItems<EntityContainer>()
+                                .SelectMany(c => c.BaseEntitySets
+                                                .Where(e => e.Name == typeName))
+                                .FirstOrDefault();
+
+                if (es == null)
+                    throw new ArgumentException("Entity type not found in GetTableName", typeName);
+
+                _mappingCache.Add(type, es);
+            }
+
+            return _mappingCache[type];
+        }
     }
 
     

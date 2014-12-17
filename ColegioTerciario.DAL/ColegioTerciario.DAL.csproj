@@ -66,6 +66,7 @@
     <Compile Include="Models\Provincia.cs" />
     <Compile Include="Models\Sede.cs" />
     <Compile Include="Models\Turno_Examen.cs" />
+    <Compile Include="Models\Types\EntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

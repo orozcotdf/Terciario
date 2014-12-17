@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Matriculas")]
-    public class Matricula
+    public class Matricula : EntityBase
     {
         public int ID { get; set; }
         [Required]

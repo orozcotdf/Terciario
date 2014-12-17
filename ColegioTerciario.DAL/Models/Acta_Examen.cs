@@ -1,4 +1,5 @@
-﻿using ColegioTerciario.DAL.Interfaces;
+﻿using System.Data.Entity.Core.Objects;
+using ColegioTerciario.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,12 +7,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Actas_Examenes")]
     [Serializable]
-    public class Acta_Examen : IDescriptible
+    public class Acta_Examen : EntityBase, IDescriptible
     {
         public Acta_Examen()
         {
@@ -20,6 +22,12 @@ namespace ColegioTerciario.DAL.Models
             this.ACTA_EXAMEN_INSCRIPTOS = 0;
             this.ACTA_EXAMEN_REPROBADOS = 0;
         }
+
+        public override void OnBeforeDelete()
+        {
+            
+        }
+
         public int ID { get; set; }
         [Column(TypeName = "Date")]
         [Display(Name="Fecha")]

@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Cursadas")]
-    public class Cursada
+    public class Cursada : EntityBase
     {
         public int ID { get; set; }
         public string CURSADA_NOTA_P1 { get; set; }

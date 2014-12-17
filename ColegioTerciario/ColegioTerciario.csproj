@@ -263,6 +263,10 @@
     <Compile Include="Migrations\201412092312562_Actas Cascade on Delete.Designer.cs">
       <DependentUpon>201412092312562_Actas Cascade on Delete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412130030459_EntityBase.cs" />
+    <Compile Include="Migrations\201412130030459_EntityBase.Designer.cs">
+      <DependentUpon>201412130030459_EntityBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ColegioTerciarioContext.cs" />
@@ -689,6 +693,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412092312562_Actas Cascade on Delete.resx">
       <DependentUpon>201412092312562_Actas Cascade on Delete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412130030459_EntityBase.resx">
+      <DependentUpon>201412130030459_EntityBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Actas_Examenes_Detalles")]
-    public class Acta_Examen_Detalle
+    public class Acta_Examen_Detalle : EntityBase
     {
         public int ID { get; set; }
         public string ACTA_EXAMEN_DETALLE_NOTA { get; set; }

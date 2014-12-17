@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Turnos_Examenes")]
-    public class Turno_Examen // EX Llamados
+    public class Turno_Examen : EntityBase // EX Llamados
     { 
         public int ID { get; set; }
         public int TURNO_EXAMEN_NUMERO { get; set; }

@@ -137,9 +137,11 @@ namespace ColegioTerciario.Controllers
             {
                 db.Actas_Examenes.Add(acta_Examen);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", new{id=acta_Examen.ID});
             }
-
+            ViewBag.CARRERAS = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
+            ViewBag.PERSONAS = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE");
+            ViewBag.TURNOS = new SelectList(db.Turnos_Examenes.Include(t => t.TURNO_EXAMEN_CICLO), "ID", "TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR");
             return View(acta_Examen);
         }
 

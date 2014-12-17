@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Personas")]
-    public class Persona
+    public class Persona : EntityBase
     {
         public int ID { get; set; }
         [Display(Name = "Codigo")]

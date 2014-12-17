@@ -29,7 +29,7 @@
                     @Model.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE - @Html.DropDownList("MATERIAS", null, new { @class = "select" })
                 </div>
                 <div class="actions">
-                    <a href="#" class="btn btn-default btn-sm">Volver al Curso</a>
+                    <a href="@Url.Action("EditarCurso", new{ciclo=Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre=Model.MATERIA_X_CURSO_CURSO_NOMBRE})" class="btn btn-default btn-sm">Volver al Curso</a>
                     <a class="btn green btn-sm" data-toggle="modal" data-target="#agregarAlumnosModal">
                         Agregar alumnos al curso
                     </a>
@@ -118,9 +118,10 @@
         $.extend(true, $.fn.dataTable.defaults, {
             "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-4'i><'col-xs-8'p>>",
         });
-
+        
         $(document).on('click', '.agregar-persona-a-curso', function () {
             $(this).css('pointer-events', 'none').css('color', 'black');
+            
             alumnos.push($(this).data('id'));
             if (alumnos.length > 1)
                 $('#AgregarAlumnos').val("Agregar " + alumnos.length + " alumnos");
@@ -176,13 +177,16 @@
         $('.data-table').on('page.dt', function (e, settings) {
             console.log(settings.aoColumns[0].mRender);
         });
-
+        
         $("#MATERIAS").find('option:contains(@Html.Raw(Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE))').prop("selected", true);
         $("#MATERIAS").change(function() {
             var id = $(this).find("option:selected").val();
             location.href = id;
         });
         $(document).ready(function () {
+            $('#agregarAlumnosModal').on('shown.bs.modal', function(e) {
+                $(this).find('.dataTables_filter input').focus();
+            });
             /* EDITABLE */
             $('.xEditable').editable({
                 url: '/Cursos/PonerNota',

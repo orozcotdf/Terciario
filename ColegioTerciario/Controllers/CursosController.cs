@@ -29,17 +29,18 @@ namespace ColegioTerciario.Controllers
             return View();
         }
 
-        // GET: Cursos/Details/5
+        /* GET: Cursos/Details/5
         public ActionResult Details(int id)
         {
             return View();
-        }
+        }*/
 
         // GET: Cursos/Create
         public ActionResult Create()
         {
             ViewBag.CICLOS = new SelectList(_db.Ciclos, "ID", "CICLO_NOMBRE");
-            ViewBag.CARRERAS = new SelectList(_db.Carreras, "ID", "CARRERA_NOMBRE");
+            //ViewBag.CARRERAS = new SelectList(_db.Carreras, "ID", "CARRERA_NOMBRE");
+            ViewBag.CARRERAS = _db.Carreras.ToList();
             ViewBag.SEDES = new SelectList(_db.Sedes, "ID", "SEDE_NOMBRE");
             ViewBag.error = Session["error"];
             return View();
