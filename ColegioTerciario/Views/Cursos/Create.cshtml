@@ -65,13 +65,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.Label("NROS", "Numeros", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label("NROS", "Comisión", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
                                 <table class="table">
                                     <tr>
                                         <td>@Html.CheckBox("NROS[0]", false, new { value = "A" }) A</td>
                                         <td>@Html.CheckBox("NROS[1]", false, new { value = "B" }) B</td>
                                         <td>@Html.CheckBox("NROS[2]", false, new { value = "C" }) C</td>
+                                        <td>@Html.CheckBox("NROS[3]", false, new { value = "D" }) D</td>
                                     </tr>
                                 </table>
 
@@ -79,6 +80,18 @@
 
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            @Html.Label("TURNO", "Turno", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <select class="form-control" id="TURNO" name="Turno">
+                                    <option value="MAÑANA">Mañana</option>
+                                    <option value="TARDE">Tarde</option>
+                                    <option value="NOCHE">Noche</option>
+                                </select>
+                            </div>
+                        </div>
+                        
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">

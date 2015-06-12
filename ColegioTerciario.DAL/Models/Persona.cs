@@ -34,7 +34,7 @@ namespace ColegioTerciario.DAL.Models
         public string PERSONA_DOCUMENTO_NUMERO { get; set; }
         [Display(Name = "Fecha de Nacimiento")]
         [Column(TypeName = "Date")]
-        public Nullable<System.DateTime> PERSONA_NACIMIENTO_FECHA { get; set; }
+        public DateTime? PERSONA_NACIMIENTO_FECHA { get; set; }
         [Display(Name = "Email")]
        // [Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "El Email no es valido")]
@@ -47,10 +47,10 @@ namespace ColegioTerciario.DAL.Models
         public string PERSONA_SEXO { get; set; }
         [Display(Name = "Fecha de Alta")]
         [Column(TypeName = "Date")]
-        public Nullable<System.DateTime> PERSONA_FECHA_ALTA { get; set; }
+        public DateTime? PERSONA_FECHA_ALTA { get; set; }
         [Display(Name = "Fecha de Baja")]
         [Column(TypeName = "Date")]
-        public Nullable<System.DateTime> PERSONA_FECHA_BAJA { get; set; }
+        public DateTime? PERSONA_FECHA_BAJA { get; set; }
         [Display(Name = "Titulo Secundario")]
         public string PERSONA_TITULO_SECUNDARIO { get; set; }
         [Display(Name = "Observacion")]

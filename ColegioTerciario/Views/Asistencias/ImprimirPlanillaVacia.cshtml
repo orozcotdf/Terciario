@@ -1,0 +1,75 @@
+﻿@model List<ColegioTerciario.DAL.Models.Persona>
+@{
+
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+    int num = 1;
+}
+
+@section footer  {
+    <footer class="row" style="margin-top: 80px;">
+            
+        <div class="col-md-2" style="float:left;">
+            <p style="padding-top: 4px;">&copy; @DateTime.Now.Year - C.E.N.T. 11</p>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-4" style="float: right;">
+            <div class="firma" style="width: 200px; text-align: center; border-top: 1px dotted; padding-top: 5px;">Fecha y Firma</div>               
+        </div>
+    </footer>
+}
+
+<div class="row">
+    <div class="col-xs-10">
+        <h1>Ministerio de Educación</h1>
+        <h2>Cent Nº 11 "Ciudad de Ushuaia"</h2>
+    </div>
+    <div class="col-xs-2">
+        <h1>Cent11</h1>
+        <h4>Asistencias</h4>
+    </div>
+
+</div>
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-xs-10">
+        <p>
+            @ViewBag.CARRERA
+        </p>
+        <p>
+            @ViewBag.MATERIA
+        </p>
+    </div>
+    <div class="col-xs-2">
+        <p>@ViewBag.CICLO @ViewBag.CODIGO</p>
+        <p>@ViewBag.DOCENTE</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <tr>
+                <th style="width: 300px">ALUMNO</th>
+                <th style="text-align: center;">&nbsp;</th>
+                <th style="text-align: center;">&nbsp;</th>
+                <th style="text-align: center;">&nbsp;</th>
+                <th style="text-align: center;">&nbsp;</th>
+                <th style="text-align: center;">&nbsp;</th>
+                <th style="text-align: center;">&nbsp;</th>
+            </tr>
+            @foreach (var alumno in Model)
+            {
+                <tr>
+                    <td>@alumno.PERSONA_NOMBRE_COMPLETO</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

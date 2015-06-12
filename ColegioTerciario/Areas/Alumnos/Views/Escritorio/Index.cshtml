@@ -1,0 +1,142 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Areas/Alumnos/Views/Shared/_AlumnosLayout.cshtml";
+}
+<div data-view="cols" data-type="space" id="app">
+    <div data-view="template"> ASD</div>
+</div>
+<h2>title</h2>
+
+
+@foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaPorCiclosViewModel situacion in ViewBag.SITUACIONPORCICLOS)
+{
+    <h2>@situacion.Carrera</h2>
+
+
+    foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaCursadasViewModel cursada in situacion.Cursadas)
+    {
+
+        <h3>
+            @cursada.Ciclo
+        </h3>
+        <table class="table table-condensed table-hover table-bordered situacion-academica">
+            <thead>
+                <tr>
+                    <th>Materia</th>
+                    <th>P1</th>
+                    <th>Fecha</th>
+                    <th>R1</th>
+                    <th>Fecha</th>
+                    <th>P2</th>
+                    <th>Fecha</th>
+                    <th>R2</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaMateriasViewModel materia in cursada.Materias)
+                {
+                    <tr>
+                        <td>@materia.MateriaNombre</td>
+                        <td><b>@materia.P1</b></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", materia.P1Fecha)</td>
+                        <td><b>@materia.R1</b></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", materia.R1Fecha)</td>
+                        <td><b>@materia.P2</b></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", materia.P2Fecha)</td>
+                        <td><b>@materia.R2</b></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", materia.R2Fecha)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+}
+
+
+@foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaPorMateriasViewModel situacion in ViewBag.SITUACIONPORMATERIAS)
+{
+    <h2>@situacion.Carrera</h2>
+
+
+    foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaPorMateriasMateriasViewModel cursada in situacion.Materias)
+    {
+
+        <h3>
+            @cursada.Materia
+        </h3>
+        <table class="table table-condensed table-hover table-bordered situacion-academica">
+            <thead>
+                <tr>
+                    <th>Materia</th>
+                    <th>P1</th>
+                    <th>Fecha</th>
+                    <th>R1</th>
+                    <th>Fecha</th>
+                    <th>P2</th>
+                    <th>Fecha</th>
+                    <th>R2</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaMateriasViewModel materia in cursada.Cursadas)
+                {
+                    <tr>
+                        <td>@materia.MateriaNombre</td>
+                        <td><b>@materia.P1</b></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", materia.P1Fecha)</td>
+                        <td><b>@materia.R1</b></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", materia.R1Fecha)</td>
+                        <td><b>@materia.P2</b></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", materia.P2Fecha)</td>
+                        <td><b>@materia.R2</b></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", materia.R2Fecha)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+}
+
+
+@foreach (ColegioTerciario.Models.ViewModels.SituacionFinalesViewModel situacion in ViewBag.FINALES)
+{
+    <h2>@situacion.Carrera</h2>
+
+    foreach (ColegioTerciario.Models.ViewModels.FinalesViewModel final in situacion.Finales)
+    {
+        <h2>@final.Anio</h2>
+
+        <table class="table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>Acta</th>
+                    <th>Fecha</th>
+                    <th>Materia</th>
+                    <th>Nota</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ColegioTerciario.Models.ViewModels.ExamenesFinalesViewModel examen in final.Examenes)
+                {
+                    <tr>
+                        <td>@Html.ActionLink("Ir a Acta", "Edit", "ActaExamen", new { id = examen.ActaId }, null)</td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", @examen.Fecha)</td>
+                        <td>@examen.Materia</td>
+                        <td>@examen.Nota</td>
+                        <td>@examen.Estado</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+}

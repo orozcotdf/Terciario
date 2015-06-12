@@ -126,7 +126,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
         {
             if (!string.IsNullOrWhiteSpace(UserName))
             {
-                ApplicationUser user = context.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                ApplicationUser user = context.Users.FirstOrDefault(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase));
                 var account = new AccountController();
 
                 ViewBag.RolesForThisUser = account.UserManager.GetRoles(user.Id);
@@ -144,7 +144,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
         public ActionResult DeleteRoleForUser(string UserName, string RoleName)
         {
             var account = new AccountController();
-            ApplicationUser user = context.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            ApplicationUser user = context.Users.FirstOrDefault(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase));
 
             if (account.UserManager.IsInRole(user.Id, RoleName))
             {

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -31,7 +32,16 @@ namespace ColegioTerciario.Controllers
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                if (_userManager == null)
+                {
+                    var manager = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    return manager;
+                }
+                else
+                {
+                    return _userManager;
+                }
+                
             }
             private set
             {
@@ -77,7 +87,9 @@ namespace ColegioTerciario.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    var user = UserManager.FindByEmail(model.Email);
+                    var esAlumno = UserManager.IsInRole(user.Id, "Alumno");
+                    return esAlumno ? RedirectToAction("Index", "Escritorio", new {area = "Alumnos"}) : RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

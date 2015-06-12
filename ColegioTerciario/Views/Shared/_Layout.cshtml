@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MvcFlash.Core.Extensions
+<!DOCTYPE html>
 <!--[if IE 8]> <html lang="es" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="es" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -43,7 +44,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/">Inicio</a></li>
                         <li><a href="~/Personas">Personas</a></li>
-                        <li><a href="~/Cursos">Parciales</a></li>
+                        <li><a href="~/Cursos">Cursos</a></li>
                         <li><a href="~/ActaExamen">Finales</a></li>
 @*                        <li><a href="~/Carreras">Carreras</a></li>*@
 @*                        <li><a href="~/Materias">Materias</a></li>*@
@@ -68,7 +69,7 @@
 
         <!-- Page Content -->
         <div class="page-content">
-
+            @Html.Flash()
             <div class="container-fluid">
                 @RenderBody()
                 <hr />
@@ -81,7 +82,6 @@
     <!-- END PAGE CONTAINER -->
     <!-- /#page-content-wrapper -->
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/plugins.min.js"></script>
     @RenderSection("scripts", required: false)
     <script src="~/Content/metronic/js/metronic_scripts.min.js"></script>
@@ -90,7 +90,6 @@
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core components
             Layout.init(); // init current layout
-            //Demo.init(); // init demo features
         });
     </script>
 </body>

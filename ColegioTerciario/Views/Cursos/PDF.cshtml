@@ -6,6 +6,27 @@
     int num = 1;
 }
 
+@section footer  {
+    <footer class="row" style="margin-top: 120px;">
+        <div class="col-xs-4">
+            <div class="firma" style="text-align: center; border-top: 1px dotted; padding-top: 5px;">Presidente</div>
+        </div>
+        <div class="col-xs-4">
+            <div class="firma" style="text-align: center; border-top: 1px dotted; padding-top: 5px;">Vocal 1</div>
+        </div>
+        <div class="col-xs-4">
+            <div class="firma" style="text-align: center; border-top: 1px dotted; padding-top: 5px;">Vocal 2</div>
+        </div>
+        
+        <div style="margin-top: 40px"></div>
+
+        <div class="col-md-2" style="float:left;">
+            <p style="padding-top: 4px;">&copy; @DateTime.Now.Year - C.E.N.T. 11</p>
+        </div>
+
+    </footer>
+}
+
 <div class="row">
     <div class="col-xs-10">
         <h1>Ministerio de Educación</h1>
@@ -60,7 +81,6 @@
     </thead>
     <tbody>
 
-        <!--@@foreach (ColegioTerciario.DAL.Models.Persona alumno in ViewBag.alumnos)-->
         @foreach (ColegioTerciario.Models.ViewModels.Integrante integrante in Model.Integrantes)
         {
             <tr>

@@ -45,6 +45,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Breeze.ContextProvider">
+      <HintPath>..\packages\Breeze.Server.ContextProvider.1.5.4\lib\Breeze.ContextProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Breeze.ContextProvider.EF6">
+      <HintPath>..\packages\Breeze.Server.ContextProvider.EF6.1.5.4\lib\Breeze.ContextProvider.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Glimpse.AspNet">
       <HintPath>..\packages\Glimpse.AspNet.1.9.2\lib\net45\Glimpse.AspNet.dll</HintPath>
     </Reference>
@@ -90,6 +97,9 @@
     <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcFlash.Core">
+      <HintPath>..\packages\MvcFlash.Core.2.0.1\lib\net40\MvcFlash.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -210,6 +220,9 @@
     <Compile Include="Areas\Admin\Controllers\UsuariosController.cs" />
     <Compile Include="Areas\Admin\Models\EditUserViewModel.cs" />
     <Compile Include="Areas\Admin\Models\NewUserViewModel.cs" />
+    <Compile Include="Areas\Alumnos\AlumnosAreaRegistration.cs" />
+    <Compile Include="Areas\Alumnos\Controllers\SesionesController.cs" />
+    <Compile Include="Areas\Alumnos\Controllers\EscritorioController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActaExamenController.cs" />
     <Compile Include="Controllers\Api\ActasController.cs" />
@@ -218,8 +231,10 @@
     <Compile Include="Controllers\Api\MateriasController.cs" />
     <Compile Include="Controllers\Api\PersonasController.cs" />
     <Compile Include="Controllers\Api\pruebasController.cs" />
+    <Compile Include="Controllers\AsistenciasController.cs" />
     <Compile Include="Controllers\CarrerasController.cs" />
     <Compile Include="Controllers\CiclosController.cs" />
+    <Compile Include="Controllers\CursadasController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -267,11 +282,36 @@
     <Compile Include="Migrations\201412130030459_EntityBase.Designer.cs">
       <DependentUpon>201412130030459_EntityBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504072358036_Agrega Turno a Cursos.cs" />
+    <Compile Include="Migrations\201504072358036_Agrega Turno a Cursos.Designer.cs">
+      <DependentUpon>201504072358036_Agrega Turno a Cursos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504082249527_Agrega Horarios a Cursos.cs" />
+    <Compile Include="Migrations\201504082249527_Agrega Horarios a Cursos.Designer.cs">
+      <DependentUpon>201504082249527_Agrega Horarios a Cursos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504212251141_Agrega tabla Asistencias.cs" />
+    <Compile Include="Migrations\201504212251141_Agrega tabla Asistencias.Designer.cs">
+      <DependentUpon>201504212251141_Agrega tabla Asistencias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505220023176_Agrega estado academico y de asistencia a cursada.cs" />
+    <Compile Include="Migrations\201505220023176_Agrega estado academico y de asistencia a cursada.Designer.cs">
+      <DependentUpon>201505220023176_Agrega estado academico y de asistencia a cursada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505222238188_Agrega Estado Definitivo a Cursada.cs" />
+    <Compile Include="Migrations\201505222238188_Agrega Estado Definitivo a Cursada.Designer.cs">
+      <DependentUpon>201505222238188_Agrega Estado Definitivo a Cursada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505300032537_Agrega Estado Definitivo a Materia_X_Curso.cs" />
+    <Compile Include="Migrations\201505300032537_Agrega Estado Definitivo a Materia_X_Curso.Designer.cs">
+      <DependentUpon>201505300032537_Agrega Estado Definitivo a Materia_X_Curso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ColegioTerciarioContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\Actas.cs" />
+    <Compile Include="Models\ViewModels\Asistencias.cs" />
     <Compile Include="Models\ViewModels\DataTableParamModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Repositories\IMateriasXCursoRepository.cs" />
@@ -289,7 +329,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Alumnos\fonts\font-license.txt" />
+    <Content Include="Areas\Alumnos\fonts\fontawesome-webfont.svg" />
+    <Content Include="Areas\Alumnos\Scripts\webix.js" />
+    <Content Include="Areas\Alumnos\Styles\flat.css" />
+    <Content Include="Areas\Alumnos\Styles\webix.css" />
     <Content Include="Content\bootstrap-editable.css" />
+    <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -351,6 +397,7 @@
     <Content Include="Content\DataTables-1.10.3\swf\copy_csv_xls_pdf.swf" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\img\CENT_LOGO.png" />
     <Content Include="Content\img\clear.png" />
     <Content Include="Content\img\loading.gif" />
     <Content Include="Content\img\LogoCENT_60x180.png" />
@@ -449,12 +496,26 @@
     <Content Include="Content\metronic\js\metronic_scripts.min.js.map">
       <DependentUpon>metronic_scripts.min.js</DependentUpon>
     </Content>
+    <Content Include="Areas\Alumnos\Views\web.config" />
+    <Content Include="Areas\Alumnos\Views\Sesiones\Entrar.cshtml" />
+    <Content Include="Areas\Alumnos\Views\Escritorio\Index.cshtml" />
+    <Content Include="Areas\Alumnos\Views\Shared\_AlumnosLayout.cshtml" />
+    <Content Include="Areas\Alumnos\Scripts\webix.js.map" />
+    <Content Include="Areas\Alumnos\fonts\fontawesome-webfont.eot" />
+    <Content Include="Areas\Alumnos\fonts\fontawesome-webfont.woff" />
+    <Content Include="Areas\Alumnos\fonts\PTS-bold.eot" />
+    <Content Include="Areas\Alumnos\fonts\PTS-bold.ttf" />
+    <Content Include="Areas\Alumnos\fonts\PTS-bold.woff" />
+    <Content Include="Areas\Alumnos\fonts\PTS-webfont.eot" />
+    <Content Include="Areas\Alumnos\fonts\PTS-webfont.ttf" />
+    <Content Include="Areas\Alumnos\fonts\PTS-webfont.woff" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-editable.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\cent11.js" />
@@ -653,10 +714,20 @@
       <DependentUpon>plugins.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Personas\_PersonaForm.cshtml" />
+    <Content Include="Views\Asistencias\Nueva.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SimpleMessage.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MessageBase.cshtml" />
+    <Content Include="Views\Asistencias\Index.cshtml" />
+    <Content Include="Views\Asistencias\Edit.cshtml" />
+    <Content Include="Views\Asistencias\ImprimirPlanillaVacia.cshtml" />
+    <Content Include="Views\Personas\ImprimirCertificadoAlumnoRegular.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Admin\" />
+    <Folder Include="Areas\Alumnos\Models\" />
+    <Folder Include="Views\Alumnos\" />
+    <Folder Include="Views\Cursadas\" />
     <Folder Include="Views\Datos\" />
   </ItemGroup>
   <ItemGroup>
@@ -696,6 +767,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412130030459_EntityBase.resx">
       <DependentUpon>201412130030459_EntityBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504072358036_Agrega Turno a Cursos.resx">
+      <DependentUpon>201504072358036_Agrega Turno a Cursos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504082249527_Agrega Horarios a Cursos.resx">
+      <DependentUpon>201504082249527_Agrega Horarios a Cursos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504212251141_Agrega tabla Asistencias.resx">
+      <DependentUpon>201504212251141_Agrega tabla Asistencias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505220023176_Agrega estado academico y de asistencia a cursada.resx">
+      <DependentUpon>201505220023176_Agrega estado academico y de asistencia a cursada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505222238188_Agrega Estado Definitivo a Cursada.resx">
+      <DependentUpon>201505222238188_Agrega Estado Definitivo a Cursada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505300032537_Agrega Estado Definitivo a Materia_X_Curso.resx">
+      <DependentUpon>201505300032537_Agrega Estado Definitivo a Materia_X_Curso.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

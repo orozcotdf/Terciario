@@ -1,4 +1,5 @@
-﻿@model ColegioTerciario.DAL.Models.Materia_x_Curso
+﻿@using Glimpse.Mvc.AlternateType
+@model ColegioTerciario.DAL.Models.Materia_x_Curso
 @{
     ViewBag.Title = "Edit";
 }
@@ -10,13 +11,16 @@
                 <h1>
                     Curso @Model.MATERIA_X_CURSO_CURSO_NOMBRE
                     <small>
-                        @Model.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE | 
-                            Docente: <a href="@Url.Action("EditarCurso", new { ciclo = Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre = Model.MATERIA_X_CURSO_CURSO_NOMBRE })" id="MATERIA_X_CURSO_DOCENTE_ID" name="MATERIA_X_CURSO_DOCENTE_ID" data-value="@Model.MATERIA_X_CURSO_DOCENTE_ID">
+                        @Model.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE |
+                        Docente: <a href="@Url.Action("EditarCurso", new { ciclo = Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre = Model.MATERIA_X_CURSO_CURSO_NOMBRE })" id="MATERIA_X_CURSO_DOCENTE_ID" name="MATERIA_X_CURSO_DOCENTE_ID" data-value="@Model.MATERIA_X_CURSO_DOCENTE_ID">
                             @(Model.MATERIA_X_CURSO_DOCENTE != null ? Model.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO : "")
-                    </a>
-                </small>
-            </h1>
-        </div>
+                        </a>
+                        Turno: <a href="#" id="MATERIA_X_CURSO_TURNO" data-value="@Model.MATERIA_X_CURSO_TURNO">
+                            @(Model.MATERIA_X_CURSO_TURNO ?? "SELECCIONE UN TURNO")
+                        </a>
+                    </small>
+                </h1>
+            </div>
         </div>
     </div>
 }
@@ -30,6 +34,10 @@
                 </div>
                 <div class="actions">
                     <a href="@Url.Action("EditarCurso", new{ciclo=Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre=Model.MATERIA_X_CURSO_CURSO_NOMBRE})" class="btn btn-default btn-sm">Volver al Curso</a>
+                    <a class="btn green btn-sm" href="@Url.Action("Index","Asistencias", new {cursoId = Model.ID })">Ver Asistencias</a>                    
+                    <a class="btn green btn-sm" data-toggle="modal" data-target="#configHorarios">
+                        Configurar Horarios
+                    </a>
                     <a class="btn green btn-sm" data-toggle="modal" data-target="#agregarAlumnosModal">
                         Agregar alumnos al curso
                     </a>
@@ -40,6 +48,8 @@
                     <thead>
                         <tr>
                             <th style="border: none;">Fechas: </th>
+                            <td></td>
+                            <td></td>
                             <td><a href="#" data-name="P1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_P1_FECHA)</a></td>
                             <td><a href="#" data-name="R1_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_R1_FECHA)</a></td>
                             <td><a href="#" data-name="P2_FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", Model.MATERIA_X_CURSO_P2_FECHA)</a></td>
@@ -47,15 +57,19 @@
                         </tr>
                         <tr>
                             <th>Alumno</th>
+                            <th style="width: 80px; text-align: center;">Estado Asistencia</th>
+                            <th style="width: 80px; text-align: center;">Estado Académico</th>
                             <th>P1</th>
                             <th>R1</th>
                             <th>P2</th>
                             <th>R2</th>
+                            <th style="width: 80px; text-align: center;">Estado Definitivo</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (ColegioTerciario.DAL.Models.Cursada cursada in ViewBag.alumnos)
                         {
+                            var cursadaId = cursada.ID;
                             <tr>
                                 <th>
                                     <a href="#" class="eliminar-integrante" data-id="@cursada.ID"><i class="fa fa-remove"></i></a>
@@ -64,7 +78,18 @@
                                         <li>@cursada.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO</li>
                                     </ul>
                                 </th>
-                                @{ var cursadaId = cursada.ID; }
+                                <td>
+                                    <a href="#" class="selectEstado" data-type="select" data-pk="@cursadaId" data-name="CURSADA_ESTADO_ACADEMICO" data-value="0">
+                                        @(cursada.CURSADA_ESTADO_ACADEMICO ?? "Estado")
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <a href="#" class="selectEstado" data-type="select" data-pk="@cursadaId" data-name="CURSADA_ESTADO_ASISTENCIA" data-value="0">
+                                        @(cursada.CURSADA_ESTADO_ASISTENCIA ?? "Estado")
+                                    </a>
+                                </td>
+                                
                                 <td>
 
                                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P1" data-value="0">
@@ -89,7 +114,12 @@
                                         @(cursada.CURSADA_NOTA_R2 ?? "Inserte la nota")
                                     </a>
                                 </td>
-
+                                <td>
+                                    <a href="#" class="selectEstado" data-type="select" data-pk="@cursadaId" data-name="CURSADA_ESTADO_DEFINITIVO" data-value="0">
+                                        @(cursada.CURSADA_ESTADO_DEFINITIVO ?? "Estado")
+                                    </a>
+                                </td>
+                                
                             </tr>
                         }
                     </tbody>
@@ -104,175 +134,281 @@
 @Html.Partial("_AgregaAlumnos", Model, new ViewDataDictionary() {
     {"ForeignKey", "materiaXCursoId" },
     { "Controlador", "Cursos"}
-} )
+})
 
 
+<div class="modal fade" id="configHorarios">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm())
+                {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Configurar Horarios</h4>
+                </div>
+                <div class="modal-body">
 
+                    <table class="table table-condensed table-striped table-bordered horarios-list">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miercoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                                <th>Sabado</th>
+                                <th>Domingo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            @foreach (var hora in ViewBag.HORARIOS)
+                            {
+                                <tr>
+                                    <th>@(hora.HORA_INICIO.ToString("HH:mm"))</th>
+                                    <td><input type="checkbox" name="Lunes" value="@hora.ID" @(ViewBag.lunes.Contains(hora.ID.ToString()) ? "checked='checked'" : "") /></td>
+                                    <td><input type="checkbox" name="Martes" value="@hora.ID" @(ViewBag.martes.Contains(hora.ID.ToString()) ? "checked='checked'" : "") /></td>
+                                    <td><input type="checkbox" name="Miercoles" value="@hora.ID" @(ViewBag.miercoles.Contains(hora.ID.ToString()) ? "checked='checked'" : "") /></td>
+                                    <td><input type="checkbox" name="Jueves" value="@hora.ID" @(ViewBag.jueves.Contains(hora.ID.ToString()) ? "checked='checked'" : "") /></td>
+                                    <td><input type="checkbox" name="Viernes" value="@hora.ID" @(ViewBag.viernes.Contains(hora.ID.ToString()) ? "checked='checked'" : "") /></td>
+                                    <td><input type="checkbox" name="Sabado" value="@hora.ID" @(ViewBag.sabado.Contains(hora.ID.ToString()) ? "checked='checked'" : "") /></td>
+                                    <td><input type="checkbox" name="Domingo" value="@hora.ID" @(ViewBag.domingo.Contains(hora.ID.ToString()) ? "checked='checked'" : "") /></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>                
+                       
+                </div>
+                <div class="modal-footer">
+
+                    @Html.AntiForgeryToken()
+                    
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input id="SubmitHorarios" type="submit" class="btn btn-primary" value="Guardar" />
+
+
+                </div>
+            }
+        </div><!-- /.modal-content -->
+
+
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 @section scripts {
 
     <script type="text/javascript">
-        var alumnos = [];
-        var pageSize = 5;
+    var alumnos = [];
+    var pageSize = 5;
 
 
-        $.extend(true, $.fn.dataTable.defaults, {
-            "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-4'i><'col-xs-8'p>>",
-        });
-        
-        $(document).on('click', '.agregar-persona-a-curso', function () {
-            $(this).css('pointer-events', 'none').css('color', 'black');
-            
-            alumnos.push($(this).data('id'));
-            if (alumnos.length > 1)
-                $('#AgregarAlumnos').val("Agregar " + alumnos.length + " alumnos");
-            else
-                $('#AgregarAlumnos').val("Agregar " + alumnos.length + " alumno");
+    $.extend(true, $.fn.dataTable.defaults, {
+        "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-4'i><'col-xs-8'p>>",
+    });
 
-            $('.listadoAlumnosParaAgregar').append($(this).data('nombre') + " | ");
-            
-            $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
-        });
-        
-        $('.alumnos-curso').DataTable({
-            "paging":   false,
-            "ordering": false,
-            "info":     false
-        });
+    $(document).on('click', '.agregar-persona-a-curso', function () {
+        $(this).css('pointer-events', 'none').css('color', 'black');
 
-        $('.data-table').dataTable({
-            "aaSorting": [[1, "desc"]], // default sort to Name
-            "bServerSide": true,
-            "sAjaxSource": "/api/Personas/GetPersonas",
-            "iDisplayLength": 4,
-            columns:  [
-                {data: "ID",visible: false},
-                {data: "PERSONA_NOMBRE"},
-                {data: "PERSONA_APELLIDO"},
-                {data: "PERSONA_DOCUMENTO_NUMERO"},
-                {data: null}
-            ],
-            columnDefs: [
-                {
-                    targets: 4,
-                    data: null,
-                    render: function(data, type, row){
-                        var id = row["ID"];
-                        var nombre = row["PERSONA_NOMBRE"];
-                        var apellido = row["PERSONA_APELLIDO"];
-                        return '<td><a href="#" class="add agregar-persona-a-curso" data-id="' + id + '" data-nombre="' + nombre + " " + apellido + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
-                    },
-                    createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
-                        var id = parseInt(rowData["ID"]);
-                        var enArray = $.inArray(id, alumnos);
-                        if (enArray > -1) {
-                            var $link = $(cell).find('a');
-                            $link.css('pointer-events', 'none').css('color', 'black');
-                        }
-                        //$(this).css('pointer-events', 'none').css('color', 'black');
+        alumnos.push($(this).data('id'));
+        if (alumnos.length > 1)
+            $('#AgregarAlumnos').val("Agregar " + alumnos.length + " alumnos");
+        else
+            $('#AgregarAlumnos').val("Agregar " + alumnos.length + " alumno");
+
+        $('.listadoAlumnosParaAgregar').append($(this).data('nombre') + " | ");
+
+        $('form').append('<input type="hidden" name="alumnos" value="' + $(this).data('id') + '"/>');
+    });
+
+    $('.alumnos-curso').DataTable({
+        "paging":   false,
+        "ordering": false,
+        "info":     false
+    });
+
+    $('.data-table').dataTable({
+        "aaSorting": [[1, "desc"]], // default sort to Name
+        "bServerSide": true,
+        "sAjaxSource": "/api/Personas/GetPersonas",
+        "iDisplayLength": 4,
+        columns:  [
+            {data: "ID",visible: false},
+            {data: "PERSONA_NOMBRE"},
+            {data: "PERSONA_APELLIDO"},
+            {data: "PERSONA_DOCUMENTO_NUMERO"},
+            {data: null}
+        ],
+        columnDefs: [
+            {
+                targets: 4,
+                data: null,
+                render: function(data, type, row){
+                    var id = row["ID"];
+                    var nombre = row["PERSONA_NOMBRE"];
+                    var apellido = row["PERSONA_APELLIDO"];
+                    return '<td><a href="#" class="add agregar-persona-a-curso" data-id="' + id + '" data-nombre="' + nombre + " " + apellido + '"><i class="cus-plus" title="Agregar"></i>Agregar</a></td>';
+                },
+                createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
+                    var id = parseInt(rowData["ID"]);
+                    var enArray = $.inArray(id, alumnos);
+                    if (enArray > -1) {
+                        var $link = $(cell).find('a');
+                        $link.css('pointer-events', 'none').css('color', 'black');
                     }
+                    //$(this).css('pointer-events', 'none').css('color', 'black');
                 }
+            }
+        ]
+    });
+
+    $('.data-table').on('page.dt', function (e, settings) {
+        console.log(settings.aoColumns[0].mRender);
+    });
+
+    $("#MATERIAS").find('option:contains(@Html.Raw(Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE))').prop("selected", true);
+    $("#MATERIAS").change(function() {
+        var id = $(this).find("option:selected").val();
+        location.href = id;
+    });
+    $(document).ready(function () {
+        $('#agregarAlumnosModal').on('shown.bs.modal', function(e) {
+            $(this).find('.dataTables_filter input').focus();
+        });
+        /* EDITABLE */
+        $('.xEditable').editable({
+            url: '/Cursos/PonerNota',
+            //prepend: [{ value: 0, text: "Inserte la nota" }],
+            emptyText: "Inserte la nota",
+            source: [
+                { value: 1, text: "1" },
+                { value: 2, text: "2" },
+                { value: 3, text: "3" },
+                { value: 4, text: "4" },
+                { value: 5, text: "5" },
+                { value: 6, text: "6" },
+                { value: 7, text: "7" },
+                { value: 8, text: "8" },
+                { value: 9, text: "9" },
+                { value: 10, text: "10" },
+                { value: "Ausente", text: "Ausente" },
+                { value: "Eliminar", text: "Inserte la nota"}
             ]
         });
-        
-        $('.data-table').on('page.dt', function (e, settings) {
-            console.log(settings.aoColumns[0].mRender);
-        });
-        
-        $("#MATERIAS").find('option:contains(@Html.Raw(Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE))').prop("selected", true);
-        $("#MATERIAS").change(function() {
-            var id = $(this).find("option:selected").val();
-            location.href = id;
-        });
-        $(document).ready(function () {
-            $('#agregarAlumnosModal').on('shown.bs.modal', function(e) {
-                $(this).find('.dataTables_filter input').focus();
-            });
-            /* EDITABLE */
-            $('.xEditable').editable({
-                url: '/Cursos/PonerNota',
-                //prepend: [{ value: 0, text: "Inserte la nota" }],
-                emptyText: "Inserte la nota",
+
+        $('.selectEstado[data-name="CURSADA_ESTADO_ACADEMICO"], .selectEstado[data-name="CURSADA_ESTADO_ASISTENCIA"]').editable({
+            url: "/Cursadas/Set",
+            pk: @Model.ID,
+                emptytext: "Estado",
                 source: [
-                    { value: 1, text: "1" },
-                    { value: 2, text: "2" },
-                    { value: 3, text: "3" },
-                    { value: 4, text: "4" },
-                    { value: 5, text: "5" },
-                    { value: 6, text: "6" },
-                    { value: 7, text: "7" },
-                    { value: 8, text: "8" },
-                    { value: 9, text: "9" },
-                    { value: 10, text: "10" },
-                    { value: "Ausente", text: "Ausente" },
-                    { value: "Eliminar", text: "Inserte la nota"}
+                    { value: "Libre", text: "Libre" },
+                    { value: "Regular", text: "Regular" }
+                ]
+            });
+
+        $('.selectEstado[data-name="CURSADA_ESTADO_DEFINITIVO"]').editable({
+                url: "/Cursadas/Set",
+                pk: @Model.ID,
+                emptytext: "Estado",
+                source: [
+                    { value: "Libre", text: "Libre" },
+                    { value: "Regular", text: "Regular" },
+                    { value: "Promocionado", text: "Promocionado" }
                 ]
             });
 
             $("#MATERIA_X_CURSO_DOCENTE_ID").editable({
-                type: 'select2', 
+                type: 'select2',
                 pk: @Model.ID,
                 url: "/Cursos/Set",
                 emptytext: "Seleccione un Docente",
                 select2:  {
-                    placeholder: "Seleccione un docente",
-                    minimumInputLength: 3,
-                    allowClear: true,
-                    dropdownCssClass: "bigdrop",
-                    ajax: {
-                        //How long the user has to pause their typing before sending the next request
-                        quietMillis: 150,
-                        //The url of the json service
-                        url: "/Datos/GetPersonas",
-                        dataType: 'json',
-                        //Our search term and what page we are on
-                        data: function (term, page) {
-                            return {
-                                pageSize: pageSize,
-                                pageNum: page,
-                                searchTerm: term
-                            };
-                        },
-                        results: function (data, page) {
-                            
-                            var more = (page * pageSize) < data.Total; // whether or not there are more results available
+                placeholder: "Seleccione un docente",
+                minimumInputLength: 3,
+                allowClear: true,
+                dropdownCssClass: "bigdrop",
+                ajax: {
+                    //How long the user has to pause their typing before sending the next request
+                    quietMillis: 150,
+                    //The url of the json service
+                    url: "/Datos/GetPersonas",
+                    dataType: 'json',
+                    //Our search term and what page we are on
+                    data: function (term, page) {
+                        return {
+                            pageSize: pageSize,
+                            pageNum: page,
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
 
-                            // notice we return the value of more so Select2 knows if more results can be loaded
-                            return { results: data.Results, more: more };
-                        }
+                        var more = (page * pageSize) < data.Total; // whether or not there are more results available
+
+                        // notice we return the value of more so Select2 knows if more results can be loaded
+                        return { results: data.Results, more: more };
                     }
                 }
-                
-            });
+            }
 
-            $('.date').editable({
-                url: '/api/Cursos/SetearFecha',
-                type: 'combodate',
-                mode: 'popup',
-                pk: @Model.ID,
-                viewformat: "DD/MM/YYYY",
-                locale: "es",
-                language: "es",
-                emptytext: "Editar fecha"
-            });
+        });
 
-            $('.eliminar-integrante').click(function(e){
-                e.preventDefault();
-                var id = $(this).data('id');
-                var row = $(this).parents('tr');
-                bootbox.confirm("Esta seguro?", function(result) {
-                    if (result == true) {
-                        $.ajax({
-                            type: "DELETE",
-                            url: "/api/Cursadas/DeleteCursada/" + id,
-                            success: function() {
-                                //location.reload();
-                                row.fadeOut('slow', function() {
-                                });
-                            }
-                        });
-                    }
-                });
+        $("#MATERIA_X_CURSO_TURNO").editable({
+            pk: @Model.ID,
+            url: "/Cursos/Set",
+            emptytext: "Seleccione un Turno",
+            type: "select",
+            prepend: "SELECCIONE UN TURNO",
+            source: [
+              {value: "MAÑANA", text: 'MAÑANA'},
+              {value: "TARDE", text: 'TARDE'},
+              {value: "NOCHE", text: 'NOCHE'}
+            ]
+
+        });
+
+        $('.date').editable({
+            url: '/api/Cursos/SetearFecha',
+            type: 'combodate',
+            mode: 'popup',
+            pk: @Model.ID,
+            viewformat: "DD/MM/YYYY",
+            locale: "es",
+            language: "es",
+            emptytext: "Editar fecha"
+        });
+
+        $('.eliminar-integrante').click(function(e){
+            e.preventDefault();
+            var id = $(this).data('id');
+            var row = $(this).parents('tr');
+            bootbox.confirm("Esta seguro?", function(result) {
+                if (result == true) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/api/Cursadas/DeleteCursada/" + id,
+                        success: function() {
+                            //location.reload();
+                            row.fadeOut('slow', function() {
+                            });
+                        }
+                    });
+                }
             });
         });
+
+        $('#ConfigurarHorarios').submit(function(event) {
+            var data = $(this).serializeArray();
+            $.ajax({
+                url: '/api/Cursos/ConfigurarHorarios/' + @Model.ID,
+                data: data,
+                dataType: 'json',
+                type: 'POST'
+
+            }).done(function(result) {
+                console.log(result);
+            });
+            event.preventDefault();
+        });
+    });
     </script>
 }

@@ -31,6 +31,9 @@ namespace ColegioTerciario.DAL.Models
 
         public virtual ICollection<Acta_Examen> Actas_Examenes { get; set; }
 
+        public const int Anual = 0;
+        public const int PrimerCuatrimestre = 1;
+        public const int SegundoCuatrimestre = 2;
 
     }
 }

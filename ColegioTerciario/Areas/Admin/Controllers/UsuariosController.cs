@@ -116,7 +116,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
             EditUserViewModel vm = new EditUserViewModel
             {
                 Email = user.Email,
-                USER_PERSONA_ID = user.USER_PERSONA_ID.Value
+                USER_PERSONA_ID = user.USER_PERSONA_ID != null ? user.USER_PERSONA_ID.Value : 0
             };
             return View(vm);
         }

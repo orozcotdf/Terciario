@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ColegioTerciario.DAL.Models.Materia_x_Curso>
 
 @{
-    ViewBag.Title = "Parciales";
+    ViewBag.Title = "Cursos";
 }
 
 <div class="row">
@@ -9,7 +9,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    Parciales
+                    @ViewBag.Title
                 </div>
                 <div class="actions">
                     <a href="@Url.Action("Create")" class="btn btn-sm green">
@@ -80,7 +80,7 @@
                         'visible': false
                     },*/
                     { "aTargets": [0], "name": "Ciclo" },
-                    { "aTargets": [1], "name": "Sede" },
+                    { "aTargets": [1], "name": "Sede", "mData": 4 },
                     { "aTargets": [2], "name": "Carrera" },
                     { "aTargets": [3], "name": "Nombre" },
                     {
@@ -89,7 +89,8 @@
                         "mRender": function (data, type, full) {
                             var anio = data[0];
                             var nombre = data[3];
-                            return '<td><a href="/Curso/' + anio + '/' + nombre + '" class="btn btn-xs default green-stripe"><i class="cus-plus" title="Editar"></i>Editar</a></td>';
+                            var sede = data[1];
+                            return '<td><a href="/Curso/' + anio + '/' + nombre + '/' + sede + '" class="btn btn-xs default green-stripe"><i class="cus-plus" title="Editar"></i>Editar</a></td>';
                             // Inplace of <i></i> you can use <img src="/your_media_path/img.png">
                         },
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {

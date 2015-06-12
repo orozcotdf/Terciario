@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,7 +11,10 @@ using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.Repositories;
 using ColegioTerciario.Models.ViewModels;
+using MvcFlash.Core;
+using MvcFlash.Core.Extensions;
 using PagedList;
+using Rotativa.MVC;
 
 
 namespace ColegioTerciario.Controllers
@@ -242,6 +246,36 @@ namespace ColegioTerciario.Controllers
             Persona persona = _db.Personas.Find(id);
             _db.Personas.Remove(persona);
             _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ImprimirCertificadoAlumnoRegular(int? id)
+        {
+            Persona alumno = _db.Personas.Find(id);
+            var repo = new PersonasRepository();
+            
+            if (repo.EsAlumnoRegular(alumno))
+            {
+                var hoy = DateTime.Now;
+                var corriente = DateTime.Now.Year.ToString(CultureInfo.InvariantCulture);
+                var ciclo = _db.Ciclos.SingleOrDefault(c => c.CICLO_ANIO == corriente);
+
+                ViewBag.DIA = hoy.ToString("dd");
+                ViewBag.MES = hoy.ToString("MMMM");
+                ViewBag.AÑO = hoy.ToString("yyyy");
+
+                var cursada = _db.Cursadas.Include("CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA").First(c =>
+                            c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CICLOS_ID == ciclo.ID &&
+                            c.CURSADA_ALUMNOS_ID == id);
+
+                if (cursada != null) ViewBag.CARRERA = cursada.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA;
+                if (ciclo != null) ViewBag.CICLO = ciclo.CICLO_NOMBRE;
+
+                ViewBag.MEMBRETE = "Las Islas Malvinas, Georgias y Sandwich del Sur son y serán Argentinas";
+                return new ViewAsPdf(alumno);
+            }
+
+            Flash.Instance.Error("Imprimir Certificado", "El alumno seleccionado no es regular");
             return RedirectToAction("Index");
         }
 

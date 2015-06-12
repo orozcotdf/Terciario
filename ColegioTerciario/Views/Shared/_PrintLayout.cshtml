@@ -5,16 +5,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - C.E.N.T. 11</title>
-    @Styles.Render("~/Content/css")
+
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" media="all" />
 
 </head>
 <body>
 
     <div class="container body-content">
         @RenderBody()
-        <footer style="margin-top: 60px;">
-            <p>&copy; @DateTime.Now.Year - C.E.N.T. 11</p>
-        </footer>
+        @RenderSection("footer", required: false)
+        <!--<footer class="row" style="margin-top: 80px;">
+            
+            <!--<div class="col-md-2" style="float:left;">
+                <p style="padding-top: 4px;">&copy; @DateTime.Now.Year - C.E.N.T. 11</p>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-4" style="float: right;">
+                <div class="firma" style="width: 200px; text-align: center; border-top: 1px dotted; padding-top: 5px;">Fecha y Firma</div>               
+            </div>
+        </footer>-->
     </div>
 
 

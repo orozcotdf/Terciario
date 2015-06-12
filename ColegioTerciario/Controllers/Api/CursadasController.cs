@@ -13,6 +13,7 @@ using ColegioTerciario.Models;
 
 namespace ColegioTerciario.Controllers.Api
 {
+    [RoutePrefix("api/Cursadas")]
     public class CursadasController : ApiController
     {
         private ColegioTerciarioContext db = new ColegioTerciarioContext();
@@ -115,5 +116,6 @@ namespace ColegioTerciario.Controllers.Api
         {
             return db.Cursadas.Count(e => e.ID == id) > 0;
         }
+
     }
 }

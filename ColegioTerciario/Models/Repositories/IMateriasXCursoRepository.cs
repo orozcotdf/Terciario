@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ColegioTerciario.DAL.Models;
+using ColegioTerciario.Models.ViewModels;
 
 namespace ColegioTerciario.Models.Repositories
 {

@@ -1,0 +1,50 @@
+﻿@model ColegioTerciario.DAL.Models.Persona
+
+@{
+    ViewBag.Title = "title";
+    Layout = "../Shared/_PrintLayout.cshtml";
+}
+
+@section footer {
+    <footer class="row" style="margin-top: 80px;">
+        <div class="col-xs-12 text-center">
+            <i>"@ViewBag.MEMBRETE"</i>
+        </div>
+    </footer>
+}
+
+
+<style type="text/css">
+    p {
+        font-size: 16px;
+        text-align: justify;
+    }
+</style>
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4">
+        <img src="/Content/img/CENT_LOGO.png" alt="" width="280" />
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-xs-4 col-xs-push-4 text-center">
+        <h1>CERTIFICADO</h1>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 30px">
+    <div class="col-xs-12">
+        <p style="text-indent: 50px; line-height: 40px;">
+            CERTIFICO que el/la Sr./a: <strong>@Model.PERSONA_NOMBRE_COMPLETO</strong>
+            es alumno/a regular de la carrera: <strong>@ViewBag.CARRERA</strong>
+            , del <strong>@ViewBag.CICLO</strong>, que se dicta en este Establecimiento.-
+        </p>
+        <p style="text-indent: 50px; line-height: 40px;">
+            Se extiende el presente a pedido del interesado/a, en Ushuaia a los <strong>@ViewBag.DIA</strong>, dias del mes de
+            <strong>@ViewBag.MES</strong>, de <strong>@ViewBag.AÑO</strong>, para ser presentado ante las autoridades que así lo requieran.
+        </p>
+    </div>
+</div>

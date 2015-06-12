@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\IDescriptible.cs" />
     <Compile Include="Models\Acta_Examen.cs" />
     <Compile Include="Models\Acta_Examen_Detalle.cs" />
+    <Compile Include="Models\Asistencia.cs" />
     <Compile Include="Models\Barrio.cs" />
     <Compile Include="Models\Carrera.cs" />
     <Compile Include="Models\Ciclo.cs" />

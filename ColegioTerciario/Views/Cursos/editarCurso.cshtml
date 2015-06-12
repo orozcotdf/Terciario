@@ -32,6 +32,8 @@
                 </div>
             </div>
             <div class="portlet-body">
+                @using MvcFlash.Core.Extensions;
+                @Html.Flash()
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -45,13 +47,19 @@
                             <tr>
                                 <td>
                                     @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+                                    | @Html.ActionLink("Tomar Asistencia", "Nueva", "Asistencias", new {cursoId = item.ID}, null)
                                     | @Html.ActionLink("P1", "PDF", new { id = item.ID, instancia = "P1" })
                                     | @Html.ActionLink("R1", "PDF", new { id = item.ID, instancia = "R1" })
                                     | @Html.ActionLink("P2", "PDF", new { id = item.ID, instancia = "P2" })
                                     | @Html.ActionLink("R2", "PDF", new { id = item.ID, instancia = "R2" })
 
                                 </td>
-                                <td>@item.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE</td>
+                                <td>
+                                    @item.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE |
+                                    <a class="btn btn-circle btn-icon-only" href="@Url.Action("ImprimirPlanillaVacia", "Asistencias", new{ cursoId=item.ID })">
+                                        <i class="fa fa-calendar"></i>
+                                    </a>
+                                </td>
                             </tr>
                         }
                     </tbody>

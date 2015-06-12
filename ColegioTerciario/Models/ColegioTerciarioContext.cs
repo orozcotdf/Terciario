@@ -48,6 +48,7 @@ namespace ColegioTerciario.Models
         public DbSet<Materia_x_Curso> Materias_X_Cursos { get; set; }
         public DbSet<Turno_Examen> Turnos_Examenes { get; set; }
         public DbSet<Sede> Sedes { get; set; }
+        public DbSet<Asistencia> Asistencias { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Configurations.Add(new EntityBaseConfiguration());

@@ -16,6 +16,9 @@ namespace ColegioTerciario.DAL.Models
         public string CURSADA_NOTA_P2 { get; set; }
         public string CURSADA_NOTA_R1 { get; set; }
         public string CURSADA_NOTA_R2 { get; set; }
+        public string CURSADA_ESTADO_ACADEMICO { get; set; }
+        public string CURSADA_ESTADO_ASISTENCIA { get; set; }
+        public string CURSADA_ESTADO_DEFINITIVO { get; set; }
 
         #region Foreign Keys
         public int? CURSADA_ALUMNOS_ID { get; set; }

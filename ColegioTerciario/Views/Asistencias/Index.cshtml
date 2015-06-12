@@ -1,0 +1,38 @@
+﻿@using ColegioTerciario.Models.ViewModels
+@model IEnumerable<ColegioTerciario.Models.ViewModels.AsistenciasViewModel>
+
+@{
+    ViewBag.Title = "Ver Asistencias";
+}
+
+@section navegacionContextual {
+    <div class="page-head">
+        <div class="container-fluid">
+            <div class="page-title">
+                <h1>
+                    Asistencia del curso @ViewBag.CURSO
+                    <small>Ciclo @ViewBag.CICLO</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (AsistenciasViewModel asistencia in Model)
+        {
+            <tr>
+                <td>
+                    @asistencia.ASISTENCIA_FECHA.ToString("dd/MM/yyyy")
+                    <a href="@Url.Action("Edit", "Asistencias", new { cursoId = ViewBag.CURSO_ID, fecha = asistencia.ASISTENCIA_FECHA.ToString("dd-MM-yyyy") })">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -20,6 +20,8 @@ namespace ColegioTerciario.DAL.Models
         public int? MATERIA_X_CURSO_MATERIAS_ID { get; set; }
         public int? MATERIA_X_CURSO_DOCENTE_ID { get; set; }
         public int? MATERIA_X_CURSO_SEDES_ID { get; set; }
+
+        public int? MATERIA_X_CURSO_CANTIDAD_PARCIALES { get; set; }
         #endregion
 
         #region Navegacion
@@ -48,5 +50,15 @@ namespace ColegioTerciario.DAL.Models
         public Nullable<DateTime> MATERIA_X_CURSO_R1_FECHA { get; set; }
         [Display(Name = "Fecha Recuperatorio 2")]
         public Nullable<DateTime> MATERIA_X_CURSO_R2_FECHA { get; set; }
+
+        public string MATERIA_X_CURSO_TURNO { get; set; }
+
+        public string MATERIA_X_CURSO_HORARIOS_LUNES { get; set; }
+        public string MATERIA_X_CURSO_HORARIOS_MARTES { get; set; }
+        public string MATERIA_X_CURSO_HORARIOS_MIERCOLES { get; set; }
+        public string MATERIA_X_CURSO_HORARIOS_JUEVES { get; set; }
+        public string MATERIA_X_CURSO_HORARIOS_VIERNES { get; set; }
+        public string MATERIA_X_CURSO_HORARIOS_SABADO { get; set; }
+        public string MATERIA_X_CURSO_HORARIOS_DOMINGO { get; set; }
     }
 }

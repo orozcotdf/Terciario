@@ -14,6 +14,7 @@
   <files>
     
     <file>/Content/bootstrap.css</file>
+    <file>/Content/bootstrap-switch.min.css</file>
     <file>/Content/simple_sidebar.css</file>
     <file>/Content/DataTables-1.10.3/css/dataTables.bootstrap.css</file>
     <file>/Content/bootstrap-editable.css</file>

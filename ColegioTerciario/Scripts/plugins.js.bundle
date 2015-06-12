@@ -10,6 +10,8 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
+    <file>/Scripts/bootstrap.js</file>
+    <file>/Scripts/bootstrap-switch.min.js</file>
     <file>/Scripts/bootbox.js</file>
     <file>/Scripts/respond.js</file>                      
     <file>/Scripts/bootstrap-editable.js</file>

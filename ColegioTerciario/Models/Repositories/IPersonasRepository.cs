@@ -15,5 +15,6 @@ namespace ColegioTerciario.Models.Repositories
         IQueryable<SituacionAcademicaPorCiclosViewModel> GetSituacionAcademicaPorCiclos(Persona persona);
         IQueryable<SituacionAcademicaPorMateriasViewModel> GetSituacionAcademicaPorMaterias(Persona persona);
         IQueryable<SituacionFinalesViewModel> GetFinales(Persona persona);
+        bool EsAlumnoRegular(Persona persona);
     }
 }

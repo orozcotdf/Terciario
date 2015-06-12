@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.EntitySql;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
@@ -43,6 +44,7 @@ namespace ColegioTerciario.Controllers
             ViewBag.CARRERAS = _db.Carreras.ToList();
             ViewBag.SEDES = new SelectList(_db.Sedes, "ID", "SEDE_NOMBRE");
             ViewBag.error = Session["error"];
+            ViewBag.HORARIOS = _db.Horas.ToList();
             return View();
         }
 
@@ -186,6 +188,9 @@ namespace ColegioTerciario.Controllers
                     case ("MATERIA_X_CURSO_DOCENTE_ID"):
                         matXCurso.MATERIA_X_CURSO_DOCENTE_ID = int.Parse(value);
                         break;
+                    case ("MATERIA_X_CURSO_TURNO"):
+                        matXCurso.MATERIA_X_CURSO_TURNO = value;
+                        break;
                 }
                
             }
@@ -209,8 +214,13 @@ namespace ColegioTerciario.Controllers
                 Session["error"] = "Debe definir todos los campos";
                 return RedirectToAction("create");
             }
+           
             var materiasXCursos = new List<Materia_x_Curso>();
             var repo = new MateriasXCursoRepository(_db);
+
+            
+
+
             try
             {
                 Sede sede = _db.Sedes.Find(parametros.Sede);
@@ -232,16 +242,18 @@ namespace ColegioTerciario.Controllers
                             MATERIA_X_CURSO_CICLO = ciclo,
                             MATERIA_X_CURSO_CURSO_NOMBRE = carrera.CARRERA_CODIGO + "-" + parametros.Año + "" + nro,
                             MATERIA_X_CURSO_MATERIA = materia,
-                            MATERIA_X_CURSO_SEDE = sede,
+                            MATERIA_X_CURSO_SEDE = sede
                         });
                     }
                 }
+
+                
 
                 try
                 {
                     Session["materias_x_cursos_ids"] = repo.InsertMateriasXCursos(materiasXCursos);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     Session["error"] = "El Curso ya existe con esta definición";
                     return RedirectToAction("create");
@@ -273,12 +285,13 @@ namespace ColegioTerciario.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditarCurso(string ciclo, string nombre)
+        public ActionResult EditarCurso(string ciclo, string nombre, int? sedeId)
         {
             
             var cursos = _db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA").Where(
                 c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == ciclo &&
-                     c.MATERIA_X_CURSO_CURSO_NOMBRE == nombre
+                     c.MATERIA_X_CURSO_CURSO_NOMBRE == nombre &&
+                     c.MATERIA_X_CURSO_SEDES_ID == sedeId
                 ).ToList();
             ViewBag.CICLO = ciclo;
             ViewBag.NOMBRE = nombre;
@@ -297,7 +310,8 @@ namespace ColegioTerciario.Controllers
 
             var materias = _db.Materias_X_Cursos.Include("MATERIA_X_CURSO_CICLO").Include("MATERIA_X_CURSO_MATERIA").Where(
                 c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == curso.MATERIA_X_CURSO_CICLO.CICLO_ANIO &&
-                     c.MATERIA_X_CURSO_CURSO_NOMBRE == curso.MATERIA_X_CURSO_CURSO_NOMBRE
+                     c.MATERIA_X_CURSO_CURSO_NOMBRE == curso.MATERIA_X_CURSO_CURSO_NOMBRE &&
+                     c.MATERIA_X_CURSO_SEDES_ID == curso.MATERIA_X_CURSO_SEDES_ID
                 ).Select(c => new {c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE, c.MATERIA_X_CURSO_MATERIA.ID}).ToList();
 
             foreach (var materia in materias)
@@ -306,8 +320,7 @@ namespace ColegioTerciario.Controllers
                     _db.Materias_X_Cursos.Include("MATERIA_X_CURSO_MATERIA")
                     .SingleOrDefault(c => c.MATERIA_X_CURSO_CURSO_NOMBRE == curso.MATERIA_X_CURSO_CURSO_NOMBRE &&
                         c.MATERIA_X_CURSO_CICLO.CICLO_ANIO == curso.MATERIA_X_CURSO_CICLO.CICLO_ANIO &&
-                        c.MATERIA_X_CURSO_MATERIAS_ID == materia.ID);
-                //materiasSelectList.Add(new SelectListItem(){ Value = a.ID.ToString(), Text = a.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE});
+                        c.MATERIA_X_CURSO_MATERIAS_ID == materia.ID && c.MATERIA_X_CURSO_SEDES_ID == curso.MATERIA_X_CURSO_SEDES_ID);
                 materiasSelectList.Add(a.ID.ToString(), a.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
             }
 
@@ -315,10 +328,31 @@ namespace ColegioTerciario.Controllers
                 .Include("CURSADA_ALUMNO")
                 .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
                 .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id).ToList();
-
+            ViewBag.HORARIOS = _db.Horas.ToList();
             var selectListMaterias = new SelectList(materiasSelectList,"Key", "Value", curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
             ViewBag.MATERIAS = selectListMaterias;
+
+            ViewBag.lunes = diaToArray(curso.MATERIA_X_CURSO_HORARIOS_LUNES);
+            ViewBag.martes = diaToArray(curso.MATERIA_X_CURSO_HORARIOS_MARTES);
+            ViewBag.miercoles = diaToArray(curso.MATERIA_X_CURSO_HORARIOS_MIERCOLES);
+            ViewBag.jueves = diaToArray(curso.MATERIA_X_CURSO_HORARIOS_JUEVES);
+            ViewBag.viernes = diaToArray(curso.MATERIA_X_CURSO_HORARIOS_VIERNES);
+            ViewBag.sabado = diaToArray(curso.MATERIA_X_CURSO_HORARIOS_SABADO);
+            ViewBag.domingo = diaToArray(curso.MATERIA_X_CURSO_HORARIOS_DOMINGO);
+
             return View(curso);
+        }
+
+        private List<string> diaToArray(string dia)
+        {
+            if (dia != null)
+            {
+                return dia.Split(new Char[] {'-'}).ToList();
+            }
+            else
+            {
+                return new List<string>();
+            }
         }
 
         // POST: Cursos/Edit/5
@@ -327,11 +361,19 @@ namespace ColegioTerciario.Controllers
         {
             try
             {
-               
-
-                return RedirectToAction("Index");
+                var curso = _db.Materias_X_Cursos.Find(id);
+                curso.MATERIA_X_CURSO_HORARIOS_LUNES = collection["Lunes"] != null ? collection["Lunes"].Replace(",", "-") : "";
+                curso.MATERIA_X_CURSO_HORARIOS_MARTES = collection["Martes"] != null ? collection["Martes"].Replace(",", "-") : "";
+                curso.MATERIA_X_CURSO_HORARIOS_MIERCOLES = collection["Miercoles"] != null ? collection["Miercoles"].Replace(",", "-") : "";
+                curso.MATERIA_X_CURSO_HORARIOS_JUEVES = collection["Jueves"] != null ? collection["Jueves"].Replace(",", "-") : "";
+                curso.MATERIA_X_CURSO_HORARIOS_VIERNES = collection["Viernes"] != null ? collection["Viernes"].Replace(",", "-") : "";
+                curso.MATERIA_X_CURSO_HORARIOS_SABADO = collection["Sabado"] != null ? collection["Sabado"].Replace(",", "-") : "";
+                curso.MATERIA_X_CURSO_HORARIOS_DOMINGO = collection["Domingo"] != null ? collection["Domingo"].Replace(",", "-") : "";
+                _db.SaveChanges();
+                var currentUrl = Request.Url.AbsoluteUri;
+                return Redirect(currentUrl);
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }

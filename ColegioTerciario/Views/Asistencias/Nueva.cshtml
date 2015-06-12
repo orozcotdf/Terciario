@@ -1,0 +1,81 @@
+﻿@model ColegioTerciario.DAL.Models.Asistencia
+@{
+    ViewBag.Title = "Cargar Asistencia";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="portlet-title">
+                    <div class="caption"><h1>Asistencia <small><a href="#" data-name="FECHA" class="date">@String.Format("{0:dd/MM/yyyy}", ViewBag.hoy)</a></small></h1></div>
+                </div>
+
+                <div class="portlet-body">
+                    @using MvcFlash.Core.Extensions;
+                    @Html.Flash()
+                    
+                    <input type="hidden" name="FECHA" value="@String.Format("{0:dd/MM/yyyy}", ViewBag.hoy)" />
+                    <input type="hidden" name="NEXT" value="@ViewBag.NEXT" />
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="tabla-asistencias" class="table table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Presente</th>
+                                        <th>Alumno</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (ColegioTerciario.DAL.Models.Persona alumno in ViewBag.alumnos)
+                                    {
+                                        <tr>
+                                            <td><input name="asistencia[]" value="@alumno.ID" type="checkbox" /></td>
+                                            <td>@alumno.PERSONA_NOMBRE_COMPLETO</td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input type="submit" value="Grabar" class="btn btn-success" style="margin-left: 6px"/>        
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.fn.bootstrapSwitch.defaults.onText = "Presente";
+            $.fn.bootstrapSwitch.defaults.offText = "Ausente";
+            $.fn.bootstrapSwitch.defaults.state = false;
+            $.fn.bootstrapSwitch.defaults.inverse = true;
+            $.fn.bootstrapSwitch.defaults.onColor = "success";
+            $.fn.bootstrapSwitch.defaults.offColor = "danger";
+            $("[name='asistencia[]']").bootstrapSwitch();
+            $('.date').editable({
+                type: 'combodate',
+                mode: 'popup',
+                format: "DD/MM/YYYY",
+                locale: "es",
+                language: "es",
+                emptytext: "Editar fecha",
+                success: function (response, newValue) {
+                    console.log(newValue);
+                    $('input[name="FECHA"]').val(newValue.format("DD/MM/YYYY"));
+                }
+            });
+        });
+    </script>
+}

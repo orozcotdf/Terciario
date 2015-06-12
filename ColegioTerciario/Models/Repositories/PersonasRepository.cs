@@ -1,4 +1,5 @@
-﻿using ColegioTerciario.DAL.Models;
+﻿using System.Globalization;
+using ColegioTerciario.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,14 @@ namespace ColegioTerciario.Models.Repositories
 {
     public class PersonasRepository : IPersonasRepository
     {
-        private ColegioTerciarioContext dbContext = new ColegioTerciarioContext();
-        private bool disposed = false;
+        private readonly ColegioTerciarioContext _dbContext = new ColegioTerciarioContext();
+        private bool _disposed = false;
 
         public IEnumerable<Persona> GetPersonasByActa(int acta_examen_id)
         {
             var alumnos = new List<Persona>();
             
-            var actasDetalles = dbContext.Actas_Examenes_Detalles
+            var actasDetalles = _dbContext.Actas_Examenes_Detalles
                .Include("ACTA_EXAMEN_DETALLE_ALUMNO")
                .Where(c => c.ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID == acta_examen_id)
                .OrderBy(a => a.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO)
@@ -36,25 +37,25 @@ namespace ColegioTerciario.Models.Repositories
         }
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!this._disposed)
             {
                 if (disposing)
                 {
-                    this.dbContext.Dispose();
+                    this._dbContext.Dispose();
                 }
             }
-            this.disposed = true;
+            this._disposed = true;
         }
 
         public IEnumerable<Persona> GetAlumnos()
         {
-            return dbContext.Personas.OrderBy(a => a.PERSONA_APELLIDO).ToList();
+            return _dbContext.Personas.OrderBy(a => a.PERSONA_APELLIDO).ToList();
         }
 
 
         public IQueryable<SituacionAcademicaPorCiclosViewModel> GetSituacionAcademicaPorCiclos(Persona persona)
         {
-            var cursadas = from c in dbContext.Cursadas
+            var cursadas = from c in _dbContext.Cursadas
                            where c.CURSADA_ALUMNOS_ID == persona.ID
                            group c by c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE into grp
                            select new SituacionAcademicaPorCiclosViewModel()
@@ -83,7 +84,7 @@ namespace ColegioTerciario.Models.Repositories
 
         public IQueryable<SituacionAcademicaPorMateriasViewModel> GetSituacionAcademicaPorMaterias(Persona persona)
         {
-            var cursadas = from c in dbContext.Cursadas
+            var cursadas = from c in _dbContext.Cursadas
                             where c.CURSADA_ALUMNOS_ID == persona.ID
                             group c by c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE into grp
                             select new SituacionAcademicaPorMateriasViewModel()
@@ -112,7 +113,7 @@ namespace ColegioTerciario.Models.Repositories
 
         public IQueryable<SituacionFinalesViewModel> GetFinales(Persona persona)
         {
-            var actas = from a in dbContext.Actas_Examenes_Detalles
+            var actas = from a in _dbContext.Actas_Examenes_Detalles
                     where a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID
                     group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA into carreras
                         select new SituacionFinalesViewModel
@@ -134,6 +135,38 @@ namespace ColegioTerciario.Models.Repositories
                         })
                     };
             return actas;
+        }
+
+        public bool EsAlumnoRegular(Persona persona)
+        {
+            var corriente = DateTime.Now.Year.ToString(CultureInfo.InvariantCulture);
+            var ciclo = _dbContext.Ciclos.SingleOrDefault(c => c.CICLO_ANIO == corriente);
+            var cursadas = _dbContext.Cursadas
+                .Include("CURSADA_MATERIA_X_CURSO")
+                .Include("CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_MATERIA")
+                .Where(c => c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CICLOS_ID == ciclo.ID && c.CURSADA_ALUMNOS_ID == persona.ID)
+                .ToList();
+
+            foreach (Cursada cursada in cursadas)
+            {
+                var materia = cursada.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_MATERIA;
+
+                if (materia.MATERIA_DURACION == Materia.Anual)
+                {
+                    return true;
+                }
+                else if (materia.MATERIA_DURACION == Materia.PrimerCuatrimestre)
+                {
+                    return false;
+                }
+                else if (materia.MATERIA_DURACION == Materia.SegundoCuatrimestre)
+                {
+                    return false;
+                }
+                
+            }
+
+            return false;
         }
     }
 }

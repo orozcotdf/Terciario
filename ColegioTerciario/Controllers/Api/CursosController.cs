@@ -58,9 +58,10 @@ namespace ColegioTerciario.Controllers.Api
                          .Take(param.iDisplayLength)
                          select new[]  {
                              c.MATERIA_X_CURSO_CICLO.CICLO_ANIO,
-                             c.MATERIA_X_CURSO_SEDE != null ? c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE : null,
+                             c.MATERIA_X_CURSO_SEDE != null ? c.MATERIA_X_CURSO_SEDE.ID.ToString() : null,
                              c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,                       
-                             c.MATERIA_X_CURSO_CURSO_NOMBRE
+                             c.MATERIA_X_CURSO_CURSO_NOMBRE,
+                             c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE
                          };
 
             return new
@@ -138,6 +139,17 @@ namespace ColegioTerciario.Controllers.Api
             }
 
             return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult ConfigurarHorarios(int id, [FromBody] object Lunes)
+        {
+            return Ok();
+        }
+
+        [HttpPost]
+        public object SetearTurno([FromBody]string value, [FromBody]int pk) {
+            return new {};
         }
 
         protected override void Dispose(bool disposing)

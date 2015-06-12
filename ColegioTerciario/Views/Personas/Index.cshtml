@@ -1,4 +1,5 @@
 ﻿@model PagedList.IPagedList<ColegioTerciario.DAL.Models.Persona>
+@using MvcFlash.Core.Extensions
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -18,6 +19,8 @@
 
 
 <div class="row">
+    <div class="col-md-12">@Html.Flash()</div>
+    
     <div class="col-md-12">
         <div class="portlet light">
             <div class="portlet-title">
@@ -96,7 +99,7 @@
                             </td>
 
                             <td>
-                                @Html.ActionLink("Editar", "Edit", new { id = item.ID}, new {@class = "btn default btn-xs green-stripe" }) 
+                                @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn default btn-xs green-stripe" })
                                 @Html.ActionLink("Borrar", "Delete", new { id = item.ID }, new { @class = "btn default btn-xs red-stripe" })
                             </td>
                         </tr>
@@ -108,7 +111,7 @@
 
                         Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
                         @Html.PagedListPager(Model, page => Url.Action("Index",
-            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
                     </ul>
                 </div>
             </div>

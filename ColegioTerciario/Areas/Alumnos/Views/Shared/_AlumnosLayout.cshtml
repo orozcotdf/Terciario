@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Areas/Alumnos/Styles/webix.css" rel="stylesheet" />
+    <link href="~/Areas/Alumnos/Styles/flat.css" rel="stylesheet" />
+    <script src="~/Areas/Alumnos/Scripts/webix.js"></script>
+    
+</head>
+    <body>
+        <script type="text/javascript" charset="utf-8">
+            webix.ui.fullScreen();
+            webix.ui("#app");/*
+            webix.ui({
+                type: 'space',
+                rows: [
+                    {
+                        view: "template",
+                        type: "header", template: "My App!"
+                    },
+                    {
+                        cols: [
+                        {
+                            view: "template",
+                            type: "",
+                            template: "Left Pane",
+                            width: 250
+                        }, {
+                            
+                        }]
+                    }
+                ]
+            });*/
+        </script>
+        <div>
+            @RenderBody()
+        </div>
+    </body>
+</html>
