@@ -124,7 +124,7 @@ namespace ColegioTerciario.Controllers
                                     .Include("MATERIA_X_CURSO_MATERIA")
                                     .Include("MATERIA_X_CURSO_DOCENTE")
                                     .FirstOrDefault(m => m.ID == cursoId);
-                List<Persona> alumnos = new List<Persona>();
+                var alumnos = new List<Persona>();
                 IEnumerable<Cursada> cursadas = db.Cursadas
                     .Include("CURSADA_ALUMNO")
                     .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
@@ -139,7 +139,16 @@ namespace ColegioTerciario.Controllers
                 ViewBag.CARRERA = curso.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE;
                 ViewBag.CODIGO = curso.MATERIA_X_CURSO_CURSO_NOMBRE;
                 ViewBag.MATERIA = curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE;
+
+                if (curso.MATERIA_X_CURSO_DOCENTE == null)
+                {
+                    var referrer = Request.UrlReferrer.AbsoluteUri;
+                    Flash.Instance.Error("Error", "Debe especificar el Docente de este curso para poder tomar asistencia.");
+                    return Redirect(referrer);
+                }
+                    
                 ViewBag.DOCENTE = curso.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO;
+                
                 return new ViewAsPdf(alumnos);
             }
             catch (Exception ex)

@@ -35,6 +35,7 @@ namespace ColegioTerciario.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult agregarAlumnos(int ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID, int[] alumnos)
         {
+            //TODO: guardar estado de cursada en tabla de actas finales
             using (var transaction = db.Database.BeginTransaction())
             {
                 try
@@ -80,6 +81,11 @@ namespace ColegioTerciario.Controllers
         {
             Acta_Examen_Detalle detalle = db.Actas_Examenes_Detalles.Find(pk);
             detalle.ACTA_EXAMEN_DETALLE_NOTA = value;
+            if (value != "Ausente" && int.Parse(value) >= 6)
+            {
+                detalle.ACTA_EXAMEN_DETALLE_ESTADO = "APROBADO";
+            }
+            detalle.ACTA_EXAMEN_DETALLE_ESTADO = "REPROBADO";
             db.SaveChanges();
 
             return Json(new { }, JsonRequestBehavior.AllowGet);

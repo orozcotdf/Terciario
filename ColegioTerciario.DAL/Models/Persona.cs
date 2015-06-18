@@ -59,7 +59,7 @@ namespace ColegioTerciario.DAL.Models
         public string PERSONA_FOTO { get; set; }
         [Display(Name = "CUIL")]
         public string PERSONA_CUIL { get; set; }
-        [Display(Name = "Es Alumno")]        
+        [Display(Name = "Es Alumno")]   
         public bool? PERSONA_ES_ALUMNO { get; set; }
         [Display(Name = "Es Docente")]
         public bool? PERSONA_ES_DOCENTE { get; set; }
