@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ColegioTerciario.Controllers;
 using ColegioTerciario.Models;
+using ColegioTerciario.Models.User;
 
 namespace ColegioTerciario.Areas.Admin.Controllers
 {
@@ -87,7 +88,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
         public ActionResult Delete(string RoleName)
         {
             var thisRole = context.Roles.Where(r => r.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-            context.Roles.Remove(thisRole);
+            var toRemove = context.Roles.Remove(thisRole);
             context.SaveChanges();
             return RedirectToAction("Index");
         }

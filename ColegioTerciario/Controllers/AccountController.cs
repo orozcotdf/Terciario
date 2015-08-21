@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ColegioTerciario.Models;
+using ColegioTerciario.Models.User;
 
 namespace ColegioTerciario.Controllers
 {
@@ -78,6 +79,7 @@ namespace ColegioTerciario.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError("", "Revise los datos");
                 return View(model);
             }
 
@@ -96,7 +98,12 @@ namespace ColegioTerciario.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
+                    if (UserManager.FindByEmail(model.Email) == null)
+                    {
+                        ModelState.AddModelError("", "Correo electronico incorrecto");
+                        return View(model);
+                    }
+                    ModelState.AddModelError("", "Contraseña incorrecta.");
                     return View(model);
             }
         }
@@ -233,6 +240,7 @@ namespace ColegioTerciario.Controllers
                 await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
+            ModelState.AddModelError("", "Revise los Datos.");
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             return View(model);

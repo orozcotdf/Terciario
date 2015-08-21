@@ -10,6 +10,7 @@ namespace ColegioTerciario.Areas.Admin.Models
     {
         [Required]
         public int USER_PERSONA_ID { get; set; }
-        public virtual ColegioTerciario.Models.ApplicationUser USER_PERSONA { get; set; }
+        public string USER_PERSONA_ROL { get; set; }
+        public virtual ColegioTerciario.Models.User.ApplicationUser USER_PERSONA { get; set; }
     }
 }

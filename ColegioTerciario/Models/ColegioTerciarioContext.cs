@@ -14,6 +14,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using ColegioTerciario.Models.User;
 
 namespace ColegioTerciario.Models
 {
@@ -158,6 +159,7 @@ namespace ColegioTerciario.Models
                 sql,
                 new SqlParameter("@id", entry.OriginalValues[primaryKeyName]));
 
+            var hardDelete = false;
             switch (tableName)
             {
                 case "[dbo].[Actas_Examenes]":
@@ -165,10 +167,26 @@ namespace ColegioTerciario.Models
                         "UPDATE dbo.Actas_Examenes_Detalles SET IsDeleted = 1, DeletedAt = GETDATE() WHERE ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID = @id",
                         new SqlParameter("@id", entry.OriginalValues[primaryKeyName]));
                     break;
+
+                /**
+                 * Los modelos de ASP Identity no manejan el concepto de Soft Delete asique obviamos el proceso para
+                 * estas tablas.
+                 */
+                case "[dbo].[AspNetRoles]":
+                case "[dbo].[AspNetUserClaims]":
+                case "[dbo].[AspNetUserLogins]":
+                case "[dbo].[AspNetUserRoles]":
+                case "[dbo].[AspNetUsers]":
+                    hardDelete = true;
+                    break;
+
             }
 
-            // prevent hard delete            
-            entry.State = EntityState.Detached;
+            if (hardDelete != true)
+            {
+                // prevent hard delete            
+                entry.State = EntityState.Detached;
+            }
         }
         
     }

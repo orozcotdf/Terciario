@@ -3,61 +3,60 @@
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewBag.Title = "Iniciar sesión";
+    HtmlHelper.ClientValidationEnabled = false;
 }
 
-<div class="modal-header">
-    <h1 class="text-center">@ViewBag.Title.</h1>
-</div>
-<div class="modal-body">
-    
-    <div class="row">
-        <div class="col-md-12">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>Use una cuenta local para iniciar sesión.</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Iniciar sesión" class="btn btn-default" />
-                        </div>
-                    </div>
-                    @* Habilite esta opción después de habilitar la confirmación de la cuenta para la función de restablecimiento de contraseña *@
-                    @*    <p>
-                            @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
-                        </p>
-                        *@
-                }
-            </section>
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form", novalidate = "novalidate" }))
+{
+
+    @Html.AntiForgeryToken()
+    <div class="form-title">
+        <span class="form-title">Bienvenido.</span>
+        <span class="form-subtitle">Ingrese sus Datos.</span>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+    @*
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "alert alert-danger" })
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "alert alert-danger" })
+    *@
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "control-label visible-ie8 visible-ie9" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "E-Mail" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "control-label visible-ie8 visible-ie9" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Contraseña" })
+    </div>
+    <div class="form-actions">
+        <input type="submit" value="Iniciar sesión" class="btn btn-primary btn-block uppercase" />
+    </div>
+    <div class="form-actions">
+        <div class="pull-left">
+            <label class="rememberme check" for="RememberMe">
+                <div class="checker">
+                    <span>
+                        <input type="checkbox" name="RememberMe">
+                    </span>
+                </div>Recordarme
+            </label>
+            <input name="RememberMe" type="hidden" value="false">
+            @*
+    @Html.CheckBoxFor(m => m.RememberMe)
+    @Html.LabelFor(m => m.RememberMe)
+            *@
         </div>
-        
-        
+        <div class="pull-right forget-password-block">
+            <a href="/Account/ForgotPassword" id="forget-password" class="forget-password">Se olvido su contraseña?</a>
+        </div>
     </div>
-    </div>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+
+    @* Habilite esta opción después de habilitar la confirmación de la cuenta para la función de restablecimiento de contraseña *@
+    @*    <p>
+            @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+        </p>
+    *@
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

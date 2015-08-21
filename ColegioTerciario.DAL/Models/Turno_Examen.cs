@@ -21,7 +21,7 @@ namespace ColegioTerciario.DAL.Models
         [Column(TypeName = "Date")]
         public Nullable<DateTime> TURNO_EXAMEN_FECHA_FIN { get; set; }
 
-
+        public string TURNO_EXAMEN_ESTADO { get; set; }
         public string TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR
         {
             get { return TURNO_EXAMEN_NOMBRE + " - " + TURNO_EXAMEN_CICLO.CICLO_NOMBRE; }

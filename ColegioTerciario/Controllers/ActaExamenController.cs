@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.Repositories;
+using Rotativa.MVC;
 
 namespace ColegioTerciario.Controllers
 {
@@ -119,7 +120,7 @@ namespace ColegioTerciario.Controllers
                 .OrderBy(a => a.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO)
                 .ToList();
 
-            return View(acta_Examen);
+            return new ViewAsPdf(acta_Examen);
         }
 
         // GET: ActaExamen/Create

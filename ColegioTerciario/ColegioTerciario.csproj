@@ -45,13 +45,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Breeze.ContextProvider">
-      <HintPath>..\packages\Breeze.Server.ContextProvider.1.5.4\lib\Breeze.ContextProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="Breeze.ContextProvider.EF6">
-      <HintPath>..\packages\Breeze.Server.ContextProvider.EF6.1.5.4\lib\Breeze.ContextProvider.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Glimpse.AspNet">
       <HintPath>..\packages\Glimpse.AspNet.1.9.2\lib\net45\Glimpse.AspNet.dll</HintPath>
     </Reference>
@@ -112,8 +105,8 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Rotativa.Core.2.0.1\lib\net45\Rotativa.Core.dll</HintPath>
+      <HintPath>..\packages\Rotativa.Core.2.0.2.1\lib\net45\Rotativa.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Rotativa.MVC">
       <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
@@ -239,6 +232,7 @@
     <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorasController.cs" />
+    <Compile Include="Controllers\InscripcionesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MateriasController.cs" />
     <Compile Include="Controllers\MatriculasController.cs" />
@@ -306,12 +300,26 @@
     <Compile Include="Migrations\201505300032537_Agrega Estado Definitivo a Materia_X_Curso.Designer.cs">
       <DependentUpon>201505300032537_Agrega Estado Definitivo a Materia_X_Curso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506232249418_Agrega Estado a Turnos de Examenes.cs" />
+    <Compile Include="Migrations\201506232249418_Agrega Estado a Turnos de Examenes.Designer.cs">
+      <DependentUpon>201506232249418_Agrega Estado a Turnos de Examenes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507040026388_Agrega Vencimiento a Cursadas.cs" />
+    <Compile Include="Migrations\201507040026388_Agrega Vencimiento a Cursadas.Designer.cs">
+      <DependentUpon>201507040026388_Agrega Vencimiento a Cursadas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507292243372_Agrega Condicion de Inscripto a ActaExamenDetalle.cs" />
+    <Compile Include="Migrations\201507292243372_Agrega Condicion de Inscripto a ActaExamenDetalle.Designer.cs">
+      <DependentUpon>201507292243372_Agrega Condicion de Inscripto a ActaExamenDetalle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationUser\ApplicationUser.cs" />
     <Compile Include="Models\ColegioTerciarioContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\Actas.cs" />
     <Compile Include="Models\ViewModels\Asistencias.cs" />
+    <Compile Include="Models\ViewModels\InscripcionesViewModel.cs" />
     <Compile Include="Models\ViewModels\DataTableParamModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Repositories\IMateriasXCursoRepository.cs" />
@@ -334,168 +342,77 @@
     <Content Include="Areas\Alumnos\Scripts\webix.js" />
     <Content Include="Areas\Alumnos\Styles\flat.css" />
     <Content Include="Areas\Alumnos\Styles\webix.css" />
-    <Content Include="Content\bootstrap-editable.css" />
-    <Content Include="Content\bootstrap-switch.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.autoFill.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.autoFill.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.bootstrap.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.colReorder.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.colReorder.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.colVis.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.colvis.jqueryui.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.colVis.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.fixedColumns.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.fixedColumns.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.fixedHeader.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.fixedHeader.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.foundation.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.jqueryui.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.keyTable.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.keyTable.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.responsive.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.scroller.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.scroller.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.tableTools.css" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.tableTools.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\jquery.dataTables.css" />
-    <Content Include="Content\DataTables-1.10.3\css\jquery.dataTables.min.css" />
-    <Content Include="Content\DataTables-1.10.3\css\jquery.dataTables_themeroller.css" />
-    <Content Include="Content\DataTables-1.10.3\images\background.png" />
-    <Content Include="Content\DataTables-1.10.3\images\back_disabled.png" />
-    <Content Include="Content\DataTables-1.10.3\images\back_enabled.png" />
-    <Content Include="Content\DataTables-1.10.3\images\back_enabled_hover.png" />
-    <Content Include="Content\DataTables-1.10.3\images\collection.png" />
-    <Content Include="Content\DataTables-1.10.3\images\collection_hover.png" />
-    <Content Include="Content\DataTables-1.10.3\images\copy.png" />
-    <Content Include="Content\DataTables-1.10.3\images\copy_hover.png" />
-    <Content Include="Content\DataTables-1.10.3\images\csv.png" />
-    <Content Include="Content\DataTables-1.10.3\images\csv_hover.png" />
-    <Content Include="Content\DataTables-1.10.3\images\details_close.png" />
-    <Content Include="Content\DataTables-1.10.3\images\details_open.png" />
-    <Content Include="Content\DataTables-1.10.3\images\filler.png" />
-    <Content Include="Content\DataTables-1.10.3\images\forward_disabled.png" />
-    <Content Include="Content\DataTables-1.10.3\images\forward_enabled.png" />
-    <Content Include="Content\DataTables-1.10.3\images\forward_enabled_hover.png" />
-    <Content Include="Content\DataTables-1.10.3\images\insert.png" />
-    <Content Include="Content\DataTables-1.10.3\images\loading-background.png" />
-    <Content Include="Content\DataTables-1.10.3\images\pdf.png" />
-    <Content Include="Content\DataTables-1.10.3\images\pdf_hover.png" />
-    <Content Include="Content\DataTables-1.10.3\images\print.png" />
-    <Content Include="Content\DataTables-1.10.3\images\print_hover.png" />
-    <Content Include="Content\DataTables-1.10.3\images\sort_asc.png" />
-    <Content Include="Content\DataTables-1.10.3\images\sort_asc_disabled.png" />
-    <Content Include="Content\DataTables-1.10.3\images\sort_both.png" />
-    <Content Include="Content\DataTables-1.10.3\images\sort_desc.png" />
-    <Content Include="Content\DataTables-1.10.3\images\sort_desc_disabled.png" />
-    <Content Include="Content\DataTables-1.10.3\images\xls.png" />
-    <Content Include="Content\DataTables-1.10.3\images\xls_hover.png" />
-    <Content Include="Content\DataTables-1.10.3\swf\copy_csv_xls.swf" />
-    <Content Include="Content\DataTables-1.10.3\swf\copy_csv_xls_pdf.swf" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\img\CENT_LOGO.png" />
-    <Content Include="Content\img\clear.png" />
-    <Content Include="Content\img\loading.gif" />
-    <Content Include="Content\img\LogoCENT_60x180.png" />
-    <Content Include="Content\img\LogoCENT_60x180_Transparente.png" />
-    <Content Include="Content\metronic\css\components-rounded.css" />
-    <Content Include="Content\metronic\css\custom.css" />
-    <Content Include="Content\metronic\css\default.css" />
-    <Content Include="Content\metronic\css\layout.css" />
-    <Content Include="Content\metronic\css\metronic.css">
-      <DependentUpon>metronic.css.bundle</DependentUpon>
-    </Content>
-    <Content Include="Content\metronic\css\metronic.min.css">
-      <DependentUpon>metronic.css</DependentUpon>
-    </Content>
-    <Content Include="Content\metronic\css\plugins.css" />
-    <Content Include="Content\metronic\img\ajax-loading.gif" />
-    <Content Include="Content\metronic\img\ajax-modal-loading.gif" />
-    <Content Include="Content\metronic\img\avatar.png" />
-    <Content Include="Content\metronic\img\avatar1.jpg" />
-    <Content Include="Content\metronic\img\avatar10.jpg" />
-    <Content Include="Content\metronic\img\avatar11.jpg" />
-    <Content Include="Content\metronic\img\avatar2.jpg" />
-    <Content Include="Content\metronic\img\avatar3.jpg" />
-    <Content Include="Content\metronic\img\avatar4.jpg" />
-    <Content Include="Content\metronic\img\avatar5.jpg" />
-    <Content Include="Content\metronic\img\avatar6.jpg" />
-    <Content Include="Content\metronic\img\avatar7.jpg" />
-    <Content Include="Content\metronic\img\avatar8.jpg" />
-    <Content Include="Content\metronic\img\avatar9.jpg" />
-    <Content Include="Content\metronic\img\icon-color-close.png" />
-    <Content Include="Content\metronic\img\icon-color.png" />
-    <Content Include="Content\metronic\img\loading-spinner-blue.gif" />
-    <Content Include="Content\metronic\img\loading-spinner-default.gif" />
-    <Content Include="Content\metronic\img\loading-spinner-grey.gif" />
-    <Content Include="Content\metronic\img\loading.gif" />
-    <Content Include="Content\metronic\img\logo-big-white.png" />
-    <Content Include="Content\metronic\img\logo-big.png" />
-    <Content Include="Content\metronic\img\logo-blue-hoki.png" />
-    <Content Include="Content\metronic\img\logo-blue-steel.png" />
-    <Content Include="Content\metronic\img\logo-default.png" />
-    <Content Include="Content\metronic\img\logo-green-haze.png" />
-    <Content Include="Content\metronic\img\logo-purple-plum.png" />
-    <Content Include="Content\metronic\img\logo-purple-studio.png" />
-    <Content Include="Content\metronic\img\logo-red-intense.png" />
-    <Content Include="Content\metronic\img\logo-red-sunglo.png" />
-    <Content Include="Content\metronic\img\logo-yellow-crusta.png" />
-    <Content Include="Content\metronic\img\logo-yellow-orange.png" />
-    <Content Include="Content\metronic\img\logo.png" />
-    <Content Include="Content\metronic\img\menu-toggler.png" />
-    <Content Include="Content\metronic\js\layout.js" />
-    <Content Include="Content\metronic\js\metronic.js" />
-    <Content Include="Content\metronic\js\metronic_scripts.js">
-      <DependentUpon>metronic_scripts.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Content\metronic\js\metronic_scripts.min.js">
-      <DependentUpon>metronic_scripts.js</DependentUpon>
-    </Content>
-    <Content Include="Content\PagedList.css" />
-    <Content Include="Content\plugins.css">
-      <DependentUpon>plugins.css.bundle</DependentUpon>
-    </Content>
-    <Content Include="Content\plugins.min.css">
-      <DependentUpon>plugins.css</DependentUpon>
-    </Content>
+    <Content Include="Content\cent11.concat.css" />
+    <Content Include="fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="fonts\Simple-Line-Icons.svg" />
+    <Content Include="img\ajax-loading.gif" />
+    <Content Include="img\ajax-modal-loading.gif" />
+    <Content Include="img\avatar.png" />
+    <Content Include="img\avatar1.jpg" />
+    <Content Include="img\avatar10.jpg" />
+    <Content Include="img\avatar11.jpg" />
+    <Content Include="img\avatar2.jpg" />
+    <Content Include="img\avatar3.jpg" />
+    <Content Include="img\avatar4.jpg" />
+    <Content Include="img\avatar5.jpg" />
+    <Content Include="img\avatar6.jpg" />
+    <Content Include="img\avatar7.jpg" />
+    <Content Include="img\avatar8.jpg" />
+    <Content Include="img\avatar9.jpg" />
+    <Content Include="img\icon-color-close.png" />
+    <Content Include="img\icon-color.png" />
+    <Content Include="img\loading-spinner-blue.gif" />
+    <Content Include="img\loading-spinner-default.gif" />
+    <Content Include="img\loading-spinner-grey.gif" />
+    <Content Include="img\logo-big-white.png" />
+    <Content Include="img\logo-big.png" />
+    <Content Include="img\logo-blue-hoki.png" />
+    <Content Include="img\logo-blue-steel.png" />
+    <Content Include="img\logo-default.png" />
+    <Content Include="img\logo-green-haze.png" />
+    <Content Include="img\logo-purple-plum.png" />
+    <Content Include="img\logo-purple-studio.png" />
+    <Content Include="img\logo-red-intense.png" />
+    <Content Include="img\logo-red-sunglo.png" />
+    <Content Include="img\logo-yellow-crusta.png" />
+    <Content Include="img\logo-yellow-orange.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\menu-toggler.png" />
+    <Content Include="Scripts\colegio_terciario.concat.js" />
+    <Content Include="Scripts\plugins.concat.js" />
+    <Content Include="src\css\bootstrap-editable.css" />
+    <Content Include="src\css\bootstrap-switch.css" />
+    <Content Include="src\css\bootstrap.min.css" />
+    <Content Include="img\CENT_LOGO.png" />
+    <Content Include="img\CENT_LOGO_TRANSP.png" />
+    <Content Include="img\CENT_LOGO_TRANSP_Chico.png" />
+    <Content Include="img\clear.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\LogoCENT_60x180.png" />
+    <Content Include="img\LogoCENT_60x180_Transparente.png" />
     <Content Include="Content\select2-spinner.gif" />
-    <Content Include="Content\select2.css" />
     <Content Include="Content\select2.png" />
-    <Content Include="Content\simple_sidebar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="src\css\default.css" />
+    <Content Include="src\css\font-awesome.min.css" />
+    <Content Include="src\css\layout.css" />
+    <Content Include="src\css\login2.css" />
+    <Content Include="src\css\select2-bootstrap.css" />
+    <Content Include="src\css\select2.css" />
+    <Content Include="src\css\simple-line-icons.css" />
+    <Content Include="src\css\Site.css" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Usuarios\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Usuarios\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Usuarios\Edit.cshtml" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.responsive.scss" />
-    <Content Include="Content\DataTables-1.10.3\css\dataTables.jqueryui.scss" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\plugins.css.bundle" />
-    <Content Include="Content\metronic\css\metronic.css.bundle" />
-    <Content Include="Content\metronic\js\metronic_scripts.js.bundle">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Content\metronic\js\metronic_scripts.min.js.map">
-      <DependentUpon>metronic_scripts.min.js</DependentUpon>
-    </Content>
     <Content Include="Areas\Alumnos\Views\web.config" />
     <Content Include="Areas\Alumnos\Views\Sesiones\Entrar.cshtml" />
     <Content Include="Areas\Alumnos\Views\Escritorio\Index.cshtml" />
@@ -509,111 +426,45 @@
     <Content Include="Areas\Alumnos\fonts\PTS-webfont.eot" />
     <Content Include="Areas\Alumnos\fonts\PTS-webfont.ttf" />
     <Content Include="Areas\Alumnos\fonts\PTS-webfont.woff" />
+    <Content Include="package.json" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\Simple-Line-Icons.eot" />
+    <Content Include="fonts\Simple-Line-Icons.ttf" />
+    <Content Include="fonts\Simple-Line-Icons.woff" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="gulpfile.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
-    <Content Include="Scripts\bootbox.js" />
-    <Content Include="Scripts\bootbox.min.js" />
-    <Content Include="Scripts\bootstrap-editable.js" />
-    <Content Include="Scripts\bootstrap-switch.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\cent11.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.min.js" />
+    <Content Include="src\css\components-md.css" />
+    <Content Include="src\css\plugins-md.css" />
+    <Content Include="src\js\bootbox.js" />
+    <Content Include="src\js\bootstrap-editable.js" />
+    <Content Include="src\js\bootstrap-switch.min.js" />
+    <Content Include="src\js\cent11.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.bootstrap.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.colReorder.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.colReorder.min.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.colVis.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.colVis.min.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.fixedColumns.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.fixedColumns.min.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.fixedHeader.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.fixedHeader.min.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.foundation.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.jqueryui.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.keyTable.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.keyTable.min.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.responsive.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.responsive.min.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.scroller.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.scroller.min.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.tableTools.js" />
-    <Content Include="Scripts\DataTables-1.10.3\dataTables.tableTools.min.js" />
     <Content Include="Scripts\DataTables-1.10.3\jquery.dataTables.js" />
-    <Content Include="Scripts\DataTables-1.10.3\jquery.dataTables.min.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="src\plugins\dataTables.bootstrap.css" />
+    <Content Include="src\plugins\dataTables.bootstrap.js" />
+    <Content Include="src\plugins\jquery-2.1.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\npm.js" />
-    <Content Include="Scripts\plugins.js">
-      <DependentUpon>plugins.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Scripts\plugins.min.js">
-      <DependentUpon>plugins.js</DependentUpon>
-    </Content>
+    <Content Include="src\js\layout.js" />
+    <Content Include="src\js\metronic.js" />
+    <Content Include="src\plugins\bootstrap-switch.min.js" />
+    <Content Include="src\plugins\bootstrap.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ar.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_az.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_bg.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ca.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_cs.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_da.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_de.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_el.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_es.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_et.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_eu.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_fa.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_fi.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_fr.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_gl.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_he.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_hr.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_hu.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_id.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_is.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_it.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ja.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ka.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ko.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_lt.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_lv.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_mk.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ms.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_nb.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_nl.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_pl.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_pt-BR.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_pt-PT.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ro.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_rs.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ru.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_sk.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_sv.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_th.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_tr.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ua.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ug-CN.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_uk.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_vi.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_zh-CN.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_zh-TW.js" />
-    <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\select2.min.js" />
+    <Content Include="src\js\select2_locale_es.js" />
+    <Content Include="src\plugins\jquery.dataTables.min.css" />
+    <Content Include="src\plugins\jquery.dataTables.min.js" />
+    <Content Include="src\plugins\moment.min.js" />
+    <Content Include="src\plugins\moment_es.js" />
+    <Content Include="src\plugins\select2.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -623,6 +474,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -709,10 +561,6 @@
     <Content Include="Views\ActaExamen\Details Backup.cshtml" />
     <Content Include="Views\Cursos\editarCurso.cshtml" />
     <Content Include="Views\Cursos\PDF.cshtml" />
-    <Content Include="Scripts\plugins.js.bundle" />
-    <Content Include="Scripts\plugins.min.js.map">
-      <DependentUpon>plugins.min.js</DependentUpon>
-    </Content>
     <Content Include="Views\Personas\_PersonaForm.cshtml" />
     <Content Include="Views\Asistencias\Nueva.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SimpleMessage.cshtml" />
@@ -721,11 +569,16 @@
     <Content Include="Views\Asistencias\Edit.cshtml" />
     <Content Include="Views\Asistencias\ImprimirPlanillaVacia.cshtml" />
     <Content Include="Views\Personas\ImprimirCertificadoAlumnoRegular.cshtml" />
+    <Content Include="Views\Inscripciones\Index.cshtml" />
+    <Content Include="Views\Inscripciones\BuscaAlumnos.cshtml" />
+    <Content Include="Views\Inscripciones\ConstanciaDeInscripcion.cshtml" />
+    <None Include="Views\Inscripciones\GuardarInscripciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Admin\" />
     <Folder Include="Areas\Alumnos\Models\" />
+    <Folder Include="Models\ApplicationRole\" />
     <Folder Include="Views\Alumnos\" />
     <Folder Include="Views\Cursadas\" />
     <Folder Include="Views\Datos\" />
@@ -733,12 +586,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ColegioTerciario.DAL\ColegioTerciario.DAL.csproj">
-      <Project>{7b182ac7-b72b-4540-bd6b-a0d86fd2f417}</Project>
-      <Name>ColegioTerciario.DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -786,6 +633,21 @@
     <EmbeddedResource Include="Migrations\201505300032537_Agrega Estado Definitivo a Materia_X_Curso.resx">
       <DependentUpon>201505300032537_Agrega Estado Definitivo a Materia_X_Curso.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506232249418_Agrega Estado a Turnos de Examenes.resx">
+      <DependentUpon>201506232249418_Agrega Estado a Turnos de Examenes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507040026388_Agrega Vencimiento a Cursadas.resx">
+      <DependentUpon>201507040026388_Agrega Vencimiento a Cursadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507292243372_Agrega Condicion de Inscripto a ActaExamenDetalle.resx">
+      <DependentUpon>201507292243372_Agrega Condicion de Inscripto a ActaExamenDetalle.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ColegioTerciario.DAL\ColegioTerciario.DAL.csproj">
+      <Project>{7b182ac7-b72b-4540-bd6b-a0d86fd2f417}</Project>
+      <Name>ColegioTerciario.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

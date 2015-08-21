@@ -150,11 +150,18 @@ namespace ColegioTerciario.Controllers
         // GET: Personas/Create
         public ActionResult Create()
         {
+            /*
             ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(_db.Barrios, "ID", "BARRIO_NOMBRE");
             ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(_db.Ciudades, "ID", "CIUDAD_NAME");
             ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(_db.Paises, "ID", "PAIS_NAME");
             ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(_db.Provincias, "ID", "PROVINCIA_NAME_ASCII");
-            return View();
+             * */
+            ViewBag.PERSONA_NACIMIENTO_BARRIO_ID = new SelectList(_db.Barrios, "ID", "BARRIO_NOMBRE");
+            ViewBag.PERSONA_NACIMIENTO_CIUDAD_ID = new SelectList(_db.Ciudades, "ID", "CIUDAD_NAME");
+            ViewBag.PERSONA_NACIMIENTO_PAIS_ID = new SelectList(_db.Paises, "ID", "PAIS_NAME");
+            ViewBag.PERSONA_NACIMIENTO_PROVINCIA_ID = new SelectList(_db.Provincias, "ID", "PROVINCIA_NAME_ASCII");
+            var persona = new Persona();
+            return View(persona);
         }
 
         // POST: Personas/Create

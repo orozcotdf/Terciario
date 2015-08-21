@@ -9,6 +9,7 @@ using ColegioTerciario.Models;
 using ColegioTerciario.Models.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ColegioTerciario.Models.User;
 
 namespace ColegioTerciario.Areas.Alumnos
 {

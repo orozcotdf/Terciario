@@ -1,4 +1,5 @@
 ﻿using ColegioTerciario.Areas.Admin.Models;
+using ColegioTerciario.Models.User;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -30,6 +31,7 @@ namespace ColegioTerciario.Models.Repositories
             var result = manager.Create(user, model.Password);
             if (result.Succeeded)
             {
+                manager.AddToRole(user.Id, model.USER_PERSONA_ROL);
                 return user.Id;
             }
             else

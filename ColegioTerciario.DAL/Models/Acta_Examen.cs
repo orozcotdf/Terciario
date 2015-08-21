@@ -82,5 +82,14 @@ namespace ColegioTerciario.DAL.Models
         {
             return "ACTA " + this.ACTA_EXAMEN_TURNO_EXAMEN.TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR;
         }
+
+        public bool Estado(int alumno_id)
+        {
+            var actas = ACTAS_EXAMENES_DETALLES
+                .Where(e => e.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == alumno_id && e.ACTA_EXAMEN_DETALLE_ESTADO == "Aprobado")
+                .Select(e => e)
+                .ToList();
+            return ACTAS_EXAMENES_DETALLES.Any(e => e.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == alumno_id && e.ACTA_EXAMEN_DETALLE_ESTADO == "Aprobado");
+        }
     }
 }

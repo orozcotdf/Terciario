@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using ColegioTerciario.Areas.Admin.Models;
 using ColegioTerciario.Models.Repositories;
 using System.Net;
+using ColegioTerciario.Models.User;
 
 namespace ColegioTerciario.Areas.Admin.Controllers
 {
@@ -49,8 +50,6 @@ namespace ColegioTerciario.Areas.Admin.Controllers
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-
-
             foreach (ApplicationUser user in users)
             {
                 var roles = userManager.GetRoles(user.Id);
@@ -81,6 +80,8 @@ namespace ColegioTerciario.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.ROLES = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+
             ViewBag.ALUMNOS = new SelectList(new PersonasRepository().GetAlumnos(), "ID", "PERSONA_NOMBRE_COMPLETO");
             return View();
         }
@@ -101,6 +102,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ALUMNOS = new SelectList(new PersonasRepository().GetAlumnos(), "ID", "PERSONA_NOMBRE_COMPLETO");
+            ViewBag.ROLES = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             return View(newUserViewModel); 
 
         }
@@ -113,17 +115,30 @@ namespace ColegioTerciario.Areas.Admin.Controllers
             }
             ViewBag.ALUMNOS = new SelectList(new PersonasRepository().GetAlumnos(), "ID", "PERSONA_NOMBRE_COMPLETO");
             ApplicationUser user = _repo.GetUser(id);
+
+
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+            var userRoles = UserManager.GetRoles(id);
+            ViewBag.USER_ROLES = roleStore.Roles.ToList().Select(x => new SelectListItem()
+            {
+                Selected = userRoles.Contains(x.Name),
+                Text = x.Name,
+                Value = x.Name
+            });
             EditUserViewModel vm = new EditUserViewModel
             {
                 Email = user.Email,
-                USER_PERSONA_ID = user.USER_PERSONA_ID != null ? user.USER_PERSONA_ID.Value : 0
+                USER_PERSONA_ID = user.USER_PERSONA_ID != null ? user.USER_PERSONA_ID.Value : 0,
             };
+            
+            
             return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditUserViewModel vm)
+        public ActionResult Edit(EditUserViewModel vm, params string[] selectedRoles)
         {
             ViewBag.ALUMNOS = new SelectList(new PersonasRepository().GetAlumnos(), "ID", "PERSONA_NOMBRE_COMPLETO");
             if (ModelState.IsValid)
@@ -135,8 +150,28 @@ namespace ColegioTerciario.Areas.Admin.Controllers
                     usuario.Email = vm.Email;
                     usuario.UserName = vm.Email;
                 };
-                usuario.USER_PERSONA_ID = vm.USER_PERSONA_ID;
 
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                if (vm.USER_ROLES != null)
+                {
+                    var rolesToDelete = (from r in roleManager.Roles
+                                         where !vm.USER_ROLES.Contains(r.Name)
+                                         select r.Name).ToArray();
+                    var removeFromRoles = UserManager.RemoveFromRoles(vm.ID, rolesToDelete);
+                    foreach (var role in vm.USER_ROLES)
+                    {
+                        if (!UserManager.GetRoles(vm.ID).Contains(role))
+                        {
+                            var addtorole = UserManager.AddToRole(vm.ID, role);
+                        }
+                    }
+                }
+                else
+                {
+                    UserManager.RemoveFromRoles(vm.ID, roleManager.Roles.Select(r => r.Name).ToArray());
+                }
                 db.SaveChanges();
 
                 if (vm.Password != null)

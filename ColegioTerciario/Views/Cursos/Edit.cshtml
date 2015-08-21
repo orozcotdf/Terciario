@@ -57,8 +57,8 @@
                         </tr>
                         <tr>
                             <th>Alumno</th>
-                            <th style="width: 80px; text-align: center;">Estado Asistencia</th>
                             <th style="width: 80px; text-align: center;">Estado Académico</th>
+                            <th style="width: 80px; text-align: center;">Estado Asistencia</th>
                             <th>P1</th>
                             <th>R1</th>
                             <th>P2</th>
@@ -202,9 +202,9 @@
     var pageSize = 5;
 
 
-    $.extend(true, $.fn.dataTable.defaults, {
-        "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-4'i><'col-xs-8'p>>",
-    });
+    //$.extend(true, $.fn.dataTable.defaults, {
+    //    "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-4'i><'col-xs-8'p>>",
+    //});
 
     $(document).on('click', '.agregar-persona-a-curso', function () {
         $(this).css('pointer-events', 'none').css('color', 'black');
@@ -297,23 +297,31 @@
 
         $('.selectEstado[data-name="CURSADA_ESTADO_ACADEMICO"], .selectEstado[data-name="CURSADA_ESTADO_ASISTENCIA"]').editable({
             url: "/Cursadas/Set",
+            mode: "popup",
             pk: @Model.ID,
                 emptytext: "Estado",
                 source: [
                     { value: "Libre", text: "Libre" },
                     { value: "Regular", text: "Regular" }
-                ]
+                ],
+                success: function(response, newValue) {
+                    console.log(newValue);
+                }
             });
 
         $('.selectEstado[data-name="CURSADA_ESTADO_DEFINITIVO"]').editable({
-                url: "/Cursadas/Set",
+            mode: "popup",
+            url: "/Cursadas/Set",
                 pk: @Model.ID,
                 emptytext: "Estado",
                 source: [
                     { value: "Libre", text: "Libre" },
                     { value: "Regular", text: "Regular" },
                     { value: "Promocionado", text: "Promocionado" }
-                ]
+                ],
+                success: function(response, newValue) {
+                    console.log(newValue);
+                }
             });
 
             $("#MATERIA_X_CURSO_DOCENTE_ID").editable({

@@ -37,8 +37,9 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th>Nombre</th>
+                            <th>Reportes</th>
                             <th>Acciones</th>
-                            <th>Imprimir Actas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,19 +47,34 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID })
-                                    | @Html.ActionLink("Tomar Asistencia", "Nueva", "Asistencias", new {cursoId = item.ID}, null)
-                                    | @Html.ActionLink("P1", "PDF", new { id = item.ID, instancia = "P1" })
-                                    | @Html.ActionLink("R1", "PDF", new { id = item.ID, instancia = "R1" })
-                                    | @Html.ActionLink("P2", "PDF", new { id = item.ID, instancia = "P2" })
-                                    | @Html.ActionLink("R2", "PDF", new { id = item.ID, instancia = "R2" })
-
+                                    @item.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
                                 </td>
                                 <td>
-                                    @item.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE |
-                                    <a class="btn btn-circle btn-icon-only" href="@Url.Action("ImprimirPlanillaVacia", "Asistencias", new{ cursoId=item.ID })">
-                                        <i class="fa fa-calendar"></i>
-                                    </a>
+                                    <div class="btn-group">
+                                        @Html.ActionLink("Planilla Asistencias - Todos", "ImprimirPlanillaVacia", "Asistencias", new { cursoId = item.ID }, new { @class = "btn btn-xs default" })
+                                        <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-angle-down"></i></button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>@Html.ActionLink("Planilla Asistencias - Regulares", "ImprimirPlanillaVacia", "Asistencias", new { cursoId = item.ID, @tipo = "regulares" }, null)
+</li>
+                                            <li>@Html.ActionLink("Parcial 1", "PDF", new { id = item.ID, instancia = "P1" })</li>
+                                            <li>@Html.ActionLink("Recuperatorio 1", "PDF", new { id = item.ID, instancia = "R1" })</li>
+                                            <li>@Html.ActionLink("Parcial 2", "PDF", new { id = item.ID, instancia = "P2" })</li>
+                                            <li>@Html.ActionLink("Recuperatorio 2", "PDF", new { id = item.ID, instancia = "R2" })</li>
+                                        </ul>
+                                </div>
+                                </td>                                
+                                <td>
+                                    <div class="btn-group">
+                                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-xs default" })
+                                        <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-angle-down"></i></button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                @Html.ActionLink("Tomar Asistencia", "Nueva", "Asistencias", new { cursoId = item.ID }, null)
+
+
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         }

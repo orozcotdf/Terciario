@@ -114,7 +114,7 @@ namespace ColegioTerciario.Controllers
             return View(asistencia);
         }
 
-        public ActionResult ImprimirPlanillaVacia(int? cursoId)
+        public ActionResult ImprimirPlanillaVacia(int? cursoId, string tipo)
         {
             try
             {
@@ -128,7 +128,13 @@ namespace ColegioTerciario.Controllers
                 IEnumerable<Cursada> cursadas = db.Cursadas
                     .Include("CURSADA_ALUMNO")
                     .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
-                    .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == cursoId).ToList();
+                    .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == cursoId);//.ToList();
+
+                if (tipo == "regulares")
+                {
+                    cursadas = cursadas.Where(
+                       c => c.CURSADA_ESTADO_ASISTENCIA != "Libre").ToList();
+                }
 
                 foreach (Cursada cursada in cursadas)
                 {

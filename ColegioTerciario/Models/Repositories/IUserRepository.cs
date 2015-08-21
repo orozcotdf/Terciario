@@ -1,4 +1,5 @@
 ﻿using ColegioTerciario.Areas.Admin.Models;
+using ColegioTerciario.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -10,6 +10,8 @@ namespace ColegioTerciario.DAL.Models
         public string ACTA_EXAMEN_DETALLE_NOTA { get; set; }
         public string ACTA_EXAMEN_DETALLE_ESTADO { get; set; }
 
+        public string ACTA_EXAMEN_DETALLE_CONDICION_INSCRIPTO { get; set; }
+
         #region Foreign Keys
         public int? ACTA_EXAMEN_DETALLE_ALUMNOS_ID { get; set; }
         public int? ACTA_EXAMEN_DETALLE_ACTAS_EXAMENES_ID { get; set; }

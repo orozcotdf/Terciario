@@ -1,6 +1,7 @@
 namespace ColegioTerciario.Migrations
 {
     using ColegioTerciario.Models;
+    using ColegioTerciario.Models.User;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
