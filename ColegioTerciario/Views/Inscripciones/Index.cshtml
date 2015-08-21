@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Inscripciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Inscipciones - 1er Paso</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        @using MvcFlash.Core.Extensions;
+        @Html.Flash()
+        <form id="buscarAlumno" method="POST">
+            <div class="form-group">
+                <input type="text" name="dni"/>
+                <input type="submit" value="Buscar Alumno"/>
+            </div>
+        </form>
+    </div>
+</div>

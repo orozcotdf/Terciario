@@ -96,7 +96,6 @@ namespace ColegioTerciario.DAL.Models
                 return PERSONA_APELLIDO + ", " + PERSONA_NOMBRE;
             }
         }
-
         #endregion
     }
 }

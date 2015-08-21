@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+
+
+@section footer  {
+    <footer class="row" style="margin-top: 80px;">
+
+        <div class="col-md-2" style="float:left;">
+            <p style="padding-top: 4px;">&copy; @DateTime.Now.Year - C.E.N.T. 11</p>
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col-md-4" style="float: right;">
+            <div class="firma" style="width: 200px; text-align: center; border-top: 1px dotted; padding-top: 5px;">Fecha y Firma</div>
+        </div>
+    </footer>
+}
+
+<div class="row">
+    <div class="col-xs-10">
+        <h1>CENT 11</h1>
+    </div>
+    <div class="col-xs-2">
+        <h4>Contancia de Inscripción</h4>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 30px">
+    <div class="col-xs-12">
+
+        <p style="margin-bottom: 30px">
+            Se deja constancia que: <strong>@ViewBag.PERSONA_NOMBRE_COMPLETO</strong>,
+            <strong>D.N.I @ViewBag.INSCRIPCIONES[0].ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_DOCUMENTO_NUMERO</strong> es alumno/a de la carrera
+            <strong>@ViewBag.INSCRIPCIONES[0].ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE</strong>, y que se inscribe a rendir examen, de las cátedras descriptas a continuación.
+        </p>
+        <table class="table">
+            <tr>
+                <th>Materia</th>
+                <th>Fecha</th>
+            </tr>
+            @foreach (ColegioTerciario.DAL.Models.Acta_Examen_Detalle inscripcion in ViewBag.INSCRIPCIONES)
+            {
+                <tr>
+                    <td>@inscripcion.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE</td>
+                    <td>@String.Format("{0:dd/MM/yyyy}", inscripcion.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FECHA)</td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</div>
