@@ -2,6 +2,14 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var babel = require('gulp-babel');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var uglify = require('gulp-uglify');
+var gutil = require('gulp-util');
+
 
 var plugins = [
     'src/plugins/jquery-2.1.1.min.js',
@@ -11,7 +19,6 @@ var plugins = [
     'src/plugins/bootstrap-switch.min.js',
     'src/plugins/moment.min.js',
     'src/plugins/moment_es.js',
-
     'src/plugins/**/*.js'
 ];
 
@@ -23,7 +30,6 @@ var theme_js = [
     'src/js/bootstrap-switch.min.js',
     'src/js/select2_locale_es.js',
     'src/js/cent11.js',
-    'src/js/**/*.js'
 ];
 
 var theme_css = [
@@ -62,6 +68,23 @@ gulp.task('js', ['plugins'], function () {
         .pipe(gulp.dest('./Scripts'));
 });
 
-gulp.task('default', function () {
+gulp.task('app_js', function () {
+    var b = browserify({
+        entries: 'src/js/equivalencias.js',
+        debug: true
+    });
+
+    return b.bundle()
+        .pipe(source('equivalencias.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({ loadMaps: true }))
+            // Add transformation tasks to the pipeline here.
+            .pipe(uglify().transform(require('babelify')))
+            .on('error', gutil.log)
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('./Scripts/'));
+});
+
+gulp.task('default', ['css', 'js'], function () {
     // place code for your default task here
 });

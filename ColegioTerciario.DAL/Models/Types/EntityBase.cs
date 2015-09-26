@@ -19,10 +19,10 @@ namespace ColegioTerciario.Models.Types
 
         public bool IsDeleted { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
-        [Required]
+        //[Required]
         public DateTime CreatedDate { get; set; }
 
-        [Required]
+        //[Required]
         public DateTime ModifiedDate { get; set; }
     }
 

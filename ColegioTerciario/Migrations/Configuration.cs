@@ -18,6 +18,7 @@ namespace ColegioTerciario.Migrations
 
         protected override void Seed(ColegioTerciario.Models.ColegioTerciarioContext context)
         {
+            context.Configuration.LazyLoadingEnabled = true;
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

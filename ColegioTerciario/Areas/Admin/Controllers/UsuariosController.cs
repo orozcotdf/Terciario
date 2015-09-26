@@ -37,6 +37,15 @@ namespace ColegioTerciario.Areas.Admin.Controllers
             }
         }
 
+        private ApplicationRoleManager roleManager;
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return this.roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set { this.roleManager = value; }
+        }
         // GET: Admin/Seguridad
         public ActionResult Index()
         {
@@ -141,6 +150,14 @@ namespace ColegioTerciario.Areas.Admin.Controllers
         public ActionResult Edit(EditUserViewModel vm, params string[] selectedRoles)
         {
             ViewBag.ALUMNOS = new SelectList(new PersonasRepository().GetAlumnos(), "ID", "PERSONA_NOMBRE_COMPLETO");
+            var userRoles = UserManager.GetRoles(vm.ID);
+
+            ViewBag.USER_ROLES = RoleManager.Roles.ToList().Select(x => new SelectListItem()
+            {
+                Selected = userRoles.Contains(x.Name),
+                Text = x.Name,
+                Value = x.Name
+            });
             if (ModelState.IsValid)
             {
                 var db = new ColegioTerciarioContext();

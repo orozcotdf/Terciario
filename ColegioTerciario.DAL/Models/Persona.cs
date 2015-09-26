@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ColegioTerciario.Models.Types;
+using Newtonsoft.Json;
 
 namespace ColegioTerciario.DAL.Models
 {
@@ -84,10 +85,15 @@ namespace ColegioTerciario.DAL.Models
         [ForeignKey("PERSONA_NACIMIENTO_BARRIO_ID")]
         public virtual Barrio PERSONA_BARRIO { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Acta_Examen> ACTAS_PRECIDIDAS { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Acta_Examen> ACTAS_VOCAL1 { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Acta_Examen> ACTAS_VOCAL2 { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Acta_Examen_Detalle> ACTAS_EXAMENES_DETALLES { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Cursada> PERSONA_CURSADAS { get; set; } 
         #region Metodos
 

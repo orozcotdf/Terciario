@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ColegioTerciario.Models.Types;
+using Newtonsoft.Json;
 
 namespace ColegioTerciario.DAL.Models
 {
@@ -36,7 +37,8 @@ namespace ColegioTerciario.DAL.Models
         public Nullable<DateTime> CICLO_SEMESTRE_2_INICIO { get; set; }
         [Column(TypeName = "Date")]
         public Nullable<DateTime> CICLO_SEMESTRE_2_FIN { get; set; }
-        
+
+        [JsonIgnore]
         public virtual ICollection<Turno_Examen> TURNOS_EXAMENES { get; set; }
     }
 }

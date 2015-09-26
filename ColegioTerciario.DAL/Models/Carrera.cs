@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using ColegioTerciario.Models.Types;
+using Newtonsoft.Json;
 
 namespace ColegioTerciario.DAL.Models
 {
@@ -22,7 +23,9 @@ namespace ColegioTerciario.DAL.Models
         public string CARRERA_NOMBRE_CORTO { get; set; }
         public string CARRERA_RESOLUCION_PLAN { get; set; }
         public string CARRERA_TITULO_NOMBRE { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Acta_Examen> ACTAS_EXAMENES { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Materia> MATERIAS { get; set; }
         public override string ToString()
         {

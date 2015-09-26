@@ -12,11 +12,7 @@ namespace ColegioTerciario.DAL.Models
     [Table("Paises")]
     public class Pais : EntityBase
     {
-        public Pais()
-        {
-            this.PERSONAS = new HashSet<Persona>();
-        }
-    
+   
         public int ID { get; set; }
         [Display(Name="Pais")]
         public string PAIS_NAME { get; set; }
@@ -30,6 +26,6 @@ namespace ColegioTerciario.DAL.Models
         public string PAIS_ALTERNATE_NAMES { get; set; }
         public string PAIS_PHONE { get; set; }
     
-        public virtual ICollection<Persona> PERSONAS { get; set; }
+        //public virtual ICollection<Persona> PERSONAS { get; set; }
     }
 }

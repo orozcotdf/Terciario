@@ -12,7 +12,7 @@ namespace ColegioTerciario
 
             // Convention-based routing.
             config.Routes.MapHttpRoute(
-                name: "ActionApi",
+                name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
                 );
@@ -21,6 +21,13 @@ namespace ColegioTerciario
 
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+
+            // WebAPI when dealing with JSON & JavaScript!
+            // Setup json serialization to serialize classes to camel (std. Json format)
+            var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            formatter.SerializerSettings.ContractResolver =
+                new Newtonsoft.Json.Serialization.DefaultContractResolver();
+
         }
     }
 }

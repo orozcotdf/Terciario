@@ -49,6 +49,36 @@ namespace ColegioTerciario.Controllers.Api
             };
         }
 
+        [HttpGet]
+        public object SelectPersonas([FromUri]string busqueda, [FromUri] string docente = null, [FromUri] int cantidad = 10)
+        {
+            var personas = _db.Personas.AsQueryable();
+            IQueryable<Persona> personasFiltradas;
+
+            if (busqueda == null)
+            {
+                personasFiltradas = personas;
+            }
+            else
+            {
+                personasFiltradas = (from e in personas
+                                     where (
+                                     e.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(busqueda.ToLower()) ||
+                                     e.PERSONA_NOMBRE.ToLower().Contains(busqueda.ToLower()) ||
+                                     e.PERSONA_APELLIDO.ToLower().Contains(busqueda.ToLower()))
+                                     select e);
+            }
+
+            if (docente != null)
+            {
+                personasFiltradas = personasFiltradas.Where(p => p.PERSONA_ES_DOCENTE == true);
+            }
+
+            var result = personasFiltradas.Select(p => new ReactSelectViewModel {label = (p.PERSONA_NOMBRE + " " + p.PERSONA_APELLIDO).Trim(), value = p.ID.ToString()})
+                            //.OrderBy(p => p.PERSONA_APELLIDO)
+                            .Take(cantidad);
+            return result;
+        }
         // GET: api/Personas/5
         [ResponseType(typeof(Persona))]
         public IHttpActionResult GetPersona(int id)

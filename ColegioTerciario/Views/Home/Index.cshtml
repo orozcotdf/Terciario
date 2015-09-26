@@ -1,41 +1,44 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<div class="jumbotron" style="background: none">
-    <div class="container">
-        <div class="portlet light">
-            <h1>CENT 11</h1>
+<div id="appContainer"></div>
+@*
+    <div class="jumbotron" style="background: none">
+        <div class="container">
+            <div class="portlet light">
+                <h1>CENT 11</h1>
 
-            @if (User.IsInRole("Docente"))
-            {
-                <p>Contenido solo para Docentes</p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Vea sus Cursos »</a>
-                </p>
-            }
+                @if (User.IsInRole("Docente"))
+                {
+                    <p>Contenido solo para Docentes</p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="#" role="button">Vea sus Cursos »</a>
+                    </p>
+                }
 
-        </div>
+            </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="portlet light">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <span class="caption-subject font-green-sharp bold uppercase">Alumnos</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject font-green-sharp bold uppercase">Alumnos</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="portlet light">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <span class="caption-subject font-red-sunglo bold uppercase">Parciales</span>
-                        </div>
+                <div class="col-md-6">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject font-red-sunglo bold uppercase">Parciales</span>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+*@

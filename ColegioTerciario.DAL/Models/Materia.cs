@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ColegioTerciario.Models.Types;
+using Newtonsoft.Json;
 
 namespace ColegioTerciario.DAL.Models
 {
@@ -27,6 +28,7 @@ namespace ColegioTerciario.DAL.Models
         public string MATERIA_NOMBRE_CORTO { get; set; }
 
         [ForeignKey("MATERIA_CARRERAS_ID")]
+        [JsonIgnore]
         public Carrera MATERIA_CARRERA { get; set; }
 
         public virtual ICollection<Acta_Examen> Actas_Examenes { get; set; }

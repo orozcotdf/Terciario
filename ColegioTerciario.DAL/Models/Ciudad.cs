@@ -12,10 +12,6 @@ namespace ColegioTerciario.DAL.Models
     [Table("Ciudades")]
     public class Ciudad : EntityBase
     {
-        public Ciudad()
-        {
-            this.PERSONAS = new HashSet<Persona>();
-        }
     
         public int ID { get; set; }
         [Display(Name="Ciudad")]
@@ -33,7 +29,7 @@ namespace ColegioTerciario.DAL.Models
         public Nullable<long> CIUDAD_POPULATION { get; set; }
         public string CIUDAD_FEATURE_CODE { get; set; }
     
-        public virtual ICollection<Persona> PERSONAS { get; set; }
-        public virtual ICollection<Barrio> BARRIOS { get; set; }
+        //public virtual ICollection<Persona> PERSONAS { get; set; }
+        //public virtual ICollection<Barrio> BARRIOS { get; set; }
     }
 }

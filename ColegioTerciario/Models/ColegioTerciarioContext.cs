@@ -30,6 +30,7 @@ namespace ColegioTerciario.Models
     
         public ColegioTerciarioContext() : base("name=ColegioTerciarioContext")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Persona> Personas { get; set; }
@@ -50,6 +51,8 @@ namespace ColegioTerciario.Models
         public DbSet<Turno_Examen> Turnos_Examenes { get; set; }
         public DbSet<Sede> Sedes { get; set; }
         public DbSet<Asistencia> Asistencias { get; set; }
+        public DbSet<Equivalencia> Equivalencias { get; set; }
+        public DbSet<Equivalencia_Detalle> Equivalencias_Detalles { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Configurations.Add(new EntityBaseConfiguration());
@@ -101,7 +104,12 @@ namespace ColegioTerciario.Models
             modelBuilder.Entity<Sede>()
             .Map(m => m.Requires("IsDeleted").HasValue(false))
             .Ignore(m => m.IsDeleted);
-
+            modelBuilder.Entity<Equivalencia>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Equivalencia_Detalle>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
             base.OnModelCreating(modelBuilder);
         }
 

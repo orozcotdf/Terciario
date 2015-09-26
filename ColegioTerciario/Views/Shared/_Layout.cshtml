@@ -11,8 +11,19 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>@ViewBag.Title - C.E.N.T. 11</title>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="~/Content/cent11.concat.css" rel="stylesheet" />
+    <link href="~/Content/cent11.concat.css" rel="stylesheet"/>
 
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <link href="http://localhost:8080/cent11-2.0.css" rel="stylesheet" />
+
+    }
+    else
+    {
+        <link href="~/Scripts/dist/cent11-2.0.css" rel="stylesheet" />
+    }
+
+    @RenderSection("styles", required: false)
     <meta name="description" content="Sistema Cent11" />
 </head>
 <body class="page-md">
@@ -40,11 +51,13 @@
             <div class="container-fluid">       
                 <div class="hor-menu ">
                     <ul class="nav navbar-nav">
-                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/#/">Inicio</a></li>
                         <li><a href="~/Personas">Personas</a></li>
                         <li><a href="~/Cursos">Cursos</a></li>
                         <li><a href="~/ActaExamen">Finales</a></li>
                         <li><a href="~/Inscripciones">Inscripciones</a></li>
+                        <li><a href="/#/equivalencias">Equivalencias</a></li>
+
                         @*                        <li><a href="~/Materias">Materias</a></li>*@
                         @*                        <li><a href="#">Estadisticas</a></li>*@
                         @*                        <li><a href="#">Configuracion</a></li>*@
@@ -89,6 +102,34 @@
     <script src="~/Scripts/plugins.concat.js"></script>
     <script src="~/Scripts/colegio_terciario.concat.js"></script>
     @RenderSection("scripts", required: false)
+
+    @if (User.Identity.IsAuthenticated)
+    {
+       
+        <script type="text/javascript">
+
+            var User = {};
+            User.data = JSON.parse('@Html.Raw(ViewBag.UserData)');
+            User.isInRole = function(role) {
+                return _.size(_.find(this.data.Roles, "Name", role)) > 0;
+            };
+            window.User = User;
+        </script>
+    }
+
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script src="http://localhost:8080/webpack-dev-server.js"></script>
+        <script type="text/javascript" src="http://localhost:8080/vendor.js"></script>
+        <script type="text/javascript" src="http://localhost:8080/App.js"></script>
+
+    }
+    else
+    {
+        <script type="text/javascript" src="~/Scripts/dist/vendor.js"></script>
+        <script type="text/javascript" src="~/Scripts/dist/App.js"></script>
+    }
+
 
 </body>
 

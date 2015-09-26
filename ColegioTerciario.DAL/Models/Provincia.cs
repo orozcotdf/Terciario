@@ -12,10 +12,6 @@ namespace ColegioTerciario.DAL.Models
     [Table("Provincias")]
     public class Provincia : EntityBase
     {
-        public Provincia()
-        {
-            this.PERSONAS = new HashSet<Persona>();
-        }
     
         public int ID { get; set; }
         public string PROVINCIA_NAME_ASCII { get; set; }
@@ -28,6 +24,6 @@ namespace ColegioTerciario.DAL.Models
         public string PROVINCIA_ALTERNATE_NAMES { get; set; }
         public string PROVINCIA_DISPLAY_NAME { get; set; }
     
-        public virtual ICollection<Persona> PERSONAS { get; set; }
+        //public virtual ICollection<Persona> PERSONAS { get; set; }
     }
 }
