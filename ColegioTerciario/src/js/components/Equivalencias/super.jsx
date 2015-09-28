@@ -24,7 +24,7 @@ export default class EquivalenciasSuper extends Component {
     input = input.toLowerCase();
     if (input.length >= 3) {
       let _this = this;
-      $.get('http://localhost:63440/api/Personas/SelectPersonas?busqueda=' + input, function(data){
+      $.get('/api/Personas/SelectPersonas?busqueda=' + input, function(data){
         callback(null, {
           options: data,
           //complete: true
@@ -37,7 +37,7 @@ export default class EquivalenciasSuper extends Component {
     input = input.toLowerCase();
     if (input.length >= 3) {
       let _this = this;
-      $.get('http://localhost:63440/api/Carreras/SelectCarreras?busqueda=' + input, function(data){
+      $.get('/api/Carreras/SelectCarreras?busqueda=' + input, function(data){
         callback(null, {
           options: data,
           //complete: true

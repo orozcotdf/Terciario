@@ -109,11 +109,12 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rotativa.Core.2.0.2.1\lib\net45\Rotativa.Core.dll</HintPath>
+      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Rotativa.MVC">
+    <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -427,10 +428,11 @@
     <Content Include="img\logo-yellow-orange.png" />
     <Content Include="img\logo.png" />
     <Content Include="img\menu-toggler.png" />
-    <Content Include="Scripts\App.min.js" />
     <Content Include="Scripts\colegio_terciario.concat.js" />
+    <Content Include="Scripts\dist\App.js" />
+    <Content Include="Scripts\dist\cent11-2.0.css" />
+    <Content Include="Scripts\dist\vendor.js" />
     <Content Include="Scripts\plugins.concat.js" />
-    <Content Include="Scripts\vendor.min.js" />
     <Content Include="img\CENT_LOGO.png" />
     <Content Include="img\CENT_LOGO_TRANSP.png" />
     <Content Include="img\CENT_LOGO_TRANSP_Chico.png" />
@@ -448,7 +450,6 @@
     <Content Include="Areas\Admin\Views\Usuarios\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Usuarios\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Usuarios\Edit.cshtml" />
-    <Content Include="App_Browsers\qt.browser" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
@@ -493,7 +494,11 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <Content Include="Scripts\dist\App.js.map" />
+    <Content Include="Scripts\dist\cent11-2.0.css.map" />
+    <Content Include="Scripts\dist\vendor.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="gulpfile.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />

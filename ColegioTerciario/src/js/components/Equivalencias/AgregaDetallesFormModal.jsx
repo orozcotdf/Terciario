@@ -25,7 +25,7 @@ export default class AgregaDetallesFormModal extends Component {
 
   _submitAndClose() {
     let _this = this;
-    $.post('http://localhost:63440/api/Equivalencias/AgregaMateria', {
+    $.post('/api/Equivalencias/AgregaMateria', {
       EQUIVALENCIA_ID: this.props.modelId,
       EQUIVALENCIA_DETALLE_TIPO: this.state.EQUIVALENCIA_DETALLE_TIPO,
       EQUIVALENCIA_DETALLE_MATERIA_ID: this.state.EQUIVALENCIA_DETALLE_MATERIA_ID,
@@ -41,7 +41,7 @@ export default class AgregaDetallesFormModal extends Component {
     console.log(input);
     if (input.length >= 3) {
       let _this = this;
-      $.get('http://localhost:63440/api/Materias/SelectMaterias?busqueda=' + input, function(data){
+      $.get('/api/Materias/SelectMaterias?busqueda=' + input, function(data){
         callback(null, {
           options: data,
           complete: true
@@ -54,7 +54,7 @@ export default class AgregaDetallesFormModal extends Component {
     input = input.toLowerCase();
     if (input.length >= 3) {
       let _this = this;
-      $.get('http://localhost:63440/api/Personas/SelectPersonas?busqueda=' + input, {docente: true, cantidad: 5},function(data){
+      $.get('/api/Personas/SelectPersonas?busqueda=' + input, {docente: true, cantidad: 5},function(data){
         callback(null, {
           options: data,
           complete: true

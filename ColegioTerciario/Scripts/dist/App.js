@@ -1209,7 +1209,7 @@ webpackJsonp([0],[
 	      input = input.toLowerCase();
 	      if (input.length >= 3) {
 	        var _this = this;
-	        $.get('http://localhost:63440/api/Personas/SelectPersonas?busqueda=' + input, function (data) {
+	        $.get('/api/Personas/SelectPersonas?busqueda=' + input, function (data) {
 	          callback(null, {
 	            options: data
 	          });
@@ -1223,7 +1223,7 @@ webpackJsonp([0],[
 	      input = input.toLowerCase();
 	      if (input.length >= 3) {
 	        var _this = this;
-	        $.get('http://localhost:63440/api/Carreras/SelectCarreras?busqueda=' + input, function (data) {
+	        $.get('/api/Carreras/SelectCarreras?busqueda=' + input, function (data) {
 	          callback(null, {
 	            options: data
 	          });
@@ -2853,7 +2853,7 @@ webpackJsonp([0],[
 	    key: '_submitAndClose',
 	    value: function _submitAndClose() {
 	      var _this = this;
-	      _jquery2['default'].post('http://localhost:63440/api/Equivalencias/AgregaMateria', {
+	      _jquery2['default'].post('/api/Equivalencias/AgregaMateria', {
 	        EQUIVALENCIA_ID: this.props.modelId,
 	        EQUIVALENCIA_DETALLE_TIPO: this.state.EQUIVALENCIA_DETALLE_TIPO,
 	        EQUIVALENCIA_DETALLE_MATERIA_ID: this.state.EQUIVALENCIA_DETALLE_MATERIA_ID,
@@ -2870,7 +2870,7 @@ webpackJsonp([0],[
 	      console.log(input);
 	      if (input.length >= 3) {
 	        var _this = this;
-	        _jquery2['default'].get('http://localhost:63440/api/Materias/SelectMaterias?busqueda=' + input, function (data) {
+	        _jquery2['default'].get('/api/Materias/SelectMaterias?busqueda=' + input, function (data) {
 	          callback(null, {
 	            options: data,
 	            complete: true
@@ -2884,7 +2884,7 @@ webpackJsonp([0],[
 	      input = input.toLowerCase();
 	      if (input.length >= 3) {
 	        var _this = this;
-	        _jquery2['default'].get('http://localhost:63440/api/Personas/SelectPersonas?busqueda=' + input, { docente: true, cantidad: 5 }, function (data) {
+	        _jquery2['default'].get('/api/Personas/SelectPersonas?busqueda=' + input, { docente: true, cantidad: 5 }, function (data) {
 	          callback(null, {
 	            options: data,
 	            complete: true
@@ -2985,7 +2985,7 @@ webpackJsonp([0],[
 	            null,
 	            _react2['default'].createElement(
 	              _reactBootstrap.Button,
-	              { onClick: this._submitAndClose.bind(this) },
+	              { bsStyle: 'primary', onClick: this._submitAndClose.bind(this) },
 	              'Guardar'
 	            )
 	          )
