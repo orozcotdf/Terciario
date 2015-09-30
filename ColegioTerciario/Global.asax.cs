@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -68,6 +69,7 @@ namespace ColegioTerciario
                 {
                     userVM.Roles.Add(new RoleViewModel {Name = role});
                 }
+                userVM.Persona = UserManager.FindById(userId).USER_PERSONA_ID.ToString();
                 filterContext.Controller.ViewBag.UserData = JsonConvert.SerializeObject(userVM);
             }
 

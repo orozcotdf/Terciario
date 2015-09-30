@@ -14,24 +14,24 @@ webpackJsonp([0],[
 	
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 	
-	var _configRoutes = __webpack_require__(196);
+	var _coreRoutes = __webpack_require__(196);
 	
-	var _configRoutes2 = _interopRequireDefault(_configRoutes);
+	var _coreRoutes2 = _interopRequireDefault(_coreRoutes);
 	
-	var _reactTapEventPlugin = __webpack_require__(636);
+	var _reactTapEventPlugin = __webpack_require__(639);
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
 	__webpack_require__(400);
 	
-	//Needed for onTouchTap
-	//Can go away when react 1.0 release
-	//Check this repo:
-	//https://github.com/zilverline/react-tap-event-plugin
+	// Needed for onTouchTap
+	// Can go away when react 1.0 release
+	// Check this repo:
+	// https://github.com/zilverline/react-tap-event-plugin
 	(0, _reactTapEventPlugin2['default'])();
 	
-	_reactRouter2['default'].run(_configRoutes2['default'], function (Root) {
-	    _react2['default'].render(_react2['default'].createElement(Root, null), document.getElementById('appContainer'));
+	_reactRouter2['default'].run(_coreRoutes2['default'], function (Root, state) {
+	  _react2['default'].render(_react2['default'].createElement(Root, state), document.getElementById('appContainer'));
 	});
 
 /***/ },
@@ -247,8 +247,6 @@ webpackJsonp([0],[
 	
 	var _reactRouter = __webpack_require__(157);
 	
-	var _reactRouter2 = _interopRequireDefault(_reactRouter);
-	
 	var _componentsEquivalenciasMain = __webpack_require__(197);
 	
 	var _componentsEquivalenciasMain2 = _interopRequireDefault(_componentsEquivalenciasMain);
@@ -265,24 +263,30 @@ webpackJsonp([0],[
 	
 	var _componentsInicio2 = _interopRequireDefault(_componentsInicio);
 	
-	var _componentsLayout = __webpack_require__(635);
+	var _componentsLayout = __webpack_require__(637);
 	
 	var _componentsLayout2 = _interopRequireDefault(_componentsLayout);
 	
-	var DefaultRoute = _reactRouter2['default'].DefaultRoute;
-	var Route = _reactRouter2['default'].Route;
+	var _componentsAreaDocentesCursosMain = __webpack_require__(638);
+	
+	var _componentsAreaDocentesCursosMain2 = _interopRequireDefault(_componentsAreaDocentesCursosMain);
 	
 	exports['default'] = _react2['default'].createElement(
-	  Route,
+	  _reactRouter.Route,
 	  { name: 'app', path: '/', handler: _componentsLayout2['default'] },
-	  _react2['default'].createElement(Route, { name: 'home', path: '/', handler: _componentsInicio2['default'] }),
-	  _react2['default'].createElement(Route, { name: 'equivalencias', handler: _componentsEquivalenciasMain2['default'] }),
-	  _react2['default'].createElement(Route, { name: 'agrega-equivalencias', path: '/equivalencias/agrega', handler: _componentsEquivalenciasAgrega2['default'] }),
-	  _react2['default'].createElement(Route, { name: 'editar-equivalencia', path: '/equivalencias/:id/editar', handler: _componentsEquivalenciasEditar2['default'] }),
-	  _react2['default'].createElement(DefaultRoute, { handler: _componentsEquivalenciasMain2['default'] })
+	  _react2['default'].createElement(_reactRouter.Route, { name: 'home', path: '/', handler: _componentsInicio2['default'] }),
+	  _react2['default'].createElement(_reactRouter.Route, { name: 'equivalencias', handler: _componentsEquivalenciasMain2['default'] }),
+	  _react2['default'].createElement(_reactRouter.Route, { name: 'agrega-equivalencias', path: '/equivalencias/agrega',
+	    handler: _componentsEquivalenciasAgrega2['default'] }),
+	  _react2['default'].createElement(_reactRouter.Route, { name: 'editar-equivalencia', path: '/equivalencias/:id/editar',
+	    handler: _componentsEquivalenciasEditar2['default'] }),
+	  _react2['default'].createElement(
+	    _reactRouter.Route,
+	    { name: 'AreaDocentes', path: 'area-docentes' },
+	    _react2['default'].createElement(_reactRouter.Route, { name: 'cursos', path: 'cursos', handler: _componentsAreaDocentesCursosMain2['default'] })
+	  ),
+	  _react2['default'].createElement(_reactRouter.DefaultRoute, { handler: _componentsEquivalenciasMain2['default'] })
 	);
-	
-	//<Route name="images" path="/images" handler={require('react-router-proxy?name=ImageGrid!../components/ImageGrid/ImageGrid.js')}/>
 	module.exports = exports['default'];
 
 /***/ },
@@ -537,13 +541,6 @@ webpackJsonp([0],[
 	    value: function getChildContext() {
 	      return { muiTheme: ThemeManager.getCurrentTheme() };
 	    }
-	  }], [{
-	    key: 'childContextTypes',
-	    get: function get() {
-	      return {
-	        muiTheme: _react2['default'].PropTypes.object
-	      };
-	    }
 	  }]);
 	
 	  function Component(props) {
@@ -557,10 +554,15 @@ webpackJsonp([0],[
 	    key: 'formatDate',
 	    value: function formatDate(date) {
 	      var d = date.getDate();
-	      if (d.toString().length == 1) d = "0" + d;
 	      var m = date.getMonth() + 1;
-	      if (m.toString().length == 1) m = "0" + m;
 	      var y = date.getFullYear();
+	
+	      if (d.toString().length === 1) {
+	        d = '0' + d;
+	      }
+	      if (m.toString().length === 1) {
+	        m = '0' + m;
+	      }
 	      return d + '/' + m + '/' + y;
 	    }
 	  }, {
@@ -569,12 +571,17 @@ webpackJsonp([0],[
 	      var d = date.getDate();
 	      var m = date.getMonth() + 1;
 	      var y = date.getFullYear();
+	
 	      return m + '/' + d + '/' + y;
 	    }
 	  }]);
 	
 	  return Component;
 	})(_react2['default'].Component);
+	
+	Component.childContextTypes = {
+	  muiTheme: _react2['default'].PropTypes.object
+	};
 	
 	exports['default'] = Component;
 	module.exports = exports['default'];
@@ -997,10 +1004,6 @@ webpackJsonp([0],[
 	
 	var _super2 = _interopRequireDefault(_super);
 	
-	var _reactRouter = __webpack_require__(157);
-	
-	var _reactRouter2 = _interopRequireDefault(_reactRouter);
-	
 	var _reactSelect = __webpack_require__(394);
 	
 	var _reactSelect2 = _interopRequireDefault(_reactSelect);
@@ -1029,26 +1032,30 @@ webpackJsonp([0],[
 	    key: 'onChange',
 	    value: function onChange(e) {
 	      var nextState = {};
+	
 	      nextState[e.target.name] = e.target.value;
 	      this.setState(nextState);
 	    }
 	  }, {
 	    key: 'onSubmit',
 	    value: function onSubmit(e) {
-	      //e.preventDefault();
-	      var self = this;
+	      var _this = this;
+	
 	      _jquery2['default'].post('/api/Equivalencias/PostEquivalencia', {
 	        EQUIVALENCIA_FECHA: this.formatDateForPost(this.refs.EQUIVALENCIA_FECHA.getDate()),
 	        EQUIVALENCIA_NRO_DISPOSICION: this.state.EQUIVALENCIA_NRO_DISPOSICION,
 	        EQUIVALENCIA_ALUMNO_ID: this.state.EQUIVALENCIA_ALUMNO_ID,
 	        EQUIVALENCIA_CARRERA_ID: this.state.EQUIVALENCIA_CARRERA_ID
 	      }, function () {
-	        self.exit();
-	      }).fail((function (data) {
-	        if (data.responseJSON.ModelState["equivalencia.EQUIVALENCIA_FECHA"]) {
-	          this.refs.EQUIVALENCIA_FECHA.refs.input.setErrorText(data.responseJSON.ModelState["equivalencia.EQUIVALENCIA_FECHA"]);
+	        _this.exit();
+	      }).fail(function (data) {
+	        if (data.responseJSON.ModelState['equivalencia.EQUIVALENCIA_FECHA']) {
+	          _this.refs.EQUIVALENCIA_FECHA.refs.input.setErrorText(data.responseJSON.ModelState['equivalencia.EQUIVALENCIA_FECHA']);
 	        }
-	      }).bind(this));
+	        if (data.responseJSON.ModelState.EQUIVALENCIA_NRO_DISPOSICION) {
+	          _this.refs.EQUIVALENCIA_NRO_DISPOSICION.setErrorText(data.responseJSON.ModelState.EQUIVALENCIA_NRO_DISPOSICION);
+	        }
+	      });
 	    }
 	  }, {
 	    key: 'setFecha',
@@ -1060,13 +1067,13 @@ webpackJsonp([0],[
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
+	      var _this2 = this;
 	
 	      var submitHandler = function submitHandler(event) {
-	        return _this.onSubmit(event);
+	        return _this2.onSubmit(event);
 	      };
 	      var changeHandler = function changeHandler(event) {
-	        return _this.onChange(event);
+	        return _this2.onChange(event);
 	      };
 	      return _react2['default'].createElement(
 	        'div',
@@ -1100,7 +1107,11 @@ webpackJsonp([0],[
 	                  onChange: this.setFecha.bind(this),
 	                  ref: 'EQUIVALENCIA_FECHA',
 	                  fullWidth: true }),
-	                _react2['default'].createElement(_materialUi.TextField, { name: 'EQUIVALENCIA_NRO_DISPOSICION', hintText: 'Nro Disposicion', onChange: changeHandler, fullWidth: true }),
+	                _react2['default'].createElement(_materialUi.TextField, { name: 'EQUIVALENCIA_NRO_DISPOSICION',
+	                  hintText: 'Nro Disposicion',
+	                  ref: 'EQUIVALENCIA_NRO_DISPOSICION',
+	                  onChange: changeHandler, fullWidth: true
+	                }),
 	                _react2['default'].createElement(
 	                  'div',
 	                  { className: 'form-group' },
@@ -1179,6 +1190,10 @@ webpackJsonp([0],[
 	
 	var _ComponentMain2 = _interopRequireDefault(_ComponentMain);
 	
+	var _jquery = __webpack_require__(392);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
 	var EquivalenciasSuper = (function (_Component) {
 	  _inherits(EquivalenciasSuper, _Component);
 	
@@ -1206,10 +1221,8 @@ webpackJsonp([0],[
 	  }, {
 	    key: 'cargarAlumnos',
 	    value: function cargarAlumnos(input, callback) {
-	      input = input.toLowerCase();
 	      if (input.length >= 3) {
-	        var _this = this;
-	        $.get('/api/Personas/SelectPersonas?busqueda=' + input, function (data) {
+	        _jquery2['default'].get('/api/Personas/SelectPersonas?busqueda=' + input.toLowerCase(), function (data) {
 	          callback(null, {
 	            options: data
 	          });
@@ -1218,12 +1231,9 @@ webpackJsonp([0],[
 	    }
 	  }, {
 	    key: 'cargarCarreras',
-	    //complete: true
 	    value: function cargarCarreras(input, callback) {
-	      input = input.toLowerCase();
 	      if (input.length >= 3) {
-	        var _this = this;
-	        $.get('/api/Carreras/SelectCarreras?busqueda=' + input, function (data) {
+	        _jquery2['default'].get('/api/Carreras/SelectCarreras?busqueda=' + input.toLowerCase(), function (data) {
 	          callback(null, {
 	            options: data
 	          });
@@ -1232,7 +1242,6 @@ webpackJsonp([0],[
 	    }
 	  }, {
 	    key: 'clearAndFocusInput',
-	    //complete: true
 	    value: function clearAndFocusInput() {
 	      // Clear the input
 	      this.setState(this.emptyState, function () {
@@ -2510,25 +2519,23 @@ webpackJsonp([0],[
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _jquery = __webpack_require__(392);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
 	var _super = __webpack_require__(393);
 	
 	var _super2 = _interopRequireDefault(_super);
-	
-	var _reactRouter = __webpack_require__(157);
-	
-	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 	
 	var _reactSelect = __webpack_require__(394);
 	
 	var _reactSelect2 = _interopRequireDefault(_reactSelect);
 	
 	var _materialUi = __webpack_require__(217);
-	
-	var _reactBootstrapTable = __webpack_require__(198);
-	
-	var _griddleReact = __webpack_require__(373);
-	
-	var _griddleReact2 = _interopRequireDefault(_griddleReact);
 	
 	var _AgregaDetallesFormModal = __webpack_require__(403);
 	
@@ -2538,39 +2545,25 @@ webpackJsonp([0],[
 	
 	var _libGriddleWithCallback2 = _interopRequireDefault(_libGriddleWithCallback);
 	
-	var React = __webpack_require__(1);
-	
-	var $ = __webpack_require__(392);
-	
 	var EditarEquivalencia = (function (_Equivalencias) {
 	  _inherits(EditarEquivalencia, _Equivalencias);
 	
 	  function EditarEquivalencia(props) {
+	    var _this = this;
+	
 	    _classCallCheck(this, EditarEquivalencia);
 	
 	    _get(Object.getPrototypeOf(EditarEquivalencia.prototype), 'constructor', this).call(this, props);
-	    this.emptyState = {
-	      EQUIVALENCIA_FECHA: '',
-	      EQUIVALENCIA_NRO_DISPOSICION: '',
-	      EQUIVALENCIA_ALUMNO_ID: '',
-	      EQUIVALENCIA_CARRERA_ID: ''
-	    };
-	    this.state = this.emptyState;
+	    _jquery2['default'].get('/api/Equivalencias/GetEquivalencia/' + this.props.params.id, function (data) {
+	      _this.setState(data);
+	    });
 	  }
 	
 	  _createClass(EditarEquivalencia, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this = this;
-	
-	      $.get("/api/Equivalencias/GetEquivalencia/" + this.props.params.id, function (data) {
-	        _this.setState(data);
-	      });
-	    }
-	  }, {
 	    key: 'onChange',
 	    value: function onChange(e) {
 	      var nextState = {};
+	
 	      nextState[e.target.name] = e.target.value;
 	      this.setState(nextState);
 	    }
@@ -2590,11 +2583,11 @@ webpackJsonp([0],[
 	  }, {
 	    key: 'onSubmit',
 	    value: function onSubmit(e) {
-	      //e.preventDefault();
-	      var _this = this;
-	      $.ajax({
+	      var _this2 = this;
+	
+	      _jquery2['default'].ajax({
 	        url: '/api/Equivalencias/PutEquivalencia/' + this.props.params.id,
-	        dataType: "json",
+	        dataType: 'json',
 	        method: 'PUT',
 	        data: {
 	          ID: this.props.params.id,
@@ -2604,7 +2597,7 @@ webpackJsonp([0],[
 	          EQUIVALENCIA_CARRERA_ID: this.state.EQUIVALENCIA_CARRERA_ID
 	        },
 	        success: function success() {
-	          _this.exit();
+	          _this2.exit();
 	        }
 	      });
 	    }
@@ -2614,14 +2607,13 @@ webpackJsonp([0],[
 	      // Clear the input
 	      this.setState(this.emptyState, function () {
 	        // This code executes after the component is re-rendered
-	        React.findDOMNode(this.refs.EQUIVALENCIA_FECHA).focus();
+	        _react2['default'].findDOMNode(this.refs.EQUIVALENCIA_FECHA).focus();
 	      });
 	    }
 	  }, {
 	    key: '_getJsonData',
 	    value: function _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
-	      var _this = this;
-	      $.get("/api/equivalencias/GetDetalles/" + this.props.params.id, { Pagina: page, RegistrosPorPagina: pageSize }, function (data) {
+	      _jquery2['default'].get('/api/equivalencias/GetDetalles/' + this.props.params.id, { Pagina: page, RegistrosPorPagina: pageSize }, function (data) {
 	        callback({
 	          totalResults: data.CantidadResultados,
 	          results: data.Resultados,
@@ -2637,53 +2629,53 @@ webpackJsonp([0],[
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var submitHandler = function submitHandler(event) {
-	        return _this2.onSubmit(event);
+	        return _this3.onSubmit(event);
 	      };
 	      var changeHandler = function changeHandler(event) {
-	        return _this2.onChange(event);
+	        return _this3.onChange(event);
 	      };
 	      var columnMeta = [{
-	        "columnName": "MATERIA_NOMBRE",
-	        "displayName": "Materia"
+	        columnName: 'MATERIA_NOMBRE',
+	        displayName: 'Materia'
 	      }, {
-	        "columnName": "PERSONA_NOMBRE",
-	        "displayName": "Profesor"
+	        columnName: 'PERSONA_NOMBRE',
+	        displayName: 'Profesor'
 	      }, {
-	        "columnName": "EQUIVALENCIA_DETALLE_TIPO",
-	        "displayName": "Tipo"
+	        columnName: 'EQUIVALENCIA_DETALLE_TIPO',
+	        displayName: 'Tipo'
 	      }];
 	
-	      return React.createElement(
+	      return _react2['default'].createElement(
 	        'div',
 	        null,
-	        React.createElement(
+	        _react2['default'].createElement(
 	          'div',
 	          { className: 'col-sm-6' },
-	          React.createElement(
+	          _react2['default'].createElement(
 	            'div',
 	            { className: 'portlet light' },
-	            React.createElement(
+	            _react2['default'].createElement(
 	              'div',
 	              { className: 'portlet-title' },
-	              React.createElement(
+	              _react2['default'].createElement(
 	                'div',
 	                { className: 'caption' },
 	                'Editar Equivalencia'
 	              )
 	            ),
-	            React.createElement(
+	            _react2['default'].createElement(
 	              'div',
 	              { className: 'portlet-body form' },
-	              React.createElement(
+	              _react2['default'].createElement(
 	                'form',
 	                null,
-	                React.createElement(
+	                _react2['default'].createElement(
 	                  'div',
 	                  { className: 'form-body' },
-	                  React.createElement(_materialUi.DatePicker, { name: 'EQUIVALENCIA_FECHA',
+	                  _react2['default'].createElement(_materialUi.DatePicker, { name: 'EQUIVALENCIA_FECHA',
 	                    hintText: 'Click para elegir fecha',
 	                    formatDate: this.formatDate,
 	                    autoOk: true,
@@ -2693,17 +2685,17 @@ webpackJsonp([0],[
 	                    fullWidth: true,
 	                    value: new Date(this.state.EQUIVALENCIA_FECHA)
 	                  }),
-	                  React.createElement(_materialUi.TextField, {
+	                  _react2['default'].createElement(_materialUi.TextField, {
 	                    name: 'EQUIVALENCIA_NRO_DISPOSICION',
 	                    hintText: 'Nro Disposicion',
 	                    onChange: changeHandler,
 	                    fullWidth: true,
 	                    value: this.state.EQUIVALENCIA_NRO_DISPOSICION
 	                  }),
-	                  React.createElement(
+	                  _react2['default'].createElement(
 	                    'div',
 	                    { className: 'form-group' },
-	                    React.createElement(_reactSelect2['default'], {
+	                    _react2['default'].createElement(_reactSelect2['default'], {
 	                      name: 'EQUIVALENCIA_ALUMNO_ID',
 	                      asyncOptions: this.cargarAlumnos,
 	                      onChange: this.setAlumno.bind(this),
@@ -2713,10 +2705,10 @@ webpackJsonp([0],[
 	                      value: this.state.EQUIVALENCIA_ALUMNO_NOMBRE
 	                    })
 	                  ),
-	                  React.createElement(
+	                  _react2['default'].createElement(
 	                    'div',
 	                    { className: 'form-group' },
-	                    React.createElement(_reactSelect2['default'], {
+	                    _react2['default'].createElement(_reactSelect2['default'], {
 	                      name: 'EQUIVALENCIA_CARRERA_ID',
 	                      asyncOptions: this.cargarCarreras,
 	                      onChange: this.setCarrera.bind(this),
@@ -2726,30 +2718,30 @@ webpackJsonp([0],[
 	                    })
 	                  )
 	                ),
-	                React.createElement(
+	                _react2['default'].createElement(
 	                  'div',
 	                  { className: 'form-actions right' },
-	                  React.createElement(_materialUi.FlatButton, { label: 'Cancelar', onTouchTap: this.exit.bind(this) }),
-	                  React.createElement(_materialUi.FlatButton, { label: 'Guardar', onTouchTap: submitHandler, primary: true })
+	                  _react2['default'].createElement(_materialUi.FlatButton, { label: 'Cancelar', onTouchTap: this.exit.bind(this) }),
+	                  _react2['default'].createElement(_materialUi.FlatButton, { label: 'Guardar', onTouchTap: submitHandler, primary: true })
 	                )
 	              )
 	            )
 	          )
 	        ),
-	        React.createElement(
+	        _react2['default'].createElement(
 	          'div',
 	          { className: 'col-sm-6' },
-	          React.createElement(_AgregaDetallesFormModal2['default'], { modelId: this.props.params.id, onClose: this._closeModal.bind(this) }),
-	          React.createElement(
+	          _react2['default'].createElement(_AgregaDetallesFormModal2['default'], { modelId: this.props.params.id, onClose: this._closeModal.bind(this) }),
+	          _react2['default'].createElement(
 	            'div',
 	            { className: 'portlet light' },
-	            React.createElement(
+	            _react2['default'].createElement(
 	              'div',
 	              { className: 'portlet-body' },
-	              React.createElement(_libGriddleWithCallback2['default'], { ref: 'w',
+	              _react2['default'].createElement(_libGriddleWithCallback2['default'], { ref: 'w',
 	                getExternalResults: this._getJsonData.bind(this),
 	                columnMetadata: columnMeta,
-	                columns: ["MATERIA_NOMBRE", "PERSONA_NOMBRE", "EQUIVALENCIA_DETALLE_TIPO"],
+	                columns: ['MATERIA_NOMBRE', 'PERSONA_NOMBRE', 'EQUIVALENCIA_DETALLE_TIPO'],
 	                loadingText: 'Cargando...',
 	                noDataMessage: 'No se encontraron resultados' })
 	            )
@@ -2762,35 +2754,15 @@ webpackJsonp([0],[
 	  return EditarEquivalencia;
 	})(_super2['default']);
 	
-	exports['default'] = EditarEquivalencia;
-	
 	EditarEquivalencia.contextTypes = {
-	  router: React.PropTypes.func.isRequired
+	  router: _react2['default'].PropTypes.func.isRequired
 	};
 	
-	/**
-
-
-	<Griddle results={this.state.EQUIVALENCIA_DETALLES} useGriddleStyles={false} useExternal={true}
-	                  tableClassName="table"
-	                  externalSetPage={this.setPage}
-	                  externalMaxPage={this.state.CantidadPaginas}
-	                  columns={["MATERIA_NOMBRE", "PROFESOR_NOMBRE", "EQUIVALENCIA_DETALLE_TIPO"]}
-	                  columnMetadata={[
-	                    {
-	                      "columnName": "MATERIA_NOMBRE",
-	                      "displayName": "Materia"
-	                    }, {
-	                      "columnName": "PROFESOR_NOMBRE",
-	                      "displayName": "Profesor"
-	                    }, {
-	                      "columnName": "EQUIVALENCIA_DETALLE_TIPO",
-	                      "displayName": "Tipo"
-	                    }
-	                  ]}
-	                />
-
-	                **/
+	EditarEquivalencia.propTypes = {
+	  params: _react2['default'].PropTypes.object
+	};
+	
+	exports['default'] = EditarEquivalencia;
 	module.exports = exports['default'];
 
 /***/ },
@@ -2842,9 +2814,9 @@ webpackJsonp([0],[
 	    _get(Object.getPrototypeOf(AgregaDetallesFormModal.prototype), 'constructor', this).call(this, props);
 	    this.state = {
 	      tipos: [{ value: 0, label: 'Total' }, { value: 1, label: 'Parcial' }, { value: 2, label: 'Denegada' }],
-	      EQUIVALENCIA_DETALLE_TIPO: "",
-	      EQUIVALENCIA_DETALLE_MATERIA_ID: "",
-	      EQUIVALENCIA_DETALLE_PROFESOR_ID: "",
+	      EQUIVALENCIA_DETALLE_TIPO: '',
+	      EQUIVALENCIA_DETALLE_MATERIA_ID: '',
+	      EQUIVALENCIA_DETALLE_PROFESOR_ID: '',
 	      showModal: false
 	    };
 	  }
@@ -2853,6 +2825,7 @@ webpackJsonp([0],[
 	    key: '_submitAndClose',
 	    value: function _submitAndClose() {
 	      var _this = this;
+	
 	      _jquery2['default'].post('/api/Equivalencias/AgregaMateria', {
 	        EQUIVALENCIA_ID: this.props.modelId,
 	        EQUIVALENCIA_DETALLE_TIPO: this.state.EQUIVALENCIA_DETALLE_TIPO,
@@ -2866,11 +2839,8 @@ webpackJsonp([0],[
 	  }, {
 	    key: '_getMaterias',
 	    value: function _getMaterias(input, callback) {
-	      input = input.toLowerCase();
-	      console.log(input);
 	      if (input.length >= 3) {
-	        var _this = this;
-	        _jquery2['default'].get('/api/Materias/SelectMaterias?busqueda=' + input, function (data) {
+	        _jquery2['default'].get('/api/Materias/SelectMaterias?busqueda=' + input.toLowerCase(), function (data) {
 	          callback(null, {
 	            options: data,
 	            complete: true
@@ -2881,10 +2851,8 @@ webpackJsonp([0],[
 	  }, {
 	    key: '_getProfesores',
 	    value: function _getProfesores(input, callback) {
-	      input = input.toLowerCase();
 	      if (input.length >= 3) {
-	        var _this = this;
-	        _jquery2['default'].get('/api/Personas/SelectPersonas?busqueda=' + input, { docente: true, cantidad: 5 }, function (data) {
+	        _jquery2['default'].get('/api/Personas/SelectPersonas?busqueda=' + input.toLowerCase(), { docente: true, cantidad: 5 }, function (data) {
 	          callback(null, {
 	            options: data,
 	            complete: true
@@ -2906,6 +2874,7 @@ webpackJsonp([0],[
 	    key: '_set',
 	    value: function _set(field, value) {
 	      var nextState = {};
+	
 	      nextState[field] = value;
 	      this.setState(nextState);
 	    }
@@ -2948,7 +2917,7 @@ webpackJsonp([0],[
 	                  placeholder: 'Tipo',
 	                  options: this.state.tipos,
 	                  cacheAsyncResults: false,
-	                  onChange: this._set.bind(this, "EQUIVALENCIA_DETALLE_TIPO"),
+	                  onChange: this._set.bind(this, 'EQUIVALENCIA_DETALLE_TIPO'),
 	                  value: this.state.EQUIVALENCIA_DETALLE_TIPO
 	                })
 	              ),
@@ -2960,7 +2929,7 @@ webpackJsonp([0],[
 	                  asyncOptions: this._getMaterias,
 	                  clearable: true,
 	                  cacheAsyncResults: false,
-	                  onChange: this._set.bind(this, "EQUIVALENCIA_DETALLE_MATERIA_ID"),
+	                  onChange: this._set.bind(this, 'EQUIVALENCIA_DETALLE_MATERIA_ID'),
 	                  placeholder: 'Materia',
 	                  value: this.state.EQUIVALENCIA_DETALLE_MATERIA_ID
 	                })
@@ -2973,7 +2942,7 @@ webpackJsonp([0],[
 	                  asyncOptions: this._getProfesores,
 	                  clearable: true,
 	                  cacheAsyncResults: false,
-	                  onChange: this._set.bind(this, "EQUIVALENCIA_DETALLE_PROFESOR_ID"),
+	                  onChange: this._set.bind(this, 'EQUIVALENCIA_DETALLE_PROFESOR_ID'),
 	                  placeholder: 'Profesor',
 	                  value: this.state.EQUIVALENCIA_DETALLE_PROFESOR_ID
 	                })
@@ -18710,6 +18679,76 @@ webpackJsonp([0],[
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _ComponentMain = __webpack_require__(216);
+	
+	var _ComponentMain2 = _interopRequireDefault(_ComponentMain);
+	
+	var _DashboardDocentes = __webpack_require__(635);
+	
+	var _DashboardDocentes2 = _interopRequireDefault(_DashboardDocentes);
+	
+	var _DashboardBedeles = __webpack_require__(636);
+	
+	var _DashboardBedeles2 = _interopRequireDefault(_DashboardBedeles);
+	
+	var InicioComponent = (function (_Component) {
+	  _inherits(InicioComponent, _Component);
+	
+	  function InicioComponent() {
+	    _classCallCheck(this, InicioComponent);
+	
+	    _get(Object.getPrototypeOf(InicioComponent.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(InicioComponent, [{
+	    key: 'esDocente',
+	    value: function esDocente() {
+	      return this.state.user.isInRole('Docente');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var contenido = undefined;
+	      if (this.esDocente()) {
+	        contenido = _react2['default'].createElement(_DashboardDocentes2['default'], null);
+	      } else {
+	        contenido = _react2['default'].createElement(_DashboardBedeles2['default'], null);
+	      };
+	      return contenido;
+	    }
+	  }]);
+	
+	  return InicioComponent;
+	})(_ComponentMain2['default']);
+	
+	exports['default'] = InicioComponent;
+	;
+	module.exports = exports['default'];
+
+/***/ },
+/* 635 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
 	
@@ -18727,32 +18766,23 @@ webpackJsonp([0],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	// eslint-disable-line no-unused-vars
+	var _reactRouter = __webpack_require__(157);
 	
-	var _ComponentMain = __webpack_require__(216);
+	var DashboardDocentes = (function (_React$Component) {
+	    _inherits(DashboardDocentes, _React$Component);
 	
-	var _ComponentMain2 = _interopRequireDefault(_ComponentMain);
+	    function DashboardDocentes() {
+	        _classCallCheck(this, DashboardDocentes);
 	
-	var InicioComponent = (function (_Component) {
-	    _inherits(InicioComponent, _Component);
-	
-	    function InicioComponent() {
-	        _classCallCheck(this, InicioComponent);
-	
-	        _get(Object.getPrototypeOf(InicioComponent.prototype), 'constructor', this).apply(this, arguments);
+	        _get(Object.getPrototypeOf(DashboardDocentes.prototype), 'constructor', this).apply(this, arguments);
 	    }
 	
-	    _createClass(InicioComponent, [{
-	        key: 'esDocente',
-	        value: function esDocente() {
-	            return this.state.user.isInRole('Docente');
-	        }
-	    }, {
+	    _createClass(DashboardDocentes, [{
 	        key: 'render',
 	        value: function render() {
 	            return _react2['default'].createElement(
 	                'div',
-	                { className: 'jumbotron', style: { background: "none" } },
+	                { className: 'jumbotron', style: { background: 'none' } },
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'container' },
@@ -18764,7 +18794,7 @@ webpackJsonp([0],[
 	                            null,
 	                            'CENT 11'
 	                        ),
-	                        this.esDocente() ? _react2['default'].createElement(
+	                        _react2['default'].createElement(
 	                            'div',
 	                            null,
 	                            _react2['default'].createElement(
@@ -18776,12 +18806,12 @@ webpackJsonp([0],[
 	                                'p',
 	                                null,
 	                                _react2['default'].createElement(
-	                                    'a',
-	                                    { className: 'btn btn-primary btn-lg', href: '#', role: 'button' },
+	                                    _reactRouter.Link,
+	                                    { to: 'cursos', className: 'btn btn-primary btn-lg' },
 	                                    'Vea sus Cursos »'
 	                                )
 	                            )
-	                        ) : ""
+	                        )
 	                    ),
 	                    _react2['default'].createElement(
 	                        'div',
@@ -18834,20 +18864,31 @@ webpackJsonp([0],[
 	        }
 	    }]);
 	
-	    return InicioComponent;
-	})(_ComponentMain2['default']);
+	    return DashboardDocentes;
+	})(_react2['default'].Component);
 	
-	exports['default'] = InicioComponent;
-	;
+	exports['default'] = DashboardDocentes;
 	module.exports = exports['default'];
 
 /***/ },
-/* 635 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var _react = __webpack_require__(1);
 	
@@ -18855,18 +18896,241 @@ webpackJsonp([0],[
 	
 	var _reactRouter = __webpack_require__(157);
 	
-	var Layout = _react2['default'].createClass({
-	    displayName: 'Layout',
+	var DashboardBedeles = (function (_React$Component) {
+	    _inherits(DashboardBedeles, _React$Component);
 	
-	    render: function render() {
-	        return _react2['default'].createElement(_reactRouter.RouteHandler, null);
+	    function DashboardBedeles() {
+	        _classCallCheck(this, DashboardBedeles);
+	
+	        _get(Object.getPrototypeOf(DashboardBedeles.prototype), 'constructor', this).apply(this, arguments);
 	    }
-	});
 	
-	module.exports = Layout;
+	    _createClass(DashboardBedeles, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'jumbotron', style: { background: 'none' } },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'container' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'portlet light' },
+	                        _react2['default'].createElement(
+	                            'h1',
+	                            null,
+	                            'CENT 11'
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-6' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'portlet light' },
+	                                _react2['default'].createElement(
+	                                    'div',
+	                                    { className: 'portlet-title' },
+	                                    _react2['default'].createElement(
+	                                        'div',
+	                                        { className: 'caption' },
+	                                        _react2['default'].createElement(
+	                                            'span',
+	                                            { className: 'caption-subject font-green-sharp bold uppercase' },
+	                                            'Alumnos'
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-6' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'portlet light' },
+	                                _react2['default'].createElement(
+	                                    'div',
+	                                    { className: 'portlet-title' },
+	                                    _react2['default'].createElement(
+	                                        'div',
+	                                        { className: 'caption' },
+	                                        _react2['default'].createElement(
+	                                            'span',
+	                                            { className: 'caption-subject font-red-sunglo bold uppercase' },
+	                                            'Parciales'
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return DashboardBedeles;
+	})(_react2['default'].Component);
+	
+	exports['default'] = DashboardBedeles;
+	module.exports = exports['default'];
 
 /***/ },
-/* 636 */
+/* 637 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(157);
+	
+	var Layout = (function (_React$Component) {
+	  _inherits(Layout, _React$Component);
+	
+	  function Layout() {
+	    _classCallCheck(this, Layout);
+	
+	    _get(Object.getPrototypeOf(Layout.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Layout, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(_reactRouter.RouteHandler, null);
+	    }
+	  }]);
+	
+	  return Layout;
+	})(_react2['default'].Component);
+	
+	exports['default'] = Layout;
+	module.exports = exports['default'];
+
+/***/ },
+/* 638 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _ComponentMain = __webpack_require__(216);
+	
+	var _ComponentMain2 = _interopRequireDefault(_ComponentMain);
+	
+	var _jquery = __webpack_require__(392);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _libGriddleWithCallback = __webpack_require__(371);
+	
+	var _libGriddleWithCallback2 = _interopRequireDefault(_libGriddleWithCallback);
+	
+	__webpack_require__(400);
+	
+	var CursosDeDocente = (function (_Component) {
+	  _inherits(CursosDeDocente, _Component);
+	
+	  function CursosDeDocente(props) {
+	    _classCallCheck(this, CursosDeDocente);
+	
+	    _get(Object.getPrototypeOf(CursosDeDocente.prototype), 'constructor', this).call(this, props);
+	
+	    this.setState({
+	      docenteId: docenteId
+	    });
+	  }
+	
+	  _createClass(CursosDeDocente, [{
+	    key: '_getJsonData',
+	    value: function _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
+	      _jquery2['default'].get('/api/Cursos/ObtenerCursos?docenteId=' + this.state.docenteId, { Pagina: page, RegistrosPorPagina: pageSize }, function (data) {
+	        callback({
+	          totalResults: data.CantidadResultados,
+	          results: data.Resultados,
+	          pageSize: pageSize
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var columnMeta = [{
+	        columnName: 'Anio',
+	        displayName: 'Año'
+	      }, {
+	        columnName: 'CarreraId',
+	        displayName: 'Carrera'
+	      }, {
+	        columnName: 'CursoNombre',
+	        displayName: 'Curso'
+	      }, {
+	        columnName: 'SedeId',
+	        visible: false
+	      }, {
+	        columnName: 'SedeNombre',
+	        displayName: 'Sede'
+	      }];
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_libGriddleWithCallback2['default'], { ref: 'w',
+	          getExternalResults: this._getJsonData.bind(this),
+	          columnMetadata: columnMeta,
+	          columns: ['Anio', 'CarreraId', 'CursoNombre', 'SedeId', 'SedeNombre'],
+	          loadingText: 'Cargando...',
+	          noDataMessage: 'No se encontraron resultados' })
+	      );
+	    }
+	  }]);
+	
+	  return CursosDeDocente;
+	})(_ComponentMain2['default']);
+	
+	exports['default'] = CursosDeDocente;
+	module.exports = exports['default'];
+
+/***/ },
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function injectTapEventPlugin () {
@@ -18874,14 +19138,14 @@ webpackJsonp([0],[
 	  React.initializeTouchEvents(true);
 	
 	  __webpack_require__(69).injection.injectEventPluginsByName({
-	    "ResponderEventPlugin": __webpack_require__(637),
-	    "TapEventPlugin":       __webpack_require__(638)
+	    "ResponderEventPlugin": __webpack_require__(640),
+	    "TapEventPlugin":       __webpack_require__(641)
 	  });
 	};
 
 
 /***/ },
-/* 637 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19196,7 +19460,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 638 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19224,7 +19488,7 @@ webpackJsonp([0],[
 	var EventPluginUtils = __webpack_require__(4);
 	var EventPropagators = __webpack_require__(93);
 	var SyntheticUIEvent = __webpack_require__(106);
-	var TouchEventUtils = __webpack_require__(639);
+	var TouchEventUtils = __webpack_require__(642);
 	var ViewportMetrics = __webpack_require__(74);
 	
 	var keyOf = __webpack_require__(39);
@@ -19368,7 +19632,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 639 */
+/* 642 */
 /***/ function(module, exports) {
 
 	/**

@@ -100,9 +100,9 @@
 
 	__webpack_require__(392);
 	__webpack_require__(1);
-	__webpack_require__(640);
+	__webpack_require__(643);
 	__webpack_require__(157);
-	__webpack_require__(660);
+	__webpack_require__(663);
 	__webpack_require__(198);
 	__webpack_require__(373);
 	module.exports = __webpack_require__(217);
@@ -59883,26 +59883,29 @@
 /* 637 */,
 /* 638 */,
 /* 639 */,
-/* 640 */
+/* 640 */,
+/* 641 */,
+/* 642 */,
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Reflux = __webpack_require__(641);
+	var Reflux = __webpack_require__(644);
 	
-	Reflux.connect = __webpack_require__(655);
+	Reflux.connect = __webpack_require__(658);
 	
-	Reflux.connectFilter = __webpack_require__(657);
+	Reflux.connectFilter = __webpack_require__(660);
 	
-	Reflux.ListenerMixin = __webpack_require__(656);
+	Reflux.ListenerMixin = __webpack_require__(659);
 	
-	Reflux.listenTo = __webpack_require__(658);
+	Reflux.listenTo = __webpack_require__(661);
 	
-	Reflux.listenToMany = __webpack_require__(659);
+	Reflux.listenToMany = __webpack_require__(662);
 	
 	module.exports = Reflux;
 
 
 /***/ },
-/* 641 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -59916,19 +59919,19 @@
 	    }
 	};
 	
-	Reflux.ActionMethods = __webpack_require__(642);
+	Reflux.ActionMethods = __webpack_require__(645);
 	
-	Reflux.ListenerMethods = __webpack_require__(643);
+	Reflux.ListenerMethods = __webpack_require__(646);
 	
-	Reflux.PublisherMethods = __webpack_require__(653);
+	Reflux.PublisherMethods = __webpack_require__(656);
 	
-	Reflux.StoreMethods = __webpack_require__(652);
+	Reflux.StoreMethods = __webpack_require__(655);
 	
-	Reflux.createAction = __webpack_require__(654);
+	Reflux.createAction = __webpack_require__(657);
 	
-	Reflux.createStore = __webpack_require__(648);
+	Reflux.createStore = __webpack_require__(651);
 	
-	var maker = __webpack_require__(647).staticJoinCreator;
+	var maker = __webpack_require__(650).staticJoinCreator;
 	
 	Reflux.joinTrailing = Reflux.all = maker("last"); // Reflux.all alias for backward compatibility
 	
@@ -59938,7 +59941,7 @@
 	
 	Reflux.joinConcat = maker("all");
 	
-	var _ = Reflux.utils = __webpack_require__(644);
+	var _ = Reflux.utils = __webpack_require__(647);
 	
 	Reflux.EventEmitter = _.EventEmitter;
 	
@@ -60012,7 +60015,7 @@
 	 * Provides the set of created actions and stores for introspection
 	 */
 	/*eslint-disable no-underscore-dangle*/
-	Reflux.__keep = __webpack_require__(649);
+	Reflux.__keep = __webpack_require__(652);
 	/*eslint-enable no-underscore-dangle*/
 	
 	/**
@@ -60026,7 +60029,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 642 */
+/* 645 */
 /***/ function(module, exports) {
 
 	/**
@@ -60038,13 +60041,13 @@
 	module.exports = {};
 
 /***/ },
-/* 643 */
+/* 646 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _ = __webpack_require__(644),
-	    maker = __webpack_require__(647).instanceJoinCreator;
+	var _ = __webpack_require__(647),
+	    maker = __webpack_require__(650).instanceJoinCreator;
 	
 	/**
 	 * Extract child listenables from a parent from their
@@ -60276,7 +60279,7 @@
 	};
 
 /***/ },
-/* 644 */
+/* 647 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {"use strict";
@@ -60354,7 +60357,7 @@
 	    return typeof value === "function";
 	}
 	
-	exports.EventEmitter = __webpack_require__(646);
+	exports.EventEmitter = __webpack_require__(649);
 	
 	if (environment.hasSetImmediate) {
 	    exports.nextTick = function (callback) {
@@ -60394,10 +60397,10 @@
 	        throw Error(msg || val);
 	    }
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(645).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(648).setImmediate))
 
 /***/ },
-/* 645 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(3).nextTick;
@@ -60476,10 +60479,10 @@
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(645).setImmediate, __webpack_require__(645).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(648).setImmediate, __webpack_require__(648).clearImmediate))
 
 /***/ },
-/* 646 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60747,7 +60750,7 @@
 
 
 /***/ },
-/* 647 */
+/* 650 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60756,8 +60759,8 @@
 	
 	"use strict";
 	
-	var createStore = __webpack_require__(648),
-	    _ = __webpack_require__(644);
+	var createStore = __webpack_require__(651),
+	    _ = __webpack_require__(647);
 	
 	var slice = Array.prototype.slice,
 	    strategyMethodNames = {
@@ -60868,15 +60871,15 @@
 	}
 
 /***/ },
-/* 648 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _ = __webpack_require__(644),
-	    Keep = __webpack_require__(649),
-	    mixer = __webpack_require__(650),
-	    bindMethods = __webpack_require__(651);
+	var _ = __webpack_require__(647),
+	    Keep = __webpack_require__(652),
+	    mixer = __webpack_require__(653),
+	    bindMethods = __webpack_require__(654);
 	
 	var allowed = { preEmit: 1, shouldEmit: 1 };
 	
@@ -60890,9 +60893,9 @@
 	 */
 	module.exports = function (definition) {
 	
-	    var StoreMethods = __webpack_require__(652),
-	        PublisherMethods = __webpack_require__(653),
-	        ListenerMethods = __webpack_require__(643);
+	    var StoreMethods = __webpack_require__(655),
+	        PublisherMethods = __webpack_require__(656),
+	        ListenerMethods = __webpack_require__(646);
 	
 	    definition = definition || {};
 	
@@ -60937,7 +60940,7 @@
 	};
 
 /***/ },
-/* 649 */
+/* 652 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -60956,12 +60959,12 @@
 	};
 
 /***/ },
-/* 650 */
+/* 653 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _ = __webpack_require__(644);
+	var _ = __webpack_require__(647);
 	
 	module.exports = function mix(def) {
 	    var composed = {
@@ -61020,7 +61023,7 @@
 	};
 
 /***/ },
-/* 651 */
+/* 654 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -61050,7 +61053,7 @@
 	};
 
 /***/ },
-/* 652 */
+/* 655 */
 /***/ function(module, exports) {
 
 	/**
@@ -61062,12 +61065,12 @@
 	module.exports = {};
 
 /***/ },
-/* 653 */
+/* 656 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _ = __webpack_require__(644);
+	var _ = __webpack_require__(647);
 	
 	/**
 	 * A module of methods for object that you want to be able to listen to.
@@ -61250,15 +61253,15 @@
 	};
 
 /***/ },
-/* 654 */
+/* 657 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _ = __webpack_require__(644),
-	    ActionMethods = __webpack_require__(642),
-	    PublisherMethods = __webpack_require__(653),
-	    Keep = __webpack_require__(649);
+	var _ = __webpack_require__(647),
+	    ActionMethods = __webpack_require__(645),
+	    PublisherMethods = __webpack_require__(656),
+	    Keep = __webpack_require__(652);
 	
 	var allowed = { preEmit: 1, shouldEmit: 1 };
 	
@@ -61321,12 +61324,12 @@
 	module.exports = createAction;
 
 /***/ },
-/* 655 */
+/* 658 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ListenerMethods = __webpack_require__(643),
-	    ListenerMixin = __webpack_require__(656),
-	    _ = __webpack_require__(644);
+	var ListenerMethods = __webpack_require__(646),
+	    ListenerMixin = __webpack_require__(659),
+	    _ = __webpack_require__(647);
 	
 	module.exports = function(listenable,key){
 	    return {
@@ -61354,11 +61357,11 @@
 
 
 /***/ },
-/* 656 */
+/* 659 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(644),
-	    ListenerMethods = __webpack_require__(643);
+	var _ = __webpack_require__(647),
+	    ListenerMethods = __webpack_require__(646);
 	
 	/**
 	 * A module meant to be consumed as a mixin by a React component. Supplies the methods from
@@ -61377,12 +61380,12 @@
 
 
 /***/ },
-/* 657 */
+/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ListenerMethods = __webpack_require__(643),
-	    ListenerMixin = __webpack_require__(656),
-	    _ = __webpack_require__(644);
+	var ListenerMethods = __webpack_require__(646),
+	    ListenerMixin = __webpack_require__(659),
+	    _ = __webpack_require__(647);
 	
 	module.exports = function(listenable, key, filterFunc) {
 	    filterFunc = _.isFunction(key) ? key : filterFunc;
@@ -61423,10 +61426,10 @@
 
 
 /***/ },
-/* 658 */
+/* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ListenerMethods = __webpack_require__(643);
+	var ListenerMethods = __webpack_require__(646);
 	
 	/**
 	 * A mixin factory for a React component. Meant as a more convenient way of using the `ListenerMixin`,
@@ -61464,10 +61467,10 @@
 
 
 /***/ },
-/* 659 */
+/* 662 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ListenerMethods = __webpack_require__(643);
+	var ListenerMethods = __webpack_require__(646);
 	
 	/**
 	 * A mixin factory for a React component. Meant as a more convenient way of using the `listenerMixin`,
@@ -61503,7 +61506,7 @@
 
 
 /***/ },
-/* 660 */
+/* 663 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -73858,10 +73861,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(661)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(664)(module), (function() { return this; }())))
 
 /***/ },
-/* 661 */
+/* 664 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {

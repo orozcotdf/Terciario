@@ -49,4 +49,4 @@ engines:
 #- spec/**/*
 #- vendor/**/*
 exclude_paths:
-- node_modules/**/*
+- "node_modules/**/*"

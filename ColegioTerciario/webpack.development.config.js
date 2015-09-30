@@ -38,11 +38,11 @@ module.exports = {
       progress: true
     },
     module: {
-        /*preLoaders: [{
-            test: /\.js$/,
-            loader: 'eslint',
+        preLoaders: [{
+            test: /\.jsx$/,
+            loader: 'eslint-loader',
             exclude: /(node_modules|bower_components)/
-        }],*/
+        }],
         loaders: [
             {
                 test: /\.css$/,

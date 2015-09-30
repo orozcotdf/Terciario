@@ -1,10 +1,9 @@
-import React from 'react'
-import $ from'jquery'
-import Select from 'react-select'
-import {RaisedButton, Dialog} from 'material-ui'
-import Component from '../Component/main'
-import {Modal, Button} from 'react-bootstrap'
-
+import React from 'react';
+import $ from'jquery';
+import Select from 'react-select';
+import {RaisedButton} from 'material-ui';
+import Component from '../Component/main';
+import {Modal, Button} from 'react-bootstrap';
 
 
 export default class AgregaDetallesFormModal extends Component {
@@ -12,36 +11,34 @@ export default class AgregaDetallesFormModal extends Component {
     super(props);
     this.state = {
       tipos: [
-        { value: 0, label: 'Total' },
-        { value: 1, label: 'Parcial' },
-        { value: 2, label: 'Denegada' }
+        {value: 0, label: 'Total'},
+        {value: 1, label: 'Parcial'},
+        {value: 2, label: 'Denegada'}
       ],
-      EQUIVALENCIA_DETALLE_TIPO: "",
-      EQUIVALENCIA_DETALLE_MATERIA_ID: "",
-      EQUIVALENCIA_DETALLE_PROFESOR_ID: "",
+      EQUIVALENCIA_DETALLE_TIPO: '',
+      EQUIVALENCIA_DETALLE_MATERIA_ID: '',
+      EQUIVALENCIA_DETALLE_PROFESOR_ID: '',
       showModal: false
-    }
+    };
   }
 
   _submitAndClose() {
-    let _this = this;
+    const _this = this;
+
     $.post('/api/Equivalencias/AgregaMateria', {
       EQUIVALENCIA_ID: this.props.modelId,
       EQUIVALENCIA_DETALLE_TIPO: this.state.EQUIVALENCIA_DETALLE_TIPO,
       EQUIVALENCIA_DETALLE_MATERIA_ID: this.state.EQUIVALENCIA_DETALLE_MATERIA_ID,
       EQUIVALENCIA_DETALLE_PROFESOR_ID: this.state.EQUIVALENCIA_DETALLE_PROFESOR_ID
-    },function(data){
+    }, function (data) {
       this.props.onClose();
       _this._close();
     });
   }
 
   _getMaterias(input, callback) {
-    input = input.toLowerCase();
-    console.log(input);
     if (input.length >= 3) {
-      let _this = this;
-      $.get('/api/Materias/SelectMaterias?busqueda=' + input, function(data){
+      $.get('/api/Materias/SelectMaterias?busqueda=' + input.toLowerCase(), function (data) {
         callback(null, {
           options: data,
           complete: true
@@ -51,28 +48,29 @@ export default class AgregaDetallesFormModal extends Component {
   }
 
   _getProfesores(input, callback) {
-    input = input.toLowerCase();
     if (input.length >= 3) {
-      let _this = this;
-      $.get('/api/Personas/SelectPersonas?busqueda=' + input, {docente: true, cantidad: 5},function(data){
-        callback(null, {
-          options: data,
-          complete: true
+      $.get('/api/Personas/SelectPersonas?busqueda=' + input.toLowerCase(),
+        {docente: true, cantidad: 5},
+        function (data) {
+          callback(null, {
+            options: data,
+            complete: true
+          });
         });
-      });
     }
   }
 
   _close() {
-    this.setState({ showModal: false });
+    this.setState({showModal: false});
   }
 
   _open() {
-    this.setState({ showModal: true });
+    this.setState({showModal: true});
   }
 
   _set(field, value) {
-    var nextState = {};
+    const nextState = {};
+
     nextState[field] = value;
     this.setState(nextState);
   }
@@ -86,7 +84,7 @@ export default class AgregaDetallesFormModal extends Component {
       <div>
         <RaisedButton label="Agregar Materias" onTouchTap={this._open.bind(this)}/>
         <Modal show={this.state.showModal} onHide={this._close.bind(this)}>
-          <Modal.Header closeButton>
+          <Modal.Header closeButton={true}>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -98,7 +96,7 @@ export default class AgregaDetallesFormModal extends Component {
                   placeholder="Tipo"
                   options={this.state.tipos}
                   cacheAsyncResults={false}
-                  onChange={this._set.bind(this, "EQUIVALENCIA_DETALLE_TIPO")}
+                  onChange={this._set.bind(this, 'EQUIVALENCIA_DETALLE_TIPO')}
                   value={this.state.EQUIVALENCIA_DETALLE_TIPO}
                 />
               </div>
@@ -108,7 +106,7 @@ export default class AgregaDetallesFormModal extends Component {
                   asyncOptions={this._getMaterias}
                   clearable={true}
                   cacheAsyncResults={false}
-                  onChange={this._set.bind(this, "EQUIVALENCIA_DETALLE_MATERIA_ID")}
+                  onChange={this._set.bind(this, 'EQUIVALENCIA_DETALLE_MATERIA_ID')}
                   placeholder="Materia"
                   value={this.state.EQUIVALENCIA_DETALLE_MATERIA_ID}
                 />
@@ -119,7 +117,7 @@ export default class AgregaDetallesFormModal extends Component {
                   asyncOptions={this._getProfesores}
                   clearable={true}
                   cacheAsyncResults={false}
-                  onChange={this._set.bind(this, "EQUIVALENCIA_DETALLE_PROFESOR_ID")}
+                  onChange={this._set.bind(this, 'EQUIVALENCIA_DETALLE_PROFESOR_ID')}
                   placeholder="Profesor"
                   value={this.state.EQUIVALENCIA_DETALLE_PROFESOR_ID}
                 />
@@ -131,11 +129,11 @@ export default class AgregaDetallesFormModal extends Component {
           </Modal.Footer>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
 AgregaDetallesFormModal.propTypes = {
   modelId: React.PropTypes.string.isRequired,
   onClose: React.PropTypes.func.isRequired
-}
+};

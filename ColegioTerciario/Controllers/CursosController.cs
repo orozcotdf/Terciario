@@ -324,10 +324,25 @@ namespace ColegioTerciario.Controllers
                 materiasSelectList.Add(a.ID.ToString(), a.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
             }
 
-            ViewBag.alumnos = _db.Cursadas
+            var cursadas = _db.Cursadas
                 .Include("CURSADA_ALUMNO")
                 .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
-                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id).ToList();
+                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id)
+                .Select(c => new CursadasViewModel()
+                {
+                    ID = c.ID,
+                    AlumnoApellido = c.CURSADA_ALUMNO.PERSONA_APELLIDO,
+                    AlumnoNombre = c.CURSADA_ALUMNO.PERSONA_NOMBRE,
+                    DocumentoNumero = c.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO,
+                    EstadoAcademico = c.CURSADA_ESTADO_ACADEMICO,
+                    EstadoAsistencia = c.CURSADA_ESTADO_ASISTENCIA,
+                    EstadoDefinitivo = c.CURSADA_ESTADO_DEFINITIVO,
+                    NotaP1 = c.CURSADA_NOTA_P1,
+                    NotaP2 = c.CURSADA_NOTA_P2,
+                    NotaR1 = c.CURSADA_NOTA_R1,
+                    NotaR2 = c.CURSADA_NOTA_R2
+                });
+            ViewBag.alumnos = cursadas.ToList();
             ViewBag.HORARIOS = _db.Horas.ToList();
             var selectListMaterias = new SelectList(materiasSelectList,"Key", "Value", curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
             ViewBag.MATERIAS = selectListMaterias;

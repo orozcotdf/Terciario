@@ -30,7 +30,7 @@ namespace ColegioTerciario.Models
     
         public ColegioTerciarioContext() : base("name=ColegioTerciarioContext")
         {
-            Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = true;
         }
 
         public DbSet<Persona> Personas { get; set; }

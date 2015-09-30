@@ -67,56 +67,56 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (ColegioTerciario.DAL.Models.Cursada cursada in ViewBag.alumnos)
+                        @foreach (ColegioTerciario.Models.ViewModels.CursadasViewModel cursada in ViewBag.alumnos)
                         {
                             var cursadaId = cursada.ID;
                             <tr>
                                 <th>
                                     <a href="#" class="eliminar-integrante" data-id="@cursada.ID"><i class="fa fa-remove"></i></a>
                                     <ul>
-                                        <li>@cursada.CURSADA_ALUMNO.PERSONA_APELLIDO, @cursada.CURSADA_ALUMNO.PERSONA_NOMBRE</li>
-                                        <li>@cursada.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO</li>
+                                        <li>@cursada.AlumnoApellido, @cursada.AlumnoNombre</li>
+                                        <li>@cursada.DocumentoNumero</li>
                                     </ul>
                                 </th>
                                 <td>
                                     <a href="#" class="selectEstado" data-type="select" data-pk="@cursadaId" data-name="CURSADA_ESTADO_ACADEMICO" data-value="0">
-                                        @(cursada.CURSADA_ESTADO_ACADEMICO ?? "Estado")
+                                        @(cursada.EstadoAcademico ?? "Estado")
                                     </a>
                                 </td>
 
                                 <td>
                                     <a href="#" class="selectEstado" data-type="select" data-pk="@cursadaId" data-name="CURSADA_ESTADO_ASISTENCIA" data-value="0">
-                                        @(cursada.CURSADA_ESTADO_ASISTENCIA ?? "Estado")
+                                        @(cursada.EstadoAsistencia ?? "Estado")
                                     </a>
                                 </td>
                                 
                                 <td>
 
                                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P1" data-value="0">
-                                        @(cursada.CURSADA_NOTA_P1 ?? "Inserte la nota")
+                                        @(cursada.NotaP1 ?? "Inserte la nota")
                                     </a>
                                 </td>
                                 <td>
 
                                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R1" data-value="0">
-                                        @(cursada.CURSADA_NOTA_R1 ?? "Inserte la nota")
+                                        @(cursada.NotaR1 ?? "Inserte la nota")
                                     </a>
                                 </td>
                                 <td>
 
                                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P2" data-value="0">
-                                        @(cursada.CURSADA_NOTA_P2 ?? "Inserte la nota")
+                                        @(cursada.NotaP2 ?? "Inserte la nota")
                                     </a>
                                 </td>
                                 <td>
 
                                     <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R2" data-value="0">
-                                        @(cursada.CURSADA_NOTA_R2 ?? "Inserte la nota")
+                                        @(cursada.NotaR2 ?? "Inserte la nota")
                                     </a>
                                 </td>
                                 <td>
                                     <a href="#" class="selectEstado" data-type="select" data-pk="@cursadaId" data-name="CURSADA_ESTADO_DEFINITIVO" data-value="0">
-                                        @(cursada.CURSADA_ESTADO_DEFINITIVO ?? "Estado")
+                                        @(cursada.EstadoDefinitivo ?? "Estado")
                                     </a>
                                 </td>
                                 

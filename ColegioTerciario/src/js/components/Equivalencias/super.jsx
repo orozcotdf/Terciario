@@ -1,5 +1,6 @@
-import React from 'react'
-import Component from '../Component/main'
+import React from 'react';
+import Component from '../Component/main';
+import $ from 'jquery';
 
 export default class EquivalenciasSuper extends Component {
   constructor(props) {
@@ -21,26 +22,20 @@ export default class EquivalenciasSuper extends Component {
   }
 
   cargarAlumnos(input, callback) {
-    input = input.toLowerCase();
     if (input.length >= 3) {
-      let _this = this;
-      $.get('/api/Personas/SelectPersonas?busqueda=' + input, function(data){
+      $.get(`/api/Personas/SelectPersonas?busqueda=${input.toLowerCase()}`, function (data) {
         callback(null, {
-          options: data,
-          //complete: true
+          options: data
         });
       });
     }
   }
 
   cargarCarreras(input, callback) {
-    input = input.toLowerCase();
     if (input.length >= 3) {
-      let _this = this;
-      $.get('/api/Carreras/SelectCarreras?busqueda=' + input, function(data){
+      $.get(`/api/Carreras/SelectCarreras?busqueda=${input.toLowerCase()}`, function (data) {
         callback(null, {
-          options: data,
-          //complete: true
+          options: data
         });
       });
     }
@@ -48,7 +43,7 @@ export default class EquivalenciasSuper extends Component {
 
   clearAndFocusInput() {
       // Clear the input
-    this.setState(this.emptyState, function() {
+    this.setState(this.emptyState, function () {
       // This code executes after the inputs are cleared
       React.findDOMNode(this.refs.EQUIVALENCIA_FECHA).focus();
     });

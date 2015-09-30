@@ -101,11 +101,13 @@
     </div>
     <script src="~/Scripts/plugins.concat.js"></script>
     <script src="~/Scripts/colegio_terciario.concat.js"></script>
+    <script src="~/Scripts/lodash.min.js"></script>
+
     @RenderSection("scripts", required: false)
 
     @if (User.Identity.IsAuthenticated)
     {
-       
+
         <script type="text/javascript">
 
             var User = {};
@@ -116,10 +118,6 @@
             window.User = User;
         </script>
     }
-
-    <script type="text/javascript">
-        window.HOST = '@HttpContext.Current.Request.Url.ToString()';
-    </script>
 
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
@@ -135,7 +133,6 @@
         <script type="text/javascript" src="~/Scripts/dist/vendor.js"></script>
         <script type="text/javascript" src="~/Scripts/dist/App.js"></script>
     }
-
 
 </body>
 

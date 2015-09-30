@@ -1,38 +1,23 @@
-var React = require('react');
+import React from 'react';
+import $ from 'jquery';
+import Equivalencias from './super';
+import Select from 'react-select';
+import {DatePicker, TextField, FlatButton} from 'material-ui';
+import ModalForm from './AgregaDetallesFormModal';
+import GriddleWithCallback from '../lib/GriddleWithCallback';
 
-var $ = require('jquery');
-import Equivalencias from './super'
-import Router from 'react-router'
-import Select from 'react-select'
-import { DatePicker, TextField, FlatButton } from 'material-ui'
-import {ReactBsTable, TableDataSet, BootstrapTable, TableHeaderColumn }  from "react-bootstrap-table"
-import Griddle from 'griddle-react';
-import ModalForm from './AgregaDetallesFormModal'
-import GriddleWithCallback from '../lib/GriddleWithCallback'
-
-export default class EditarEquivalencia extends Equivalencias {
+class EditarEquivalencia extends Equivalencias {
 
   constructor(props) {
     super(props);
-    this.emptyState = {
-        EQUIVALENCIA_FECHA: '',
-        EQUIVALENCIA_NRO_DISPOSICION: '',
-        EQUIVALENCIA_ALUMNO_ID: '',
-        EQUIVALENCIA_CARRERA_ID: ''
-    };
-    this.state = this.emptyState;
-  }
-
-  componentDidMount() {
-    let _this = this;
-
-    $.get("/api/Equivalencias/GetEquivalencia/" + this.props.params.id, function(data){
-      _this.setState(data);
+    $.get(`/api/Equivalencias/GetEquivalencia/${this.props.params.id}`, (data) => {
+      this.setState(data);
     });
   }
 
   onChange(e) {
-    var nextState = {};
+    const nextState = {};
+
     nextState[e.target.name] = e.target.value;
     this.setState(nextState);
   }
@@ -48,11 +33,9 @@ export default class EditarEquivalencia extends Equivalencias {
     });
   }
   onSubmit(e) {
-    //e.preventDefault();
-    let _this = this;
     $.ajax({
-      url: '/api/Equivalencias/PutEquivalencia/' + this.props.params.id,
-      dataType: "json",
+      url: `/api/Equivalencias/PutEquivalencia/${this.props.params.id}`,
+      dataType: 'json',
       method: 'PUT',
       data: {
         ID: this.props.params.id,
@@ -61,32 +44,30 @@ export default class EditarEquivalencia extends Equivalencias {
         EQUIVALENCIA_ALUMNO_ID: this.state.EQUIVALENCIA_ALUMNO_ID,
         EQUIVALENCIA_CARRERA_ID: this.state.EQUIVALENCIA_CARRERA_ID
       },
-      success: function(){
-        _this.exit();
+      success: () => {
+        this.exit();
       }
     });
-
   }
 
   clearAndFocusInput() {
       // Clear the input
-    this.setState(this.emptyState, function() {
+    this.setState(this.emptyState, function () {
       // This code executes after the component is re-rendered
       React.findDOMNode(this.refs.EQUIVALENCIA_FECHA).focus();
     });
   }
 
   _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
-    let _this = this;
-    $.get("/api/equivalencias/GetDetalles/" +  this.props.params.id,
-      { Pagina: page, RegistrosPorPagina: pageSize},
-      function(data) {
+    $.get(`/api/equivalencias/GetDetalles/${this.props.params.id}`,
+      {Pagina: page, RegistrosPorPagina: pageSize},
+      function (data) {
         callback({
           totalResults: data.CantidadResultados,
           results: data.Resultados,
-          pageSize: pageSize
+          pageSize
         });
-    });
+      });
   }
 
   _closeModal() {
@@ -94,18 +75,18 @@ export default class EditarEquivalencia extends Equivalencias {
   }
 
   render() {
-    let submitHandler = event => { return this.onSubmit(event); };
-    let changeHandler = event => { return this.onChange(event); };
-    let columnMeta = [
+    const submitHandler = event => { return this.onSubmit(event); };
+    const changeHandler = event => { return this.onChange(event); };
+    const columnMeta = [
       {
-        "columnName": "MATERIA_NOMBRE",
-        "displayName": "Materia"
+        columnName: 'MATERIA_NOMBRE',
+        displayName: 'Materia'
       }, {
-        "columnName": "PERSONA_NOMBRE",
-        "displayName": "Profesor"
+        columnName: 'PERSONA_NOMBRE',
+        displayName: 'Profesor'
       }, {
-        "columnName": "EQUIVALENCIA_DETALLE_TIPO",
-        "displayName": "Tipo"
+        columnName: 'EQUIVALENCIA_DETALLE_TIPO',
+        displayName: 'Tipo'
       }
     ];
 
@@ -121,7 +102,7 @@ export default class EditarEquivalencia extends Equivalencias {
             <div className="portlet-body form">
               <form>
                 <div className="form-body">
-                  <DatePicker  name="EQUIVALENCIA_FECHA"
+                  <DatePicker name="EQUIVALENCIA_FECHA"
                     hintText="Click para elegir fecha"
                     formatDate={this.formatDate}
                     autoOk={true}
@@ -178,7 +159,7 @@ export default class EditarEquivalencia extends Equivalencias {
                 <GriddleWithCallback ref="w"
                   getExternalResults={this._getJsonData.bind(this)}
                   columnMetadata = {columnMeta}
-                  columns={["MATERIA_NOMBRE", "PERSONA_NOMBRE", "EQUIVALENCIA_DETALLE_TIPO"]}
+                  columns={['MATERIA_NOMBRE', 'PERSONA_NOMBRE', 'EQUIVALENCIA_DETALLE_TIPO']}
                   loadingText = "Cargando..."
                   noDataMessage = "No se encontraron resultados"/>
 
@@ -194,26 +175,9 @@ EditarEquivalencia.contextTypes = {
   router: React.PropTypes.func.isRequired
 };
 
-/**
+EditarEquivalencia.propTypes = {
+  params: React.PropTypes.object
+};
 
 
-<Griddle results={this.state.EQUIVALENCIA_DETALLES} useGriddleStyles={false} useExternal={true}
-                  tableClassName="table"
-                  externalSetPage={this.setPage}
-                  externalMaxPage={this.state.CantidadPaginas}
-                  columns={["MATERIA_NOMBRE", "PROFESOR_NOMBRE", "EQUIVALENCIA_DETALLE_TIPO"]}
-                  columnMetadata={[
-                    {
-                      "columnName": "MATERIA_NOMBRE",
-                      "displayName": "Materia"
-                    }, {
-                      "columnName": "PROFESOR_NOMBRE",
-                      "displayName": "Profesor"
-                    }, {
-                      "columnName": "EQUIVALENCIA_DETALLE_TIPO",
-                      "displayName": "Tipo"
-                    }
-                  ]}
-                />
-
-                **/
+export default EditarEquivalencia;

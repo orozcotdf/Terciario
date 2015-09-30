@@ -1,17 +1,17 @@
-import React from 'react'
-import Router from 'react-router'
-import routes from './config/routes'
-import injectTapEventPlugin from "react-tap-event-plugin"
+import React from 'react';
+import Router from 'react-router';
+import routes from './core/routes';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-require('react-select/dist/default.css')
+require('react-select/dist/default.css');
 
 
-//Needed for onTouchTap
-//Can go away when react 1.0 release
-//Check this repo:
-//https://github.com/zilverline/react-tap-event-plugin
+// Needed for onTouchTap
+// Can go away when react 1.0 release
+// Check this repo:
+// https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-Router.run(routes, function(Root){
-    React.render(<Root />, document.getElementById('appContainer'));
+Router.run(routes, (Root, state) => {
+  React.render(<Root {...state}/>, document.getElementById('appContainer'));
 });

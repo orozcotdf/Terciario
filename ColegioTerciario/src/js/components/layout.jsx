@@ -1,13 +1,10 @@
 import React from 'react';
-import { RouteHandler } from 'react-router';
+import {RouteHandler} from 'react-router';
 
-var Layout = React.createClass({
-    render: function() {
-        return (
-
-              <RouteHandler />
-        );
-    }
-});
-
-module.exports = Layout;
+export default class Layout extends React.Component {
+  render() {
+    return (
+          <RouteHandler />
+    );
+  }
+}

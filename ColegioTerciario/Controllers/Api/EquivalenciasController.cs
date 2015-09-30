@@ -105,6 +105,12 @@ namespace ColegioTerciario.Controllers.Api
         [ResponseType(typeof(Equivalencia))]
         public IHttpActionResult PostEquivalencia(Equivalencia equivalencia)
         {
+            if (
+                db.Equivalencias.Count(e => e.EQUIVALENCIA_NRO_DISPOSICION == equivalencia.EQUIVALENCIA_NRO_DISPOSICION) >
+                0)
+            {
+                ModelState.AddModelError("EQUIVALENCIA_NRO_DISPOSICION", "Disposicion ya ocupada");
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

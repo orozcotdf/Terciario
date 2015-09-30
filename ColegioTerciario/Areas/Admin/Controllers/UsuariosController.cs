@@ -162,6 +162,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
             {
                 var db = new ColegioTerciarioContext();
                 var usuario = db.Users.Find(vm.ID);
+                usuario.USER_PERSONA_ID = vm.USER_PERSONA_ID;
                 if (usuario.Email != vm.Email)
                 {
                     usuario.Email = vm.Email;

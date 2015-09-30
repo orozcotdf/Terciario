@@ -1,39 +1,41 @@
-import React from 'react'
-import mui from 'material-ui'
-let ThemeManager = new mui.Styles.ThemeManager();
+import React from 'react';
+import mui from 'material-ui';
+const ThemeManager = new mui.Styles.ThemeManager();
 
-export default class Component extends React.Component {
+class Component extends React.Component {
 
-  static get childContextTypes()
-  {
-      return {
-        muiTheme: React.PropTypes.object
-      };
-  }
   getChildContext() {
-    return { muiTheme: ThemeManager.getCurrentTheme() };
+    return {muiTheme: ThemeManager.getCurrentTheme()};
   }
 
-	constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {user: window.User};
   }
 
   formatDate(date) {
     let d = date.getDate();
-    if (d.toString().length == 1) d = "0" + d;
     let m = date.getMonth() + 1;
-    if (m.toString().length == 1) m = "0" + m;
-    let y = date.getFullYear();
+    const y = date.getFullYear();
+
+    if (d.toString().length === 1) { d = '0' + d; }
+    if (m.toString().length === 1) { m = '0' + m; }
     return d + '/' + m + '/' + y;
   }
 
 
   formatDateForPost(date) {
-    let d = date.getDate();
-    let m = date.getMonth() + 1;
-    let y = date.getFullYear();
+    const d = date.getDate();
+    const m = date.getMonth() + 1;
+    const y = date.getFullYear();
+
     return m + '/' + d + '/' + y;
   }
 
 }
+
+Component.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};
+
+export default Component;

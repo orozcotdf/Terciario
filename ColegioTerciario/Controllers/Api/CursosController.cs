@@ -9,6 +9,7 @@ using System.Web.Http.Description;
 using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.ViewModels;
+using ColegioTerciario.Models.ViewModels.Api;
 using Newtonsoft.Json;
 
 namespace ColegioTerciario.Controllers.Api
@@ -72,6 +73,30 @@ namespace ColegioTerciario.Controllers.Api
                 iDisplayStart = param.iDisplayStart,
                 iDisplayLength = param.iDisplayLength,
                 aaData = result
+            };
+        }
+
+        [HttpGet]
+        public AjaxCollectionResponseViewModel ObtenerCursos([FromUri]AjaxCollectionParamViewModel param, [FromUri] int? docenteId)
+        {
+
+            var cursos = _db.Materias_X_Cursos
+                .Where(m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId)
+                .OrderByDescending(m => m.ID)
+                .Skip(param.Pagina*param.RegistrosPorPagina)
+                .Take(param.RegistrosPorPagina)
+                .Select(c =>  new CursosPorDocenteViewModel {
+                             Anio = c.MATERIA_X_CURSO_CICLO.CICLO_ANIO,
+                             SedeId = c.MATERIA_X_CURSO_SEDES_ID,
+                             CarreraId = c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,                       
+                             CursoNombre = c.MATERIA_X_CURSO_CURSO_NOMBRE,
+                             SedeNombre = c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE
+                         });
+
+            return new AjaxCollectionResponseViewModel
+            {
+                CantidadResultados = _db.Materias_X_Cursos.Count(m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId),
+                Resultados = cursos
             };
         }
 
