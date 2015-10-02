@@ -160,3 +160,4 @@ ColegioTerciario/App_Data/*
 node_modules
 *.concat.*
 packages/
+dist/*

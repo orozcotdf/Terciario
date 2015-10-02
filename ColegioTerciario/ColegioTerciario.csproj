@@ -102,6 +102,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OrderByExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OrderByString.1.0.0\lib\OrderByExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -476,7 +480,6 @@
     <Content Include="fonts\Simple-Line-Icons.ttf" />
     <Content Include="fonts\Simple-Line-Icons.woff" />
     <Content Include="webpack.config.js" />
-    <Fakes Include="Fakes\System.Web.WebPages.Razor.fakes" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -624,7 +627,9 @@
     <Content Include="Views\Inscripciones\BuscaAlumnos.cshtml" />
     <Content Include="Views\Inscripciones\ConstanciaDeInscripcion.cshtml" />
     <Content Include="Views\Equivalencias\Index.cshtml" />
+    <None Include="Views\Home\Ver2.cshtml" />
     <None Include="Views\Inscripciones\GuardarInscripciones.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

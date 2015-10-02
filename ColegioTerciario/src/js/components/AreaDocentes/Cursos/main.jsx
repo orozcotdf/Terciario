@@ -3,20 +3,27 @@ import Component from '../../Component/main';
 import $ from 'jquery';
 import GriddleWithCallback from '../../lib/GriddleWithCallback';
 
-require('react-select/dist/default.css');
+class GriddleActionsComponent extends React.Component {
+  render() {
+    const editUrl = `/Cursos/Edit/${this.props.data}`;
+
+    return <div><a href={editUrl}>Editar</a></div>;
+  }
+}
+
+GriddleActionsComponent.propTypes = {
+  data: Object
+};
 
 export default class CursosDeDocente extends Component {
-  constructor(props) {
-    super(props);
-
-    this.setState({
-      docenteId: docenteId
-    });
-  }
-
   _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
-    $.get(`/api/Cursos/ObtenerCursos?docenteId=${this.state.docenteId}`,
-      {Pagina: page, RegistrosPorPagina: pageSize},
+    $.get(`/api/Cursos/ObtenerCursos?docenteId=${this.state.user.Persona}`,
+      {
+        Pagina: page,
+        RegistrosPorPagina: pageSize,
+        OrdenarPorColumna: sortColumn,
+        OrdenarAsc: sortAscending
+      },
       function (data) {
         callback({
           totalResults: data.CantidadResultados,
@@ -27,31 +34,42 @@ export default class CursosDeDocente extends Component {
   }
 
   render() {
+    const columns = [
+      'ID',
+      'CICLO_ANIO',
+      'CARRERA_NOMBRE',
+      'MATERIA_NOMBRE',
+      'MATERIA_X_CURSO_CURSO_NOMBRE',
+      'SEDE_NOMBRE'
+    ];
     const columnMeta = [
       {
-        columnName: 'Anio',
+        columnName: 'ID',
+        customComponent: GriddleActionsComponent
+      }, {
+        columnName: 'CICLO_ANIO',
         displayName: 'Año'
       }, {
-        columnName: 'CarreraId',
+        columnName: 'CARRERA_NOMBRE',
         displayName: 'Carrera'
       }, {
-        columnName: 'CursoNombre',
+        columnName: 'MATERIA_NOMBRE',
+        displayName: 'Materia'
+      }, {
+        columnName: 'MATERIA_X_CURSO_CURSO_NOMBRE',
         displayName: 'Curso'
       }, {
-        columnName: 'SedeId',
-        visible: false
-      }, {
-        columnName: 'SedeNombre',
+        columnName: 'SEDE_NOMBRE',
         displayName: 'Sede'
       }
     ];
 
     return (
-      <div>
+      <div className="portlet light">
         <GriddleWithCallback ref="w"
                   getExternalResults={this._getJsonData.bind(this)}
                   columnMetadata = {columnMeta}
-                  columns={['Anio', 'CarreraId', 'CursoNombre', 'SedeId', 'SedeNombre']}
+                  columns={columns}
                   loadingText = "Cargando..."
                   noDataMessage = "No se encontraron resultados"/>
       </div>

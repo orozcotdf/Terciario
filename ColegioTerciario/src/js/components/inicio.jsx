@@ -5,15 +5,16 @@ import DashboardBedeles from './DashboardBedeles';
 
 export default class InicioComponent extends Component {
   esDocente() {
-    return this.state.user.isInRole('Docente');
+    return User.isInRole('Docente');
   }
   render() {
     let contenido;
+
     if (this.esDocente()) {
       contenido = <DashboardDocentes />;
     } else {
       contenido = <DashboardBedeles />;
-    };
+    }
     return contenido;
   }
-};
+}

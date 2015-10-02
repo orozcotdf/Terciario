@@ -57,6 +57,7 @@ export default class AgregaEquivalencia extends Equivalencias {
   render() {
     const submitHandler = event => { return this.onSubmit(event); };
     const changeHandler = event => { return this.onChange(event); };
+
     return (
         <div className="col-sm-6 col-sm-offset-3">
           <div className="portlet light">

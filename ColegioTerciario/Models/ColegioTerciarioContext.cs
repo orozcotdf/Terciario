@@ -1,19 +1,13 @@
 ﻿using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
-using ColegioTerciario.DAL.Interfaces;
 using ColegioTerciario.DAL.Models;
-using ColegioTerciario.Models.Types;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using ColegioTerciario.Models.User;
 
 namespace ColegioTerciario.Models

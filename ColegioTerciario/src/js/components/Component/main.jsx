@@ -5,12 +5,17 @@ const ThemeManager = new mui.Styles.ThemeManager();
 class Component extends React.Component {
 
   getChildContext() {
-    return {muiTheme: ThemeManager.getCurrentTheme()};
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
   }
 
   constructor(props) {
     super(props);
-    this.state = {user: window.User};
+
+    this.state = {
+      user: User.data
+    };
   }
 
   formatDate(date) {

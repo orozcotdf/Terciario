@@ -324,11 +324,10 @@ namespace ColegioTerciario.Controllers
                 materiasSelectList.Add(a.ID.ToString(), a.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
             }
 
-            var cursadas = _db.Cursadas
-                .Include("CURSADA_ALUMNO")
-                .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
-                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id)
-                .Select(c => new CursadasViewModel()
+            var cursadas = from c in _db.Cursadas
+                orderby c.CURSADA_ALUMNO.PERSONA_APELLIDO
+                where c.CURSADA_MATERIAS_X_CURSOS_ID == id
+                select new CursadasViewModel()
                 {
                     ID = c.ID,
                     AlumnoApellido = c.CURSADA_ALUMNO.PERSONA_APELLIDO,
@@ -341,7 +340,8 @@ namespace ColegioTerciario.Controllers
                     NotaP2 = c.CURSADA_NOTA_P2,
                     NotaR1 = c.CURSADA_NOTA_R1,
                     NotaR2 = c.CURSADA_NOTA_R2
-                });
+                };
+
             ViewBag.alumnos = cursadas.ToList();
             ViewBag.HORARIOS = _db.Horas.ToList();
             var selectListMaterias = new SelectList(materiasSelectList,"Key", "Value", curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
@@ -38,6 +35,10 @@ namespace ColegioTerciario.DAL.Models
         [ForeignKey("MATERIA_X_CURSO_SEDES_ID"), Display(Name="Sede")]
         public virtual Sede MATERIA_X_CURSO_SEDE { get; set; }
         public virtual ICollection<Horario_Cursada> Horarios_Cursadas { get; set; }
+
+        public virtual string CICLO_ANIO {
+            get { return this.MATERIA_X_CURSO_CICLO.CICLO_ANIO; }
+        }
         #endregion
 
         public string MATERIA_X_CURSO_CURSO_NOMBRE { get; set; }

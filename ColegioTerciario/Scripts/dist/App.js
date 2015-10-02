@@ -1,4 +1,4 @@
-webpackJsonp([0],[
+﻿webpackJsonp([0],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -19094,7 +19094,7 @@ webpackJsonp([0],[
 	    key: 'render',
 	    value: function render() {
 	      var columnMeta = [{
-	        columnName: 'Anio',
+	        columnName: 'CICLO_ANIO',
 	        displayName: 'Año'
 	      }, {
 	        columnName: 'CarreraId',
@@ -19116,7 +19116,7 @@ webpackJsonp([0],[
 	        _react2['default'].createElement(_libGriddleWithCallback2['default'], { ref: 'w',
 	          getExternalResults: this._getJsonData.bind(this),
 	          columnMetadata: columnMeta,
-	          columns: ['Anio', 'CarreraId', 'CursoNombre', 'SedeId', 'SedeNombre'],
+	          columns: ['CICLO_ANIO', 'CarreraId', 'CursoNombre', 'SedeId', 'SedeNombre'],
 	          loadingText: 'Cargando...',
 	          noDataMessage: 'No se encontraron resultados' })
 	      );

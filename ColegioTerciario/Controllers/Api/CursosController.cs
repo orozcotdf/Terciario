@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -11,7 +12,7 @@ using ColegioTerciario.Models;
 using ColegioTerciario.Models.ViewModels;
 using ColegioTerciario.Models.ViewModels.Api;
 using Newtonsoft.Json;
-
+using OrderByExtensions;
 namespace ColegioTerciario.Controllers.Api
 {
     public class FechaViewModel
@@ -84,19 +85,47 @@ namespace ColegioTerciario.Controllers.Api
                 .Where(m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId)
                 .OrderByDescending(m => m.ID)
                 .Skip(param.Pagina*param.RegistrosPorPagina)
-                .Take(param.RegistrosPorPagina)
-                .Select(c =>  new CursosPorDocenteViewModel {
-                             Anio = c.MATERIA_X_CURSO_CICLO.CICLO_ANIO,
-                             SedeId = c.MATERIA_X_CURSO_SEDES_ID,
-                             CarreraId = c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,                       
-                             CursoNombre = c.MATERIA_X_CURSO_CURSO_NOMBRE,
-                             SedeNombre = c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE
-                         });
-
+                .Take(param.RegistrosPorPagina);
+            /*
+            
+            */
+            if (param.OrdenarPorColumna != null)
+            {
+                switch (param.OrdenarPorColumna)
+                {
+                    case "CICLO_ANIO":
+                        cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO);
+                        break;
+                    case "CARRERA_NOMBRE":
+                        cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE);
+                        break;
+                    case "MATERIA_X_CURSO_CURSO_NOMBRE":
+                        cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_CURSO_NOMBRE) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_CURSO_NOMBRE);
+                        break;
+                    case "SEDE_NOMBRE":
+                        cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE);
+                        break;
+                    case "MATERIA_NOMBRE":
+                        cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
+                        break;
+                }
+            }
+            else
+            {
+                cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.ID) : cursos.OrderByDescending(c => c.ID);
+            }
             return new AjaxCollectionResponseViewModel
             {
                 CantidadResultados = _db.Materias_X_Cursos.Count(m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId),
-                Resultados = cursos
+                Resultados = cursos.Select(c =>  new CursosPorDocenteViewModel {
+                            ID = c.ID,
+                            CICLO_ANIO = c.MATERIA_X_CURSO_CICLO.CICLO_ANIO,
+                            MATERIA_X_CURSO_SEDES_ID = c.MATERIA_X_CURSO_SEDES_ID,
+                            CARRERA_NOMBRE = c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,                       
+                            MATERIA_X_CURSO_CURSO_NOMBRE = c.MATERIA_X_CURSO_CURSO_NOMBRE,
+                            SEDE_NOMBRE = c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE,
+                            MATERIA_NOMBRE = c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
+                        })
             };
         }
 

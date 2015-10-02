@@ -9,5 +9,9 @@ namespace ColegioTerciario.Models.ViewModels
     {
         public int Pagina { get; set; }
         public int RegistrosPorPagina { get; set; }
+
+        public string OrdenarPorColumna { get; set; }
+
+        public bool OrdenarAsc { get; set; }
     }
 }
