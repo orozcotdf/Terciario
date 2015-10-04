@@ -126,10 +126,12 @@ class EditarEquivalencia extends Equivalencias {
                       name="EQUIVALENCIA_ALUMNO_ID"
                       asyncOptions={this.cargarAlumnos}
                       onChange={this.setAlumno.bind(this)}
-                      cacheAsyncResults={false}
                       clearable={true}
                       placeholder="Alumno"
                       value={this.state.EQUIVALENCIA_ALUMNO_NOMBRE}
+                      searchingText="Buscando..."
+                      isLoading={false}
+                      autoload={false}
                     />
                   </div>
                   <div className="form-group">
@@ -140,6 +142,9 @@ class EditarEquivalencia extends Equivalencias {
                       clearable={true}
                       placeholder="Carrera"
                       value={this.state.EQUIVALENCIA_CARRERA_NOMBRE}
+                      searchingText="Buscando..."
+                      isLoading={false}
+                      autoload={false}
                     />
                   </div>
                 </div>

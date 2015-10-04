@@ -10,9 +10,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>@ViewBag.Title - C.E.N.T. 11</title>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="~/Content/cent11.concat.css" rel="stylesheet"/>
-
+    
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
         <link href="http://localhost:8080/cent11-2.0.css" rel="stylesheet" />
@@ -26,113 +24,66 @@
     @RenderSection("styles", required: false)
     <meta name="description" content="Sistema Cent11" />
 </head>
-<body class="page-md">
-    <div class="page-header">
-        <div class="page-header-top">
-            <div class="container-fluid">
-                <div class="page-logo">
-                    <a class="navbar-brand" href="/" title="CENT N° 11 - Sistema de Administración Académica">
-                        <img src="/img/LogoCENT_60x180_Transparente.png" alt="" class="pull-left" />
-                        <h2 class="pull-right hidden-sm hidden-xs">Sistema de Administración Académica</h2>
-                    </a>
-                </div>
-                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                <a href="javascript:;" class="menu-toggler"></a>
-                <!-- END RESPONSIVE MENU TOGGLER -->
-                <div class="top-menu">
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
-        </div>
-        <!-- END HEADER TOP -->
-        <!-- BEGIN HEADER MENU -->
-@if (!User.IsInRole("Docente")) {
-        <div class="page-header-menu">
-            <div class="container-fluid">       
-                <div class="hor-menu ">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/#/">Inicio</a></li>
-                        <li><a href="~/Personas">Personas</a></li>
-                        <li><a href="~/Cursos">Cursos</a></li>
-                        <li><a href="~/ActaExamen">Finales</a></li>
-                        <li><a href="~/Inscripciones">Inscripciones</a></li>
-                        <li><a href="/#/equivalencias">Equivalencias</a></li>
-
-                        @*                        <li><a href="~/Materias">Materias</a></li>*@
-                        @*                        <li><a href="#">Estadisticas</a></li>*@
-                        @*                        <li><a href="#">Configuracion</a></li>*@
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li><a href="~/Admin/Usuarios">Usuarios</a></li>
-                            <li><a href="~/Admin/Roles">Roles</a></li>
-                        }
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-}
-    </div>
-
-    <!-- BEGIN PAGE CONTAINER -->
+<body class="fixed-header">
+    <div id="UISidebar"></div>
     <div class="page-container">
+        <div id="UIHeader"></div>
+        <div class="page-content-wrapper full-height">
+            <div class="content full-height">
+                <!-- START CONTAINER FLUID -->
+                <div class="container-fluid container-fixed-lg">
+                    <div class="content full-height">
+                        @RenderSection("navegacionContextual", required: false)
+                        @Html.Flash()
 
-        @RenderSection("navegacionContextual", required: false)
-
-        <!-- Page Content -->
-        <div class="page-content">
-            @Html.Flash()
-            <div class="container-fluid">
-                @RenderBody()
+                        @RenderBody()
+                    </div>
+                </div>
+                <!-- END CONTAINER FLUID -->
             </div>
         </div>
     </div>
 
-    <div class="page-footer">
-        <div class="container">
-            &copy; @DateTime.Now.Year - C.E.N.T. 11. <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
-        </div>
-    </div>
-    <!-- END PAGE CONTAINER -->
-    <!-- /#page-content-wrapper -->
+<div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+</div>
 
-    <div class="scroll-to-top">
-        <i class="icon-arrow-up"></i>
-    </div>
-    <script src="~/Scripts/plugins.concat.js"></script>
-    <script src="~/Scripts/colegio_terciario.concat.js"></script>
-    <script src="~/Scripts/lodash.min.js"></script>
+<script src="~/Scripts/plugins.concat.js"></script>
+<script src="~/Scripts/colegio_terciario.concat.js"></script>
+<script src="~/Scripts/lodash.min.js"></script>
 
-    @RenderSection("scripts", required: false)
+@RenderSection("scripts", required: false)
 
-    @if (User.Identity.IsAuthenticated)
-    {
+@if (User.Identity.IsAuthenticated)
+{
 
-        <script type="text/javascript">
+    <script type="text/javascript">
 
-            var User = {};
-            User.data = JSON.parse('@Html.Raw(ViewBag.UserData)');
-            User.isInRole = function(role) {
-                return _.size(_.find(this.data.Roles, "Name", role)) > 0;
-            };
-            window.User = User;
-        </script>
-    }
+        var User = {};
+        User.data = JSON.parse('@Html.Raw(ViewBag.UserData)');
+        User.isInRole = function(role) {
+            return _.size(_.find(this.data.Roles, "Name", role)) > 0;
+        };
+        window.User = User;
+    </script>
+}
 
-    @if (HttpContext.Current.IsDebuggingEnabled)
-    {
+@if (HttpContext.Current.IsDebuggingEnabled)
+{
 
 
-        <script src="http://localhost:8080/webpack-dev-server.js"></script>
-        <script type="text/javascript" src="http://localhost:8080/vendor.js"></script>
-        <script type="text/javascript" src="http://localhost:8080/App.js"></script>
+    <script src="http://localhost:8080/webpack-dev-server.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/vendor.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/App.js"></script>
 
-    }
-    else
-    {
-        <script type="text/javascript" src="~/Scripts/dist/vendor.js"></script>
-        <script type="text/javascript" src="~/Scripts/dist/App.js"></script>
-    }
+}
+else
+{
+    <script type="text/javascript" src="~/Scripts/dist/vendor.js"></script>
+    <script type="text/javascript" src="~/Scripts/dist/App.js"></script>
+}
+
+    
 
 </body>
 

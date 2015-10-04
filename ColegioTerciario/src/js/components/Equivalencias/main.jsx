@@ -114,9 +114,9 @@ export default class EquivalenciasMain extends Component {
 }
 
 FechaComponent.propTypes = {
-  data: React.PropTypes.object
+  data: React.PropTypes.string
 };
 
 ActionsComponent.propTypes = {
-  data: React.PropTypes.object
+  data: React.PropTypes.number
 };

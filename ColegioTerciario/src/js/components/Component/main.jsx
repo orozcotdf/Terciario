@@ -14,7 +14,7 @@ class Component extends React.Component {
     super(props);
 
     this.state = {
-      user: User.data
+      user: User
     };
   }
 

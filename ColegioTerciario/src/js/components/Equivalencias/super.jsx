@@ -5,7 +5,6 @@ import $ from 'jquery';
 export default class EquivalenciasSuper extends Component {
   constructor(props) {
     super(props);
-    this.state = {user: window.User};
   }
 
 

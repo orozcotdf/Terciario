@@ -109,6 +109,7 @@ export default class AgregaDetallesFormModal extends Component {
                   onChange={this._set.bind(this, 'EQUIVALENCIA_DETALLE_MATERIA_ID')}
                   placeholder="Materia"
                   value={this.state.EQUIVALENCIA_DETALLE_MATERIA_ID}
+                  autoload={false}
                 />
               </div>
               <div className="form-group">
@@ -120,6 +121,7 @@ export default class AgregaDetallesFormModal extends Component {
                   onChange={this._set.bind(this, 'EQUIVALENCIA_DETALLE_PROFESOR_ID')}
                   placeholder="Profesor"
                   value={this.state.EQUIVALENCIA_DETALLE_PROFESOR_ID}
+                  autoload={false}
                 />
               </div>
             </form>

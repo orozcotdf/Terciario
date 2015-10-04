@@ -92,6 +92,7 @@ export default class AgregaEquivalencia extends Equivalencias {
                       cacheAsyncResults={false}
                       clearable={true}
                       placeholder="Alumno"
+                      autoload={false}
                     />
                   </div>
                   <div className="form-group">
@@ -102,6 +103,7 @@ export default class AgregaEquivalencia extends Equivalencias {
                       value=""
                       clearable={true}
                       placeholder="Carrera"
+                      autoload={false}
                     />
                   </div>
                 </div>
