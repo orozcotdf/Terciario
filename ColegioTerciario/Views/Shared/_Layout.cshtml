@@ -13,15 +13,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="~/Content/cent11.concat.css" rel="stylesheet"/>
 
-    @if (HttpContext.Current.IsDebuggingEnabled)
-    {
-        <link href="http://localhost:8080/cent11-2.0.css" rel="stylesheet" />
-
-    }
-    else
-    {
-        <link href="~/Scripts/dist/cent11-2.0.css" rel="stylesheet" />
-    }
+    <link href="~/Scripts/dist/cent11-2.0.css" rel="stylesheet" />
 
     @RenderSection("styles", required: false)
     <meta name="description" content="Sistema Cent11" />
@@ -119,20 +111,9 @@
         </script>
     }
 
-    @if (HttpContext.Current.IsDebuggingEnabled)
-    {
+    <script type="text/javascript" src="~/Scripts/dist/vendor.js"></script>
+    <script type="text/javascript" src="~/Scripts/dist/App.js"></script>
 
-
-        <script src="http://localhost:8080/webpack-dev-server.js"></script>
-        <script type="text/javascript" src="http://localhost:8080/vendor.js"></script>
-        <script type="text/javascript" src="http://localhost:8080/App.js"></script>
-
-    }
-    else
-    {
-        <script type="text/javascript" src="~/Scripts/dist/vendor.js"></script>
-        <script type="text/javascript" src="~/Scripts/dist/App.js"></script>
-    }
 
 </body>
 
