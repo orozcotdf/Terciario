@@ -363,10 +363,6 @@
     <Compile Include="Migrations\201510062339100_Cambios.Designer.cs">
       <DependentUpon>201510062339100_Cambios.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201510070004594_Estado en libro en Parciales.cs" />
-    <Compile Include="Migrations\201510070004594_Estado en libro en Parciales.Designer.cs">
-      <DependentUpon>201510070004594_Estado en libro en Parciales.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser\ApplicationUser.cs" />
@@ -446,6 +442,7 @@
     <Content Include="Scripts\dist\App.js" />
     <Content Include="Scripts\dist\cent11-2.0.css" />
     <Content Include="Scripts\dist\vendor.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\plugins.concat.js" />
     <Content Include="img\CENT_LOGO.png" />
@@ -715,9 +712,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510062339100_Cambios.resx">
       <DependentUpon>201510062339100_Cambios.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510070004594_Estado en libro en Parciales.resx">
-      <DependentUpon>201510070004594_Estado en libro en Parciales.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
