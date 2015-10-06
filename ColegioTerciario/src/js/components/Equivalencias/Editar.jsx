@@ -5,13 +5,19 @@ import Select from 'react-select';
 import {DatePicker, TextField, FlatButton} from 'material-ui';
 import ModalForm from './AgregaDetallesFormModal';
 import GriddleWithCallback from '../lib/GriddleWithCallback';
+import axios from 'axios';
+
 
 class EditarEquivalencia extends Equivalencias {
 
   constructor(props) {
     super(props);
-    $.get(`/api/Equivalencias/GetEquivalencia/${this.props.params.id}`, (data) => {
-      this.setState(data);
+    this.state = {};
+  }
+
+  componentWillMount() {
+    axios.get(`/api/Equivalencias/GetEquivalencia/${this.props.params.id}`).then((result) =>{
+      this.setState(result.data);
     });
   }
 
@@ -23,7 +29,7 @@ class EditarEquivalencia extends Equivalencias {
   }
 
   exit() {
-    this.clearAndFocusInput();
+    this._clearAndFocusInput();
     this.context.router.transitionTo('equivalencias');
   }
 
@@ -33,6 +39,17 @@ class EditarEquivalencia extends Equivalencias {
     });
   }
   onSubmit(e) {
+    axios.put(`/api/Equivalencias/PutEquivalencia/${this.props.params.id}`, {
+      ID: this.props.params.id,
+      EQUIVALENCIA_FECHA: this.formatDateForPost(this.refs.EQUIVALENCIA_FECHA.getDate()),
+      EQUIVALENCIA_NRO_DISPOSICION: this.state.EQUIVALENCIA_NRO_DISPOSICION,
+      EQUIVALENCIA_ALUMNO_ID: this.state.EQUIVALENCIA_ALUMNO_ID,
+      EQUIVALENCIA_CARRERA_ID: this.state.EQUIVALENCIA_CARRERA_ID
+    }).then((result) => {
+      this.exit();
+    });
+
+    /*
     $.ajax({
       url: `/api/Equivalencias/PutEquivalencia/${this.props.params.id}`,
       dataType: 'json',
@@ -48,11 +65,12 @@ class EditarEquivalencia extends Equivalencias {
         this.exit();
       }
     });
+  */
   }
 
-  clearAndFocusInput() {
+  _clearAndFocusInput() {
       // Clear the input
-    this.setState(this.emptyState, function () {
+    this.setState({}, function () {
       // This code executes after the component is re-rendered
       React.findDOMNode(this.refs.EQUIVALENCIA_FECHA).focus();
     });

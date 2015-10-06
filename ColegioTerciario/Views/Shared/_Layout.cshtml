@@ -3,7 +3,7 @@
 <!--[if IE 8]> <html lang="es" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="es" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="es">
+<html lang="es" style="overflow: hidden; ;">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,25 +24,20 @@
     @RenderSection("styles", required: false)
     <meta name="description" content="Sistema Cent11" />
 </head>
-<body class="fixed-header">
-    <div id="UISidebar"></div>
-    <div class="page-container">
-        <div id="UIHeader"></div>
-        <div class="page-content-wrapper full-height">
-            <div class="content full-height">
-                <!-- START CONTAINER FLUID -->
-                <div class="container-fluid container-fixed-lg">
-                    <div class="content full-height">
-                        @RenderSection("navegacionContextual", required: false)
-                        @Html.Flash()
+<body>
+    
+<div id="headerComponent"></div>
+<section id="main">
+    <div id="sidebarComponent"></div>
+    <section id="content">
+        <div class="container">
+            @RenderSection("navegacionContextual", required: false)
+            @Html.Flash()
 
-                        @RenderBody()
-                    </div>
-                </div>
-                <!-- END CONTAINER FLUID -->
-            </div>
+            @RenderBody()
         </div>
-    </div>
+    </section>
+</section>
 
 <div class="scroll-to-top">
     <i class="icon-arrow-up"></i>
@@ -83,7 +78,7 @@ else
     <script type="text/javascript" src="~/Scripts/dist/App.js"></script>
 }
 
-    
+
 
 </body>
 

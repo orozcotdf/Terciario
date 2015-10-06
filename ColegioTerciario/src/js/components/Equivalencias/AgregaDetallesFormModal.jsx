@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from'jquery';
+import axios from'axios';
 import Select from 'react-select';
 import {RaisedButton} from 'material-ui';
 import Component from '../Component/main';
@@ -23,22 +23,20 @@ export default class AgregaDetallesFormModal extends Component {
   }
 
   _submitAndClose() {
-    const _this = this;
-
-    $.post('/api/Equivalencias/AgregaMateria', {
+    axios.post('/api/Equivalencias/AgregaMateria', {
       EQUIVALENCIA_ID: this.props.modelId,
       EQUIVALENCIA_DETALLE_TIPO: this.state.EQUIVALENCIA_DETALLE_TIPO,
       EQUIVALENCIA_DETALLE_MATERIA_ID: this.state.EQUIVALENCIA_DETALLE_MATERIA_ID,
       EQUIVALENCIA_DETALLE_PROFESOR_ID: this.state.EQUIVALENCIA_DETALLE_PROFESOR_ID
-    }, function (data) {
+    }).then((data) => {
       this.props.onClose();
-      _this._close();
+      this._close();
     });
   }
 
   _getMaterias(input, callback) {
     if (input.length >= 3) {
-      $.get('/api/Materias/SelectMaterias?busqueda=' + input.toLowerCase(), function (data) {
+      axios.get('/api/Materias/SelectMaterias?busqueda=' + input.toLowerCase(), (data) => {
         callback(null, {
           options: data,
           complete: true
@@ -49,9 +47,9 @@ export default class AgregaDetallesFormModal extends Component {
 
   _getProfesores(input, callback) {
     if (input.length >= 3) {
-      $.get('/api/Personas/SelectPersonas?busqueda=' + input.toLowerCase(),
+      axios.get('/api/Personas/SelectPersonas?busqueda=' + input.toLowerCase(),
         {docente: true, cantidad: 5},
-        function (data) {
+        (data) => {
           callback(null, {
             options: data,
             complete: true

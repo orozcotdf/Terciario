@@ -4,10 +4,11 @@ import routes from './core/routes';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import UISidebar from './components/UI/Sidebar';
 import UIHeader from './components/UI/Header';
+import $ from 'jquery';
 
+require('jquery.nicescroll/jquery.nicescroll');
 require('../less/terciario.less');
 require('react-select/dist/default.css');
-
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:
@@ -15,13 +16,26 @@ require('react-select/dist/default.css');
 injectTapEventPlugin();
 
 function run() {
+  $('html').niceScroll({
+    cursorcolor: 'rgba(0,0,0,0.3)',
+    cursorborder: 0,
+    cursorborderradius: 0,
+    cursorwidth: '5px',
+    bouncescroll: true,
+    mousescrollstep: 100
+    // autohidemode: false
+  });
+
   Router.run(routes, (Root, state) => {
     if (document.getElementById('appContainer')) {
       React.render(<Root {...state}/>, document.getElementById('appContainer'));
     }
 
-    React.render(<UISidebar {...state}/>, document.getElementById('UISidebar'));
-    React.render(<UIHeader {...state}/>, document.getElementById('UIHeader'));
+    if (document.getElementById('sidebarComponent')) {
+      React.render(<UISidebar {...state}/>, document.getElementById('sidebarComponent'));
+    }
+
+    React.render(<UIHeader {...state} title="Cent11"/>, document.getElementById('headerComponent'));
   });
 }
 

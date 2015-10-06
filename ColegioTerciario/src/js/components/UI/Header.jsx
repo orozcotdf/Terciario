@@ -1,77 +1,97 @@
 import React from 'react';
-import Component from '../Component/main';
-import UIDropdown from './Dropdown';
+import NavigationStore from '../../stores/navigationStore';
+import Reflux from 'reflux';
+import classNames from 'classnames';
+import NavigationActions from '../../actions/navigationActions';
 
-export default class UISidebar extends Component {
+const UIHeader = React.createClass({
+
+  mixins: [Reflux.connect(NavigationStore, 'navigation')],
+
+  propTypes() {
+    return {
+      title: React.PropTypes.string
+    };
+  },
 
   logout() {
     document.getElementById('logoutForm').submit();
-  }
+  },
+
+  _toggleSidebar() {
+    this.setState({
+      sidebarActive: false // !this.state.sidebarActive
+    });
+
+    /* $('body').toggleClass('modal-open');
+    $('#header').toggleClass('sidebar-toggled');
+    $('#sidebar').toggleClass('toggled');*/
+  },
 
   render() {
-    const logoutStyles = {
-      cursor: 'pointer'
-    };
+    const classes = classNames({
+      'sidebar-toggled': this.state.navigation.sidebarActive
+    });
+
 
     return (
-      <div className="header">
-        <div className="pull-left full-height visible-sm visible-xs">
-          { /* START ACTION BAR */ }
-          <div className="sm-action-bar">
-            <a href="#" className="btn-link toggle-sidebar" data-toggle="sidebar">
-              <span className="icon-set menu-hambuger"></span>
-            </a>
-          </div>
-        { /* END ACTION BAR */ }
-        </div>
-
-        <div className="pull-right full-height visible-sm visible-xs">
-          { /* START ACTION BAR  */}
-          <div className="sm-action-bar">
-            <a href="#" className="btn-link"
-              data-toggle="quickview" data-toggle-element="#quickview">
-              <span className="icon-set menu-hambuger-plus"></span>
-            </a>
-          </div>
-          { /* END ACTION BAR */ }
-        </div>
-        { /* END MOBILE CONTROLS */ }
-        <div className=" pull-left sm-table">
-          <div className="header-inner">
-            <div className="brand inline">
-              <img src="/img/LogoCENT_60x180_Transparente.png" alt="Cent11" width="78" />
-            </div>
-
-          </div>
-        </div>
-
-        <div className=" pull-right">
-          { /* START User Info */ }
-          <div className="visible-lg visible-md m-t-10">
-            <div className="pull-left p-r-10 p-t-10 fs-16 font-heading">
-              <span className="text-master">{this.state.user.data.UserName}</span>
-            </div>
-            <UIDropdown user={this.state.user}>
-              <li>
-                <a href="/Manage"><i className="pg-settings_small"></i> Preferencias</a>
+      <header id="header" className={classes}>
+        <ul className="header-inner">
+          <li id="menu-trigger" data-trigger="#sidebar" onClick={NavigationActions.toggleSidebar}>
+              <div className="line-wrap">
+                  <div className="line top"></div>
+                  <div className="line center"></div>
+                  <div className="line bottom"></div>
+              </div>
+          </li>
+          <li className="logo hidden-xs">
+              <a href="index.html">{this.props.title}</a>
+          </li>
+          <li className="pull-right">
+            <ul className="top-menu">
+              <li id="toggle-width">
+                <div className="toggle-switch">
+                  <input id="tw-switch" type="checkbox" hidden="hidden" />
+                  <label htmlFor="tw-switch" className="ts-helper"></label>
+                </div>
               </li>
-              { /* <li>
-                <a href="#"><i className="pg-outdent"></i> Feedback</a>
+              <li id="top-search">
+                <a className="tm-search" href=""></a>
               </li>
-              <li>
-                <a href="#"><i className="pg-signals"></i> Help</a>
-              </li> */ }
-              <li className="bg-master-lighter">
-                <a className="clearfix" onClick={this.logout.bind(this)} style={logoutStyles}>
-                  <span className="pull-left">Salir</span>
-                  <span className="pull-right"><i className="pg-power"></i></span>
-                </a>
+              <li className="dropdown">
+                <a data-toggle="dropdown" className="tm-settings" href=""></a>
+                <ul className="dropdown-menu dm-icon pull-right">
+                  <li className="hidden-xs">
+                    <a data-action="fullscreen" href="">
+                      <i className="zmdi zmdi-fullscreen"></i>
+                      Toggle Fullscreen
+                    </a>
+                  </li>
+                  <li>
+                    <a data-action="clear-localstorage" href="">
+                      <i className="zmdi zmdi-delete"></i>
+                      Clear Local Storage</a>
+                  </li>
+                  <li>
+                    <a href=""><i className="zmdi zmdi-face"></i> Privacy Settings</a>
+                  </li>
+                  <li>
+                    <a href=""><i className="zmdi zmdi-settings"></i> Other Settings</a>
+                  </li>
+                </ul>
               </li>
-            </UIDropdown>
-          </div>
-          { /* END User Info */ }
+            </ul>
+          </li>
+
+        </ul>
+
+        <div id="top-search-wrap">
+          <input type="text"/>
+          <i id="top-search-close">&times;</i>
         </div>
-      </div>
+      </header>
     );
   }
-}
+});
+
+export default UIHeader;

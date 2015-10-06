@@ -158,6 +158,7 @@ $RECYCLE.BIN/
 .DS_Store
 ColegioTerciario/App_Data/*
 node_modules
+bower_components
 *.concat.*
 packages/
 dist/*

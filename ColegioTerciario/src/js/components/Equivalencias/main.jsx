@@ -19,7 +19,14 @@ class FechaComponent extends Component {
 
 class ActionsComponent extends React.Component {
   render() {
-    return <div><Link to={`/equivalencias/${this.props.data}/editar`}>Editar</Link></div>;
+    return (
+      <div>
+        <Link to={`/equivalencias/${this.props.data}/editar`}
+          className="btn btn-link waves-effect">
+          <i className="zmdi zmdi-edit"></i>
+        </Link>
+      </div>
+    );
   }
 }
 
@@ -79,6 +86,7 @@ export default class EquivalenciasMain extends Component {
     const columnMeta = [
       {
         columnName: 'ID',
+        displayName: '',
         customComponent: ActionsComponent
       },
       {
@@ -98,16 +106,21 @@ export default class EquivalenciasMain extends Component {
     ];
 
     return (
-        <div className="portlet light">
-            <Link to="agrega-equivalencias">Agrega</Link>
+        <div className="card">
+          <div className="card-header ch-alt m-b-20">
+            <Link to="agrega-equivalencias"
+              className="btn bgm-cyan btn-float waves-effect waves-circle waves-float">
+              <i className="zmdi zmdi-plus"></i>
+            </Link>
+          </div>
 
-            <GriddleWithCallback ref="w"
-                getExternalResults={this._getJsonData.bind(this)}
-                columnMetadata = {columnMeta}
-                resultsPerPage={10}
-                columns={columns}
-                loadingText = "Cargando..."
-                noDataMessage = "No se encontraron resultados"/>
+          <GriddleWithCallback ref="w"
+              getExternalResults={this._getJsonData.bind(this)}
+              columnMetadata = {columnMeta}
+              resultsPerPage={10}
+              columns={columns}
+              loadingText = "Cargando..."
+              noDataMessage = "No se encontraron resultados"/>
         </div>
     );
   }

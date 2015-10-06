@@ -3,11 +3,6 @@ import Component from '../Component/main';
 import $ from 'jquery';
 
 export default class EquivalenciasSuper extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-
   setAlumno(value) {
     this.setState({
       EQUIVALENCIA_ALUMNO_ID: value

@@ -4,8 +4,11 @@ import {Link} from 'react-router';
 class DashboardDocentes extends React.Component {
   render() {
     return (
-      <div className="jumbotron" style={{background: 'none'}} >
-        <div className="container">
+      <div className="card">
+        <div className="card-header">
+          <h2>Cent 11</h2>
+        </div>
+        <div className="card-body">
           <div className="portlet light">
             <h1>CENT 11</h1>
 

@@ -10,14 +10,6 @@ class Component extends React.Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      user: User
-    };
-  }
-
   formatDate(date) {
     let d = date.getDate();
     let m = date.getMonth() + 1;

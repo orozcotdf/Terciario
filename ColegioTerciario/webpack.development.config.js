@@ -40,15 +40,11 @@ module.exports = {
         test: /\.css$/,
         loader: 'style!css?importLoaders=1!postcss'
       }, {
-        test: /\.scss$/,
-        loaders: sassLoaders,
-        include: [
-          path.resolve(__dirname, './src'),
-          path.resolve(__dirname, 'node_modules/material-design-lite/src')
-        ]
-      }, {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css!less')
+        loader: ExtractTextPlugin.extract('style', 'css!less?'
+          // + 'relativeUrls&'
+          //'includePath[]=' + path.resolve(__dirname, 'src/img'))
+          )
       }, {
         test: /(webfont|)\.(otf|eot|ttf|woff|woff2|svg)(\?.+|)$/,
         loader: 'url-loader?limit=8192'
@@ -66,6 +62,7 @@ module.exports = {
     noParse: /\.min\.js/
   },
   resolve: {
+    root: path.resolve(path.dirname(), './src/img'),
     extensions: ['', '.js', '.jsx'],
     // Tell webpack to look for required files in bower and node
     modulesDirectories: ['bower_components', 'node_modules']

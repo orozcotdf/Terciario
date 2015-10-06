@@ -1,140 +1,137 @@
 import React from 'react';
+import Reflux from 'reflux';
+import classNames from 'classnames';
+import NavigationStore from '../../stores/navigationStore';
+import UserStore from '../../stores/userStore';
+import Gravatar from 'react-gravatar';
 import $ from 'jquery';
-import Component from '../Component/main';
 
-export default class UISidebar extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      sidebarActive: false
+const UISidebar = React.createClass({
+  getInitialState() {
+    return {
+      profileMenuActive: false
     };
-  }
+  },
 
-  sidebarMouseEnter(e) {
-    if (!this.state.sidebarPinned) {
-      this.setState({
-        sidebarActive: true
-      });
-      $('body').addClass('sidebar-visible');
-    }
-  }
+  mixins: [
+    Reflux.connect(NavigationStore, 'navigation'),
+    Reflux.connect(UserStore)
+  ],
 
-  sidebarMouseLeave(e) {
-    if (!this.state.sidebarPinned) {
-      this.setState({
-        sidebarActive: false
-      });
-      $('body').removeClass('sidebar-visible');
-    }
-  }
-
-  togglePin() {
-    this.setState({
-      sidebarPinned: !this.state.sidebarPinned
+  componentDidMount() {
+    $(React.findDOMNode(this.refs.sidebarInner)).niceScroll({
+      cursorcolor: 'rgba(0,0,0,0.5)',
+      cursorborder: 0,
+      cursorborderradius: 0,
+      cursorwidth: '5px',
+      bouncescroll: true,
+      mousescrollstep: 100
+      // autohidemode: false
     });
-
-    $('body').toggleClass('menu-pin');
-  }
-
+  },
   sidebarItems() {
     const items = [{
       title: 'Personas',
       url: '/Personas',
-      icon: 'fa fa-user'
+      icon: 'zmdi-accounts-list'
     }, {
       title: 'Cursos',
       url: '/Cursos',
-      icon: 'fa fa-graduation-cap'
+      icon: 'zmdi-calendar-note'
     }, {
       title: 'Finales',
       url: '/ActaExamen',
-      icon: 'pg-calender'
+      icon: 'zmdi-graduation-cap'
     }, {
       title: 'Equivalencias',
       url: '/#/equivalencias',
-      icon: 'fa fa-columns'
+      icon: 'zmdi-view-list'
     }];
 
     if (User.isInRole('Admin')) {
       items.push({
         title: 'Usuarios',
         url: '/Admin/Usuarios',
-        icon: 'fa fa-user'
+        icon: 'zmdi-account'
       });
 
       items.push({
         title: 'Roles',
         url: '/Admin/Roles',
-        icon: 'fa fa-users'
+        icon: 'zmdi-accounts'
       });
     }
     return items;
-  }
+  },
+
+  _toggleProfileMenu() {
+    this.setState({
+      profileMenuActive: !this.state.profileMenuActive
+    });
+
+    $(React.findDOMNode(this.refs.mainmenu)).slideToggle(200);
+  },
 
   render() {
-    let headerControlsStyles;
-    let firstItem = true;
-    const activeSidebarStyles = {
-      transform: 'translate3d(210px, 0,0)'
-    };
-
-    if (this.state.sidebarActive) {
-      headerControlsStyles = {
-        float: 'right',
-        marginRight: '50px'
-      };
-    }
-
-    if (this.state.sidebarPinned) {
-      headerControlsStyles.marginRight = '20px';
-    }
+    const classes = classNames({
+      toggled: this.state.navigation.sidebarActive
+    });
+    const profileMenuClasses = classNames({
+      'profile-menu': true,
+      toggled: this.state.profileMenuActive
+    });
 
     return (
-      <nav className="page-sidebar"
-        style={(this.state.sidebarActive) ? activeSidebarStyles : {} }
-        onMouseEnter={this.sidebarMouseEnter.bind(this)}
-        onMouseLeave={this.sidebarMouseLeave.bind(this)}>
+      <aside id="sidebar" className={classes}>
+        <div className="sidebar-inner c-overflow" ref="sidebarInner">
+          <div className={profileMenuClasses}>
+              <a onClick={this._toggleProfileMenu}>
+                  <div className="profile-pic">
+                      <Gravatar email={this.state.user.data.UserName} />
+                  </div>
 
-        <div id="appMenu" className="sidebar-overlay-slide from-top">
-        </div>
-        <div className="sidebar-header">
-          <a href="/"><img src="/img/LogoCENT_60x180_Transparente.png" alt="Cent11" width="93" /></a>
-          <div className="sidebar-header-controls" style={headerControlsStyles}>
-            <button data-toggle-pin="sidebar" onClick={this.togglePin.bind(this)}
-              className="btn btn-link visible-lg-inline" type="button">
-              <i className="fa fs-12"></i>
-            </button>
+                  <div className="profile-info">
+                      {this.state.user.data.UserName}
+
+                      <i className="zmdi zmdi-arrow-drop-down"></i>
+                  </div>
+              </a>
+
+              <ul className="main-menu" ref="mainmenu">
+                <li>
+                  <a href="profile-about.html"><i className="zmdi zmdi-account"></i>
+                  View Profile</a>
+                </li>
+                <li>
+                  <a href=""><i className="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
+                </li>
+                <li>
+                  <a href=""><i className="zmdi zmdi-settings"></i> Settings</a>
+                </li>
+                <li>
+                  <a href=""><i className="zmdi zmdi-time-restore"></i> Logout</a>
+                </li>
+              </ul>
           </div>
-        </div>
-        <div className="sidebar-menu">
-          <ul className="menu-items">
-
+          <ul className="main-menu">
             {this.sidebarItems().map(function (result) {
-              let itemClass;
+              const iconClass = `zmdi ${result.icon}`;
 
-              if (firstItem === true) {
-                itemClass = 'm-t-30';
-                firstItem = false;
-              } else {
-                itemClass = null;
-              }
               return (
-                <li className={itemClass}>
-                  <a href={result.url} className="detailed">
-                    <span className="title">{result.title}</span>
+                <li>
+                  <a href={result.url}>
+                    <i className={iconClass}></i>
+                    {result.title}
                   </a>
-                  <span className="icon-thumbnail "><i className={result.icon}></i>
-                  </span>
                 </li>
                 );
             })}
 
           </ul>
-          <div className="clearfix"></div>
         </div>
-
-      </nav>
+      </aside>
     );
   }
-}
+});
+
+export default UISidebar;
