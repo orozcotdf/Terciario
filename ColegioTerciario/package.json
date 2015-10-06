@@ -51,6 +51,7 @@
     "reactcss": "^0.4.1",
     "reflux": "^0.2.12",
     "sass-loader": "^3.0.0",
+    "select2": "^3.5.1",
     "style-loader": "^0.12.3",
     "switchery": "0.0.2",
     "underscore": "^1.8.3",

@@ -4,20 +4,18 @@
     ViewBag.Title = "Edit";
 }
 
-<h2 style="display: inline-block;margin-right: 10px;">Editar Acta de Examen</h2>
+<div class="block-header">
+    <h2>Editar Acta de Examen</h2>
+</div>
 
-<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregarAlumnosModal">
-    Agregar alumnos al Acta
-</button>
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <div class="portlet light">
-            <div class="portlet-title">
-                <div class="caption">Formulario de Edición</div>
+        <div class="card">
+            <div class="card-header">
+                <h2>Formulario de Edición</h2>
             </div>
-            <div class="portlet-body">
+            <div class="card-body card-padding">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
@@ -116,36 +114,40 @@
     </div>
 
     <div class="col-md-6">
-        <div class="portlet light">
-            <div class="portlet-body">
+        <div class="card">
+            <div class="card-header ch-alt m-b-20">
+                <h2>Alumnos</h2>
+                <a class="btn bgm-cyan btn-float waves-effect waves-circle waves-float" data-toggle="modal" data-target="#agregarAlumnosModal"><i class="zmdi zmdi-plus" data-reactid=".0.0.0.0.0"></i></a>
+            </div>
+            <div class="card-body">
                 <table class="table table-hover table-condensed alumnos-curso">
                     <thead>
-                        <tr>
-                            <th>Alumno</th>
-                            <th>Nota</th>
-                        </tr>
+                    <tr>
+                        <th></th>
+                        <th>Nombre</th>
+                        <th>Nota</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach (ColegioTerciario.DAL.Models.Acta_Examen_Detalle detalle in ViewBag.alumnos)
-                        {
-                            <tr>
-                                <th>
+                    @foreach (ColegioTerciario.DAL.Models.Acta_Examen_Detalle detalle in ViewBag.alumnos)
+                    {
+                        <tr>
+                            <td>
+                                <a href="#" class="eliminar-integrante btn bgm-red waves-effect" data-id="@detalle.ID">
+                                    <i class="zmdi zmdi-close"></i>
+                                </a>
+                            </td>
+                            <td>@detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_DOCUMENTO_NUMERO - @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO, @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_NOMBRE</td>
+                            @{ var detalleId = detalle.ID; }
+                            <td>
 
-                                    <ul>
-                                        <li><a href="#" class="eliminar-integrante" data-id="@detalle.ID"><i class="fa fa-remove"></i></a></li>
-                                        <li>@detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_DOCUMENTO_NUMERO - @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO, @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_NOMBRE</li>
-                                    </ul>
-                                </th>
-                                @{ var detalleId = detalle.ID; }
-                                <td>
+                                <a href="#" class="xEditable" data-type="select" data-pk="@detalleId" data-name="P1" data-value="0">
+                                    @(detalle.ACTA_EXAMEN_DETALLE_NOTA == null ? "Inserte la nota" : detalle.ACTA_EXAMEN_DETALLE_NOTA)
+                                </a>
+                            </td>
 
-                                    <a href="#" class="xEditable" data-type="select" data-pk="@detalleId" data-name="P1" data-value="0">
-                                        @(detalle.ACTA_EXAMEN_DETALLE_NOTA == null ? "Inserte la nota" : detalle.ACTA_EXAMEN_DETALLE_NOTA)
-                                    </a>
-                                </td>
-
-                            </tr>
-                        }
+                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>
@@ -218,7 +220,7 @@
          });
 
          $('.data-table').on('page.dt', function (e, settings) {
-             console.log(settings.aoColumns[0].mRender);
+             //console.log(settings.aoColumns[0].mRender);
          });
 
          $("#ACTA_EXAMEN_PRESIDENTE_ID, #ACTA_EXAMEN_VOCAL1_ID, #ACTA_EXAMEN_VOCAL2_ID").select2({
@@ -229,7 +231,7 @@
              width:"100%",
              ajax: {
                  //How long the user has to pause their typing before sending the next request
-                 quietMillis: 150,
+                 delay: 150,
                  //The url of the json service
                  url: "/Datos/GetPersonas",
                  dataType: 'json',
