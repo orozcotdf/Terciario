@@ -61,5 +61,6 @@ namespace ColegioTerciario.DAL.Models
         public string MATERIA_X_CURSO_HORARIOS_VIERNES { get; set; }
         public string MATERIA_X_CURSO_HORARIOS_SABADO { get; set; }
         public string MATERIA_X_CURSO_HORARIOS_DOMINGO { get; set; }
+        public bool MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO { get; set; }
     }
 }
