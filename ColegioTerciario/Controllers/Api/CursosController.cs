@@ -156,8 +156,6 @@ namespace ColegioTerciario.Controllers.Api
             return new {};
         }
 
-
-
         [HttpPost]
         public IHttpActionResult SetearFecha([FromBody]FechaViewModel param)
         {
@@ -204,6 +202,24 @@ namespace ColegioTerciario.Controllers.Api
         [HttpPost]
         public object SetearTurno([FromBody]string value, [FromBody]int pk) {
             return new {};
+        }
+
+        [HttpPost]
+        public IHttpActionResult CerrarNotas(int id)
+        {
+            try
+            {
+                Materia_x_Curso mc = _db.Materias_X_Cursos.Find(id);
+                mc.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO = true;
+                _db.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
         protected override void Dispose(bool disposing)
