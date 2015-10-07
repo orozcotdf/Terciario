@@ -82,7 +82,9 @@ namespace ColegioTerciario.Controllers.Api
         {
 
             var cursos = _db.Materias_X_Cursos
-                .Where(m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId)
+                .Where(
+                    m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId && !m.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO
+                )
                 .OrderByDescending(m => m.ID)
                 .Skip(param.Pagina*param.RegistrosPorPagina)
                 .Take(param.RegistrosPorPagina);
