@@ -131,6 +131,37 @@ namespace ColegioTerciario.Controllers.Api
             };
         }
 
+        [HttpGet]
+        public IHttpActionResult ObtenerParcial([FromUri]int cursoId,[FromUri] string parcial)
+        {
+            var alumnos = new List<AlumnoEnCursadaViewModel>();
+            string nota = "";
+
+            IQueryable<Cursada> cursadas = _db.Cursadas.Include("CURSADA_ALUMNO").Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == cursoId);
+
+            foreach (var cursada in cursadas)
+            {
+                switch (parcial)
+                {
+                    case "P1":
+                        nota = cursada.CURSADA_NOTA_P1;break;
+                    case "P2":
+                        nota = cursada.CURSADA_NOTA_P2;break;
+                    case "R1":
+                        nota = cursada.CURSADA_NOTA_R1;break;
+                    case "R2":
+                        nota = cursada.CURSADA_NOTA_R2;break;
+
+                }
+                alumnos.Add(new AlumnoEnCursadaViewModel {
+                    CursadaId = cursada.ID,
+                    Alumno = cursada.CURSADA_ALUMNO.PERSONA_APELLIDO + ", " + cursada.CURSADA_ALUMNO.PERSONA_NOMBRE,
+                    Nota = nota
+                });
+            }
+            return Ok(alumnos);
+        }
+
         [HttpPost]
         public object PonerNota([FromBody]int pk, [FromBody]string value, [FromBody]string name)
         {
@@ -224,6 +255,29 @@ namespace ColegioTerciario.Controllers.Api
             
         }
 
+        [HttpGet]
+        public IHttpActionResult Info(int id)
+        {
+            try
+            {
+                Materia_x_Curso curso = _db.Materias_X_Cursos
+                        .Include("MATERIA_X_CURSO_CARRERA")
+                        .Include("MATERIA_X_CURSO_MATERIA")
+                        .SingleOrDefault(m => m.ID == id);
+                var vm = new InfoCursoViewModel
+                {
+                    Nombre = curso.MATERIA_X_CURSO_CURSO_NOMBRE,
+                    Carrera = curso.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE,
+                    Materia = curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
+                };
+                return Ok(vm);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
