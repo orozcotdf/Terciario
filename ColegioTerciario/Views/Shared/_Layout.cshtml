@@ -43,6 +43,15 @@
     <i class="icon-arrow-up"></i>
 </div>
 
+
+@if (Request.IsAuthenticated)
+{
+
+    using (Html.BeginForm("LogOff", "Account", new {area = ""}, FormMethod.Post, new {id = "logoutForm"}))
+    {
+        @Html.AntiForgeryToken()
+    }
+}
 <script src="~/Scripts/plugins.concat.js"></script>
 <script src="~/Scripts/colegio_terciario.concat.js"></script>
 <script src="~/Scripts/lodash.min.js"></script>

@@ -111,13 +111,13 @@ class EditarEquivalencia extends Equivalencias {
     return (
       <div>
         <div className="col-sm-6">
-          <div className="portlet light">
-            <div className="portlet-title">
-              <div className="caption">
+          <div className="card card-light">
+            <div className="card-header">
+              <h2>
                 Editar Equivalencia
-              </div>
+              </h2>
             </div>
-            <div className="portlet-body form">
+            <div className="card-body card-padding">
               <form>
                 <div className="form-body">
                   <DatePicker name="EQUIVALENCIA_FECHA"

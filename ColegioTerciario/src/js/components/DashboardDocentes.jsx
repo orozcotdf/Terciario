@@ -8,10 +8,8 @@ class DashboardDocentes extends React.Component {
         <div className="card-header">
           <h2>Cent 11</h2>
         </div>
-        <div className="card-body">
+        <div className="card-body card-padding">
           <div className="portlet light">
-            <h1>CENT 11</h1>
-
             <div>
               <p>Contenido solo para Docentes</p>
               <p>

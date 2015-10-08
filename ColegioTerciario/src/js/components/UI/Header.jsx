@@ -28,6 +28,31 @@ const UIHeader = React.createClass({
     $('#sidebar').toggleClass('toggled');*/
   },
 
+  _launchIntoFullscreen(e) {
+    e.preventDefault();
+    const element = document.documentElement;
+
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  },
+
+  _exitFullscreen(e) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  },
+
   render() {
     const classes = classNames({
       'sidebar-toggled': this.state.navigation.sidebarActive
@@ -45,7 +70,7 @@ const UIHeader = React.createClass({
               </div>
           </li>
           <li className="logo hidden-xs">
-              <a href="index.html">{this.props.title}</a>
+              <a href="/#/">{this.props.title}</a>
           </li>
           <li className="pull-right">
             <ul className="top-menu">
@@ -62,7 +87,7 @@ const UIHeader = React.createClass({
                 <a data-toggle="dropdown" className="tm-settings" href=""></a>
                 <ul className="dropdown-menu dm-icon pull-right">
                   <li className="hidden-xs">
-                    <a data-action="fullscreen" href="">
+                    <a data-action="fullscreen" href="" onClick={this._launchIntoFullscreen}>
                       <i className="zmdi zmdi-fullscreen"></i>
                       Toggle Fullscreen
                     </a>

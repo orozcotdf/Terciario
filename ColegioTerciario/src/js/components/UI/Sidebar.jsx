@@ -31,18 +31,22 @@ const UISidebar = React.createClass({
   },
   sidebarItems() {
     const items = [{
+      id: 1,
       title: 'Personas',
       url: '/Personas',
       icon: 'zmdi-accounts-list'
     }, {
+      id: 2,
       title: 'Cursos',
       url: '/Cursos',
       icon: 'zmdi-calendar-note'
     }, {
+      id: 3,
       title: 'Finales',
       url: '/ActaExamen',
       icon: 'zmdi-graduation-cap'
     }, {
+      id: 4,
       title: 'Equivalencias',
       url: '/#/equivalencias',
       icon: 'zmdi-view-list'
@@ -50,12 +54,14 @@ const UISidebar = React.createClass({
 
     if (User.isInRole('Admin')) {
       items.push({
+        id: 5,
         title: 'Usuarios',
         url: '/Admin/Usuarios',
         icon: 'zmdi-account'
       });
 
       items.push({
+        id: 6,
         title: 'Roles',
         url: '/Admin/Roles',
         icon: 'zmdi-accounts'
@@ -64,12 +70,18 @@ const UISidebar = React.createClass({
     return items;
   },
 
-  _toggleProfileMenu() {
+  _toggleProfileMenu(e) {
+    e.preventDefault();
     this.setState({
       profileMenuActive: !this.state.profileMenuActive
     });
 
     $(React.findDOMNode(this.refs.mainmenu)).slideToggle(200);
+  },
+
+  _logout(e) {
+    e.preventDefault();
+    document.getElementById('logoutForm').submit();
   },
 
   render() {
@@ -85,7 +97,7 @@ const UISidebar = React.createClass({
       <aside id="sidebar" className={classes}>
         <div className="sidebar-inner c-overflow" ref="sidebarInner">
           <div className={profileMenuClasses}>
-              <a onClick={this._toggleProfileMenu}>
+              <a href="#" onClick={this._toggleProfileMenu}>
                   <div className="profile-pic">
                       <Gravatar email={this.state.user.data.UserName} />
                   </div>
@@ -99,17 +111,13 @@ const UISidebar = React.createClass({
 
               <ul className="main-menu" ref="mainmenu">
                 <li>
-                  <a href="profile-about.html"><i className="zmdi zmdi-account"></i>
-                  View Profile</a>
+                  <a href="/Manage"><i className="zmdi zmdi-settings"></i> Preferencias</a>
                 </li>
                 <li>
-                  <a href=""><i className="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
-                </li>
-                <li>
-                  <a href=""><i className="zmdi zmdi-settings"></i> Settings</a>
-                </li>
-                <li>
-                  <a href=""><i className="zmdi zmdi-time-restore"></i> Logout</a>
+                  <a href="#" onClick={this._logout}>
+                    <i className="zmdi zmdi-time-restore"></i>
+                    Salir
+                  </a>
                 </li>
               </ul>
           </div>
@@ -118,7 +126,7 @@ const UISidebar = React.createClass({
               const iconClass = `zmdi ${result.icon}`;
 
               return (
-                <li>
+                <li key={result.id}>
                   <a href={result.url}>
                     <i className={iconClass}></i>
                     {result.title}
