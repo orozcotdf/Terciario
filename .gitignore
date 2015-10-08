@@ -161,4 +161,4 @@ node_modules
 bower_components
 *.concat.*
 packages/
-dist/*
+dist/

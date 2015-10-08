@@ -15,8 +15,10 @@ module.exports = {
       'lodash',
       'react-bootstrap',
       'react-bootstrap-table',
+      'bootstrap-select',
       'griddle-react',
-      'material-ui'
+      'material-ui',
+      'classnames'
     ]
   },
   output: {
