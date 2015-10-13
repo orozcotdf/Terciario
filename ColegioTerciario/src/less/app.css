@@ -6837,7 +6837,7 @@ button.close {
 /*
  * Material Colors
  */
-/* 
+/*
  * Blocks
  */
 /*
@@ -6870,7 +6870,7 @@ button.close {
 /*
  * Scale 3d
  */
-/* 
+/*
  * Load Font
  */
 /*
@@ -7197,11 +7197,11 @@ button.close {
 }
 /*!
  * Waves v0.7.2
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
- * https://github.com/fians/Waves/blob/master/LICENSE 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
+ * https://github.com/fians/Waves/blob/master/LICENSE
  */
 .waves-effect {
   position: relative;
@@ -7335,8 +7335,8 @@ button.close {
 a.waves-effect .waves-ripple {
   z-index: -1;
 }
-/* 
- * Load Website related LESS files 
+/*
+ * Load Website related LESS files
  */
 /*
  * Generate Margin Class
@@ -7607,7 +7607,7 @@ a.waves-effect .waves-ripple {
 .di-block {
   display: inline-block !important;
 }
-/* 
+/*
  * Material Background Colors
  */
 .bgm-white {
@@ -7755,7 +7755,7 @@ a.waves-effect .waves-ripple {
   width: 100% !important;
 }
 /*
- * Border Radius 
+ * Border Radius
  */
 .brd-2 {
   border-radius: 2px;
@@ -7828,6 +7828,7 @@ a {
   -webkit-font-smoothing: antialiased;
 }
 *,
+*:focus,
 *:active,
 *:hover {
   outline: none !important;
@@ -8301,7 +8302,7 @@ body #content {
     display: none;
   }
 }
-/* 
+/*
  * For Stupid IE9
  */
 .ie9 #header:not(.sidebar-toggled).header-up {
@@ -8546,7 +8547,7 @@ body:not(.sw-toggled) #sidebar {
   display: none;
 }
 /*
- * Nicescroll fix for sidebar when hidden 
+ * Nicescroll fix for sidebar when hidden
  */
 #sidebar:hover .nicescroll-rails-vr {
   display: block !important;
@@ -11629,7 +11630,7 @@ a.thumbnail.active {
   box-shadow: 0 0 6px #EAEAEA;
 }
 /*
- * Lightbox  
+ * Lightbox
  */
 .lightbox .lightbox-item {
   position: relative;

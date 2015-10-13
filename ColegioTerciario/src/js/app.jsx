@@ -9,6 +9,7 @@ import $ from 'jquery';
 require('jquery.nicescroll/jquery.nicescroll');
 require('../less/terciario.less');
 require('react-select/dist/default.css');
+
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:

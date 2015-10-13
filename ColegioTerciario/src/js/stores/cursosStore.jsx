@@ -1,6 +1,7 @@
 import Reflux from 'reflux';
 import axios from 'axios';
 import actions from '../actions/cursosActions';
+import Notification from '../components/UI/Notification';
 
 const store = Reflux.createStore({
 
@@ -39,6 +40,23 @@ const store = Reflux.createStore({
         this.trigger({alumnos: alumnos.data});
       }
     );
+  },
+  onCambiarNota(nota, curso, parcial) {
+    Notification.showLoading();
+    axios({
+      method: 'post',
+      url: `/api/Cursos/PonerNotaEnParcial/${curso}`,
+      data: {
+        value: nota,
+        name: parcial
+      }
+    }).then((resultado) => {
+      Notification.success('Nota guardada correctamente', true);
+        // this.trigger(NotificationActions.setMessage('BIEN'));
+        // this.trigger({notaActualizada: true});
+    }).catch((response) => {
+      Notification.error('Error al guardar nota');
+    });
   }
 
 });

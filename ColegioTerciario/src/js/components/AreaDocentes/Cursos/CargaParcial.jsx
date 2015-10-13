@@ -38,6 +38,10 @@ const CargaParcial = React.createClass({
     return this.state.alumnos;
   },
 
+  _cambiarNota(CursadaID, parcial) {
+    CursosActions.cambiarNota(event.target.value, CursadaID, parcial);
+  },
+
   render() {
     const notas = [
       {payload: '1', text: '1'},
@@ -66,7 +70,7 @@ const CargaParcial = React.createClass({
             <h2>Notas de {this.props.params.parcial} - Curso: {this.state.info.Nombre}</h2>
           </div>
           <div className="card-body card-padding">
-            <table className="table table-striped">
+            <table className="table">
               <thead>
                 <tr>
                   <th>Alumno</th>
@@ -74,7 +78,7 @@ const CargaParcial = React.createClass({
                 </tr>
               </thead>
               <tbody>
-                {this._getAlumnos().map(function (alumno) {
+                {this._getAlumnos().map((alumno) => {
                   return (
                     <tr key={alumno.CursadaId}>
                       <td>{alumno.Alumno}</td>
@@ -83,6 +87,7 @@ const CargaParcial = React.createClass({
                           options={notas}
                           emptyText="Inserte Nota"
                           defaultValue={alumno.Nota}
+                          onChange={this._cambiarNota.bind(this, alumno.CursadaId, this.props.params.parcial)}
                         />
                       </td>
                     </tr>

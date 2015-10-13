@@ -18,7 +18,9 @@ module.exports = {
       'bootstrap-select',
       'griddle-react',
       'material-ui',
-      'classnames'
+      'classnames',
+      'toastr',
+      'axios'
     ]
   },
   output: {
@@ -43,10 +45,7 @@ module.exports = {
         loader: 'style!css?importLoaders=1!postcss'
       }, {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css!less?'
-          // + 'relativeUrls&'
-          //'includePath[]=' + path.resolve(__dirname, 'src/img'))
-          )
+        loader: ExtractTextPlugin.extract('style', 'css!postcss!less')
       }, {
         test: /(webfont|)\.(otf|eot|ttf|woff|woff2|svg)(\?.+|)$/,
         loader: 'url-loader?limit=8192'

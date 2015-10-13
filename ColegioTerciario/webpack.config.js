@@ -28,7 +28,9 @@ module.exports = {
       'bootstrap-select',
       'griddle-react',
       'material-ui',
-      'classnames'
+      'classnames',
+      'toastr',
+      'axios'
     ]
   },
   output: {
@@ -53,11 +55,11 @@ module.exports = {
           )
       }, {
         test: /(webfont|)\.(otf|eot|ttf|woff|woff2|svg)(\?.+|)$/,
-        loader: 'url-loader?limit=8192'
+        loader: 'url-loader?limit=8192&name=fonts/[hash].[ext]'
       }, {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file?hash=sha512&digest=hex&name=dist/[hash].[ext]',
+          'file?hash=sha512&digest=hex&name=img/[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       }, {
