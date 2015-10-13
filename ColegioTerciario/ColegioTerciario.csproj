@@ -377,6 +377,7 @@
     <Compile Include="Models\ViewModels\AjaxCollectionParamViewModel.cs" />
     <Compile Include="Models\ViewModels\AjaxCollectionResponseViewModel.cs" />
     <Compile Include="Models\ViewModels\Api\CursosPorDocenteViewModel.cs" />
+    <Compile Include="Models\ViewModels\Api\CursosViewModel.cs" />
     <Compile Include="Models\ViewModels\Api\EquivalenciaViewModel.cs" />
     <Compile Include="Models\ViewModels\Api\InfoCursoViewModel.cs" />
     <Compile Include="Models\ViewModels\Api\ResponseViewModel.cs" />

@@ -161,7 +161,32 @@ namespace ColegioTerciario.Controllers.Api
             }
             return Ok(alumnos);
         }
+        [HttpPost]
+        public IHttpActionResult PonerNotaEnParcial(int id, NotaDeParcialViewModel vm)
+        {
 
+            Cursada cursada = _db.Cursadas.Find(id);
+            string nota = vm.value;
+            switch (vm.name)
+            {
+                case ("P1"):
+                    cursada.CURSADA_NOTA_P1 = nota;
+                    break;
+                case "R1":
+                    cursada.CURSADA_NOTA_R1 = nota;
+                    break;
+                case "P2":
+                    cursada.CURSADA_NOTA_P2 = nota;
+                    break;
+                case "R2":
+                    cursada.CURSADA_NOTA_R2 = nota;
+                    break;
+            }
+
+            _db.SaveChanges();
+
+            return Ok();
+        }
         [HttpPost]
         public object PonerNota([FromBody]int pk, [FromBody]string value, [FromBody]string name)
         {
