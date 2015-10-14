@@ -32,6 +32,7 @@ namespace ColegioTerciario.DAL.Models
         public string PERSONA_DOCUMENTO_TIPO { get; set; }
         [Display(Name = "Documento Nro")]
         [Required]
+        [RegularExpression("[0-9]{7,}", ErrorMessage="DNI Invalido, no puede contener espacios, puntos o simbolos")]
         public string PERSONA_DOCUMENTO_NUMERO { get; set; }
         [Display(Name = "Fecha de Nacimiento")]
         [Column(TypeName = "Date")]
