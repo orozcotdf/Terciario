@@ -449,7 +449,6 @@
     <Content Include="Scripts\dist\App.js" />
     <Content Include="Scripts\dist\cent11-2.0.css" />
     <Content Include="Scripts\dist\vendor.js" />
-    <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\plugins.concat.js" />
     <Content Include="img\CENT_LOGO.png" />
