@@ -18,5 +18,9 @@ export default class Notificaciones {
     toastr.error(message);
   }
 
+  static clearNotifications() {
+    toastr.remove();
+  }
+
 
 }

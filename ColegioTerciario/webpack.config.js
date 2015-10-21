@@ -1,18 +1,9 @@
 /*global require, module, __dirname*/
-var path = require('path'); // eslint-disable-line no-unused-vars
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path'); // eslint-disable-line no-unused-vars
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var production = process.env.NODE_ENV === 'production';
-
-
-const sassLoaders = [
-    'css-loader',
-    //'autoprefixer-loader?browsers=last 2 version",
-    'sass-loader' //&includePaths[]=' //+ path.resolve(__dirname, './src') + '&' +
-    //'includePaths[]=' + path.resolve(__dirname, 'node_modules/material-design-lite/src')
-
-];
+const production = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: {
@@ -20,14 +11,15 @@ module.exports = {
     vendor: [
       'jquery',
       'react',
+      'react-dom',
       'reflux',
       'react-router',
       'lodash',
       'react-bootstrap',
       'react-bootstrap-table',
+      'react-gravatar',
       'bootstrap-select',
       'griddle-react',
-      'material-ui',
       'classnames',
       'toastr',
       'axios'
@@ -35,27 +27,21 @@ module.exports = {
   },
   output: {
     path: './Scripts/dist',
-    filename: '[name].js'
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js'
   },
+  devtool: 'source-map',
   module: {
-      /*preLoaders: [{
-          test: /\.js$/,
-          loader: 'eslint',
-          exclude: /(node_modules|bower_components)/
-      }],*/
     loaders: [
       {
         test: /\.css$/,
         loader: 'style!css?importLoaders=1!postcss'
       }, {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css!less?compress'
-          // + 'relativeUrls&'
-          //'includePath[]=' + path.resolve(__dirname, 'src/img'))
-          )
+        loader: ExtractTextPlugin.extract('style', 'css!postcss!less?compress')
       }, {
         test: /(webfont|)\.(otf|eot|ttf|woff|woff2|svg)(\?.+|)$/,
-        loader: 'url-loader?limit=8192&name=fonts/[hash].[ext]'
+        loader: 'url-loader?limit=8192'
       }, {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
@@ -70,9 +56,13 @@ module.exports = {
     noParse: /\.min\.js/
   },
   resolve: {
+    root: path.resolve(path.dirname(), './src'),
     extensions: ['', '.js', '.jsx'],
     // Tell webpack to look for required files in bower and node
-    modulesDirectories: ['bower_components', 'node_modules']
+    modulesDirectories: ['bower_components', 'node_modules'],
+    alias: {
+      Notification: 'js/components/UI/Notification'
+    }
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),

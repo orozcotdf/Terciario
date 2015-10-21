@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ColegioTerciario.DAL.Models;
 
 namespace ColegioTerciario.Models
 {
@@ -17,5 +18,6 @@ namespace ColegioTerciario.Models
         public string Email { get; set; }
         public string Persona { get; set; }
         public List<RoleViewModel> Roles { get; set; }
+        public Persona DatosPersonales { get; set; }
     }
 }

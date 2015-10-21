@@ -1,7 +1,7 @@
 ﻿@using Glimpse.Mvc.AlternateType
 @model ColegioTerciario.DAL.Models.Materia_x_Curso
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Curso";
 }
 
 @section navegacionContextual {
@@ -27,8 +27,8 @@
 <!-- TODO: chequear rol contra una variable, para evitar consultas a DB-->
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet light">
-            <div class="portlet-title">
+        <div class="card">
+            <div class="card-header">
                 <div class="caption">
                     @Model.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE -
                     @if (!User.IsInRole("Docente"))
@@ -40,27 +40,45 @@
                         @Model.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
                     }
                 </div>
-                <div class="actions">
+                <ul class="actions">
                     @if (!User.IsInRole("Docente"))
                     {
-                        <a href="@Url.Action("EditarCurso", new {ciclo = Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre = Model.MATERIA_X_CURSO_CURSO_NOMBRE})" class="btn btn-default btn-sm">Volver al Curso</a>
-                        <a class="btn green btn-sm" href="@Url.Action("Index", "Asistencias", new {cursoId = Model.ID})">Ver Asistencias</a>
+                        <li class="dropdown">
+                            <a href="" data-toggle="dropdown" aria-expanded="false">
+                                <i class="zmdi zmdi-more-vert"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right bgm-bluegray">
+                                <li>
+                                    <a href="@Url.Action("EditarCurso", new {ciclo = Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre = Model.MATERIA_X_CURSO_CURSO_NOMBRE})">Volver al Curso</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "Asistencias", new {cursoId = Model.ID})">Ver Asistencias</a>
+                                </li>
+                                @if (!Model.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO)
+                                {
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#configHorarios">
+                                            Configurar Horarios
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#agregarAlumnosModal">
+                                            Agregar alumnos al curso
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#cerrarNotasModal">Cerrar Notas</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
 
-                        if (!Model.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO)
-                        {
-                            <a class="btn green btn-sm" data-toggle="modal" data-target="#configHorarios">
-                                Configurar Horarios
-                            </a>
-                            <a class="btn green btn-sm" data-toggle="modal" data-target="#agregarAlumnosModal">
-                                Agregar alumnos al curso
-                            </a>
-                            <a class="btn red btn-sm" data-toggle="modal" data-target="#cerrarNotasModal">Cerrar Notas</a>
-                        }
+                        
 
                     }
-                </div>
+                </ul>
             </div>
-            <div class="portlet-body">
+            <div class="card-body card-padding">
                 <table class="table table-hover table-condensed alumnos-curso">
                     <thead>
                         <tr>
@@ -164,7 +182,7 @@
                                 <td>
                                     @if (!Model.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO)
                                     {
-                                        <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P1" data-value="0">
+                                        <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P1" data-value="@(cursada.NotaP1 ?? "Eliminar")">
                                             @(cursada.NotaP1 ?? "Inserte la nota")
                                         </a>
                                     }
@@ -176,7 +194,7 @@
                                 <td>
                                     @if (!Model.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO)
                                     {
-                                        <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R1" data-value="0">
+                                        <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R1" data-value="@(cursada.NotaR1 ?? "Eliminar")">
                                             @(cursada.NotaR1 ?? "Inserte la nota")
                                         </a>
                                     }
@@ -188,7 +206,7 @@
                                 <td>
                                     @if (!Model.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO)
                                     {
-                                        <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P2" data-value="0">
+                                        <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="P2" data-value="@(cursada.NotaP2 ?? "Eliminar")">
                                             @(cursada.NotaP2 ?? "Inserte la nota")
                                         </a>
                                     }
@@ -200,7 +218,7 @@
                                 <td>
                                     @if (!Model.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO)
                                     {
-                                        <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R2" data-value="0">
+                                        <a href="#" class="xEditable" data-type="select" data-pk="@cursadaId" data-name="R2" data-value="@(cursada.NotaR2 ?? "Eliminar")">
                                             @(cursada.NotaR2 ?? "Inserte la nota")
                                         </a>
                                     }
@@ -238,7 +256,7 @@
     { "Controlador", "Cursos"}
 })
 
-<div class="modal fade" id="cerrarNotasModal">
+<div class="modal fade" id="cerrarNotasModal" data-modal-color="red">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             @using (Html.BeginForm())
@@ -405,7 +423,7 @@
             /* EDITABLE */
             $('.xEditable').editable({
                 url: '/Cursos/PonerNota',
-                //prepend: [{ value: 0, text: "Inserte la nota" }],
+                prepend: [{ value: "Eliminar", text: "Inserte la nota" }],
                 emptyText: "Inserte la nota",
                 mode: "popup",
                 source: [
@@ -419,8 +437,7 @@
                     { value: 8, text: "8" },
                     { value: 9, text: "9" },
                     { value: 10, text: "10" },
-                    { value: "Ausente", text: "Ausente" },
-                    { value: "Eliminar", text: "Inserte la nota"}
+                    { value: "Ausente", text: "Ausente" }
                 ]
             });
 

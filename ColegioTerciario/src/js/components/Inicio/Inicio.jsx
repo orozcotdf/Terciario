@@ -1,9 +1,8 @@
 import React from 'react';
-import Component from './Component/main';
 import DashboardDocentes from './DashboardDocentes';
 import DashboardBedeles from './DashboardBedeles';
 
-export default class InicioComponent extends Component {
+export default class InicioComponent extends React.Component {
   esDocente() {
     return User.isInRole('Docente');
   }

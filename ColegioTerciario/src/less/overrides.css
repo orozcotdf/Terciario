@@ -1,0 +1,12 @@
+.dataTable {
+    width: 100% !Important;
+}
+
+.dataTables_info {
+    margin-top: 30px;
+}
+
+.dataTable ul {
+    list-style: none;
+    padding-left: 0;
+}

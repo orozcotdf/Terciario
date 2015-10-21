@@ -4,6 +4,7 @@ import GriddleWithCallback from '../../lib/GriddleWithCallback';
 import UserStore from '../../../stores/userStore';
 import Reflux from 'reflux';
 import {Link} from 'react-router';
+import AuthorizationMixin from '../../../core/AuthorizationMixin';
 
 class GriddleActionsComponent extends React.Component {
   render() {
@@ -21,29 +22,25 @@ class GriddleActionsComponent extends React.Component {
           </li>
           <li role="presentation">
             <Link
-              to="CargaParcial"
-              params={{idCurso: this.props.data, parcial: 'P1'}}>
+              to={`/area-docentes/cursos/${this.props.data}/cargaParcial/P1`}>
                 Carga Parcial 1
             </Link>
           </li>
           <li role="presentation">
             <Link
-              to="CargaParcial"
-              params={{idCurso: this.props.data, parcial: 'P2'}}>
+              to={`/area-docentes/cursos/${this.props.data}/cargaParcial/P2`}>
                 Carga Parcial 2
             </Link>
           </li>
           <li role="presentation">
             <Link
-              to="CargaParcial"
-              params={{idCurso: this.props.data, parcial: 'R1'}}>
+              to={`/area-docentes/cursos/${this.props.data}/cargaParcial/R1`}>
                 Carga Recuperatorio 1
             </Link>
           </li>
           <li role="presentation">
             <Link
-              to="CargaParcial"
-              params={{idCurso: this.props.data, parcial: 'R2'}}>
+              to={`/area-docentes/cursos/${this.props.data}/cargaParcial/R2`}>
                 Carga Recuperatorio 2
             </Link>
           </li>
@@ -59,7 +56,8 @@ GriddleActionsComponent.propTypes = {
 
 const CursosDeDocente = React.createClass({
   mixins: [
-    Reflux.connect(UserStore)
+    Reflux.connect(UserStore),
+    AuthorizationMixin
   ],
   _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
     $.get(`/api/Cursos/ObtenerCursos?docenteId=${this.state.user.data.Persona}`,
@@ -112,12 +110,14 @@ const CursosDeDocente = React.createClass({
 
     return (
       <div className="portlet light">
+
         <GriddleWithCallback ref="w"
                   getExternalResults={this._getJsonData}
                   columnMetadata = {columnMeta}
                   columns={columns}
                   loadingText = "Cargando..."
                   noDataMessage = "No se encontraron resultados"/>
+
       </div>
     );
   }

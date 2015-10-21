@@ -1,6 +1,6 @@
 import React from 'react';
-import Router from 'react-router';
-import routes from './core/routes';
+import {Router} from 'react-router';
+import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import UISidebar from './components/UI/Sidebar';
 import UIHeader from './components/UI/Header';
@@ -16,7 +16,18 @@ require('react-select/dist/default.css');
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
+const rootRoute = {
+  component: require('./components/layout'),
+  childRoutes: [
+    require('./components/Inicio'),
+    require('./components/Perfil'),
+    require('./components/Equivalencias'),
+    require('./components/AreaDocentes/Cursos')
+  ]
+};
+
 function run() {
+
   $('html').niceScroll({
     cursorcolor: 'rgba(0,0,0,0.3)',
     cursorborder: 0,
@@ -27,17 +38,17 @@ function run() {
     // autohidemode: false
   });
 
-  Router.run(routes, (Root, state) => {
-    if (document.getElementById('appContainer')) {
-      React.render(<Root {...state}/>, document.getElementById('appContainer'));
-    }
+  // Router.render(routes, (Root, state) => {
+  if (document.getElementById('appContainer')) {
+    ReactDOM.render(<Router routes={rootRoute}/>, document.getElementById('appContainer'));
+  }
 
-    if (document.getElementById('sidebarComponent')) {
-      React.render(<UISidebar {...state}/>, document.getElementById('sidebarComponent'));
-    }
+  if (document.getElementById('sidebarComponent')) {
+    ReactDOM.render(<UISidebar/>, document.getElementById('sidebarComponent'));
+  }
 
-    React.render(<UIHeader {...state} title="Cent11"/>, document.getElementById('headerComponent'));
-  });
+  ReactDOM.render(<UIHeader title="Cent11"/>, document.getElementById('headerComponent'));
+  // });
 }
 
 

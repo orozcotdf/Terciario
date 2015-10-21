@@ -1,23 +1,35 @@
 import React from 'react';
 import $ from 'jquery';
-import Component from '../Component/main';
 import {Link} from 'react-router';
-import GriddleWithCallback from '../lib/GriddleWithCallback';
+import GriddleWithCallback from '../../lib/GriddleWithCallback';
 
-require('react-bootstrap-table/css/react-bootstrap-table.min.css');
+const FechaComponent = React.createClass({
+  propTypes: {
+    data: React.PropTypes.string
+  },
 
-class FechaComponent extends Component {
-  constructor(props) {
-    super(props);
-  }
+  formatDate(date) {
+    let d = date.getDate();
+    let m = date.getMonth() + 1;
+    const y = date.getFullYear();
+
+    if (d.toString().length === 1) { d = '0' + d; }
+    if (m.toString().length === 1) { m = '0' + m; }
+    return d + '/' + m + '/' + y;
+  },
+
   render() {
     const date = new Date(this.props.data);
 
     return <div>{this.formatDate(date)}</div>;
   }
-}
+});
 
-class ActionsComponent extends React.Component {
+const ActionsComponent = React.createClass({
+  propTypes: {
+    data: React.PropTypes.number
+  },
+
   render() {
     return (
       <div>
@@ -28,29 +40,17 @@ class ActionsComponent extends React.Component {
       </div>
     );
   }
-}
+});
 
-export default class EquivalenciasMain extends Component {
+const EquivalenciasMain = React.createClass({
 
   onSelectAll(isSelected) {
     // console.log("is select all: " + isSelected);
-  }
+  },
 
   onRowSelect(row, isSelected) {
     // console.log("selected: " + isSelected)
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {data: []};
-    this.selectRowProp = {
-      mode: 'checkbox',
-      clickToSelect: true,
-      bgColor: 'rgb(238, 193, 213)',
-      onSelect: this.onRowSelect,
-      onSelectAll: this.onSelectAll
-    };
-  }
+  },
 
   _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
     $.ajax({
@@ -69,11 +69,11 @@ export default class EquivalenciasMain extends Component {
         // console.error(this.props.url, status, err.toString());
       }
     });
-  }
+  },
 
   columnaAcciones(cell, row) {
     return <Link to={`/equivalencias/${cell}/editar`}>Editar</Link>;
-  }
+  },
 
   render() {
     const columns = [
@@ -108,14 +108,14 @@ export default class EquivalenciasMain extends Component {
     return (
         <div className="card">
           <div className="card-header ch-alt m-b-20">
-            <Link to="agrega-equivalencias"
+            <Link to="/equivalencias/agrega"
               className="btn bgm-cyan btn-float waves-effect waves-circle waves-float">
               <i className="zmdi zmdi-plus"></i>
             </Link>
           </div>
 
           <GriddleWithCallback ref="w"
-              getExternalResults={this._getJsonData.bind(this)}
+              getExternalResults={this._getJsonData}
               columnMetadata = {columnMeta}
               resultsPerPage={10}
               columns={columns}
@@ -124,12 +124,7 @@ export default class EquivalenciasMain extends Component {
         </div>
     );
   }
-}
+});
 
-FechaComponent.propTypes = {
-  data: React.PropTypes.string
-};
+export default EquivalenciasMain;
 
-ActionsComponent.propTypes = {
-  data: React.PropTypes.number
-};

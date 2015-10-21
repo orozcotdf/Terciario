@@ -1,4 +1,4 @@
-import React from 'react';
+import ReactDOM from 'react-dom';
 import Component from '../Component/main';
 import $ from 'jquery';
 
@@ -39,7 +39,7 @@ export default class EquivalenciasSuper extends Component {
       // Clear the input
     this.setState(this.emptyState, function () {
       // This code executes after the inputs are cleared
-      React.findDOMNode(this.refs.EQUIVALENCIA_FECHA).focus();
+      ReactDOM.findDOMNode(this.refs.EQUIVALENCIA_FECHA).focus();
     });
   }
 

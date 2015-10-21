@@ -1,12 +1,17 @@
 import React from 'react';
-import mui from 'material-ui';
-const ThemeManager = new mui.Styles.ThemeManager();
+import {ThemeManager, LightRawTheme} from 'material-ui';
 
 class Component extends React.Component {
 
+  getInitialState() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
+    };
+  }
+
   getChildContext() {
     return {
-      muiTheme: ThemeManager.getCurrentTheme()
+      muiTheme: this.state.muiTheme
     };
   }
 

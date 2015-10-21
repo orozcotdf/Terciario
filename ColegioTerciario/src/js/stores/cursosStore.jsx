@@ -1,7 +1,8 @@
 import Reflux from 'reflux';
 import axios from 'axios';
 import actions from '../actions/cursosActions';
-import Notification from '../components/UI/Notification';
+import Notification from 'Notification';
+import _ from 'lodash';
 
 const store = Reflux.createStore({
 
@@ -37,7 +38,8 @@ const store = Reflux.createStore({
     )
     .then(
       (alumnos) => {
-        this.trigger({alumnos: alumnos.data});
+        this.data.alumnos = alumnos.data;
+        this.trigger({alumnos: this.data.alumnos});
       }
     );
   },
@@ -51,9 +53,13 @@ const store = Reflux.createStore({
         name: parcial
       }
     }).then((resultado) => {
+      const index = _.findIndex(this.data.alumnos, {CursadaId: curso});
+
+      this.data.alumnos[index].Nota = nota;
       Notification.success('Nota guardada correctamente', true);
-        // this.trigger(NotificationActions.setMessage('BIEN'));
-        // this.trigger({notaActualizada: true});
+      this.trigger({alumnos: this.data.alumnos});
+      // this.trigger(NotificationActions.setMessage('BIEN'));
+      // this.trigger({notaActualizada: true});
     }).catch((response) => {
       Notification.error('Error al guardar nota');
     });

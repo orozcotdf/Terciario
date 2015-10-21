@@ -4,20 +4,47 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - C.E.N.T. 11</title>
-    <link href="~/Content/cent11.concat.css" rel="stylesheet" />
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <link href="http://localhost:8080/cent11-2.0.css" rel="stylesheet" />
 
+    }
+    else
+    {
+        <link href="~/Scripts/dist/cent11-2.0.css" rel="stylesheet" />
+    }
 </head>
-<body class="page-md login">
-    <div class="logo">
-        <h1 style="color: #fff">CENT 11</h1>
-    </div>
+<body class="login-content">
 
-    <div class="content">
+    <div class="lc-block toggled" id="l-login">
         @RenderBody()
     </div>
 
     <script src="~/Scripts/plugins.concat.js"></script>
     <script src="~/Scripts/colegio_terciario.concat.js"></script>
+    <script>
+        $(document).ready(function() {
+            //Add blue animated border and remove with condition when focus and blur
+            if ($('.fg-line')[0]) {
+                $('body').on('focus', '.form-control', function() {
+                    $(this).closest('.fg-line').addClass('fg-toggled');
+                });
+
+                $('body').on('blur', '.form-control', function() {
+                    var p = $(this).closest('.form-group');
+                    var i = p.find('.form-control').val();
+
+                    if (p.hasClass('fg-float')) {
+                        if (i.length == 0) {
+                            $(this).closest('.fg-line').removeClass('fg-toggled');
+                        }
+                    } else {
+                        $(this).closest('.fg-line').removeClass('fg-toggled');
+                    }
+                });
+            };
+        });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

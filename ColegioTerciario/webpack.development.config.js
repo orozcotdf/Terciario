@@ -2,29 +2,29 @@ const path = require('path'); // eslint-disable-line no-unused-vars
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const sassLoaders = ['style', 'css', 'sass'];
-
 module.exports = {
   entry: {
     App: './src/js/app.jsx',
     vendor: [
       'jquery',
       'react',
+      'react-dom',
       'reflux',
       'react-router',
       'lodash',
       'react-bootstrap',
       'react-bootstrap-table',
+      'react-gravatar',
       'bootstrap-select',
       'griddle-react',
-      'material-ui',
       'classnames',
       'toastr',
       'axios'
     ]
   },
   output: {
-    filename: '[name].js'
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js'
   },
   devtool: 'source-map',
   devServer: {
@@ -63,10 +63,13 @@ module.exports = {
     noParse: /\.min\.js/
   },
   resolve: {
-    root: path.resolve(path.dirname(), './src/img'),
+    root: path.resolve(path.dirname(), './src'),
     extensions: ['', '.js', '.jsx'],
     // Tell webpack to look for required files in bower and node
-    modulesDirectories: ['bower_components', 'node_modules']
+    modulesDirectories: ['bower_components', 'node_modules'],
+    alias: {
+      Notification: 'js/components/UI/Notification'
+    }
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),

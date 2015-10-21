@@ -9,7 +9,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using ColegioTerciario.Areas.Admin.Models;
 using ColegioTerciario.Models.Repositories;
 using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using ColegioTerciario.Models.User;
+using SendGrid;
 
 namespace ColegioTerciario.Areas.Admin.Controllers
 {
@@ -17,6 +20,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
     {
         private UserRepository _repo;
         private ColegioTerciarioContext context;
+
         public UsuariosController()
         {
             context = GetContext();

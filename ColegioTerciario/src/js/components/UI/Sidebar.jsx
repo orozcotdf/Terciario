@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Reflux from 'reflux';
 import classNames from 'classnames';
 import NavigationStore from '../../stores/navigationStore';
@@ -19,7 +20,7 @@ const UISidebar = React.createClass({
   ],
 
   componentDidMount() {
-    $(React.findDOMNode(this.refs.sidebarInner)).niceScroll({
+    $(ReactDOM.findDOMNode(this.refs.sidebarInner)).niceScroll({
       cursorcolor: 'rgba(0,0,0,0.5)',
       cursorborder: 0,
       cursorborderradius: 0,
@@ -34,22 +35,26 @@ const UISidebar = React.createClass({
       id: 1,
       title: 'Personas',
       url: '/Personas',
-      icon: 'zmdi-accounts-list'
+      icon: 'zmdi-accounts-list',
+      role: 'Admin'
     }, {
       id: 2,
       title: 'Cursos',
       url: '/Cursos',
-      icon: 'zmdi-calendar-note'
+      icon: 'zmdi-calendar-note',
+      role: 'Admin'
     }, {
       id: 3,
       title: 'Finales',
       url: '/ActaExamen',
-      icon: 'zmdi-graduation-cap'
+      icon: 'zmdi-graduation-cap',
+      role: 'Admin'
     }, {
       id: 4,
       title: 'Equivalencias',
       url: '/#/equivalencias',
-      icon: 'zmdi-view-list'
+      icon: 'zmdi-view-list',
+      role: 'Admin'
     }];
 
     if (User.isInRole('Admin')) {
@@ -76,7 +81,7 @@ const UISidebar = React.createClass({
       profileMenuActive: !this.state.profileMenuActive
     });
 
-    $(React.findDOMNode(this.refs.mainmenu)).slideToggle(200);
+    $(ReactDOM.findDOMNode(this.refs.mainmenu)).slideToggle(200);
   },
 
   _logout(e) {
@@ -111,6 +116,11 @@ const UISidebar = React.createClass({
 
               <ul className="main-menu" ref="mainmenu">
                 <li>
+                    <a href="/#/Perfil">
+                      <i className="zmdi zmdi-account"></i> Ver Perfil
+                    </a>
+                </li>
+                <li>
                   <a href="/Manage"><i className="zmdi zmdi-settings"></i> Preferencias</a>
                 </li>
                 <li>
@@ -122,17 +132,19 @@ const UISidebar = React.createClass({
               </ul>
           </div>
           <ul className="main-menu">
-            {this.sidebarItems().map(function (result) {
+            {this.sidebarItems().map((result) => {
               const iconClass = `zmdi ${result.icon}`;
 
-              return (
-                <li key={result.id}>
-                  <a href={result.url}>
-                    <i className={iconClass}></i>
-                    {result.title}
-                  </a>
-                </li>
+              if (this.state.user.isInRole(result.role)) {
+                return (
+                  <li key={result.id}>
+                    <a href={result.url}>
+                      <i className={iconClass}></i>
+                      {result.title}
+                    </a>
+                  </li>
                 );
+              }
             })}
 
           </ul>

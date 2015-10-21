@@ -13,7 +13,7 @@ class DashboardDocentes extends React.Component {
             <div>
               <p>Contenido solo para Docentes</p>
               <p>
-                <Link to="cursos" className="btn btn-primary btn-lg">
+                <Link to={"/area-docentes/cursos"} className="btn btn-primary btn-lg">
                   Vea sus Cursos »
                 </Link>
               </p>

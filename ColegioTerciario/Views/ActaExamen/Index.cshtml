@@ -88,9 +88,17 @@
                         "data": null,
                         "defaultContent": '',
                         "render": function (data, type, row) {
-                            return "<a href=/ActaExamen/Edit/" + row.ID + " class='btn btn-icon-only default' title='Editar'><i class='fa fa-pencil'></i></a>  " +
-                                "<a href=/ActaExamen/Details/" + row.ID + " class='btn btn-icon-only default' title='Imprimir'><i class='fa fa-bars'></i></a>  " +
-                                "<a href=/ActaExamen/Delete/" + row.ID + " class='btn btn-icon-only red' title='Eliminar'><i class='fa fa-trash'></i></a>";
+                            return "<div class='dropdown'>" +
+                                '<a href="#" class="dropdown-toggle btn btn-link btn-icon waves-effect" data-toggle="dropdown" aria-expanded="true">' +
+                                '<i class="zmdi zmdi-more-vert"></i></a>' +
+                                '<ul class="dropdown-menu bgm-bluegray">' +
+                                '<li><a href=/ActaExamen/Edit/' + row.ID + '>Editar</a></li>' +
+                                '<li><a href=/ActaExamen/Details/' + row.ID + '>Imprimir</a></li>' +
+                                '<li><a href=/ActaExamen/Delete/' + row.ID + '>Eliminar</a></li>' +
+                                '</ul></div>';
+                            /*return "<a href=/ActaExamen/Edit/" + row.ID + " class='btn btn-default' title='Editar'><i class='zmdi zmdi-edit'></i></a>  " +
+                                "<a href=/ActaExamen/Details/" + row.ID + " class='btn btn-default' title='Imprimir'><i class='zmdi zmdi-bars'></i></a>  " +
+                                "<a href=/ActaExamen/Delete/" + row.ID + " class='btn btn-error' title='Eliminar'><i class='zmdi zmdi-trash'></i></a>";*/
                         },
                     },
                     { "data": "Fecha" },

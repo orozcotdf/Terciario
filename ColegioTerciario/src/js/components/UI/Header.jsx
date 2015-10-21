@@ -74,34 +74,25 @@ const UIHeader = React.createClass({
           </li>
           <li className="pull-right">
             <ul className="top-menu">
-              <li id="toggle-width">
+              {/*<li id="toggle-width">
                 <div className="toggle-switch">
                   <input id="tw-switch" type="checkbox" hidden="hidden" />
                   <label htmlFor="tw-switch" className="ts-helper"></label>
                 </div>
               </li>
+
               <li id="top-search">
                 <a className="tm-search" href=""></a>
               </li>
+              */}
               <li className="dropdown">
                 <a data-toggle="dropdown" className="tm-settings" href=""></a>
                 <ul className="dropdown-menu dm-icon pull-right">
                   <li className="hidden-xs">
                     <a data-action="fullscreen" href="" onClick={this._launchIntoFullscreen}>
                       <i className="zmdi zmdi-fullscreen"></i>
-                      Toggle Fullscreen
+                      Pantalla Completa
                     </a>
-                  </li>
-                  <li>
-                    <a data-action="clear-localstorage" href="">
-                      <i className="zmdi zmdi-delete"></i>
-                      Clear Local Storage</a>
-                  </li>
-                  <li>
-                    <a href=""><i className="zmdi zmdi-face"></i> Privacy Settings</a>
-                  </li>
-                  <li>
-                    <a href=""><i className="zmdi zmdi-settings"></i> Other Settings</a>
                   </li>
                 </ul>
               </li>

@@ -2,14 +2,16 @@ import React from 'react';
 import axios from'axios';
 import Select from 'react-select';
 import {RaisedButton} from 'material-ui';
-import Component from '../Component/main';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 
+export default React.createClass({
+  propTypes: {
+    modelId: React.PropTypes.string.isRequired,
+    onClose: React.PropTypes.func.isRequired
+  },
 
-export default class AgregaDetallesFormModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  getInitialState() {
+    return {
       tipos: [
         {value: 0, label: 'Total'},
         {value: 1, label: 'Parcial'},
@@ -20,68 +22,71 @@ export default class AgregaDetallesFormModal extends Component {
       EQUIVALENCIA_DETALLE_PROFESOR_ID: '',
       showModal: false
     };
-  }
+  },
 
   _submitAndClose() {
     axios.post('/api/Equivalencias/AgregaMateria', {
       EQUIVALENCIA_ID: this.props.modelId,
       EQUIVALENCIA_DETALLE_TIPO: this.state.EQUIVALENCIA_DETALLE_TIPO,
-      EQUIVALENCIA_DETALLE_MATERIA_ID: this.state.EQUIVALENCIA_DETALLE_MATERIA_ID,
-      EQUIVALENCIA_DETALLE_PROFESOR_ID: this.state.EQUIVALENCIA_DETALLE_PROFESOR_ID
+      EQUIVALENCIA_DETALLE_MATERIA_ID: this.refs.EQUIVALENCIA_DETALLE_MATERIA_ID.state.value,
+      EQUIVALENCIA_DETALLE_PROFESOR_ID: this.refs.EQUIVALENCIA_DETALLE_PROFESOR_ID.state.value
     }).then((data) => {
       this.props.onClose();
       this._close();
     });
-  }
+  },
 
   _getMaterias(input, callback) {
     if (input.length >= 3) {
-      axios.get('/api/Materias/SelectMaterias?busqueda=' + input.toLowerCase(), (data) => {
+      axios.get('/api/Materias/SelectMaterias', {
+        params: {
+          busqueda: input.toLowerCase()
+        }
+      })
+      .then((response) => {
         callback(null, {
-          options: data,
+          options: response.data,
           complete: true
         });
       });
     }
-  }
+  },
 
   _getProfesores(input, callback) {
     if (input.length >= 3) {
-      axios.get('/api/Personas/SelectPersonas?busqueda=' + input.toLowerCase(),
-        {docente: true, cantidad: 5},
-        (data) => {
-          callback(null, {
-            options: data,
-            complete: true
-          });
+      axios.get('/api/Personas/SelectPersonas', {
+        params: {
+          busqueda: input.toLowerCase(),
+          docente: true,
+          cantidad: 5
+        }
+      })
+      .then((response) => {
+        callback(null, {
+          options: response.data,
+          complete: true
         });
+      });
     }
-  }
+  },
 
   _close() {
     this.setState({showModal: false});
-  }
+  },
 
   _open() {
     this.setState({showModal: true});
-  }
-
-  _set(field, value) {
-    const nextState = {};
-
-    nextState[field] = value;
-    this.setState(nextState);
-  }
+  },
 
   _setTipo(value, values) {
     this.setState({EQUIVALENCIA_DETALLE_TIPO: value});
-  }
+  },
 
   render() {
     return (
       <div>
-        <RaisedButton label="Agregar Materias" onTouchTap={this._open.bind(this)}/>
-        <Modal show={this.state.showModal} onHide={this._close.bind(this)}>
+        <RaisedButton onTouchTap={this._open} label="Agregar Materias" />
+        <Modal show={this.state.showModal} onHide={this._close}>
           <Modal.Header closeButton={true}>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
@@ -94,46 +99,41 @@ export default class AgregaDetallesFormModal extends Component {
                   placeholder="Tipo"
                   options={this.state.tipos}
                   cacheAsyncResults={false}
-                  onChange={this._set.bind(this, 'EQUIVALENCIA_DETALLE_TIPO')}
                   value={this.state.EQUIVALENCIA_DETALLE_TIPO}
                 />
               </div>
               <div className="form-group">
                 <Select
+                  ref="EQUIVALENCIA_DETALLE_MATERIA_ID"
                   name="EQUIVALENCIA_DETALLE_MATERIA_ID"
                   asyncOptions={this._getMaterias}
                   clearable={true}
                   cacheAsyncResults={false}
-                  onChange={this._set.bind(this, 'EQUIVALENCIA_DETALLE_MATERIA_ID')}
                   placeholder="Materia"
-                  value={this.state.EQUIVALENCIA_DETALLE_MATERIA_ID}
                   autoload={false}
+                  searchingText="Buscando..."
                 />
               </div>
               <div className="form-group">
                 <Select
+                  ref="EQUIVALENCIA_DETALLE_PROFESOR_ID"
                   name="EQUIVALENCIA_DETALLE_PROFESOR_ID"
                   asyncOptions={this._getProfesores}
                   clearable={true}
                   cacheAsyncResults={false}
-                  onChange={this._set.bind(this, 'EQUIVALENCIA_DETALLE_PROFESOR_ID')}
                   placeholder="Profesor"
-                  value={this.state.EQUIVALENCIA_DETALLE_PROFESOR_ID}
                   autoload={false}
+                  searchingText="Buscando..."
                 />
               </div>
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="primary" onClick={this._submitAndClose.bind(this)}>Guardar</Button>
+            <RaisedButton bsStyle="primary" label="Guardar" onClick={this._submitAndClose} />
           </Modal.Footer>
         </Modal>
       </div>
     );
   }
-}
+});
 
-AgregaDetallesFormModal.propTypes = {
-  modelId: React.PropTypes.string.isRequired,
-  onClose: React.PropTypes.func.isRequired
-};

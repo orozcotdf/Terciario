@@ -1,8 +1,10 @@
 import React from 'react';
-import CursosStore from '../../../stores/cursosStore';
+import CursosStore from '../../../../stores/cursosStore';
 import Reflux from 'reflux';
-import CursosActions from '../../../actions/cursosActions';
-import UISelect from '../../UI/Select';
+import CursosActions from '../../../../actions/cursosActions';
+import UISelect from '../../../UI/Select';
+import _ from 'lodash';
+import Notification from 'Notification';
 
 const CargaParcial = React.createClass({
 
@@ -20,9 +22,10 @@ const CargaParcial = React.createClass({
   },
 
   componentWillUpdate(nextProps, nextState) {
+    // Chequea si se le pasa una instancia de parcial valida
     if (nextProps) {
       if (this.parcialesValidos.indexOf(nextProps.params.parcial) < 0) {
-        this.context.router.transitionTo('/');
+        this.props.history.pushState(null, '/area-docentes/cursos/');
       }
     }
   },
@@ -38,8 +41,22 @@ const CargaParcial = React.createClass({
     return this.state.alumnos;
   },
 
-  _cambiarNota(CursadaID, parcial) {
-    CursosActions.cambiarNota(event.target.value, CursadaID, parcial);
+  _cambiarNota(CursadaID, parcial, nota) {
+    CursosActions.cambiarNota(nota, CursadaID, parcial);
+  },
+
+  _exit() {
+    this.props.history.goBack();
+  },
+
+  _imprimirPlanilla(e) {
+    e.preventDefault();
+    if (_.find(this.state.alumnos, {Nota: null})) {
+      Notification.error('Faltan cargar notas');
+    } else {
+      location.href = `/Cursos/PDF/${this.props.params.idCurso}
+        ?instancia=${this.props.params.parcial}`;
+    }
   },
 
   render() {
@@ -57,6 +74,7 @@ const CargaParcial = React.createClass({
       {payload: 'Ausente', text: 'Ausente'}
     ];
 
+
     return (
       <div>
         <div className="col-sm-6 col-sm-offset-3">
@@ -65,9 +83,24 @@ const CargaParcial = React.createClass({
           </div>
         </div>
       <div className="col-sm-6 col-sm-offset-3">
-        <div className="card card-light">
-          <div className="card-header">
-            <h2>Notas de {this.props.params.parcial} - Curso: {this.state.info.Nombre}</h2>
+        <div className="card">
+          <div className="card-header ch-alt m-b-20">
+            <h2>
+              Notas de {this.props.params.parcial}
+              <small>Curso: {this.state.info.Nombre}</small>
+            </h2>
+            <ul className="actions">
+              <li>
+                <a href="#" onClick={this._exit}>
+                  <i className="zmdi zmdi-close"></i>
+                </a>
+              </li>
+            </ul>
+            <a href="#"
+               onClick={this._imprimirPlanilla}
+               className="btn bgm-red btn-float waves-effect waves-circle waves-float">
+              <i className="zmdi zmdi-print"></i>
+            </a>
           </div>
           <div className="card-body card-padding">
             <table className="table">
@@ -87,7 +120,12 @@ const CargaParcial = React.createClass({
                           options={notas}
                           emptyText="Inserte Nota"
                           defaultValue={alumno.Nota}
-                          onChange={this._cambiarNota.bind(this, alumno.CursadaId, this.props.params.parcial)}
+                          onChange={
+                            this._cambiarNota.bind(
+                              this, alumno.CursadaId,
+                              this.props.params.parcial
+                            )
+                          }
                         />
                       </td>
                     </tr>
