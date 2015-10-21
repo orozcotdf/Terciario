@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -37,6 +38,26 @@ namespace ColegioTerciario.DAL.Models
         [JsonIgnore]
         public virtual Persona EQUIVALENCIA_DETALLE_PROFESOR { get; set; }
         #endregion Navegacion
+
+        
+        public string EQUIVALENCIA_DETALLE_TIPO_NOMBRE {
+            get
+            {
+                if (EQUIVALENCIA_DETALLE_TIPO == 0)
+                {
+                    return "Total";
+                }
+                if (EQUIVALENCIA_DETALLE_TIPO == 1)
+                {
+                    return "Parcial";
+                }
+                if (EQUIVALENCIA_DETALLE_TIPO == 2)
+                {
+                    return "Denegada";
+                }
+                return "";
+            }
+        }
 
     }
 }

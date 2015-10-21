@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Net;
+using System.Net.Mail;
+using SendGrid;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -18,6 +21,10 @@ namespace ColegioTerciario.Controllers
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
+        private const string MailUsername = "azure_fd22ccb1747e880c2d79095cced78667@azure.com";
+        private const string MailPassword = "DgIYom7LOfwZs3x";
+        private const string MailHost = "smtp.sendgrid.net";
+        private const string MailApiKey = "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";
 
         public AccountController()
         {
@@ -85,11 +92,13 @@ namespace ColegioTerciario.Controllers
 
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    var user = UserManager.FindByEmail(model.Email);
+                    //var user = UserManager.FindByEmail(model.Email);
+                    var user = UserManager.FindByName(model.Email);
                     var esAlumno = UserManager.IsInRole(user.Id, "Alumno");
                     return esAlumno ? RedirectToAction("Index", "Escritorio", new {area = "Alumnos"}) : RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
@@ -237,7 +246,23 @@ namespace ColegioTerciario.Controllers
                 // Enviar correo electrónico con este vínculo
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
+                //await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
+                SendGridMessage mensaje = new SendGridMessage();
+
+                mensaje.AddTo(user.Email);
+                mensaje.From = new MailAddress("administracion@cent11.edu.ar", "Administracion Cent11");
+                mensaje.Subject = "Restablecer contraseña";
+                mensaje.Text = "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>";
+                mensaje.Html = "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>";
+                // mensaje.EnableClickTracking(true);
+
+                // Create an Web transport for sending email.
+                var transportWeb = new Web(MailApiKey);
+
+                // Send the email, which returns an awaitable task.
+                await transportWeb.DeliverAsync(mensaje);
+
+
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
             ModelState.AddModelError("", "Revise los Datos.");
@@ -273,7 +298,7 @@ namespace ColegioTerciario.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // No revelar que el usuario no existe

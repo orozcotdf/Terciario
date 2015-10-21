@@ -4,80 +4,87 @@
     ViewBag.Title = "editarCurso";
 }
 
-
-
-@section navegacionContextual {
-    <div class="page-head">
-        <div class="container-fluid">
-            <div class="page-title">
-                <h1>
-                    Materias del curso @ViewBag.NOMBRE
-                    <small>Ciclo @ViewBag.CICLO</small>
-                </h1>
-            </div>
-        </div>
-    </div>
-}
-
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet light">
-            <div class="portlet-title">
-                <div class="caption">Editar Curso</div>
-                <div class="actions">
+        <div class="block-header">
+            <h2>
+                Materias del curso @ViewBag.NOMBRE
+                <small>Ciclo @ViewBag.CICLO</small>
+            </h2>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <ul class="actions">
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown" aria-expanded="false">
+                            <i class="zmdi zmdi-more-vert"></i>
+                        </a>
 
-                    <a class="btn green btn-sm" data-toggle="modal" data-target="#agregarAlumnosModal">
-                        Agregar alumnos al curso
-                    </a>
-                </div>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="#" data-toggle="modal" data-target="#agregarAlumnosModal">
+                                    Agregar alumnos al curso
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <div class="portlet-body">
+            <div class="card-body card-padding">
                 @using MvcFlash.Core.Extensions;
                 @Html.Flash()
                 <table class="table table-hover">
                     <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Reportes</th>
-                            <th>Acciones</th>
-                        </tr>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Reportes</th>
+                        <th>Acciones</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @item.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        @Html.ActionLink("Planilla Asistencias - Todos", "ImprimirPlanillaVacia", "Asistencias", new { cursoId = item.ID }, new { @class = "btn btn-xs default" })
-                                        <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-angle-down"></i></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li>@Html.ActionLink("Planilla Asistencias - Regulares", "ImprimirPlanillaVacia", "Asistencias", new { cursoId = item.ID, @tipo = "regulares" }, null)
-</li>
-                                            <li>@Html.ActionLink("Parcial 1", "PDF", new { id = item.ID, instancia = "P1" })</li>
-                                            <li>@Html.ActionLink("Recuperatorio 1", "PDF", new { id = item.ID, instancia = "R1" })</li>
-                                            <li>@Html.ActionLink("Parcial 2", "PDF", new { id = item.ID, instancia = "P2" })</li>
-                                            <li>@Html.ActionLink("Recuperatorio 2", "PDF", new { id = item.ID, instancia = "R2" })</li>
-                                        </ul>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    @Html.ActionLink("Planilla Asistencias - Todos", "ImprimirPlanillaVacia", "Asistencias", new { cursoId = item.ID }, new { @class = "btn btn-xs btn-default waves-effect bgm-bluegray" })
+                                    <button type="button" class="btn btn-xs btn-default dropdown-toggle waves-effect bgm-bluegray" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Split button dropdowns</span>
+                                    </button>
+                                    <ul class="dropdown-menu bgm-bluegray" role="menu">
+                                        <li>
+                                            @Html.ActionLink("Planilla Asistencias - Regulares", "ImprimirPlanillaVacia", "Asistencias", new { cursoId = item.ID, @tipo = "regulares" }, null)
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Parcial 1", "PDF", new { id = item.ID, instancia = "P1" })</li>
+                                    <li>@Html.ActionLink("Recuperatorio 1", "PDF", new { id = item.ID, instancia = "R1" })</li>
+                                    <li>@Html.ActionLink("Parcial 2", "PDF", new { id = item.ID, instancia = "P2" })</li>
+                                    <li>@Html.ActionLink("Recuperatorio 2", "PDF", new { id = item.ID, instancia = "R2" })</li>
+                                </ul>
                                 </div>
-                                </td>                                
-                                <td>
-                                    <div class="btn-group">
-                                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-xs default" })
-                                        <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-angle-down"></i></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li>
-                                                @Html.ActionLink("Tomar Asistencia", "Nueva", "Asistencias", new { cursoId = item.ID }, null)
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-xs btn-default waves-effect bgm-bluegray" })
+                                    <button type="button" class="btn btn-xs btn-default dropdown-toggle waves-effect bgm-bluegray" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Split button dropdowns</span>
+                                    </button>
+                                    <ul class="dropdown-menu bgm-bluegray" role="menu">
+                                        <li>
+                                            @Html.ActionLink("Tomar Asistencia", "Nueva", "Asistencias", new { cursoId = item.ID }, null)
 
 
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>

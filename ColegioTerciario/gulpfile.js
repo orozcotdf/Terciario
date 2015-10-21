@@ -1,4 +1,4 @@
-﻿/// <vs BeforeBuild='css, scss, plugins' />
+/// <vs BeforeBuild='css, scss, plugins' />
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
@@ -19,6 +19,8 @@ var plugins = [
     'src/plugins/bootstrap-switch.min.js',
     'src/plugins/moment.min.js',
     'src/plugins/moment_es.js',
+    'node_modules/select2/select2.js',
+    'node_modules/select2/select2_locale_es.js',
     'src/plugins/**/*.js'
 ];
 
@@ -28,16 +30,13 @@ var theme_js = [
     'src/js/bootbox.js',
     'src/js/bootstrap-editable.js',
     'src/js/bootstrap-switch.min.js',
-    'src/js/select2_locale_es.js',
-    'src/js/cent11.js',
+    'src/js/cent11.js'
 ];
 
 var theme_css = [
     'src/css/bootstrap.min.css',
     'src/css/bootstrap-editable.css',
     'src/css/bootstrap-switch.css',
-    'src/css/select2.css',
-    'src/css/select2-bootstrap.css',
     'src/plugins/dataTables.bootstrap.css',
     'src/css/font-awesome.min.css',
     'src/css/simple-line-icons.css',

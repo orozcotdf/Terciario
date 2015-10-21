@@ -6,19 +6,26 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet light">
-            <div class="portlet-title">
-                <div class="caption">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="caption">
                     @ViewBag.Title
-                </div>
-                <div class="actions">
-                    <a href="@Url.Action("Create")" class="btn btn-sm green">
-                        <i class="fa fa-plus"></i>
-                        Nuevo Curso
-                    </a>
-                </div>
+                </h2>
+                <ul class="actions">
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown" aria-expanded="false">
+                            <i class="zmdi zmdi-more-vert"></i>
+                        </a>
+
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="@Url.Action("Create")">Nuevo Curso</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <div class="portlet-body">
+            <div class="card-body card-padding">
                 <table class="table table-hover data-table table-bordered table-read-status">
                     <thead>
                         <tr>

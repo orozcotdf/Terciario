@@ -94,7 +94,7 @@ namespace ColegioTerciario.Controllers.Api
 
         // PUT: api/Personas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPersona(int id, Persona persona)
+        public IHttpActionResult PutPersona(int id, [FromBody]Persona persona)
         {
             if (!ModelState.IsValid)
             {

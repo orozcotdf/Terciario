@@ -69,7 +69,12 @@ namespace ColegioTerciario
                 {
                     userVM.Roles.Add(new RoleViewModel {Name = role});
                 }
-                userVM.Persona = UserManager.FindById(userId).USER_PERSONA_ID.ToString();
+                var persona = UserManager.FindById(userId).USER_PERSONA;
+                if (persona != null)
+                {
+                    userVM.Persona = persona.ID.ToString();
+                    userVM.DatosPersonales = persona;
+                }
                 filterContext.Controller.ViewBag.UserData = JsonConvert.SerializeObject(userVM);
             }
 
