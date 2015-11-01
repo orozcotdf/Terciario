@@ -74,7 +74,8 @@ export default React.createClass({
     this.setState({showModal: false});
   },
 
-  _open() {
+  _open(e) {
+    e.preventDefault();
     this.setState({showModal: true});
   },
 
@@ -85,10 +86,13 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <RaisedButton onTouchTap={this._open} label="Agregar Materias" />
+        <a href="#" onClick={this._open}
+              className="btn bgm-cyan btn-float waves-effect waves-circle waves-float">
+          <i className="zmdi zmdi-plus"></i>
+        </a>
         <Modal show={this.state.showModal} onHide={this._close}>
           <Modal.Header closeButton={true}>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Agregar Materia a Equivalencia</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>

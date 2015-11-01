@@ -9,6 +9,10 @@ import axios from 'axios';
 import EditForm from './EditForm';
 
 const AccionesComponent = React.createClass({
+  propTypes: {
+    metadata: React.PropTypes.object,
+    data: React.PropTypes.object
+  },
   editarEquivalencia(e) {
     e.preventDefault();
     this.props.metadata.columnMetadata.editarEquivalencia(this.props.data);
@@ -41,15 +45,19 @@ const AccionesComponent = React.createClass({
 });
 
 const DetalleTipoComponent = React.createClass({
+  propTypes: {
+    data: React.PropTypes.object
+  },
   render() {
     let tipo;
-    const data = parseInt(this.props.data);
+    const data = parseInt(this.props.data, 10);
+
     if (data === 0) {
-      tipo = "Total";
+      tipo = 'Total';
     } else if (data === 1) {
-      tipo = "Parcial";
+      tipo = 'Parcial';
     } else if (data === 2) {
-      tipo = "Denegada";
+      tipo = 'Denegada';
     }
     return (
       <div>{tipo}</div>
@@ -147,7 +155,7 @@ export default React.createClass({
   },
 
   _eliminarEquivalencia(id) {
-    axios.delete("/api/EquivalenciaDetalle/DeleteEquivalencia_Detalle/" + id)
+    axios.delete('/api/EquivalenciaDetalle/DeleteEquivalencia_Detalle/' + id)
       .then((result) => {
         this.forceUpdate();
       });
@@ -169,8 +177,8 @@ export default React.createClass({
   render() {
     const columnMeta = [
       {
-        columnName: "ID",
-        displayName: "",
+        columnName: 'ID',
+        displayName: '',
         customComponent: AccionesComponent,
         columnMetadata: {
           eliminarEquivalencia: this._eliminarEquivalencia,
@@ -189,12 +197,14 @@ export default React.createClass({
       }
     ];
 
-    let standardActions = [
-      { text: 'Cancel' },
-      { text: 'Submit', onTouchTap: this._onDialogSubmit, ref: 'submit' }
-    ];
+    const editForm = this.state.editId ?
+      <EditForm
+        showModal={this.state.showEditForm}
+        modelId={this.state.editId}
+        parentId={this.props.params.id}
+        close={this._closeEditForm}/> :
+      null;
 
-    let editForm = this.state.editId ? <EditForm showModal={this.state.showEditForm} modelId={this.state.editId} parentId={this.props.params.id} close={this._closeEditForm}/> : null;
     return (
       <div>
 
@@ -266,16 +276,19 @@ export default React.createClass({
           </div>
         </div>
           <div className="col-sm-6">
-            <ModalForm modelId={this.props.params.id} onClose={this._closeModal}/>
-
-            <div className="portlet light">
-              <div className="portlet-body">
+            <div className="card">
+              <div className="card-header ch-alt">
+                <h2>Materias</h2>
+                <ModalForm modelId={this.props.params.id} onClose={this._closeModal}/>
+              </div>
+              <div className="card-body">
                 <GriddleWithCallback ref="w"
                   getExternalResults={this._getJsonData}
                   columnMetadata = {columnMeta}
                   columns={['MATERIA_NOMBRE', 'PERSONA_NOMBRE', 'EQUIVALENCIA_DETALLE_TIPO', 'ID']}
                   loadingText = "Cargando..."
-                  noDataMessage = "No se encontraron resultados"/>
+                  noDataMessage = "No se encontraron resultados"
+                  tableClassName="table table-vmiddle"/>
 
               </div>
             </div>

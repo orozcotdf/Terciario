@@ -8,15 +8,14 @@ export default React.createClass({
 
   render() {
     return (
-      <div>
-        EQUIVALENCIAS
-        {this.props.children ? (
-          <div>{this.props.children}</div>
-        ) : (
-          <Main />
 
-        )}
-      </div>
+      this.props.children ? (
+        <div>{this.props.children}</div>
+      ) : (
+        <Main />
+
+      )
+
     );
   }
 });

@@ -22,12 +22,12 @@ const rootRoute = {
     require('./components/Inicio'),
     require('./components/Perfil'),
     require('./components/Equivalencias'),
-    require('./components/AreaDocentes/Cursos')
+    require('./components/AreaDocentes/Cursos'),
+    require('./components/Inscripciones')
   ]
 };
 
 function run() {
-
   $('html').niceScroll({
     cursorcolor: 'rgba(0,0,0,0.3)',
     cursorborder: 0,
@@ -57,4 +57,3 @@ if (window.addEventListener) {
 } else {
   window.attachEvent('onload', run);
 }
-

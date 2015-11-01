@@ -4,9 +4,9 @@ export default {
   path: '/equivalencias',
 
   onEnter(nextState, replaceState) {
-    if (!User.isInRole('Admin')) {
+    if (!User.isInRole('Bedel')) {
       Notification.error('No tiene permisos');
-      replaceState({nextPathname: nextState.location.pathname }, '/');
+      replaceState({nextPathname: nextState.location.pathname}, '/');
     }
   },
 

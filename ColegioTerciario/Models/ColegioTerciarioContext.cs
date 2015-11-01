@@ -2,6 +2,8 @@
 using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
 using ColegioTerciario.DAL.Models;
+using ColegioTerciario.DAL.Models.Inscripciones;
+
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -47,6 +49,11 @@ namespace ColegioTerciario.Models
         public DbSet<Asistencia> Asistencias { get; set; }
         public DbSet<Equivalencia> Equivalencias { get; set; }
         public DbSet<Equivalencia_Detalle> Equivalencias_Detalles { get; set; }
+        public DbSet<Inscripciones> Inscripciones { get; set; }
+        public DbSet<InscripcionesConfig> Inscripciones_Config { get; set; }
+        public DbSet<InscripcionesCarrera> Inscripciones_Carrera { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Configurations.Add(new EntityBaseConfiguration());

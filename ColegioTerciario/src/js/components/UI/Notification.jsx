@@ -9,8 +9,8 @@ export default class Notificaciones {
     toastr.success(message);
   }
 
-  static showLoading() {
-    toastr.info('Cargando...', null, {timeOut: 0});
+  static showLoading(message = 'Cargando...') {
+    toastr.info(message, null, {timeOut: 0});
   }
 
   static error(message) {

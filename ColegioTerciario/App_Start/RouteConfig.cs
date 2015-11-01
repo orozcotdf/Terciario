@@ -26,7 +26,13 @@ namespace ColegioTerciario
                 url: "Curso/{ciclo}/{nombre}/{sedeId}",
                 defaults: new { controller = "Cursos", action = "editarCurso"}
             );
-            
+
+            routes.MapRoute(
+                name: "Publico",
+                url: "Publico/{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

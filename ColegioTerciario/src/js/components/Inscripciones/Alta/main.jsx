@@ -1,0 +1,217 @@
+import React from 'react';
+// import Wizard from 'react-wizard';
+import Paso1Component from './Pasos/1';
+import Paso2Component from './Pasos/2';
+import Paso3Component from './Pasos/3';
+import Paso4Component from './Pasos/4';
+import Paso5Component from './Pasos/5';
+import Paso6Component from './Pasos/6';
+
+import {Tab, Tabs} from 'react-bootstrap';
+import Notification from 'Notification';
+import _ from 'lodash';
+import axios from 'axios';
+import {RaisedButton, Dialog} from 'material-ui';
+
+export default React.createClass({
+  getInitialState() {
+    return {
+      key: 1
+    };
+  },
+
+  _checkDNI(dni) {
+    return axios.get('/api/Inscripciones/VerificarHabilitacion', {
+      params: {
+        dni
+      }
+    });
+  },
+
+  _handleSelect(key) {
+    let valid = false;
+
+    if (key === 1) {
+      valid = true;
+    } else if (key === 2) {
+      const state = this.refs['paso' + (key - 1)].state;
+
+      if (!state.INSCRIPCIONES_DOCUMENTO_NUMERO) {
+        Notification.error('Por favor ingrese su documento');
+      } else if (!/[0-9]{7,}/.test(state.INSCRIPCIONES_DOCUMENTO_NUMERO)) {
+        Notification.error('Paso 1: DNI Invalido');
+      } else {
+        Notification.showLoading('Verificando DNI...');
+        this._checkDNI(state.INSCRIPCIONES_DOCUMENTO_NUMERO).then((result) => {
+          if (!state.INSCRIPCIONES_NOMBRE ||
+            !state.INSCRIPCIONES_APELLIDO ||
+            !state.INSCRIPCIONES_DOCUMENTO_NUMERO) {
+            Notification.error('Paso 1: Todos los campos son obligatorios');
+          } else {
+            Notification.clearNotifications();
+            this.setState({key});
+            return;
+          }
+        }).catch((result) => {
+          Notification.error(
+            'Paso 1: Ya se inscribio, ante cualquier problema acerquese a la sede'
+          );
+        });
+      }
+    } else if (key === 3) {
+      const state = this.refs['paso' + (key - 1)].state;
+
+      if (!state.INSCRIPCIONES_EMAIL || !state.INSCRIPCIONES_EMAIL2) {
+        Notification.error('Paso 2: Todos los campos son obligatorios');
+      } else if (state.INSCRIPCIONES_EMAIL !== state.INSCRIPCIONES_EMAIL2) {
+        Notification.error('Paso 2: Los emails son distintos');
+      } else if (
+        !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(state.INSCRIPCIONES_EMAIL)
+      ) {
+        Notification.error('Paso 2: Debe ingresar un email valido');
+      } else {
+        valid = true;
+      }
+    } else if (key === 4) {
+      const state = this.refs['paso' + (key - 1)].state;
+
+      if (!state.INSCRIPCIONES_NACIMIENTO_FECHA ||
+        !state.INSCRIPCIONES_NACIMIENTO_PAIS_ID ||
+        !state.INSCRIPCIONES_NACIMIENTO_PROVINCIA_ID ||
+        !state.INSCRIPCIONES_NACIMIENTO_CIUDAD_ID) {
+        Notification.error('Paso 3: Todos los campos son obligatorios');
+      } else {
+        valid = true;
+      }
+    } else if (key === 5) {
+      const state = this.refs['paso' + (key - 1)].state;
+
+      if (!state.INSCRIPCIONES_SEXO ||
+        !state.INSCRIPCIONES_DOMICILIO ||
+        !state.INSCRIPCIONES_NACIMIENTO_BARRIO_ID ||
+        !state.INSCRIPCIONES_TELEFONO) {
+        Notification.error('Paso 4: Todos los campos son obligatorios');
+      } else {
+        valid = true;
+      }
+    } else if (key === 6) {
+      const state = this.refs['paso' + (key - 1)].state;
+
+      if (!state.INSCRIPCIONES_CARRERA_ID) {
+        Notification.error('Paso 5: Debe introducir la carrera');
+      } else {
+        valid = true;
+      }
+    } else {
+      valid = true;
+    }
+
+    if (valid) {
+      this.setState({key});
+    }
+  },
+
+  _onSave() {
+    const datos = _.merge(
+      this.refs.paso1.state,
+      this.refs.paso2.state,
+      this.refs.paso3.state,
+      this.refs.paso4.state,
+      this.refs.paso5.state
+    );
+
+    Notification.showLoading('Guardando Inscripcion...');
+    axios.post('/api/Inscripciones/PostInscripciones', datos)
+    .then(function (response) {
+      Notification.success('Su inscripcion fue guardada.');
+      const id = response.data.ID;
+
+      location.href = '/Publico/Inscripciones/ImprimirInscripcion/' + id;
+    })
+    .catch(function (response) {
+      Notification.error('Ocurrio un error, intene nuevamente.');
+    });
+  },
+
+  _onAskConfirmation() {
+    this.refs.modal.show();
+  },
+
+  _onNext() {
+    const nextKey = parseInt(this.state.key, 10) + 1;
+
+    this._handleSelect(nextKey);
+  },
+
+  render() {
+    // Standard Actions
+    const standardActions = [
+      {text: 'Imprimir Constancia', onTouchTap: this._onSave, ref: 'submit'}
+    ];
+
+    return (
+      <div className="row">
+        <div className="col-md-8 col-md-offset-2">
+          <div className="card z-depth-4-bottom">
+            <Dialog
+              ref="modal"
+              title="Usted ya se ha inscripto"
+              actions={standardActions}
+              actionFocus="submit"
+              modal={true}>
+              Imprima el comprobante de inscripcion que debera ser presentado en la institucion
+              junto con la documentacion requerida, para efectivizar la inscripcion. Tambien
+              recibira por correo electronico un enlace donde podra descargar la misma en
+              formato PDF.
+            </Dialog>
+
+            <div className="card-header">
+              <h2>
+                Formulario de Inscripcion
+              </h2>
+            </div>
+            <div className="card-body card-padding">
+              <div className="row">
+                <Tabs
+                  className="inscripcionesTabs"
+                  activeKey={this.state.key}
+                  onSelect={this._handleSelect}>
+                  <Tab eventKey={1} title="Paso 1" disabled={true}>
+                    <Paso1Component ref="paso1" />
+                  </Tab>
+                  <Tab eventKey={2} title="Paso 2" disabled={true}>
+                    <Paso2Component ref="paso2" />
+                  </Tab>
+                  <Tab eventKey={3} title="Paso 3" disabled={true}>
+                    <Paso3Component ref="paso3" />
+                  </Tab>
+                  <Tab eventKey={4} title="Paso 4" disabled={true}>
+                    <Paso4Component ref="paso4" />
+                  </Tab>
+                  <Tab eventKey={5} title="Paso 5" disabled={true}>
+                    <Paso5Component ref="paso5" />
+                  </Tab>
+                  <Tab eventKey={6} title="Paso 6" disabled={true}>
+                    <Paso6Component
+                      ref="paso6"
+                      onSave={this._onAskConfirmation}/>
+                  </Tab>
+                </Tabs>
+
+                {this.state.key !== 6 ?
+                  <div className="pull-right" style={{marginRight: '10px'}}>
+                    <RaisedButton
+                      onClick={this._onNext}
+                      label="Siguiente"
+                      secondary={true}
+                    />
+                  </div> : null}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});

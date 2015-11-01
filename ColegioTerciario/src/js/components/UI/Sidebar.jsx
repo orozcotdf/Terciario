@@ -36,25 +36,25 @@ const UISidebar = React.createClass({
       title: 'Personas',
       url: '/Personas',
       icon: 'zmdi-accounts-list',
-      role: 'Admin'
+      role: 'Bedel'
     }, {
       id: 2,
       title: 'Cursos',
       url: '/Cursos',
       icon: 'zmdi-calendar-note',
-      role: 'Admin'
+      role: 'Bedel'
     }, {
       id: 3,
       title: 'Finales',
       url: '/ActaExamen',
       icon: 'zmdi-graduation-cap',
-      role: 'Admin'
+      role: 'Bedel'
     }, {
       id: 4,
       title: 'Equivalencias',
       url: '/#/equivalencias',
       icon: 'zmdi-view-list',
-      role: 'Admin'
+      role: 'Bedel'
     }];
 
     if (User.isInRole('Admin')) {

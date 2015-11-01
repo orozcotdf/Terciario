@@ -8,8 +8,6 @@ import AuthorizationMixin from '../../../core/AuthorizationMixin';
 
 class GriddleActionsComponent extends React.Component {
   render() {
-    const editUrl = `/Cursos/Edit/${this.props.data}`;
-
     return (
       <div className="dropdown">
         <a href="#" className="dropdown-toggle btn btn-link btn-icon waves-effect"
@@ -17,9 +15,6 @@ class GriddleActionsComponent extends React.Component {
           <i className="zmdi zmdi-more-vert"></i>
         </a>
         <ul className="dropdown-menu pull-right bgm-bluegray">
-          <li role="presentation">
-            <a role="menuitem" tabIndex="-1" href={editUrl}>Editar</a>
-          </li>
           <li role="presentation">
             <Link
               to={`/area-docentes/cursos/${this.props.data}/cargaParcial/P1`}>
@@ -109,15 +104,19 @@ const CursosDeDocente = React.createClass({
     ];
 
     return (
-      <div className="portlet light">
-
-        <GriddleWithCallback ref="w"
+      <div className="card light">
+        <div className="card-header">
+          <h2>Sus Cursos</h2>
+        </div>
+        <div className="card-body">
+          <GriddleWithCallback ref="w"
                   getExternalResults={this._getJsonData}
                   columnMetadata = {columnMeta}
                   columns={columns}
                   loadingText = "Cargando..."
+                  tableClassName = "table table-vmiddle"
                   noDataMessage = "No se encontraron resultados"/>
-
+        </div>
       </div>
     );
   }

@@ -2,6 +2,7 @@
   "name": "colegio_terciario",
   "version": "1.0.0",
   "description": "Web App de Cent11",
+  "repository": "",
   "main": "gulpfile.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.development.config.js --progress --colors --inline",
@@ -24,6 +25,7 @@
     "browserify": "^11.0.1",
     "classnames": "^2.1.5",
     "css-loader": "^0.17.0",
+    "easy-pie-chart": "^2.1.7",
     "eonasdan-bootstrap-datetimepicker": "^4.15.35",
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^3.5.0",
@@ -46,9 +48,9 @@
     "less-loader": "^2.2.1",
     "lodash": "^3.10.1",
     "material-design-iconic-font": "^2.1.2",
-    "material-ui": "^0.12.3",
+    "material-ui": "^0.13.0",
     "postcss-loader": "^0.6.0",
-    "react-bootstrap": "^0.27.2",
+    "react-bootstrap": "^0.27.3",
     "react-bootstrap-datetimepicker": "0.0.21",
     "react-router": "^1.0.0-rc3",
     "react-tap-event-plugin": "^0.1.8",
@@ -66,8 +68,13 @@
     "webpack-dev-server": "^1.10.1"
   },
   "dependencies": {
+    "material-ui": "^0.12.5",
     "react": "^0.14.0",
-    "react-bootstrap-table": "^1.2.0",
-    "react-dom": "^0.14.0"
+    "react-addons-create-fragment": "^0.14.0",
+    "react-addons-pure-render-mixin": "^0.14.0",
+    "react-addons-transition-group": "^0.14.0",
+    "react-addons-update": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-tap-event-plugin": "^0.2.1"
   }
 }

@@ -16,7 +16,7 @@ var GriddleWithCallback = React.createClass({
         "page": 0,
         "maxPage": 0,
         "sortColumn":null,
-        "sortAscending":true
+        "sortAscending":false
     };
 
     // If we need to get external results, grab the results.
@@ -191,10 +191,10 @@ var GriddleWithCallback = React.createClass({
   },
   render: function(){
     return <Griddle {...this.props} useExternal={true} externalSetPage={this.setPage}
-      useGriddleStyles={false} tableClassName="table"
+      useGriddleStyles={false}
       externalChangeSort={this.changeSort} externalSetFilter={this.setFilter}
       externalSetPageSize={this.setPageSize} externalMaxPage={this.state.maxPage}
-      externalCurrentPage={this.state.page} results={this.state.results} tableClassName="table" resultsPerPage={this.state.pageSize}
+      externalCurrentPage={this.state.page} results={this.state.results} resultsPerPage={this.state.pageSize}
       externalSortColumn={this.state.sortColumn} externalSortAscending={this.state.sortAscending}
       externalLoadingComponent={this.props.loadingComponent} externalIsLoading={this.state.isLoading} />
   }

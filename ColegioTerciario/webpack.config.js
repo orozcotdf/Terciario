@@ -16,7 +16,6 @@ module.exports = {
       'react-router',
       'lodash',
       'react-bootstrap',
-      'react-bootstrap-table',
       'react-gravatar',
       'bootstrap-select',
       'griddle-react',

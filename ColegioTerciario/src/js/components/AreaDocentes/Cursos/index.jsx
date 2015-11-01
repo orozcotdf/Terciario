@@ -4,18 +4,18 @@ export default {
   path: '/area-docentes/cursos',
 
   onEnter(nextState, replaceState) {
-    if (!User.isInRole("Docente")) {
-      Notification.error("No tiene permisos");
-      replaceState({ nextPathname: nextState.location.pathname }, '/')
+    if (!User.isInRole('Docente')) {
+      Notification.error('No tiene permisos');
+      replaceState({nextPathname: nextState.location.pathname}, '/');
     }
   },
 
   getChildRoutes(location, cb) {
-    //require.ensure([], (require) => {
+    // require.ensure([], (require) => {
     cb(null, [
       require('./CargaParcial')
     ]);
-    //})
+    // })
   },
 
 

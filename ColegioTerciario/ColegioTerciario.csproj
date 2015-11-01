@@ -261,11 +261,23 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\Publico\Controllers\InscripcionesController.cs" />
+    <Compile Include="Areas\Publico\PublicoAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActaExamenController.cs" />
     <Compile Include="Controllers\Api\AccountsController.cs" />
     <Compile Include="Controllers\Api\ActasController.cs" />
     <Compile Include="Controllers\Api\EquivalenciaDetalleController.cs" />
+    <Compile Include="Controllers\Api\InscripcionesController.cs" />
+    <Compile Include="Controllers\Api\UbicacionesController.cs" />
+    <Compile Include="Migrations\201510302254160_Inscripciones.cs" />
+    <Compile Include="Migrations\201510302254160_Inscripciones.Designer.cs">
+      <DependentUpon>201510302254160_Inscripciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511011309267_Identificador de Inscripciones.cs" />
+    <Compile Include="Migrations\201511011309267_Identificador de Inscripciones.Designer.cs">
+      <DependentUpon>201511011309267_Identificador de Inscripciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\Api\AccountsViewModels.cs" />
     <Compile Include="Models\ViewModels\Api\AlumnoEnCursadaViewModel.cs" />
     <Compile Include="Controllers\Api\CarrerasController.cs" />
@@ -391,6 +403,7 @@
     <Compile Include="Models\ViewModels\Api\CursosViewModel.cs" />
     <Compile Include="Models\ViewModels\Api\EquivalenciaViewModel.cs" />
     <Compile Include="Models\ViewModels\Api\InfoCursoViewModel.cs" />
+    <Compile Include="Models\ViewModels\Api\InscripcionesViewModel.cs" />
     <Compile Include="Models\ViewModels\Api\ResponseViewModel.cs" />
     <Compile Include="Models\ViewModels\Asistencias.cs" />
     <Compile Include="Models\ViewModels\CursadasViewModel.cs" />
@@ -419,7 +432,10 @@
     <Content Include="Areas\Alumnos\Styles\flat.css" />
     <Content Include="Areas\Alumnos\Styles\webix.css" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\CENT LOGO.png" />
     <Content Include="Content\cent11.concat.css" />
+    <Content Include="Content\CENT_LOGO_TRANSP.png" />
+    <Content Include="Content\RAI.html" />
     <Content Include="fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="fonts\Simple-Line-Icons.svg" />
     <Content Include="img\ajax-loading.gif" />
@@ -522,6 +538,10 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Areas\Admin\Views\Usuarios\BatchCreateUsers.cshtml" />
+    <Content Include="Areas\Publico\Views\web.config" />
+    <Content Include="Areas\Publico\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Publico\Views\Inscripciones\Index.cshtml" />
+    <Content Include="Areas\Publico\Views\Inscripciones\VerInscripcion.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <Content Include="Scripts\dist\App.js.map" />
     <Content Include="Scripts\dist\cent11-2.0.css.map" />
@@ -657,6 +677,7 @@
     <Folder Include="Areas\Admin\Views\Admin\" />
     <Folder Include="Areas\Alumnos\Models\" />
     <Folder Include="Areas\Alumnos\Scripts\" />
+    <Folder Include="Areas\Publico\Models\" />
     <Folder Include="Models\ApplicationRole\" />
     <Folder Include="Views\Alumnos\" />
     <Folder Include="Views\Cursadas\" />
@@ -732,6 +753,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510070004594_Estado en libro en Parciales.resx">
       <DependentUpon>201510070004594_Estado en libro en Parciales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510302254160_Inscripciones.resx">
+      <DependentUpon>201510302254160_Inscripciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511011309267_Identificador de Inscripciones.resx">
+      <DependentUpon>201511011309267_Identificador de Inscripciones.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

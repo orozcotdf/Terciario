@@ -150,6 +150,8 @@ namespace ColegioTerciario.Controllers.Api
         {
             var detalles = db.Equivalencias_Detalles
                 .Where(e => e.EQUIVALENCIA_ID == id)
+                .OrderBy(e => e.ID)
+                .Skip(param.Pagina*param.RegistrosPorPagina)
                 .Take(param.RegistrosPorPagina)
                 .Select(e =>
                 new
@@ -166,7 +168,7 @@ namespace ColegioTerciario.Controllers.Api
             AjaxCollectionResponseViewModel rvm = new AjaxCollectionResponseViewModel
             {
                 Resultados = detalles,
-                CantidadResultados = db.Equivalencias_Detalles.Count(),
+                CantidadResultados = db.Equivalencias_Detalles.Count(e => e.EQUIVALENCIA_ID == id)
             };
             return rvm;
         }

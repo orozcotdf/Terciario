@@ -85,7 +85,7 @@ namespace ColegioTerciario.Controllers.Api
                 .Where(
                     m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId && !m.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO
                 )
-                .OrderByDescending(m => m.ID)
+                .OrderBy(m => m.ID)
                 .Skip(param.Pagina*param.RegistrosPorPagina)
                 .Take(param.RegistrosPorPagina);
             /*
@@ -114,7 +114,7 @@ namespace ColegioTerciario.Controllers.Api
             }
             else
             {
-                cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.ID) : cursos.OrderByDescending(c => c.ID);
+                cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO);
             }
             return new AjaxCollectionResponseViewModel
             {
@@ -281,19 +281,34 @@ namespace ColegioTerciario.Controllers.Api
         }
 
         [HttpGet]
-        public IHttpActionResult Info(int id)
+        public IHttpActionResult Info(int id, string instancia)
         {
+            DateTime? fecha = new DateTime();
             try
             {
                 Materia_x_Curso curso = _db.Materias_X_Cursos
                         .Include("MATERIA_X_CURSO_CARRERA")
                         .Include("MATERIA_X_CURSO_MATERIA")
                         .SingleOrDefault(m => m.ID == id);
+
+                switch (instancia)
+                {
+                    case "P1":
+                        fecha = curso.MATERIA_X_CURSO_P1_FECHA; break;
+                    case "P2":
+                        fecha = curso.MATERIA_X_CURSO_P2_FECHA; break;
+                    case "R1":
+                        fecha = curso.MATERIA_X_CURSO_R1_FECHA; break;
+                    case "R2":
+                        fecha = curso.MATERIA_X_CURSO_R2_FECHA; break;
+                }
+                
                 var vm = new InfoCursoViewModel
                 {
                     Nombre = curso.MATERIA_X_CURSO_CURSO_NOMBRE,
                     Carrera = curso.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE,
-                    Materia = curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
+                    Materia = curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE,
+                    Fecha = fecha
                 };
                 return Ok(vm);
             }

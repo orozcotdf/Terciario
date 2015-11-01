@@ -1,12 +1,41 @@
+#header,
+.bootstrap-select,
+.card .card-header .actions {
+  z-index: 1;
+}
+
 .dataTable {
-    width: 100% !Important;
+  width: 100% !Important;
 }
 
 .dataTables_info {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .dataTable ul {
-    list-style: none;
-    padding-left: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+.table .btn-icon {
+  height: auto;
+}
+
+.tab-content label {
+  font-weight: normal;
+}
+
+/* Esconde navegacion de tabs */
+.inscripcionesTabs > nav {
+  display: none !important;
+}
+body#inscripciones {
+  padding-top: 30px;
+}
+
+/* PRINT */
+
+body.print {
+  background: none;
+  color: #000;
 }

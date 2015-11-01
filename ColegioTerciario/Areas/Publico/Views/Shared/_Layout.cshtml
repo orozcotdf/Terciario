@@ -1,0 +1,84 @@
+﻿@using MvcFlash.Core.Extensions
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="es" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="es" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="es" style="overflow: hidden; ;">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>@ViewBag.Title - C.E.N.T. 11</title>
+    
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <link href="http://localhost:8080/cent11-2.0.css" rel="stylesheet" />
+
+    }
+    else
+    {
+        <link href="~/Scripts/dist/cent11-2.0.css" rel="stylesheet" />
+    }
+
+    @RenderSection("styles", required: false)
+    <meta name="description" content="Sistema Cent11" />
+</head>
+<body id="inscripciones">
+<div id="headerComponent"></div>
+<section id="main">
+    <div id="sidebarComponent"></div>
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5 m-b-20">
+                    <img src="~/Content/CENT_LOGO_TRANSP.png" />
+                </div>
+            </div>
+            @RenderSection("navegacionContextual", required: false)
+            @Html.Flash()
+
+            @RenderBody()
+        </div>
+    </section>
+</section>
+
+<div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+</div>
+
+
+@if (Request.IsAuthenticated)
+{
+
+    using (Html.BeginForm("LogOff", "Account", new {area = ""}, FormMethod.Post, new {id = "logoutForm"}))
+    {
+        @Html.AntiForgeryToken()
+    }
+}
+<script src="~/Scripts/plugins.concat.js"></script>
+<script src="~/Scripts/colegio_terciario.concat.js"></script>
+<script src="~/Scripts/lodash.min.js"></script>
+
+@RenderSection("scripts", required: false)
+
+@if (HttpContext.Current.IsDebuggingEnabled)
+{
+
+
+    <script src="http://localhost:8080/webpack-dev-server.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/vendor.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/Public.js"></script>
+
+}
+else
+{
+    <script type="text/javascript" src="~/Scripts/dist/vendor.js"></script>
+    <script type="text/javascript" src="~/Scripts/dist/Public.js"></script>
+}
+
+
+
+</body>
+
+</html>

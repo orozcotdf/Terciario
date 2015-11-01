@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     App: './src/js/app.jsx',
+    Public: './src/js/public.jsx',
     vendor: [
       'jquery',
       'react',
@@ -13,7 +14,6 @@ module.exports = {
       'react-router',
       'lodash',
       'react-bootstrap',
-      'react-bootstrap-table',
       'react-gravatar',
       'bootstrap-select',
       'griddle-react',
@@ -56,7 +56,7 @@ module.exports = {
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       }, {
-        test: /\.jsx/,
+        test: /\.(jsx|js)/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel'
       }],
@@ -68,7 +68,8 @@ module.exports = {
     // Tell webpack to look for required files in bower and node
     modulesDirectories: ['bower_components', 'node_modules'],
     alias: {
-      Notification: 'js/components/UI/Notification'
+      Notification: 'js/components/UI/Notification',
+      'react-wizard': 'js/components/lib/react-wizard.js'
     }
   },
   plugins: [

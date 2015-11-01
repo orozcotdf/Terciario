@@ -26,7 +26,7 @@ class DashboardDocentes extends React.Component {
                 <div className="portlet-title">
                   <div className="caption">
                     <span className="caption-subject font-green-sharp bold uppercase">
-                      Alumnos
+
                     </span>
                   </div>
                 </div>
@@ -37,7 +37,7 @@ class DashboardDocentes extends React.Component {
                 <div className="portlet-title">
                   <div className="caption">
                     <span className="caption-subject font-red-sunglo bold uppercase">
-                      Parciales
+
                     </span>
                   </div>
                 </div>

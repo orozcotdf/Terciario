@@ -10,5 +10,6 @@ namespace ColegioTerciario.Models.ViewModels.Api
         public string Nombre { get; set; }
         public string Carrera { get; set; }
         public string Materia { get; set; }
+        public DateTime? Fecha { get; set; }
     }
 }

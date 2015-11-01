@@ -66,6 +66,9 @@
     <Compile Include="Models\Equivalencia_Detalle.cs" />
     <Compile Include="Models\Hora.cs" />
     <Compile Include="Models\Horario_Cursada.cs" />
+    <Compile Include="Models\Inscripciones\InscripcionesCarrera.cs" />
+    <Compile Include="Models\Inscripciones\Inscripciones.cs" />
+    <Compile Include="Models\Inscripciones\InscripcionesConfig.cs" />
     <Compile Include="Models\Materia.cs" />
     <Compile Include="Models\Materia_x_Curso.cs" />
     <Compile Include="Models\Matricula.cs" />

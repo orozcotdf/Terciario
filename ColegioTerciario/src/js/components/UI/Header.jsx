@@ -74,7 +74,7 @@ const UIHeader = React.createClass({
           </li>
           <li className="pull-right">
             <ul className="top-menu">
-              {/*<li id="toggle-width">
+              {/* <li id="toggle-width">
                 <div className="toggle-switch">
                   <input id="tw-switch" type="checkbox" hidden="hidden" />
                   <label htmlFor="tw-switch" className="ts-helper"></label>

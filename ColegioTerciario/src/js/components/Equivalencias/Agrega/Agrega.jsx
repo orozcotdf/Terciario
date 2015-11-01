@@ -118,13 +118,13 @@ const AgregaEquivalencia = React.createClass({
   render() {
     return (
         <div className="col-sm-6 col-sm-offset-3">
-          <div className="portlet light">
-            <div className="portlet-title">
-              <div className="caption">
+          <div className="card">
+            <div className="card-header ch-alt">
+              <h2>
                 Nueva Equivalencia
-              </div>
+              </h2>
             </div>
-            <div className="portlet-body form">
+            <div className="card-body card-padding form">
               <form>
                 <div className="form-body">
                   <DatePicker name="EQUIVALENCIA_FECHA"

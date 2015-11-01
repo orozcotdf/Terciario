@@ -32,11 +32,19 @@ const ActionsComponent = React.createClass({
 
   render() {
     return (
-      <div>
-        <Link to={`/equivalencias/${this.props.data}/editar`}
-          className="btn btn-link waves-effect">
-          <i className="zmdi zmdi-edit"></i>
-        </Link>
+      <div className="dropdown">
+        <a href="#" className="dropdown-toggle btn btn-link btn-icon waves-effect"
+           data-toggle="dropdown" aria-expanded="true">
+          <i className="zmdi zmdi-more-vert"></i>
+        </a>
+
+        <ul className="dropdown-menu pull-right bgm-bluegray">
+          <li>
+            <Link to={`/equivalencias/${this.props.data}/editar`}>
+              Editar
+            </Link>
+          </li>
+        </ul>
       </div>
     );
   }
@@ -77,11 +85,11 @@ const EquivalenciasMain = React.createClass({
 
   render() {
     const columns = [
-      'ID',
       'EQUIVALENCIA_FECHA',
       'EQUIVALENCIA_NRO_DISPOSICION',
       'EQUIVALENCIA_ALUMNO_NOMBRE',
-      'EQUIVALENCIA_CARRERA_NOMBRE'
+      'EQUIVALENCIA_CARRERA_NOMBRE',
+      'ID'
     ];
     const columnMeta = [
       {
@@ -106,8 +114,15 @@ const EquivalenciasMain = React.createClass({
     ];
 
     return (
+      <div>
+        <div className="block-header">
+
+        </div>
         <div className="card">
           <div className="card-header ch-alt m-b-20">
+            <h2>
+              Equivalencias
+            </h2>
             <Link to="/equivalencias/agrega"
               className="btn bgm-cyan btn-float waves-effect waves-circle waves-float">
               <i className="zmdi zmdi-plus"></i>
@@ -116,12 +131,15 @@ const EquivalenciasMain = React.createClass({
 
           <GriddleWithCallback ref="w"
               getExternalResults={this._getJsonData}
-              columnMetadata = {columnMeta}
+              columnMetadata={columnMeta}
               resultsPerPage={10}
               columns={columns}
-              loadingText = "Cargando..."
-              noDataMessage = "No se encontraron resultados"/>
+              loadingText="Cargando..."
+              noDataMessage="No se encontraron resultados"
+              tableClassName="table table-vmiddle"
+            />
         </div>
+      </div>
     );
   }
 });

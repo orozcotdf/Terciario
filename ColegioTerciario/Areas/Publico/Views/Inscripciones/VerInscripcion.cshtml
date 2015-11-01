@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - CENT 11 - Inscripción 2015</title>
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <link href="http://localhost:8080/cent11-2.0.css" rel="stylesheet" />
+
+    }
+    else
+    {
+        <link href="~/Scripts/dist/cent11-2.0.css" rel="stylesheet" />
+    }
+</head>
+<body class="print">
+    <div class="container body-content">
+        <div>
+            <div class="panel panel-default">
+                <div>
+                    <img src="~/Content/CENT%20LOGO.png" style="text-align:center;margin:10px 10px" align="middle" />
+                    <br />
+                    @if (Model.INSCRIPCIONES_CARRERA != null)
+                    {
+                        @Model.INSCRIPCIONES_CARRERA.CARRERA_NOMBRE
+                    }
+                </div>
+                <h4>Datos Personales</h4>
+                <div class="panel-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        Nombre
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_NOMBRE
+                                    </dd>
+
+                                    <dt>
+                                        Apellido
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_APELLIDO
+                                    </dd>
+
+                                    <dt>
+                                        Tipo de Documento
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_DOCUMENTO_TIPO
+                                    </dd>
+
+                                    <dt>
+                                        Numero de Documento
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_DOCUMENTO_NUMERO
+                                    </dd>
+
+                                    <dt>
+                                        Fecha de Nacimiento
+                                    </dt>
+                                    <dd>
+                                        @String.Format("{0:dd/MM/yyyy}", Model.INSCRIPCIONES_NACIMIENTO_FECHA)
+                                    </dd>
+
+                                    <dt>
+                                        Email
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_EMAIL
+                                    </dd>
+
+                                    <dt>
+                                        Domicilio
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_DOMICILIO
+                                    </dd>
+
+                                    <dt>
+                                        Pais
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_NACIMIENTO_PAIS.PAIS_NAME
+                                    </dd>
+
+                                    <dt>
+                                        Ciudad
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_NACIMIENTO_CIUDAD.CIUDAD_NAME
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="col-xs-6">
+                                <dl class="dl-horizontal">
+
+                                    <dt>
+                                        Telefono
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_TELEFONO
+                                    </dd>
+
+                                    <dt>
+                                        Sexo
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_SEXO
+                                    </dd>
+
+                                    <dt>
+                                        Titulo Secundario
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_TITULO_SECUNDARIO
+                                    </dd>
+
+                                    <dt>
+                                        Telefono
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_TELEFONO
+                                    </dd>
+
+                                    <dt>
+                                        Barrio
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_BARRIO.BARRIO_NOMBRE
+                                    </dd>
+                                    <dt>
+                                        Provincia
+                                    </dt>
+                                    <dd>
+                                        @Model.INSCRIPCIONES_NACIMIENTO_PROVINCIA.PROVINCIA_NAME
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div>
+
+            <p>OBSERVACIONES</p>
+            <p>
+                La presente solicitud deberá ser acompañada por:
+                A) Fotocopia autenticada del título secundario.
+                B) Fotocopia del documento de identidad.
+                C) 2 (dos) foto carnet.
+            </p>
+
+            <p>
+                De acogerse el postulante a las prescripciones del Art. 7° del a Ley Nacional 24521 por no haber cumplimentado sus estudios de nivel medio, deberá presentar sin excepción las constancias pertinentes que acrediten los estudios cursados, las correspondientes que acrediten la experiencia y/o idoneidad que se corresponda con la carrera a la cual se inscribe, y rendir oportunamente la evaluación establecida en la normativa de mención.
+                La presente solicitud reviste el carácter de condicional y se encuentra sujeta a la autorización del Ministerio de Educación para la apertura de los respectivos ciclos.
+            </p>
+
+            <p style="text-align:right">
+                <br />
+                <br />
+                Firma:...................................
+                <br />
+                <br />
+                FECHA .........../...../..........
+                <br />
+                <br />
+                <hr />
+            </p>
+        </div>
+
+        <div class="panel panel-default">
+            <h4>C.E.N.T. N° 11 - "Ciudad de Ushuaia"</h4>
+            <div class="panel-body">
+                <p>
+                    De acogerse el postulante a las prescripciones del Art. 7° del a Ley Nacional 24521 por no haber cumplimentado sus estudios de nivel medio, deberá presentar sin excepción las constancias pertinentes que acrediten los estudios cursados, las correspondientes que acrediten la experiencia y/o idoneidad que se corresponda con la carrera a la cual se inscribe, y rendir oportunamente la evaluación establecida en la normativa de mención.
+                    La presente solicitud reviste el carácter de condicional y se encuentra sujeta a la autorización del Ministerio de Educación para la apertura de los respectivos ciclos.<br />
+                    FICHA DE INSCRIPCION CICLO 2015 N° <b>@Model.INSCRIPCIONES_IDENTIFICADOR</b>.
+                    <br />
+                    Se deja constancia que el/la Señor/a <b>@Model.INSCRIPCIONES_APELLIDO, @Model.INSCRIPCIONES_NOMBRE</b> Documento de Identidad N° <b>@Model.INSCRIPCIONES_DOCUMENTO_NUMERO</b> se encuentra inscripto/a para cursar en el presente ciclo lectivo, el primer año de la carrera: <b>@Model.INSCRIPCIONES_CARRERA.CARRERA_NOMBRE</b>.
+                    Se extiende el presente a pedido del/la interesado/a, en la ciudad de Ushuaia el día <b>@String.Format("{0:dd/MM/yyyy}", DateTime.Now)</b>, a los efectos de ser presentado ante quien corresponda.
+                </p>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - CENT 11 - Inscripción 2015</p>
+        </footer>
+    </div>
+</body>
+</html>
