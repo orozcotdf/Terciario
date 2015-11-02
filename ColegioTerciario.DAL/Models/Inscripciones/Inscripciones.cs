@@ -14,6 +14,7 @@ namespace ColegioTerciario.DAL.Models.Inscripciones
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int INSCRIPCIONES_IDENTIFICADOR { get; set; }
         public string INSCRIPCIONES_CODIGO { get; set; }
         public string INSCRIPCIONES_USUARIO { get; set; }

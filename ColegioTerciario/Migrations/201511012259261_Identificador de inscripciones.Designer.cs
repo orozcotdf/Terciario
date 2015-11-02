@@ -7,13 +7,13 @@ namespace ColegioTerciario.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class IdentificadordeInscripciones : IMigrationMetadata
+    public sealed partial class Identificadordeinscripciones : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IdentificadordeInscripciones));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Identificadordeinscripciones));
         
         string IMigrationMetadata.Id
         {
-            get { return "201511011309267_Identificador de Inscripciones"; }
+            get { return "201511012259261_Identificador de inscripciones"; }
         }
         
         string IMigrationMetadata.Source

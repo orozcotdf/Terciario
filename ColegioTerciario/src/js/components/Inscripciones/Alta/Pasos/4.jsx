@@ -42,6 +42,9 @@ const Paso4Component = React.createClass({
     change[name] = e.target.value;
     this.setState(change);
   },
+  _inputStyles: {
+    width: '100%'
+  },
 
   render() {
     const _sexos = [
@@ -52,24 +55,26 @@ const Paso4Component = React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-sm-4 col-sm-offset-2">
             <SelectField
               value={this.state.INSCRIPCIONES_SEXO}
               onChange={this._handleSelectValueChange.bind(this, 'INSCRIPCIONES_SEXO')}
               floatingLabelText="Sexo"
-              menuItems={_sexos} />
+              menuItems={_sexos}
+              style={this._inputStyles}/>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <TextField
               type="text"
               name="INSCRIPCIONES_DOMICILIO"
               floatingLabelText="Domicilio"
               onChange={this._onChange}
+              style={this._inputStyles}
             />
           </div>
         </div>
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-sm-4 col-sm-offset-2">
             <Select
               name="INSCRIPCIONES_NACIMIENTO_BARRIO_ID"
               asyncOptions={this._cargarBarrios}
@@ -78,15 +83,16 @@ const Paso4Component = React.createClass({
               clearable={true}
               placeholder="Barrio"
               autoload={false}
-              style={{padding: '10px 0'}}
+              style={{padding: '10px 0', width: '100%'}}
             />
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <TextField
               type="text"
               name="INSCRIPCIONES_TELEFONO"
               floatingLabelText="Telefono de Contacto"
               onChange={this._onChange}
+              style={this._inputStyles}
             />
           </div>
         </div>

@@ -64,6 +64,7 @@ const Paso1Component = React.createClass({
             <TextField
               name="INSCRIPCIONES_DOCUMENTO_NUMERO"
               floatingLabelText="Numero de Documento"
+              hintText="Sin puntos ni espacios"
               onChange={this._onChange}
               style={this._inputStyles}/>
           </div>

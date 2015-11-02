@@ -124,6 +124,9 @@ const Paso3Component = React.createClass({
               placeholder="Pais de Nacimiento"
               autoload={false}
               style={{padding: '10px 0'}}
+              searchingText="Buscando..."
+              searchPromptText="Escriba para buscar"
+              noResultsText="No se encontraron resultados"
             />
         </div>
       </div>
@@ -138,6 +141,9 @@ const Paso3Component = React.createClass({
             placeholder="Provincia de Nacimiento"
             autoload={false}
             style={{padding: '10px 0'}}
+            searchingText="Buscando..."
+            searchPromptText="Escriba para buscar"
+            noResultsText="No se encontraron resultados"
           />
         </div>
         <div className="col-sm-4">
@@ -150,6 +156,9 @@ const Paso3Component = React.createClass({
             placeholder="Ciudad de Nacimiento"
             autoload={false}
             style={{padding: '10px 0'}}
+            searchingText="Buscando..."
+            searchPromptText="Escriba para buscar"
+            noResultsText="No se encontraron resultados"
           />
         </div>
       </div>

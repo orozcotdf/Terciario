@@ -21,6 +21,12 @@ const Paso2Component = React.createClass({
     return (
       <div>
         <div className="row">
+          <div className="col-sm-8 col-sm-offset-2">
+            Tenga en cuenta que esta direccion de mail sera utilizada
+            para enviar el comprobante de inscripcion.
+          </div>
+        </div>
+        <div className="row">
           <div className="col-sm-4 col-sm-offset-2">
             <TextField
               name="INSCRIPCIONES_EMAIL"

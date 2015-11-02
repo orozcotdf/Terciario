@@ -129,7 +129,9 @@ export default React.createClass({
       location.href = '/Publico/Inscripciones/ImprimirInscripcion/' + id;
     })
     .catch(function (response) {
-      Notification.error('Ocurrio un error, intene nuevamente.');
+      Notification.error(
+        'Ocurrio un error, si el problema persiste comuniquese con la institucion.'
+      );
     });
   },
 

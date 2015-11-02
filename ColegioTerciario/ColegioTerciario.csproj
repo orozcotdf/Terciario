@@ -112,6 +112,10 @@
     <Reference Include="PagedList.Mvc">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.7.3.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.7.3\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
       <Private>True</Private>
@@ -274,9 +278,9 @@
     <Compile Include="Migrations\201510302254160_Inscripciones.Designer.cs">
       <DependentUpon>201510302254160_Inscripciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511011309267_Identificador de Inscripciones.cs" />
-    <Compile Include="Migrations\201511011309267_Identificador de Inscripciones.Designer.cs">
-      <DependentUpon>201511011309267_Identificador de Inscripciones.cs</DependentUpon>
+    <Compile Include="Migrations\201511012259261_Identificador de inscripciones.cs" />
+    <Compile Include="Migrations\201511012259261_Identificador de inscripciones.Designer.cs">
+      <DependentUpon>201511012259261_Identificador de inscripciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\Api\AccountsViewModels.cs" />
     <Compile Include="Models\ViewModels\Api\AlumnoEnCursadaViewModel.cs" />
@@ -432,10 +436,15 @@
     <Content Include="Areas\Alumnos\Styles\flat.css" />
     <Content Include="Areas\Alumnos\Styles\webix.css" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Areas\Publico\Views\Inscripciones\mailTemplate.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\CENT LOGO.png" />
     <Content Include="Content\cent11.concat.css" />
     <Content Include="Content\CENT_LOGO_TRANSP.png" />
+    <Content Include="Content\facebook.png" />
     <Content Include="Content\RAI.html" />
+    <Content Include="Content\twitter.png" />
     <Content Include="fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="fonts\Simple-Line-Icons.svg" />
     <Content Include="img\ajax-loading.gif" />
@@ -757,8 +766,8 @@
     <EmbeddedResource Include="Migrations\201510302254160_Inscripciones.resx">
       <DependentUpon>201510302254160_Inscripciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511011309267_Identificador de Inscripciones.resx">
-      <DependentUpon>201511011309267_Identificador de Inscripciones.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511012259261_Identificador de inscripciones.resx">
+      <DependentUpon>201511012259261_Identificador de inscripciones.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

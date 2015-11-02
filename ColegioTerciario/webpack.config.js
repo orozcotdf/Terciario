@@ -1,13 +1,11 @@
-/*global require, module, __dirname*/
 const path = require('path'); // eslint-disable-line no-unused-vars
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const production = process.env.NODE_ENV === 'production';
-
 module.exports = {
   entry: {
     App: './src/js/app.jsx',
+    Public: './src/js/public.jsx',
     vendor: [
       'jquery',
       'react',

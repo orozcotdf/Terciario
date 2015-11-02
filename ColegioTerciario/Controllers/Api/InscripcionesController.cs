@@ -4,17 +4,22 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ColegioTerciario.DAL.Models.Inscripciones;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.ViewModels;
+using RazorEngine;
 using SendGrid;
 using InscripcionesViewModel = ColegioTerciario.Models.ViewModels.Api.InscripcionesViewModel;
+
+using RazorEngine.Templating;
 
 namespace ColegioTerciario.Controllers.Api
 {
@@ -142,7 +147,7 @@ namespace ColegioTerciario.Controllers.Api
                 INSCRIPCIONES_TITULO_SECUNDARIO = vm.INSCRIPCIONES_TITULO_SECUNDARIO,
                 INSCRIPCIONES_CARRERA_ID = vm.INSCRIPCIONES_CARRERA_ID
             };
-
+            /*
             if (db.Inscripciones.Any())
             {
                 nuevaInscripcion.INSCRIPCIONES_IDENTIFICADOR = 1;
@@ -151,19 +156,28 @@ namespace ColegioTerciario.Controllers.Api
             {
                 nuevaInscripcion.INSCRIPCIONES_IDENTIFICADOR = db.Inscripciones.Last().INSCRIPCIONES_IDENTIFICADOR + 1;
             }
-
+            */
             db.Inscripciones.Add(nuevaInscripcion);
             db.SaveChanges();
 
+            // Preparar template html
+            
+
+            string templateFile = "/Areas/Publico/Views/Inscripciones/mailTemplate.cshtml";
+            //var html = Engine.Razor.RunCompile(new LoadedTemplateSource(template, templateFile), "key", null, new { id = nuevaInscripcion.ID});
+            var template = File.ReadAllText(HostingEnvironment.MapPath(templateFile));
+            
             SendGridMessage mensaje = new SendGridMessage();
-            var url = Url.Route("Publico", new { controller = "Inscripciones", action = "ImprimirInscripcion", id = nuevaInscripcion.ID });
+            var url = Url.Route("Publico_default", new { controller = "Inscripciones", action = "ImprimirInscripcion", id = nuevaInscripcion.ID });
             var urlBase = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+
+            var html = Engine.Razor.RunCompile(template, nuevaInscripcion.ID.ToString() , null, new { URL = urlBase + url });
 
             mensaje.AddTo(vm.INSCRIPCIONES_EMAIL);
             mensaje.From = new MailAddress("administracion@cent11.edu.ar", "Administracion Cent11");
             mensaje.Subject = "Formulario de Inscripcion";
             mensaje.Text = String.Format("<a href='{0}'>Haga click aqui para ver el formulario</a>", urlBase + url);
-            mensaje.Html = String.Format("<a href='{0}'>Haga click aqui para ver el formulario</a>", urlBase + url);
+            mensaje.Html = html;
             // mensaje.EnableClickTracking(true);
 
             // Create an Web transport for sending email.
