@@ -48,6 +48,11 @@ body#inscripciones {
   top: 9px !important;
 }
 
+.validation-summary-errors ul {
+  list-style: none;
+  padding-left: 0;
+}
+
 /* PRINT */
 
 body.print {

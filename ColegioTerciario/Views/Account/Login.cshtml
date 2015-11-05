@@ -15,19 +15,23 @@
         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "alert alert-danger" })
         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "alert alert-danger" })
     *@
-    <div class="input-group m-b-20">
-        <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+    <div class="form-group m-b-30 fg-float">
         
         <div class="fg-line">
-            @Html.TextBoxFor(m => m.Email, new {@class = "form-control", @placeholder = "Usuario"})
+            @Html.TextBoxFor(m => m.Email, new { @class = "input-sm form-control fg-input", @autocomplete = "new-password" })
         </div>
+        <label class="fg-label">
+            Documento
+        </label>
     </div>
-    <div class="input-group m-b-20">
-        <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
-        
+    <div class="form-group m-b-30 fg-float">
+
         <div class="fg-line">
-            @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Contraseña"})
+            @Html.PasswordFor(m => m.Password, new { @class = "input-sm form-control fg-input", @autocomplete = "new-password" })
         </div>
+        <label class="fg-label">
+            Contraseña
+        </label>
     </div>
     <div class="clearfix"></div>
 

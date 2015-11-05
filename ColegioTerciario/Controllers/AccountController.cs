@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using ColegioTerciario.Lib;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -21,10 +22,6 @@ namespace ColegioTerciario.Controllers
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
-        private const string MailUsername = "azure_fd22ccb1747e880c2d79095cced78667@azure.com";
-        private const string MailPassword = "DgIYom7LOfwZs3x";
-        private const string MailHost = "smtp.sendgrid.net";
-        private const string MailApiKey = "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";
 
         public AccountController()
         {
@@ -247,22 +244,8 @@ namespace ColegioTerciario.Controllers
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
                 //await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
-                SendGridMessage mensaje = new SendGridMessage();
 
-                mensaje.AddTo(user.Email);
-                mensaje.From = new MailAddress("administracion@cent11.edu.ar", "Administracion Cent11");
-                mensaje.Subject = "Restablecer contraseña";
-                mensaje.Text = "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>";
-                mensaje.Html = "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>";
-                // mensaje.EnableClickTracking(true);
-
-                // Create an Web transport for sending email.
-                var transportWeb = new Web(MailApiKey);
-
-                // Send the email, which returns an awaitable task.
-                await transportWeb.DeliverAsync(mensaje);
-
-
+                Mailer.SendForgotPasswordMail(user.Email, callbackUrl);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
             ModelState.AddModelError("", "Revise los Datos.");
@@ -304,6 +287,7 @@ namespace ColegioTerciario.Controllers
                 // No revelar que el usuario no existe
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+            var code = Server.UrlDecode(model.Code);
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
@@ -469,6 +453,7 @@ namespace ColegioTerciario.Controllers
         {
             foreach (var error in result.Errors)
             {
+                //var customError = error.Replace("Token no válido.", "El formulario es invalido, es probable que ya tenga su contraseña. Intente iniciar sesion en http://cent11.tierradelfuego.gov.ar");
                 ModelState.AddModelError("", error);
             }
         }

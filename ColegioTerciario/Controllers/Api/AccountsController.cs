@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
+using ColegioTerciario.Lib;
 using ColegioTerciario.Models.User;
 using ColegioTerciario.Models.ViewModels.Api;
 using Microsoft.AspNet.Identity;
@@ -18,11 +19,6 @@ namespace ColegioTerciario.Controllers.Api
 {
     public class AccountsController : ApiController
     {
-
-        private const string MailUsername = "azure_fd22ccb1747e880c2d79095cced78667@azure.com";
-        private const string MailPassword = "DgIYom7LOfwZs3x";
-        private const string MailHost = "smtp.sendgrid.net";
-        private const string MailApiKey = "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";
         private ApplicationUserManager _userManager;
 
 
@@ -114,21 +110,9 @@ namespace ColegioTerciario.Controllers.Api
                             persona.PERSONA_APELLIDO = user.Apellido.ToUpper();
                             _db.SaveChanges();
                         }
-                        // Create the email object first, then add the properties.
-                        SendGridMessage mensaje = new SendGridMessage();
 
-                        mensaje.AddTo(user.Email);
-                        mensaje.From = new MailAddress("administracion@cent11.edu.ar", "Administracion Cent11");
-                        mensaje.Subject = "Creando usuario con dni " + user.Dni;
-                        mensaje.Text = String.Format("<a href='{0}'>Click para activar usuario</a>", urlBase + url);
-                        mensaje.Html = String.Format("<a href='{0}'>Click para activar usuario</a>", urlBase + url);
-                        mensaje.EnableClickTracking(true);
-
-                        // Create an Web transport for sending email.
-                        var transportWeb = new Web(MailApiKey);
-
-                        // Send the email, which returns an awaitable task.
-                        await transportWeb.DeliverAsync(mensaje);
+                        //await sendMailWithSendgrid(user.Email, user.Dni, urlBase + url);
+                        Mailer.SendMailWithOffice365(user.Email, user.Dni, urlBase + url);
 
                         var datos = new BatchCreateUsersResponseVM
                         {
@@ -144,9 +128,12 @@ namespace ColegioTerciario.Controllers.Api
                 }
                 
             }
+
             
 
             return Ok(respuesta);
         }
+
+        
     }
 }

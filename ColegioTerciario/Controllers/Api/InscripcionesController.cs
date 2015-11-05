@@ -13,6 +13,7 @@ using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ColegioTerciario.DAL.Models.Inscripciones;
+using ColegioTerciario.Lib;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.ViewModels;
 using ColegioTerciario.Models.ViewModels.Api;
@@ -26,10 +27,6 @@ namespace ColegioTerciario.Controllers.Api
 {
     public class InscripcionesController : ApiController
     {
-        private const string MailUsername = "azure_fd22ccb1747e880c2d79095cced78667@azure.com";
-        private const string MailPassword = "DgIYom7LOfwZs3x";
-        private const string MailHost = "smtp.sendgrid.net";
-        private const string MailApiKey = "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";
 
         private ColegioTerciarioContext db = new ColegioTerciarioContext();
 
@@ -204,25 +201,13 @@ namespace ColegioTerciario.Controllers.Api
             string templateFile = "/Areas/Publico/Views/Inscripciones/mailTemplate.cshtml";
             //var html = Engine.Razor.RunCompile(new LoadedTemplateSource(template, templateFile), "key", null, new { id = nuevaInscripcion.ID});
             var template = File.ReadAllText(HostingEnvironment.MapPath(templateFile));
-            
-            SendGridMessage mensaje = new SendGridMessage();
+
             var url = Url.Route("Publico_default", new { controller = "Inscripciones", action = "ImprimirInscripcion", id = nuevaInscripcion.ID });
             var urlBase = Request.RequestUri.GetLeftPart(UriPartial.Authority);
 
             var html = Engine.Razor.RunCompile(template, nuevaInscripcion.ID.ToString() , null, new { URL = urlBase + url });
 
-            mensaje.AddTo(vm.INSCRIPCIONES_EMAIL);
-            mensaje.From = new MailAddress("administracion@cent11.edu.ar", "Administracion Cent11");
-            mensaje.Subject = "Formulario de Inscripcion";
-            mensaje.Text = String.Format("<a href='{0}'>Haga click aqui para ver el formulario</a>", urlBase + url);
-            mensaje.Html = html;
-            // mensaje.EnableClickTracking(true);
-
-            // Create an Web transport for sending email.
-            var transportWeb = new Web(MailApiKey);
-
-            // Send the email, which returns an awaitable task.
-            transportWeb.DeliverAsync(mensaje);
+            Mailer.SendInscripcion(vm.INSCRIPCIONES_EMAIL, url, html);
 
             return CreatedAtRoute("DefaultApi", new { id = nuevaInscripcion.ID }, nuevaInscripcion);
         }
