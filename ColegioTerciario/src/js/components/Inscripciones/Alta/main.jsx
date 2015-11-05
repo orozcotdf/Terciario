@@ -139,6 +139,12 @@ export default React.createClass({
     this.refs.modal.show();
   },
 
+  _onPrev() {
+    const prevKey = parseInt(this.state.key, 10) - 1;
+
+    this._handleSelect(prevKey);
+  },
+
   _onNext() {
     const nextKey = parseInt(this.state.key, 10) + 1;
 
@@ -148,7 +154,7 @@ export default React.createClass({
   render() {
     // Standard Actions
     const standardActions = [
-      {text: 'Imprimir Constancia', onTouchTap: this._onSave, ref: 'submit'}
+      {text: 'Imprimir Pre-Inscripcion', onTouchTap: this._onSave, ref: 'submit'}
     ];
 
     return (
@@ -157,14 +163,29 @@ export default React.createClass({
           <div className="card z-depth-4-bottom">
             <Dialog
               ref="modal"
-              title="Usted ya se ha inscripto"
+              title="Importante"
               actions={standardActions}
               actionFocus="submit"
               modal={true}>
-              Imprima el comprobante de inscripcion que debera ser presentado en la institucion
-              junto con la documentacion requerida, para efectivizar la inscripcion. Tambien
-              recibira por correo electronico un enlace donde podra descargar la misma en
-              formato PDF.
+              <p>
+                Esta a punto de finalizar la PRE-Inscripción, recuerde que para hacer efectiva la
+                inscripciones usted deberá presentar en la institución el "Formulario" que se
+                generara en este proceso junto a la documentación adicional solicitada.
+              </p>
+              <p>
+                Documentación adicional: <b>A)</b> Fotocopia autenticada del título secundario.
+                <b>B)</b> Fotocopia del documento de identidad.
+                <b>C)</b> 2 (dos) foto carnet. De acogerse el postulante a las
+                prescripciones del Art. 7° del a Ley Nacional 24521 por no haber cumplimentado sus
+                estudios de nivel medio, deberá presentar sin excepción las constancias
+                pertinentes que acrediten los estudios cursados, las correspondientes que
+                acrediten la experiencia y/o idoneidad que se corresponda con la carrera
+                a la cual se inscribe, y rendir oportunamente la
+                evaluación establecida en la normativa de mención.
+              </p>
+              <p>
+                Una copia del archivo PDF de PRE-Inscripcion será enviada a su correo electrónico
+              </p>
             </Dialog>
 
             <div className="card-header">
@@ -200,6 +221,14 @@ export default React.createClass({
                   </Tab>
                 </Tabs>
 
+                <div className="pull-left" style={{marginLeft: '10px'}}>
+                  <RaisedButton
+                    onClick={this._onPrev}
+                    label="Anterior"
+                    secondary={true}
+                    disabled={this.state.key === 1}
+                  />
+                </div>
                 {this.state.key !== 6 ?
                   <div className="pull-right" style={{marginRight: '10px'}}>
                     <RaisedButton

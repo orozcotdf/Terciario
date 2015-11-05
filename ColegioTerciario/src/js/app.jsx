@@ -23,7 +23,8 @@ const rootRoute = {
     require('./components/Perfil'),
     require('./components/Equivalencias'),
     require('./components/AreaDocentes/Cursos'),
-    require('./components/Inscripciones')
+    require('./components/Inscripciones'),
+    require('./components/AdminInscripciones')
   ]
 };
 

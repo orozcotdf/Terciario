@@ -40,17 +40,10 @@ const Paso6Component = React.createClass({
         </div>
         <div className="row">
           <div className="col-md-12">
-            La presente solicitud deberá ser acompañada por:
-            A) Fotocopia autenticada del título secundario.
-            B) Fotocopia del documento de identidad. C) 2 (dos) foto carnet.
-            De acogerse el postulante a las prescripciones del Art. 7° del a Ley Nacional 24521
-            por no haber cumplimentado sus estudios de nivel medio, deberá presentar sin
-            excepción las constancias pertinentes que acrediten los estudios cursados,
-            las correspondientes que acrediten la experiencia y/o idoneidad que se corresponda
-            con la carrera a la cual se inscribe, y rendir oportunamente la evaluación establecida
-            en la normativa de mención. La presente solicitud reviste el carácter de condicional
-            y se encuentra sujeta a la autorización del Ministerio de Educación para la apertura
-            de los respectivos ciclos.
+            <p>
+              La presente solicitud reviste el carácter de condicional y se encuentra sujeta a la
+              autorización del Ministerio de Educación para la apertura de los respectivos ciclos.
+            </p>
           </div>
         </div>
         <div className="row m-t-20">

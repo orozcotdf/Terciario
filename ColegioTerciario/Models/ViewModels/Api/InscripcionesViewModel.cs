@@ -6,6 +6,13 @@ using System.Web;
 
 namespace ColegioTerciario.Models.ViewModels.Api
 {
+    public class InscripcionResumenVM
+    {
+        public string INSCRIPCIONES_CARRERA { get; set; }
+        public string INSCRIPCIONES_NOMBRE { get; set; }
+        public string INSCRIPCIONES_DOCUMENTO_NUMERO { get; set; }
+    }
+
     public class InscripcionesViewModel
     {
         [Required]
@@ -26,5 +33,6 @@ namespace ColegioTerciario.Models.ViewModels.Api
         public string INSCRIPCIONES_SEXO { get; set; }
         public string INSCRIPCIONES_TELEFONO { get; set; }
         public string INSCRIPCIONES_TITULO_SECUNDARIO { get; set; }
+        public bool? INSCRIPCIONES_EN_LISTA_DE_ESPERA { get; set; }
     }
 }

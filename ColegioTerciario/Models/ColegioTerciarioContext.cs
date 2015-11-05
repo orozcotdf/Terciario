@@ -111,6 +111,9 @@ namespace ColegioTerciario.Models
             modelBuilder.Entity<Equivalencia_Detalle>()
             .Map(m => m.Requires("IsDeleted").HasValue(false))
             .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<Inscripciones>()
+            .Map(m => m.Requires("IsDeleted").HasValue(false))
+            .Ignore(m => m.IsDeleted);
             base.OnModelCreating(modelBuilder);
         }
 

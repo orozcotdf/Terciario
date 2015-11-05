@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ColegioTerciario.Models.Types;
+using Newtonsoft.Json;
 
 namespace ColegioTerciario.DAL.Models
 {
@@ -19,6 +20,7 @@ namespace ColegioTerciario.DAL.Models
 
 
         [ForeignKey("BARRIO_CIUDAD_ID")]
+        [JsonIgnore]
         public virtual Ciudad BARRIO_CIUDAD { get; set; }
         //public virtual ICollection<Persona> PERSONAS { get; set; }
     }

@@ -55,18 +55,24 @@ const UISidebar = React.createClass({
       url: '/#/equivalencias',
       icon: 'zmdi-view-list',
       role: 'Bedel'
+    }, {
+      id: 5,
+      title: 'Inscripciones',
+      url: '/#/inscripciones',
+      icon: 'zmdi-view-list',
+      role: 'Bedel'
     }];
 
     if (User.isInRole('Admin')) {
       items.push({
-        id: 5,
+        id: 6,
         title: 'Usuarios',
         url: '/Admin/Usuarios',
         icon: 'zmdi-account'
       });
 
       items.push({
-        id: 6,
+        id: 7,
         title: 'Roles',
         url: '/Admin/Roles',
         icon: 'zmdi-accounts'

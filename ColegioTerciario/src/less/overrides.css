@@ -22,7 +22,8 @@
 }
 
 .tab-content label {
-  font-weight: normal;
+    font-weight: normal;
+    color: #999 !important;
 }
 
 /* Esconde navegacion de tabs */
@@ -31,6 +32,20 @@
 }
 body#inscripciones {
   padding-top: 30px;
+}
+
+#inscripciones .inputSmall {
+  width: 100% !important;
+}
+#inscripciones .inputSmall hr {
+  bottom: 35px !important;
+}
+#inscripciones .inputSmall input {
+  height: 44px !important;
+  margin-top: 0 !important;
+}
+#inscripciones .inputSmall label {
+  top: 9px !important;
 }
 
 /* PRINT */

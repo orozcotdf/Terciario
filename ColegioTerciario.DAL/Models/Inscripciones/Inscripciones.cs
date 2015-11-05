@@ -47,21 +47,27 @@ namespace ColegioTerciario.DAL.Models.Inscripciones
         public bool? INSCRIPCIONES_ES_ALUMNO { get; set; }
         public bool? INSCRIPCIONES_ES_DOCENTE { get; set; }
         public bool? INSCRIPCIONES_ES_NODOCENTE { get; set; }
+        public bool? INSCRIPCIONES_EN_LISTA_DE_ESPERA { get; set; }
         public int? INSCRIPCIONES_NACIMIENTO_PAIS_ID { get; set; }
         public int? INSCRIPCIONES_NACIMIENTO_PROVINCIA_ID { get; set; }
         public int? INSCRIPCIONES_NACIMIENTO_CIUDAD_ID { get; set; }
         public int? INSCRIPCIONES_NACIMIENTO_BARRIO_ID { get; set; }
         public int? INSCRIPCIONES_CARRERA_ID { get; set; }
         [ForeignKey("INSCRIPCIONES_NACIMIENTO_PAIS_ID")]
+        [JsonIgnore]
         public virtual Pais INSCRIPCIONES_NACIMIENTO_PAIS { get; set; }
         [ForeignKey("INSCRIPCIONES_NACIMIENTO_PROVINCIA_ID")]
+        [JsonIgnore]
         public virtual Provincia INSCRIPCIONES_NACIMIENTO_PROVINCIA { get; set; }
         [ForeignKey("INSCRIPCIONES_NACIMIENTO_CIUDAD_ID")]
+        [JsonIgnore]
         public virtual Ciudad INSCRIPCIONES_NACIMIENTO_CIUDAD { get; set; }
         [ForeignKey("INSCRIPCIONES_NACIMIENTO_BARRIO_ID")]
+        [JsonIgnore]
         public virtual Barrio INSCRIPCIONES_BARRIO { get; set; }
 
         [ForeignKey("INSCRIPCIONES_CARRERA_ID")]
+        [JsonIgnore]
         public virtual InscripcionesCarrera INSCRIPCIONES_CARRERA { get; set; }
     }
 }

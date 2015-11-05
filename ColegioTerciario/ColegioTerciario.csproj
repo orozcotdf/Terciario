@@ -282,6 +282,15 @@
     <Compile Include="Migrations\201511012259261_Identificador de inscripciones.Designer.cs">
       <DependentUpon>201511012259261_Identificador de inscripciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511032323417_Cambios en configuraciones.cs" />
+    <Compile Include="Migrations\201511032323417_Cambios en configuraciones.Designer.cs">
+      <DependentUpon>201511032323417_Cambios en configuraciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511040021542_Inscripcione - En lista de espera.cs" />
+    <Compile Include="Migrations\201511040021542_Inscripcione - En lista de espera.Designer.cs">
+      <DependentUpon>201511040021542_Inscripcione - En lista de espera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Configuraciones.cs" />
     <Compile Include="Models\ViewModels\Api\AccountsViewModels.cs" />
     <Compile Include="Models\ViewModels\Api\AlumnoEnCursadaViewModel.cs" />
     <Compile Include="Controllers\Api\CarrerasController.cs" />
@@ -768,6 +777,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511012259261_Identificador de inscripciones.resx">
       <DependentUpon>201511012259261_Identificador de inscripciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511032323417_Cambios en configuraciones.resx">
+      <DependentUpon>201511032323417_Cambios en configuraciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511040021542_Inscripcione - En lista de espera.resx">
+      <DependentUpon>201511040021542_Inscripcione - En lista de espera.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

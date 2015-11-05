@@ -10,8 +10,8 @@ namespace ColegioTerciario.DAL.Models.Inscripciones
     public class InscripcionesConfig : EntityBase
     {
         public int ID { get; set; }
-        public string CONFIG_TITULO { get; set; }
-        public string CONFIG_NOTIFICACION { get; set; }
+        public string CONFIG_NOMBRE { get; set; }
+        public string CONFIG_VALOR { get; set; }
         public DateTime? CONFIG_VALIDA_DESDE { get; set; }
         public DateTime? CONFIG_VALIDA_HASTA { get; set; }
     }

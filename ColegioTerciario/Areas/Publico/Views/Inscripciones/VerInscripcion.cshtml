@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model ColegioTerciario.DAL.Models.Inscripciones.Inscripciones
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,6 +27,11 @@
                     @if (Model.INSCRIPCIONES_CARRERA != null)
                     {
                         @Model.INSCRIPCIONES_CARRERA.CARRERA_NOMBRE
+                    }
+
+                    @if (Model.INSCRIPCIONES_EN_LISTA_DE_ESPERA == true)
+                    {
+                        <b class="pull-right">INSCRIPTO EN LISTA DE ESPERA</b>
                     }
                 </div>
                 <h4>Datos Personales</h4>
@@ -179,7 +186,7 @@
                 <p>
                     De acogerse el postulante a las prescripciones del Art. 7° del a Ley Nacional 24521 por no haber cumplimentado sus estudios de nivel medio, deberá presentar sin excepción las constancias pertinentes que acrediten los estudios cursados, las correspondientes que acrediten la experiencia y/o idoneidad que se corresponda con la carrera a la cual se inscribe, y rendir oportunamente la evaluación establecida en la normativa de mención.
                     La presente solicitud reviste el carácter de condicional y se encuentra sujeta a la autorización del Ministerio de Educación para la apertura de los respectivos ciclos.<br />
-                    FICHA DE INSCRIPCION CICLO 2015 N° <b>@Model.INSCRIPCIONES_IDENTIFICADOR</b>.
+                    FICHA DE INSCRIPCION CICLO 2016 N° <b>@Model.INSCRIPCIONES_IDENTIFICADOR</b>.
                     <br />
                     Se deja constancia que el/la Señor/a <b>@Model.INSCRIPCIONES_APELLIDO, @Model.INSCRIPCIONES_NOMBRE</b> Documento de Identidad N° <b>@Model.INSCRIPCIONES_DOCUMENTO_NUMERO</b> se encuentra inscripto/a para cursar en el presente ciclo lectivo, el primer año de la carrera: <b>@Model.INSCRIPCIONES_CARRERA.CARRERA_NOMBRE</b>.
                     Se extiende el presente a pedido del/la interesado/a, en la ciudad de Ushuaia el día <b>@String.Format("{0:dd/MM/yyyy}", DateTime.Now)</b>, a los efectos de ser presentado ante quien corresponda.

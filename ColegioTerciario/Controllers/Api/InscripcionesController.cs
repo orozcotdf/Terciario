@@ -15,6 +15,7 @@ using System.Web.Http.Description;
 using ColegioTerciario.DAL.Models.Inscripciones;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.ViewModels;
+using ColegioTerciario.Models.ViewModels.Api;
 using RazorEngine;
 using SendGrid;
 using InscripcionesViewModel = ColegioTerciario.Models.ViewModels.Api.InscripcionesViewModel;
@@ -33,9 +34,26 @@ namespace ColegioTerciario.Controllers.Api
         private ColegioTerciarioContext db = new ColegioTerciarioContext();
 
         // GET: api/Inscripciones
-        public IQueryable<Inscripciones> GetInscripciones()
+        public AjaxCollectionResponseViewModel GetInscripciones([FromUri] AjaxCollectionParamViewModel param)
         {
-            return db.Inscripciones;
+            IQueryable<InscripcionResumenVM> inscripciones = db.Inscripciones
+                .OrderByDescending(e => e.ID)
+                .Skip(param.Pagina*param.RegistrosPorPagina)
+                .Take(param.RegistrosPorPagina)
+                .Select(i => new InscripcionResumenVM
+                {
+                    INSCRIPCIONES_CARRERA = i.INSCRIPCIONES_CARRERA.CARRERA_NOMBRE,
+                    INSCRIPCIONES_DOCUMENTO_NUMERO = i.INSCRIPCIONES_DOCUMENTO_NUMERO,
+                    INSCRIPCIONES_NOMBRE = String.Format("{0}, {1}", i.INSCRIPCIONES_APELLIDO, i.INSCRIPCIONES_NOMBRE)
+                });
+
+            AjaxCollectionResponseViewModel rvm = new AjaxCollectionResponseViewModel
+            {
+                Resultados = inscripciones,
+                CantidadResultados = db.Equivalencias.Count(),
+            };
+
+            return rvm;
         }
 
         // GET: api/Inscripciones/5
@@ -74,6 +92,25 @@ namespace ColegioTerciario.Controllers.Api
                     value = c.ID.ToString()
                 });
             return carreras;
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetCantidadInscriptosPorCarrera(int id)
+        {
+            string mensaje;
+
+            var config =
+                db.Inscripciones_Config.SingleOrDefault(c => c.CONFIG_NOMBRE == Configuraciones.LIMITE_DE_INSCRIPCIONES);
+            
+            var limite = config == null ? 100 : int.Parse(config.CONFIG_VALOR);
+
+            var count = db.Inscripciones.Count(i => i.INSCRIPCIONES_CARRERA_ID == id);
+            if (count >= limite)
+            {
+                //return Ok("Se ha superado el limite de inscripciones para esta carrera. Usted se esta por inscribir en lista de espera");
+                return BadRequest();
+            }
+            return Ok();
         }
 
         // PUT: api/Inscripciones/5
@@ -145,7 +182,8 @@ namespace ColegioTerciario.Controllers.Api
                 INSCRIPCIONES_NACIMIENTO_FECHA = vm.INSCRIPCIONES_NACIMIENTO_FECHA,
                 INSCRIPCIONES_DOMICILIO = vm.INSCRIPCIONES_DOMICILIO,
                 INSCRIPCIONES_TITULO_SECUNDARIO = vm.INSCRIPCIONES_TITULO_SECUNDARIO,
-                INSCRIPCIONES_CARRERA_ID = vm.INSCRIPCIONES_CARRERA_ID
+                INSCRIPCIONES_CARRERA_ID = vm.INSCRIPCIONES_CARRERA_ID,
+                INSCRIPCIONES_EN_LISTA_DE_ESPERA = vm.INSCRIPCIONES_EN_LISTA_DE_ESPERA
             };
             /*
             if (db.Inscripciones.Any())

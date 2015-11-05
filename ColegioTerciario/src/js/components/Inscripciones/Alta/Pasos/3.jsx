@@ -100,18 +100,27 @@ const Paso3Component = React.createClass({
   render() {
     return (
       <div>
+        <div className="row m-b-15">
+          <div className="col-sm-8 col-sm-offset-2">
+            <div className="alert alert-info" role="alert">
+              Para cambiar de año debe hacer click sobre el mismo.
+            </div>
+          </div>
+        </div>
         <div className="row">
           <div className="col-sm-4 col-sm-offset-2">
             <DatePicker
+              className="inputSmall"
               floatingLabelText="Fecha de Nacimiento"
               hintText="Fecha de Nacimiento"
               name="INSCRIPCIONES_NACIMIENTO_FECHA"
               formatDate={this._formatDate}
-              locale="es"
               autoOk={true}
-              mode="inline"
               onChange={this._setFecha}
-              inputStyle={{width: '100%'}}
+              style={{width: '100%', height: '44px'}}
+              DateTimeFormat={Intl.DateTimeFormat}
+              locale="es-ES"
+              wordings={{ok: 'OK', cancel: 'Cancelar'}}
             />
         </div>
         <div className="col-sm-4">
@@ -144,7 +153,7 @@ const Paso3Component = React.createClass({
             searchingText="Buscando..."
             searchPromptText="Escriba para buscar"
             noResultsText="No se encontraron resultados"
-          />
+            />
         </div>
         <div className="col-sm-4">
           <Select
@@ -160,8 +169,8 @@ const Paso3Component = React.createClass({
             searchPromptText="Escriba para buscar"
             noResultsText="No se encontraron resultados"
           />
+          </div>
         </div>
-      </div>
       </div>
     );
   }

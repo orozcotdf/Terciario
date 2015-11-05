@@ -4,7 +4,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    App: './src/js/app.jsx',
+    App: [
+      'webpack-dev-server/client?http://localhost:8080',
+      'webpack/hot/only-dev-server',
+      './src/js/app.jsx'
+    ],
     Public: './src/js/public.jsx',
     vendor: [
       'jquery',
@@ -58,7 +62,7 @@ module.exports = {
       }, {
         test: /\.(jsx|js)/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel'
+        loaders: ['react-hot', 'babel']
       }],
     noParse: /\.min\.js/
   },

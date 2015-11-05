@@ -75,6 +75,16 @@ const Paso4Component = React.createClass({
         </div>
         <div className="row">
           <div className="col-sm-4 col-sm-offset-2">
+            <TextField
+              className="inputSmall"
+              type="text"
+              name="INSCRIPCIONES_TELEFONO"
+              floatingLabelText="Telefono de Contacto"
+              onChange={this._onChange}
+              style={this._inputStyles}
+            />
+          </div>
+          <div className="col-md-4">
             <Select
               name="INSCRIPCIONES_NACIMIENTO_BARRIO_ID"
               asyncOptions={this._cargarBarrios}
@@ -83,16 +93,9 @@ const Paso4Component = React.createClass({
               clearable={true}
               placeholder="Barrio"
               autoload={false}
-              style={{padding: '10px 0', width: '100%'}}
-            />
-          </div>
-          <div className="col-md-4">
-            <TextField
-              type="text"
-              name="INSCRIPCIONES_TELEFONO"
-              floatingLabelText="Telefono de Contacto"
-              onChange={this._onChange}
-              style={this._inputStyles}
+              searchingText="Buscando..."
+              searchPromptText="Escriba para buscar"
+              noResultsText="No se encontraron resultados"
             />
           </div>
         </div>
