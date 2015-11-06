@@ -2,6 +2,14 @@ var React = require('react');
 var _ = require('underscore');
 var Griddle = require('griddle-react');
 
+var loadingComponent = React.createClass({
+  render() {
+    return (
+      <div>Cargando...</div>
+    );
+  }
+});
+
 var GriddleWithCallback = React.createClass({
   getDefaultProps: function(){
     return {
@@ -196,7 +204,8 @@ var GriddleWithCallback = React.createClass({
       externalSetPageSize={this.setPageSize} externalMaxPage={this.state.maxPage}
       externalCurrentPage={this.state.page} results={this.state.results} resultsPerPage={this.state.pageSize}
       externalSortColumn={this.state.sortColumn} externalSortAscending={this.state.sortAscending}
-      externalLoadingComponent={this.props.loadingComponent} externalIsLoading={this.state.isLoading} />
+      externalLoadingComponent={loadingComponent} externalIsLoading={this.state.isLoading}
+      nextText="Siguiente" previousText="Anterior"/>
   }
 });
 

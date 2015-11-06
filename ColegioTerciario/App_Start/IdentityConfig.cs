@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -19,7 +20,33 @@ namespace ColegioTerciario
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Conecte su servicio de correo electrónico aquí para enviar correo electrónico.
+            
+            try
+            {
+                using (SmtpClient mailClient = new SmtpClient("smtp.office365.com"))
+                {
+                    //Your Port gets set to what you found in the "POP, IMAP, and SMTP access" section from Web Outlook  
+                    mailClient.Port = 587;
+                    //Set EnableSsl to true so you can connect via TLS
+                    mailClient.EnableSsl = true;
+                    //Your network credentials are going to be the Office 365 email address and the password
+                    System.Net.NetworkCredential cred = new System.Net.NetworkCredential("administracion@cent11.edu.ar", "Pa$$word00");
+                    mailClient.Credentials = cred;
+                    MailMessage mensaje = new MailMessage();
+                    //This DOES work  
+                    mensaje.From = new MailAddress("administracion@cent11.edu.ar", "Administracion Cent11");
+                    mensaje.To.Add(message.Destination);
+                    mensaje.Subject = message.Subject;
+                    mensaje.IsBodyHtml = true;
+
+                    message.Body = message.Body;
+                    mailClient.Send(mensaje);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return Task.FromResult(0);
         }
     }

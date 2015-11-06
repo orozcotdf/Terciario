@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import GriddleWithCallback from '../../lib/GriddleWithCallback';
+import GriddleCustomPagination from '../../lib/GriddleCustomPagination';
 import UserStore from '../../../stores/userStore';
 import Reflux from 'reflux';
 import {Link} from 'react-router';
@@ -115,7 +116,10 @@ const CursosDeDocente = React.createClass({
                   columns={columns}
                   loadingText = "Cargando..."
                   tableClassName = "table table-vmiddle"
-                  noDataMessage = "No se encontraron resultados"/>
+                  noDataMessage = "No se encontraron resultados"
+                  useCustomPagerComponent="true"
+                  nextText="Siguiente"
+                  customPagerComponent={GriddleCustomPagination}/>
         </div>
       </div>
     );

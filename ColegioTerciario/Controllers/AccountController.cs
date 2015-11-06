@@ -232,7 +232,7 @@ namespace ColegioTerciario.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // No revelar que el usuario no existe o que no está confirmado
@@ -289,6 +289,7 @@ namespace ColegioTerciario.Controllers
             }
             var code = Server.UrlDecode(model.Code);
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");

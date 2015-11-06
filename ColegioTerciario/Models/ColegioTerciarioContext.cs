@@ -11,11 +11,12 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using ColegioTerciario.Models.User;
+using TrackerEnabledDbContext.Identity;
 
 namespace ColegioTerciario.Models
 {
-    
-    public partial class ColegioTerciarioContext : IdentityDbContext<ApplicationUser>
+
+    public partial class ColegioTerciarioContext : TrackerIdentityContext<ApplicationUser>
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 

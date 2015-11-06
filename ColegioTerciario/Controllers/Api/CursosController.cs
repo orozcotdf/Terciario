@@ -11,8 +11,7 @@ using ColegioTerciario.DAL.Models;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.ViewModels;
 using ColegioTerciario.Models.ViewModels.Api;
-using Newtonsoft.Json;
-using OrderByExtensions;
+
 namespace ColegioTerciario.Controllers.Api
 {
     public class FechaViewModel
@@ -85,7 +84,7 @@ namespace ColegioTerciario.Controllers.Api
                 .Where(
                     m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId && !m.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO
                 )
-                .OrderBy(m => m.ID)
+                .OrderByDescending(m => m.ID)
                 .Skip(param.Pagina*param.RegistrosPorPagina)
                 .Take(param.RegistrosPorPagina);
             /*
@@ -237,6 +236,7 @@ namespace ColegioTerciario.Controllers.Api
                         break;
                 }
                 _db.SaveChanges();
+
             }
             catch (Exception ex)
             {

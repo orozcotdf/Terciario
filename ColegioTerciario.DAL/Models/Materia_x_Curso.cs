@@ -7,6 +7,7 @@ using ColegioTerciario.Models.Types;
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Materias_X_Cursos")]
+    [TrackChanges]
     public class Materia_x_Curso : EntityBase
     {
         public int ID { get; set; }
