@@ -23,7 +23,9 @@ const store = Reflux.createStore({
         (curso) => {
           const data = curso.data;
 
-          data.Fecha = new Date(data.Fecha);
+          if (data.Fecha !== null) {
+            data.Fecha = new Date(data.Fecha);
+          }
           this.trigger(data);
         }
       );

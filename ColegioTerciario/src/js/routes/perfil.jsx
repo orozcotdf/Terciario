@@ -1,5 +1,5 @@
-export default {
-  path: ':id/editar',
+module.exports = {
+  path: '/Perfil',
 
   /*
   getChildRoutes(location, cb) {
@@ -18,6 +18,6 @@ export default {
     //  cb(null, require('./main'));
     // });
 
-    cb(null, require('./Editar'));
+    cb(null, require('../components/Perfil/Perfil'));
   }
 };

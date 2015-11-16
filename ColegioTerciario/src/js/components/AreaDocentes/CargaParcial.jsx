@@ -1,31 +1,35 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import CursosStore from '../../../../stores/cursosStore';
+import CursosStore from '../../stores/cursosStore';
 import Reflux from 'reflux';
-import CursosActions from '../../../../actions/cursosActions';
-import UISelect from '../../../UI/Select';
+import CursosActions from '../../actions/cursosActions';
+import UISelect from '../UI/Select';
 import _ from 'lodash';
 import Notification from 'Notification';
-import {DatePicker} from 'material-ui';
+import {DatePicker, Checkbox} from 'material-ui';
 import EasyPieChart from 'easy-pie-chart/dist/easypiechart.js';
+import reactMixin from 'react-mixin';
 
-const CargaParcial = React.createClass({
+const ParcialesValidos = ['P1', 'P2', 'R1', 'R2'];
 
-  chart: null,
-  parcialesValidos: ['P1', 'P2', 'R1', 'R2'],
+class CargaParcial extends React.Component {
 
-  mixins: [Reflux.connect(CursosStore)],
-
-  contextTypes: {
-    router: React.PropTypes.func
-  },
+  constructor() {
+    super();
+    this.chart = null;
+    this.estilosFecha = {
+      inputStyle: {
+        color: 'white'
+      },
+      floatingLabelStyle: {color: 'white'}
+    };
+  }
 
   componentWillMount() {
     CursosActions.obtenerInfo(this.props.params.idCurso, this.props.params.parcial);
     CursosActions.obtenerAlumnos(this.props.params.idCurso, this.props.params.parcial, () => {
       this._actualizarPorcentajeAprobados();
 
-      this.chart = new EasyPieChart(ReactDOM.findDOMNode(this.refs.porcentajeChart), {
+      this.chart = new EasyPieChart(this.refs.porcentajeChart, {
         trackColor: 'rgba(255,255,255,0.2)',
         scaleColor: 'rgba(255,255,255,0.5)',
         barColor: 'rgba(255,255,255,0.7)',
@@ -34,48 +38,61 @@ const CargaParcial = React.createClass({
         size: 148
       });
     });
-  },
+  }
 
   componentWillUpdate(nextProps, nextState) {
     // Chequea si se le pasa una instancia de parcial valida
     if (nextProps) {
-      if (this.parcialesValidos.indexOf(nextProps.params.parcial) < 0) {
+      if (ParcialesValidos.indexOf(nextProps.params.parcial) < 0) {
         this.props.history.pushState(null, '/area-docentes/cursos/');
       }
     }
-  },
-
-  propTypes() {
-    return {
-      idCurso: React.PropTypes.integer,
-      parcial: React.PropTypes.oneOf(this.parcialesValidos)
-    };
-  },
+  }
 
   _getAlumnos() {
     return this.state.alumnos;
-  },
+  }
 
   _cambiarNota(CursadaID, parcial, nota) {
     CursosActions.cambiarNota(nota, CursadaID, parcial, () => {
       this._actualizarPorcentajeAprobados();
     });
-  },
+  }
 
   _exit() {
     this.props.history.goBack();
-  },
+  }
+
+  _mostrarPlanilla() {
+    let url = '/Cursos/PDF/' +
+      this.props.params.idCurso +
+      '?instancia=' + this.props.params.parcial;
+
+    if (this.state.mostrarLibres === true) {
+      url = url + '&mostrarLibres=true';
+    }
+
+    window.open(url, '_blank');
+  }
 
   _imprimirPlanilla(e) {
     e.preventDefault();
-    if (_.find(this.state.alumnos, {Nota: null})) {
-      Notification.error('Faltan cargar notas');
+    let condicion;
+
+    if (this.state.mostrarLibres) {
+      condicion = _.find(this.state.alumnos, {Nota: null});
     } else {
-      location.href = '/Cursos/PDF/' +
-        this.props.params.idCurso +
-        '?instancia=' + this.props.params.parcial;
+      condicion = _.find(this.state.alumnos, {Libre: false, Nota: null});
     }
-  },
+
+    if (condicion) {
+      Notification.error('Faltan cargar notas');
+    } else if (this.state.Fecha === null) {
+      Notification.error('Faltan cargar la Fecha');
+    } else {
+      this._mostrarPlanilla();
+    }
+  }
 
   _formatDate(date) {
     let d = date.getDate();
@@ -87,7 +104,7 @@ const CargaParcial = React.createClass({
     const formattedDate = d + '/' + m + '/' + y;
 
     return formattedDate;
-  },
+  }
 
   _setFecha(nill, value) {
     CursosActions.cambiarFecha(
@@ -97,7 +114,7 @@ const CargaParcial = React.createClass({
     this.setState({
       Fecha: value
     });
-  },
+  }
 
   _actualizarPorcentajeAprobados() {
     const notasCargadas = _.compact(_.map(_.pluck(this.state.alumnos, 'Nota'),
@@ -116,17 +133,17 @@ const CargaParcial = React.createClass({
     if (this.chart) {
       this.chart.update(porcentaje);
     }
-  },
+  }
 
-  estilosFecha: {
-    inputStyle: {
-      color: 'white'
-    },
-    floatingLabelStyle: {color: 'white'}
-  },
+  _mostrarLibres(event, checked) {
+    this.setState({
+      mostrarLibres: checked
+    });
+  }
 
   render() {
     const notas = [
+      {payload: 'Ausente', text: 'Ausente'},
       {payload: '1', text: '1'},
       {payload: '2', text: '2'},
       {payload: '3', text: '3'},
@@ -136,8 +153,7 @@ const CargaParcial = React.createClass({
       {payload: '7', text: '7'},
       {payload: '8', text: '8'},
       {payload: '9', text: '9'},
-      {payload: '10', text: '10'},
-      {payload: 'Ausente', text: 'Ausente'}
+      {payload: '10', text: '10'}
     ];
 
 
@@ -157,13 +173,13 @@ const CargaParcial = React.createClass({
             </h2>
             <ul className="actions">
               <li>
-                <a href="#" onClick={this._exit}>
+                <a href="#" onClick={this._exit.bind(this)}>
                   <i className="zmdi zmdi-close"></i>
                 </a>
               </li>
             </ul>
             <a href="#"
-               onClick={this._imprimirPlanilla}
+               onClick={this._imprimirPlanilla.bind(this)}
                className="btn bgm-red btn-float waves-effect waves-circle waves-float">
               <i className="zmdi zmdi-print"></i>
             </a>
@@ -183,6 +199,10 @@ const CargaParcial = React.createClass({
               </thead>
               <tbody>
                 {this._getAlumnos().map((alumno) => {
+                  if (alumno.Libre && !this.state.mostrarLibres) {
+                    return null;
+                  }
+
                   return (
                     <tr key={alumno.CursadaId}>
                       <td>{alumno.Alumno}</td>
@@ -221,16 +241,28 @@ const CargaParcial = React.createClass({
                 hintText="Modificar fecha"
                 name="FECHA"
                 value={this.state.Fecha}
+                defaultDate={null}
                 formatDate={this._formatDate}
-                locale="es"
+                DateTimeFormat={Intl.DateTimeFormat}
+                locale="es-ES"
                 autoOk={true}
-                mode="inline"
-                onChange={this._setFecha}
+                onChange={this._setFecha.bind(this)}
                 inputStyle={this.estilosFecha.inputStyle}
                 floatingLabelStyle={this.estilosFecha.floatingLabelStyle}
+                wordings={{ok: 'OK', cancel: 'Cancelar'}}
                 />
             </div>
 
+          </div>
+        </div>
+      </div>
+      <div className="col-sm-3">
+        <div className="card">
+          <div className="card-body card-padding">
+            <Checkbox
+              name="mostrarLibres"
+              label="Mostrar Libres"
+              onCheck={this._mostrarLibres.bind(this)}/>
           </div>
         </div>
       </div>
@@ -246,6 +278,19 @@ const CargaParcial = React.createClass({
     </div>
     );
   }
-});
+}
+
+CargaParcial.propTypes = {
+  idCurso: React.PropTypes.string,
+  parcial: React.PropTypes.oneOf(ParcialesValidos),
+  params: React.PropTypes.object,
+  history: React.PropTypes.object
+};
+
+CargaParcial.contextTypes = {
+  router: React.PropTypes.func
+};
+
+reactMixin.onClass(CargaParcial, Reflux.connect(CursosStore));
 
 export default CargaParcial;

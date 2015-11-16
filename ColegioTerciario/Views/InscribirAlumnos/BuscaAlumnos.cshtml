@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "BuscaAlumnos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Inscripciones - 2do Paso</h2>
+
+<div class="card">
+    <div class="card-body card-padding">
+        @using (Html.BeginForm("GuardarInscripciones", "InscribirAlumnos", FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <select name="turno">
+                            <option value="">Seleccione un Turno</option>
+                            @foreach (ColegioTerciario.Models.ViewModels.InscripcionesViewModel turno in ViewBag.TURNOS)
+                            {
+                                <option value="@turno.ID">@turno.TURNO_EXAMEN_NOMBRE</option>
+                            }
+                        </select>
+                    </div>
+                    <input type="hidden" name="idAlumno" value="@ViewBag.ALUMNO"/>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="chequearCorrelativas" value="true" checked> Revisar Correlatividades
+                        </label>
+                    </div>
+                    <input type="submit" value="Inscribir"/>
+
+
+
+                    @foreach (ColegioTerciario.Models.ViewModels.InscripcionesViewModel turno in ViewBag.TURNOS)
+                    {
+
+                        if (turno.ACTAS_EXAMENES.Count() > 0)
+                        {
+                            <div class="row" data-turno="@turno.ID" style="display: none">
+                                <div class="col-md-12">
+                                    <table class="table">
+                                        <tbody>
+                                        @foreach (ColegioTerciario.DAL.Models.Acta_Examen examen in turno.ACTAS_EXAMENES)
+                                        {
+                                            <tr>
+                                                <td>@Html.RouteLink("Ver Mesa", new {Controller = "ActaExamen", Action = "Edit", ID = examen.ID}) </td>
+                                                <td><input type="checkbox" name="mesas[]" value="@examen.ID"/></td>
+                                                <td>@examen.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE</td>
+                                                <td>@examen.ACTA_EXAMEN_LIBRO</td>
+                                                <td>@examen.ACTA_EXAMEN_FOLIO</td>
+                                                <td>@examen.ACTA_EXAMEN_FECHA.Value.ToString("dd/MM/yyyy")</td>
+                                                <td>@examen.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE</td>
+                                            </tr>
+                                        }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row" data-turno="@turno.ID" style="display: none">
+                                <div class="col-md-12">
+                                    <p style="margin-top: 15px">No hay mesas para mostrar</p>
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+                </div>
+            </div>
+    }
+    </div>
+    
+</div>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            $("select[name='turno']").on("change", function(e, v) {
+                var id_turno = $(this).val();
+                $("[data-turno]").hide();
+                $("[data-turno='" + id_turno + "']").show();
+            });
+            });
+    </script>
+}

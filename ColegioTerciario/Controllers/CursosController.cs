@@ -450,7 +450,7 @@ namespace ColegioTerciario.Controllers
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Pdf(int id, string instancia)
+        public ActionResult Pdf(int id, string instancia, bool mostrarLibres = false)
         {
             const int notaMinima = 6;
 
@@ -458,18 +458,33 @@ namespace ColegioTerciario.Controllers
                 .Include("MATERIA_X_CURSO_CARRERA")
                 .Include("MATERIA_X_CURSO_MATERIA")
                 .Include("MATERIA_X_CURSO_DOCENTE")
-                .Include("MATERIA_X_CURSO_CICLO").SingleOrDefault(c => c.ID == id);
+                .Include("MATERIA_X_CURSO_CICLO").Single(c => c.ID == id);
 
             var reporte = new ParcialPDF
             {
                 Instancia = instancia,
                 Ciclo = curso.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE,
+                Codigo = curso.MATERIA_X_CURSO_CURSO_NOMBRE,
                 Integrantes = new List<Integrante>()
             };
-            foreach (var cursada in _db.Cursadas
+
+            var cursadas = _db.Cursadas
                 .Include("CURSADA_ALUMNO")
                 .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
-                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id)) {
+                .Where(c => c.CURSADA_ALUMNO != null && c.CURSADA_MATERIAS_X_CURSOS_ID == id);
+
+            if (!mostrarLibres)
+            {
+                cursadas = cursadas.Where(
+                    c => (
+                        c.CURSADA_ESTADO_ACADEMICO != "Libre" &&
+                        c.CURSADA_ESTADO_ASISTENCIA != "Libre" &&
+                        c.CURSADA_ESTADO_DEFINITIVO != "Libre"
+                        )
+                    );
+            }
+
+            foreach (var cursada in cursadas) {
 
                     var integrante = new Integrante();
                     

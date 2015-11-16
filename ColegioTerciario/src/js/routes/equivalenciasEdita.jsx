@@ -1,5 +1,5 @@
-export default {
-  path: '/',
+module.exports = {
+  path: ':id/editar',
 
   /*
   getChildRoutes(location, cb) {
@@ -18,6 +18,6 @@ export default {
     //  cb(null, require('./main'));
     // });
 
-    cb(null, require('./Inicio'));
+    cb(null, require('../components/Equivalencias/Edita'));
   }
 };

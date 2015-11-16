@@ -12,7 +12,8 @@ using Rotativa.MVC;
 
 namespace ColegioTerciario.Controllers
 {
-    public class InscripcionesController : Controller
+    [Authorize(Roles = "Admin, Bedel")]
+    public class InscribirAlumnosController : Controller
     {
         private ColegioTerciarioContext db = new ColegioTerciarioContext();
 

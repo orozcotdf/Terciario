@@ -104,9 +104,9 @@ namespace ColegioTerciario.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    if (UserManager.FindByEmail(model.Email) == null)
+                    if (UserManager.FindByName(model.Email) == null)
                     {
-                        ModelState.AddModelError("", "Correo electronico incorrecto");
+                        ModelState.AddModelError("", "Usuario incorrecto");
                         return View(model);
                     }
                     ModelState.AddModelError("", "Contraseña incorrecta.");
@@ -242,7 +242,8 @@ namespace ColegioTerciario.Controllers
                 // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
                 // Enviar correo electrónico con este vínculo
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                string encodedCode = code.Base64ForUrlEncode();
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = encodedCode }, protocol: Request.Url.Scheme);		
                 //await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
                 Mailer.SendForgotPasswordMail(user.Email, callbackUrl);
@@ -287,8 +288,8 @@ namespace ColegioTerciario.Controllers
                 // No revelar que el usuario no existe
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var code = Server.UrlDecode(model.Code);
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var decodedCode = model.Code.Base64ForUrlDecode();
+            var result = await UserManager.ResetPasswordAsync(user.Id, decodedCode, model.Password);
             
             if (result.Succeeded)
             {

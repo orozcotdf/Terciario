@@ -109,15 +109,15 @@ const UISidebar = React.createClass({
         <div className="sidebar-inner c-overflow" ref="sidebarInner">
           <div className={profileMenuClasses}>
               <a href="#" onClick={this._toggleProfileMenu}>
-                  <div className="profile-pic">
-                      <Gravatar email={this.state.user.data.UserName} />
-                  </div>
+                <div className="profile-pic">
+                  <Gravatar email={this.state.user.data.DatosPersonales.PERSONA_EMAIL} />
+                </div>
 
-                  <div className="profile-info">
-                      {this.state.user.data.UserName}
+                <div className="profile-info">
+                  {this.state.user.data.UserName}
 
-                      <i className="zmdi zmdi-arrow-drop-down"></i>
-                  </div>
+                  <i className="zmdi zmdi-arrow-drop-down"></i>
+                </div>
               </a>
 
               <ul className="main-menu" ref="mainmenu">

@@ -3,55 +3,43 @@
 	{
 		"selected_items":
 		[
+			[
+				"parcialesValid",
+				"ParcialesValidos"
+			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "ColegioTerciario/src/js/components/Equivalencias/super.jsx",
-			"settings":
-			{
-				"buffer_size": 1393,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "ColegioTerciario/src/js/components/Equivalencias/Agrega.jsx",
-			"settings":
-			{
-				"buffer_size": 2739,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "ColegioTerciario/src/js/components/layout.jsx",
-			"settings":
-			{
-				"buffer_size": 289,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "ColegioTerciario/webpack.config.js",
 			"settings":
 			{
-				"buffer_size": 2600,
+				"buffer_size": 1937,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "ColegioTerciario/src/js/config/routes.jsx",
+			"file": "ColegioTerciario/webpack.development.config.js",
 			"settings":
 			{
-				"buffer_size": 980,
+				"buffer_size": 2131,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "ColegioTerciario/src/js/app.jsx",
+			"file": "ColegioTerciario/src/js/routes/equivalencias.jsx",
 			"settings":
 			{
-				"buffer_size": 467,
+				"buffer_size": 724,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ColegioTerciario/src/js/components/lib/GriddleActionsComponent.jsx",
+			"settings":
+			{
+				"buffer_size": 1416,
 				"line_ending": "Unix"
 			}
 		}
@@ -63,7 +51,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 150.0,
+		"height": 185.0,
 		"last_filter": "install",
 		"selected_items":
 		[
@@ -76,7 +64,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 416.0
+		"width": 402.0
 	},
 	"console":
 	{
@@ -99,43 +87,74 @@
 	"expanded_folders":
 	[
 		"/C/terciario/ColegioTerciario",
-		"/C/terciario/ColegioTerciario/Scripts",
-		"/C/terciario/ColegioTerciario/Scripts/dist",
-		"/C/terciario/ColegioTerciario/Scripts/dist",
+		"/C/terciario/ColegioTerciario/src",
 		"/C/terciario/ColegioTerciario/src/js",
 		"/C/terciario/ColegioTerciario/src/js/components",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes",
 		"/C/terciario/ColegioTerciario/src/js/components/Component",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias",
-		"/C/terciario/ColegioTerciario/src/plugins"
+		"/C/terciario/ColegioTerciario/src/js/routes"
 	],
 	"file_history":
 	[
+		"/C/terciario/ColegioTerciario/webpack.development.config.js",
+		"/C/terciario/ColegioTerciario/src/js/app.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/inscripcionesAdmin.jsx",
+		"/C/terciario/terciario.sublime-project",
+		"/C/terciario/ColegioTerciario/src/js/public.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/inscripciones.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/Main/main.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/main.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/lib/GriddleWithCallback.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/lib/GriddleActionsComponent.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/Edita.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/EditForm.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/container.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/Agrega.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/equivalencias.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/equivalenciasAgrega.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/equivalenciasEdita.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/perfil.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/CargaParcial.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/layout.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/areaDocentes.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/inicio.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/areaDocentesCargaParcial.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/CargaParcial/CargaParcial.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/Inscripciones/index.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/Perfil/index.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/Cursos/CargaParcial/index.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/Cursos/container.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/Cursos/CargaParcial/CargaParcial.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/Cursos/index.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/Cursos/main.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/Inicio/index.jsx",
+		"/C/terciario/ColegioTerciario/package.json",
+		"/C/terciario/ColegioTerciario/src/js/components/Inicio/Inicio.jsx",
+		"/C/terciario/ColegioTerciario/.babelrc",
+		"/C/terciario/ColegioTerciario/.eslintrc",
+		"/C/terciario/ColegioTerciario/webpack.config.js",
+		"/C/terciario/.editorconfig",
+		"/C/terciario/ColegioTerciario/src/js/config/routes.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/main.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/Editar.jsx",
-		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/Agrega.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/super.jsx",
-		"/C/terciario/ColegioTerciario/package.json",
-		"/C/terciario/ColegioTerciario/webpack.config.js",
 		"/C/terciario/ColegioTerciario/Content/cent11-2.0.css",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/equivalencias.css",
 		"/C/terciario/ColegioTerciario/src/js/components/inicio.jsx",
 		"/C/Users/-Nahue-/OneDrive/Software/SublimeText3/Data/Packages/User/Preferences.sublime-settings",
 		"/C/terciario/ColegioTerciario/src/js/components/Component/main.jsx",
-		"/C/terciario/ColegioTerciario/src/js/app.jsx",
-		"/C/terciario/ColegioTerciario/src/js/config/routes.jsx",
 		"/C/terciario/ColegioTerciario/src/js/config/routes.js",
 		"/C/terciario/ColegioTerciario/Scripts/App.min.js",
 		"/C/terciario/ColegioTerciario/Scripts/vendor.min.js",
 		"/C/terciario/ColegioTerciario/src/js/components/inicio.js",
 		"/C/terciario/ColegioTerciario/src/js/app.js",
 		"/C/Users/-Nahue-/OneDrive/Software/SublimeText3/Data/Packages/SublimeLinter/SublimeLinter.sublime-settings",
-		"/C/terciario/.eslintrc",
-		"/C/terciario/.editorconfig",
-		"/C/terciario/terciario.sublime-project"
+		"/C/terciario/.eslintrc"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 36.0
 	},
 	"find_in_files":
 	{
@@ -149,6 +168,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"GriddleCustomPagination",
+			"GriddleActionsComponent",
+			"editId",
+			"modelId",
+			"clearAndFocusInput",
+			"on",
+			"_mostrarL",
+			"_.",
+			"findDOM",
+			"parciales",
+			"parcialesValidos",
+			"findD",
+			"react/jsx",
+			"_getJsonData",
+			"quotes",
 			"datepi",
 			"bind",
 			"commons",
@@ -177,19 +211,87 @@
 			[
 				{
 					"buffer": 0,
-					"file": "ColegioTerciario/src/js/components/Equivalencias/super.jsx",
-					"semi_transient": true,
+					"file": "ColegioTerciario/webpack.config.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1393,
+						"buffer_size": 1937,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								302,
-								216
+								242,
+								242
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/Babel/JavaScript (Babel).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 794.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ColegioTerciario/webpack.development.config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2131,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								949,
+								949
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/Babel/JavaScript (Babel).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 120.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ColegioTerciario/src/js/routes/equivalencias.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 724,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								646,
+								646
 							]
 						],
 						"settings":
@@ -210,54 +312,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "ColegioTerciario/src/js/components/Equivalencias/Agrega.jsx",
+					"buffer": 3,
+					"file": "ColegioTerciario/src/js/components/lib/GriddleActionsComponent.jsx",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2739,
+						"buffer_size": 1416,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2024,
-								2024
-							]
-						],
-						"settings":
-						{
-							"apply_syntax_touched": true,
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/Babel/JavaScript (Babel).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 620.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "ColegioTerciario/src/js/components/layout.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 289,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								189,
-								189
+								62,
+								62
 							]
 						],
 						"settings":
@@ -272,111 +340,9 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "ColegioTerciario/webpack.config.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2600,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								693,
-								693
-							]
-						],
-						"settings":
-						{
-							"apply_syntax_touched": true,
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 290.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "ColegioTerciario/src/js/config/routes.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 980,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								624,
-								624
-							]
-						],
-						"settings":
-						{
-							"apply_syntax_touched": true,
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/Babel/JavaScript (Babel).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "ColegioTerciario/src/js/app.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 467,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								155,
-								155
-							]
-						],
-						"settings":
-						{
-							"apply_syntax_touched": true,
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/Babel/JavaScript (Babel).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]

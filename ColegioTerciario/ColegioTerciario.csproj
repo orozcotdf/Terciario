@@ -27,11 +27,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -311,6 +312,10 @@
     <Compile Include="Migrations\201511060349127_Audit.Designer.cs">
       <DependentUpon>201511060349127_Audit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511132220042_Regularidad de Parciales.cs" />
+    <Compile Include="Migrations\201511132220042_Regularidad de Parciales.Designer.cs">
+      <DependentUpon>201511132220042_Regularidad de Parciales.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Configuraciones.cs" />
     <Compile Include="Models\ViewModels\Api\AccountsViewModels.cs" />
     <Compile Include="Models\ViewModels\Api\AlumnoEnCursadaViewModel.cs" />
@@ -329,7 +334,7 @@
     <Compile Include="Controllers\Api\EquivalenciasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorasController.cs" />
-    <Compile Include="Controllers\InscripcionesController.cs" />
+    <Compile Include="Controllers\InscribirAlumnosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MateriasController.cs" />
     <Compile Include="Controllers\MatriculasController.cs" />
@@ -513,6 +518,7 @@
     <Content Include="Scripts\colegio_terciario.concat.js" />
     <Content Include="Scripts\dist\App.js" />
     <Content Include="Scripts\dist\cent11-2.0.css" />
+    <Content Include="Scripts\dist\init.js" />
     <Content Include="Scripts\dist\vendor.js" />
     <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\plugins.concat.js" />
@@ -585,6 +591,7 @@
     <Content Include="Scripts\dist\App.js.map" />
     <Content Include="Scripts\dist\cent11-2.0.css.map" />
     <Content Include="Scripts\dist\vendor.js.map" />
+    <Content Include="Scripts\dist\init.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="gulpfile.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
@@ -703,12 +710,12 @@
     <Content Include="Views\Asistencias\Edit.cshtml" />
     <Content Include="Views\Asistencias\ImprimirPlanillaVacia.cshtml" />
     <Content Include="Views\Personas\ImprimirCertificadoAlumnoRegular.cshtml" />
-    <Content Include="Views\Inscripciones\Index.cshtml" />
-    <Content Include="Views\Inscripciones\BuscaAlumnos.cshtml" />
-    <Content Include="Views\Inscripciones\ConstanciaDeInscripcion.cshtml" />
+    <Content Include="Views\InscribirAlumnos\Index.cshtml" />
+    <Content Include="Views\InscribirAlumnos\BuscaAlumnos.cshtml" />
+    <Content Include="Views\InscribirAlumnos\ConstanciaDeInscripcion.cshtml" />
     <Content Include="Views\Equivalencias\Index.cshtml" />
     <None Include="Views\Home\Ver2.cshtml" />
-    <None Include="Views\Inscripciones\GuardarInscripciones.cshtml" />
+    <None Include="Views\InscribirAlumnos\GuardarInscripciones.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -807,6 +814,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511060349127_Audit.resx">
       <DependentUpon>201511060349127_Audit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511132220042_Regularidad de Parciales.resx">
+      <DependentUpon>201511132220042_Regularidad de Parciales.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -3,9 +3,9 @@ import axios from'axios';
 import Select from 'react-select';
 import {RaisedButton} from 'material-ui';
 import {Modal} from 'react-bootstrap';
-import Notification from '../../UI/Notification';
+import Notification from 'Notification';
 
-export default React.createClass({
+const EditaEquivalenciaForm = React.createClass({
 
   propTypes: {
     modelId: React.PropTypes.integer,
@@ -161,3 +161,5 @@ export default React.createClass({
     );
   }
 });
+
+export default EditaEquivalenciaForm;

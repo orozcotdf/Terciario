@@ -1,28 +1,30 @@
 import Notification from 'Notification';
 
-export default {
-  path: '/equivalencias',
+module.exports = {
+  path: '/area-docentes/cursos',
 
   onEnter(nextState, replaceState) {
-    if (!User.isInRole('Bedel')) {
+    if (!User.isInRole('Docente')) {
       Notification.error('No tiene permisos');
       replaceState({nextPathname: nextState.location.pathname}, '/');
     }
   },
 
   getChildRoutes(location, cb) {
-    // require.ensure([], (require) => {
-    cb(null, [
-      require('./Agrega'),
-      require('./Editar')
-    ]);
-    // })
+    require.ensure([], (require) => {
+      cb(null, [
+        require('./areaDocentesCargaParcial')
+      ]);
+    });
   },
+
 
   getComponent(location, cb) {
     // require.ensure([], (require) => {
     //  cb(null, require('./main'));
     // });
-    cb(null, require('./container'));
+    require.ensure([], (require) => {
+      cb(null, require('../components/AreaDocentes/container'));
+    });
   }
 };

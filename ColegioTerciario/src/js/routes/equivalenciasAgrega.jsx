@@ -1,12 +1,11 @@
-
-export default {
-  path: '/area-docentes/cursos/:idCurso/cargaParcial/:parcial',
+module.exports = {
+  path: 'agrega',
 
   getComponent(location, cb) {
     // require.ensure([], (require) => {
     //  cb(null, require('./main'));
     // });
 
-    cb(null, require('./CargaParcial'));
+    cb(null, require('../components/Equivalencias/Agrega'));
   }
 };

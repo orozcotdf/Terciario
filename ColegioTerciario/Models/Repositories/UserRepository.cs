@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ColegioTerciario.Lib;
 
 namespace ColegioTerciario.Models.Repositories
 {
@@ -24,21 +25,26 @@ namespace ColegioTerciario.Models.Repositories
         }
         public string CreateUser(NewUserViewModel model)
         {
-            var user = new ApplicationUser();
-            user.Email = model.Email;
-            user.UserName = model.Email;
-            user.USER_PERSONA_ID = model.USER_PERSONA_ID; 
-            var result = manager.Create(user, model.Password);
+            var user = new ApplicationUser
+            {
+                Email = model.Email,
+                UserName = model.UserName,
+                USER_PERSONA_ID = model.USER_PERSONA_ID
+            };
+
+            var result = manager.Create(user);
             if (result.Succeeded)
             {
                 manager.AddToRole(user.Id, model.USER_PERSONA_ROL);
+                var usuarioNuevo = context.Users.Single(u => u.Id == user.Id);
+                usuarioNuevo.EmailConfirmed = true;
+
+                context.SaveChanges();
                 return user.Id;
             }
-            else
-            {
-                return "";
-            }
-            
+
+            return null;
+
         }
 
 
@@ -46,6 +52,19 @@ namespace ColegioTerciario.Models.Repositories
         {
             //context.Users.Where(u => u.USER_PERSONA_ID == persona_id).SingleOrDefault();
             return manager.Users.Where(u => u.USER_PERSONA_ID == persona_id).SingleOrDefault();
+        }
+
+        public int GetPersonaIdFromDni(string dni)
+        {
+            try
+            {
+                return context.Personas.Single(p => p.PERSONA_DOCUMENTO_NUMERO.Contains(dni)).ID;
+
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         public ApplicationUser GetUser(string user_id)

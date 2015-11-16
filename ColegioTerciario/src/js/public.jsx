@@ -3,6 +3,7 @@ import {Router} from 'react-router';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import $ from 'jquery';
+import Layout from './components/layout';
 
 require('jquery.nicescroll/jquery.nicescroll');
 require('../less/terciario.less');
@@ -15,9 +16,9 @@ require('react-select/dist/default.css');
 injectTapEventPlugin();
 
 const rootRoute = {
-  component: require('./components/layout'),
+  component: Layout,
   childRoutes: [
-    require('./components/Inscripciones')
+    require('./routes/inscripciones')
   ]
 };
 

@@ -1,6 +1,8 @@
 var React = require('react');
 var _ = require('underscore');
 var Griddle = require('griddle-react');
+import GriddleCustomPagination from '../lib/GriddleCustomPagination';
+
 
 var loadingComponent = React.createClass({
   render() {
@@ -205,7 +207,9 @@ var GriddleWithCallback = React.createClass({
       externalCurrentPage={this.state.page} results={this.state.results} resultsPerPage={this.state.pageSize}
       externalSortColumn={this.state.sortColumn} externalSortAscending={this.state.sortAscending}
       externalLoadingComponent={loadingComponent} externalIsLoading={this.state.isLoading}
-      nextText="Siguiente" previousText="Anterior"/>
+      nextText="Siguiente" previousText="Anterior"
+      useCustomPagerComponent="true"
+      customPagerComponent={GriddleCustomPagination}/>
   }
 });
 

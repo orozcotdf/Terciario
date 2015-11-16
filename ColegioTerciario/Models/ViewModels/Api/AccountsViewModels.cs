@@ -17,5 +17,6 @@ namespace ColegioTerciario.Models.ViewModels.Api
     {
         public string Dni { get; set; }
         public bool MailEnviado { get; set; }
+        public string Mensaje { get; set; }
     }
 }

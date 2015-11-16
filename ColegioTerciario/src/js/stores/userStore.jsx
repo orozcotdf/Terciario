@@ -8,6 +8,10 @@ const store = Reflux.createStore({
   },
 
   getInitialState() {
+    this.data.user.data.UserName = this.data.user.data.DatosPersonales ?
+      this.data.user.data.DatosPersonales.PERSONA_APELLIDO + ', ' +
+      this.data.user.data.DatosPersonales.PERSONA_NOMBRE :
+      this.data.user.data.UserName;
     return this.data;
   },
 

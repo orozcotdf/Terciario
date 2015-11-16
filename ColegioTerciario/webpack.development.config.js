@@ -5,8 +5,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     App: [
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
       './src/js/app.jsx'
     ],
     Public: './src/js/public.jsx',
@@ -35,7 +33,12 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    progress: true
+    progress: true,
+    proxy: {
+      '*': {
+        target: 'http://localhost:63440/'
+      }
+    }
   },
   module: {
     preLoaders: [{
@@ -62,7 +65,7 @@ module.exports = {
       }, {
         test: /\.(jsx|js)/,
         exclude: /(node_modules|bower_components)/,
-        loaders: ['react-hot', 'babel']
+        loader: 'babel'
       }],
     noParse: /\.min\.js/
   },
@@ -77,7 +80,7 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin('init.js'),
     new ExtractTextPlugin('cent11-2.0.css')
   ],
   eslint: {

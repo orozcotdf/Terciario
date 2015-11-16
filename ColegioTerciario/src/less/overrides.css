@@ -1,5 +1,10 @@
-#header,
+/*#header,
 .bootstrap-select,
+.card .card-header .actions {
+  z-index: 1;
+}*/
+#sidebar,
+.btn,
 .card .card-header .actions {
   z-index: 1;
 }
@@ -51,6 +56,11 @@ body#inscripciones {
 .validation-summary-errors ul {
   list-style: none;
   padding-left: 0;
+}
+
+.mini-charts-item:hover .count,
+.mini-charts-item .count {
+  color: inherit !important;
 }
 
 /* PRINT */

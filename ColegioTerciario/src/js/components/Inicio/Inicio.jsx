@@ -2,10 +2,11 @@ import React from 'react';
 import DashboardDocentes from './DashboardDocentes';
 import DashboardBedeles from './DashboardBedeles';
 
-export default class InicioComponent extends React.Component {
+class InicioComponent extends React.Component {
   esDocente() {
     return User.isInRole('Docente');
   }
+
   render() {
     let contenido;
 
@@ -17,3 +18,5 @@ export default class InicioComponent extends React.Component {
     return contenido;
   }
 }
+
+export default InicioComponent;

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Select from 'react-select';
 import {DatePicker, TextField, FlatButton} from 'material-ui';
-import ModalForm from '../AgregaDetallesFormModal';
-import GriddleWithCallback from '../../lib/GriddleWithCallback';
+import ModalForm from './AgregaDetallesFormModal';
+import GriddleWithCallback from '../lib/GriddleWithCallback';
 import axios from 'axios';
 import EditForm from './EditForm';
 
@@ -65,7 +65,7 @@ const DetalleTipoComponent = React.createClass({
   }
 });
 
-export default React.createClass({
+const EditaEquivalencia = React.createClass({
 
   propTypes: {
     params: React.PropTypes.object,
@@ -297,3 +297,5 @@ export default React.createClass({
     );
   }
 });
+
+export default EditaEquivalencia;

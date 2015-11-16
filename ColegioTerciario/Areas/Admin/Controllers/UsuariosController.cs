@@ -1,4 +1,5 @@
-﻿using ColegioTerciario.Models;
+﻿using System;
+using ColegioTerciario.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +12,11 @@ using ColegioTerciario.Models.Repositories;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using ColegioTerciario.Lib;
 using ColegioTerciario.Models.User;
-using SendGrid;
+using MvcFlash.Core;
+using MvcFlash.Core.Extensions;
+using MvcFlash.Core.Filters;
 
 namespace ColegioTerciario.Areas.Admin.Controllers
 {
@@ -101,19 +105,40 @@ namespace ColegioTerciario.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(NewUserViewModel newUserViewModel)
         {
+            ViewBag.ROLES = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+
             if (ModelState.IsValid)
             {
                 var repo = new UserRepository();
                 if (repo.GetUserByPersonaId(newUserViewModel.USER_PERSONA_ID) != null)
                 {
                     Session["error"] = "Ya existe un usuario con esa persona asignada";
+
                     return RedirectToAction("Index");
                 }
-                var user = repo.CreateUser(newUserViewModel);
+                int personaId = repo.GetPersonaIdFromDni(newUserViewModel.UserName);
+                if (personaId == 0)
+                {
+                    ModelState.AddModelError("UserName", "No existe ninguna persona con este documento.");
+                    return View(newUserViewModel); 
+                }
+                newUserViewModel.USER_PERSONA_ID = personaId;
+                string userId = repo.CreateUser(newUserViewModel);
+                if (userId == null)
+                {
+                    ModelState.AddModelError("UserName", "Ya existe un usuario con este documento.");
+                    return View(newUserViewModel); 
+                }
+                string code = UserManager.GeneratePasswordResetToken(userId);
+                string encodedCode = code.Base64ForUrlEncode();
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId, code = encodedCode, area = "" }, protocol: Request.Url.Scheme);
+
+                Mailer.SendMailWithOffice365(newUserViewModel.Email, newUserViewModel.UserName, callbackUrl);
+
+                Flash.Instance.Success("Usuario Creado", "El usuario debera revisar su correo para activar su cuenta.");
+
                 return RedirectToAction("Index");
             }
-            ViewBag.ALUMNOS = new SelectList(new PersonasRepository().GetAlumnos(), "ID", "PERSONA_NOMBRE_COMPLETO");
-            ViewBag.ROLES = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             return View(newUserViewModel); 
 
         }
@@ -140,6 +165,7 @@ namespace ColegioTerciario.Areas.Admin.Controllers
             EditUserViewModel vm = new EditUserViewModel
             {
                 Email = user.Email,
+                UserName = user.UserName,
                 USER_PERSONA_ID = user.USER_PERSONA_ID != null ? user.USER_PERSONA_ID.Value : 0,
             };
             
@@ -165,10 +191,10 @@ namespace ColegioTerciario.Areas.Admin.Controllers
                 var db = new ColegioTerciarioContext();
                 var usuario = db.Users.Find(vm.ID);
                 usuario.USER_PERSONA_ID = vm.USER_PERSONA_ID;
+                usuario.UserName = vm.UserName;
                 if (usuario.Email != vm.Email)
                 {
                     usuario.Email = vm.Email;
-                    usuario.UserName = vm.Email;
                 };
 
                 var roleStore = new RoleStore<IdentityRole>(context);

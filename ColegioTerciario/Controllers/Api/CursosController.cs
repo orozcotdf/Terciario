@@ -135,27 +135,39 @@ namespace ColegioTerciario.Controllers.Api
         {
             var alumnos = new List<AlumnoEnCursadaViewModel>();
             string nota = "";
+            bool regular = false;
 
-            IQueryable<Cursada> cursadas = _db.Cursadas.Include("CURSADA_ALUMNO").Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == cursoId);
+            var cursadas = _db.Cursadas.Include("CURSADA_ALUMNO")
+                .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
+                .Where(c => 
+                    c.CURSADA_ALUMNO != null && 
+                    c.CURSADA_MATERIAS_X_CURSOS_ID == cursoId
+                ).ToList();
 
             foreach (var cursada in cursadas)
             {
                 switch (parcial)
                 {
                     case "P1":
+                        regular = cursada.CURSADA_P1_REGULAR;
                         nota = cursada.CURSADA_NOTA_P1;break;
                     case "P2":
+                        regular = cursada.CURSADA_P2_REGULAR;
                         nota = cursada.CURSADA_NOTA_P2;break;
                     case "R1":
+                        regular = cursada.CURSADA_P1_REGULAR;
                         nota = cursada.CURSADA_NOTA_R1;break;
                     case "R2":
+                        regular = cursada.CURSADA_P2_REGULAR;
                         nota = cursada.CURSADA_NOTA_R2;break;
 
                 }
                 alumnos.Add(new AlumnoEnCursadaViewModel {
                     CursadaId = cursada.ID,
                     Alumno = cursada.CURSADA_ALUMNO.PERSONA_APELLIDO + ", " + cursada.CURSADA_ALUMNO.PERSONA_NOMBRE,
-                    Nota = nota
+                    Nota = nota,
+                    Libre = cursada.CURSADA_ESTADO_ACADEMICO == "Libre" || cursada.CURSADA_ESTADO_ASISTENCIA == "Libre" || cursada.CURSADA_ESTADO_DEFINITIVO == "Libre",
+                    Regular = regular
                 });
             }
             return Ok(alumnos);
@@ -182,7 +194,7 @@ namespace ColegioTerciario.Controllers.Api
                     break;
             }
 
-            _db.SaveChanges();
+            _db.SaveChanges(User.Identity.Name);
 
             return Ok();
         }
@@ -208,7 +220,7 @@ namespace ColegioTerciario.Controllers.Api
                     break;
             }
 
-            _db.SaveChanges();
+            _db.SaveChanges(User.Identity.Name);
 
             return new {};
         }
@@ -235,7 +247,7 @@ namespace ColegioTerciario.Controllers.Api
                         curso.MATERIA_X_CURSO_R2_FECHA = param.value;
                         break;
                 }
-                _db.SaveChanges();
+                _db.SaveChanges(User.Identity.Name);
 
             }
             catch (Exception ex)
@@ -269,7 +281,7 @@ namespace ColegioTerciario.Controllers.Api
             {
                 Materia_x_Curso mc = _db.Materias_X_Cursos.Find(id);
                 mc.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO = true;
-                _db.SaveChanges();
+                _db.SaveChanges(User.Identity.Name);
 
                 return Ok();
             }

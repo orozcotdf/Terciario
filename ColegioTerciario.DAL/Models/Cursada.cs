@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,6 +11,7 @@ using ColegioTerciario.Models.Types;
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Cursadas")]
+    [TrackChanges]
     public class Cursada : EntityBase
     {
         public int ID { get; set; }
@@ -17,6 +19,10 @@ namespace ColegioTerciario.DAL.Models
         public string CURSADA_NOTA_P2 { get; set; }
         public string CURSADA_NOTA_R1 { get; set; }
         public string CURSADA_NOTA_R2 { get; set; }
+        [DefaultValue(false)]
+        public bool CURSADA_P1_REGULAR { get; set; }
+        [DefaultValue(false)]
+        public bool CURSADA_P2_REGULAR { get; set; }
         public string CURSADA_ESTADO_ACADEMICO { get; set; }
         public string CURSADA_ESTADO_ASISTENCIA { get; set; }
         public string CURSADA_ESTADO_DEFINITIVO { get; set; }

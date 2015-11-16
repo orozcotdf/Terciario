@@ -64,6 +64,9 @@ namespace ColegioTerciario
                     Id = userId,
                     UserName = HttpContext.Current.User.Identity.Name
                 };
+
+
+
                 userVM.Roles = new List<RoleViewModel>();
                 foreach (string role in roles)
                 {

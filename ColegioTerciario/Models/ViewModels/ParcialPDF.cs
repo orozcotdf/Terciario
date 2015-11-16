@@ -23,6 +23,8 @@ namespace ColegioTerciario.Models.ViewModels
         public int Desaprobados { get; set; }
         public int Ausentes { get; set; }
         public int Examinados { get; set; }
+
+        public string Codigo { get; set; }
     }
 
     public class Integrante

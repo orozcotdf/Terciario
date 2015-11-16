@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Select from 'react-select';
 import {DatePicker, TextField, FlatButton} from 'material-ui';
@@ -104,9 +103,14 @@ const AgregaEquivalencia = React.createClass({
 
   clearAndFocusInput() {
     // Clear the input
-    this.setState(null, function () {
+    this.setState({
+      EQUIVALENCIA_FECHA: '',
+      EQUIVALENCIA_NRO_DISPOSICION: '',
+      EQUIVALENCIA_ALUMNO_ID: '',
+      EQUIVALENCIA_CARRERA_ID: ''
+    }, function () {
       // This code executes after the inputs are cleared
-      ReactDOM.findDOMNode(this.refs.EQUIVALENCIA_FECHA).focus();
+      this.refs.EQUIVALENCIA_FECHA.focus();
     });
   },
 

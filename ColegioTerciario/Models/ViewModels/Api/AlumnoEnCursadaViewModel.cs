@@ -10,5 +10,7 @@ namespace ColegioTerciario.Controllers.Api
         public string Alumno { get; set; }
         public string Nota { get; set; }
         public int CursadaId { get; set; }
+        public bool Libre { get; set; }
+        public bool Regular { get; set; }
     }
 }

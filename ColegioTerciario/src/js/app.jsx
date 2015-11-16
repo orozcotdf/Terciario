@@ -5,6 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import UISidebar from './components/UI/Sidebar';
 import UIHeader from './components/UI/Header';
 import $ from 'jquery';
+import Layout from './components/layout';
 
 require('jquery.nicescroll/jquery.nicescroll');
 require('../less/terciario.less');
@@ -17,14 +18,13 @@ require('react-select/dist/default.css');
 injectTapEventPlugin();
 
 const rootRoute = {
-  component: require('./components/layout'),
+  component: Layout,
   childRoutes: [
-    require('./components/Inicio'),
-    require('./components/Perfil'),
-    require('./components/Equivalencias'),
-    require('./components/AreaDocentes/Cursos'),
-    require('./components/Inscripciones'),
-    require('./components/AdminInscripciones')
+    require('./routes/inicio'),
+    require('./routes/perfil'),
+    require('./routes/equivalencias'),
+    require('./routes/areaDocentes'),
+    require('./routes/inscripcionesAdmin')
   ]
 };
 

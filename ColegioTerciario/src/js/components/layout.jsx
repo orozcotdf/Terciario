@@ -1,15 +1,19 @@
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
-    children: React.PropTypes.node
-  },
-
+class Layout extends React.Component {
   render() {
     return (
       <div>
-        {this.props.children}
+        {this.props.default}
       </div>
     );
   }
-});
+}
+
+
+Layout.propTypes = {
+  default: React.PropTypes.node
+};
+
+
+export default Layout;

@@ -26,6 +26,9 @@ namespace ColegioTerciario.Areas.Admin.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
+        [Display(Name = "Nombre de Usuario / DNI")]
+        public string UserName { get; set; }
+        [Required]
         public int USER_PERSONA_ID { get; set; }
         public string[] USER_ROLES { get; set; }
         public virtual ColegioTerciario.Models.User.ApplicationUser USER_PERSONA { get; set; }

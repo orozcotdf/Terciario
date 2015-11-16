@@ -99,6 +99,7 @@ namespace ColegioTerciario.Models
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
         public string Code { get; set; }
     }
 

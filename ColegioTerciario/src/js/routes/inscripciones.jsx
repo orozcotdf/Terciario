@@ -1,10 +1,10 @@
-export default {
+module.exports = {
   path: '/',
 
   getComponent(location, cb) {
     // require.ensure([], (require) => {
     //  cb(null, require('./main'));
     // });
-    cb(null, require('./container'));
+    cb(null, require('../components/Inscripciones/container'));
   }
 };

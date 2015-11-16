@@ -4,7 +4,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    App: './src/js/app.jsx',
+    App: [
+      './src/js/app.jsx'
+    ],
     Public: './src/js/public.jsx',
     vendor: [
       'jquery',
@@ -25,7 +27,8 @@ module.exports = {
   output: {
     path: './Scripts/dist',
     filename: '[name].js',
-    chunkFilename: '[id].chunk.js'
+    chunkFilename: '[id].chunk.js',
+    publicPath: '/Scripts/dist/'
   },
   devtool: 'source-map',
   module: {
@@ -64,7 +67,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({minimize: true}),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin('init.js'),
     new ExtractTextPlugin('cent11-2.0.css')
   ]
 };
