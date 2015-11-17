@@ -5,7 +5,7 @@ import CursosActions from '../../actions/cursosActions';
 import UISelect from '../UI/Select';
 import _ from 'lodash';
 import Notification from 'Notification';
-import {DatePicker, Checkbox} from 'material-ui';
+import {DatePicker, RadioButtonGroup, RadioButton} from 'material-ui';
 import EasyPieChart from 'easy-pie-chart/dist/easypiechart.js';
 import reactMixin from 'react-mixin';
 
@@ -16,6 +16,11 @@ class CargaParcial extends React.Component {
   constructor() {
     super();
     this.chart = null;
+    this.state = {
+      verTodos: true,
+      verLibres: false,
+      verRegulares: false
+    };
     this.estilosFecha = {
       inputStyle: {
         color: 'white'
@@ -68,7 +73,7 @@ class CargaParcial extends React.Component {
       this.props.params.idCurso +
       '?instancia=' + this.props.params.parcial;
 
-    if (this.state.mostrarLibres === true) {
+    if (this.state.verTodos || this.state.verLibres) {
       url = url + '&mostrarLibres=true';
     }
 
@@ -134,11 +139,32 @@ class CargaParcial extends React.Component {
       this.chart.update(porcentaje);
     }
   }
-
-  _mostrarLibres(event, checked) {
-    this.setState({
-      mostrarLibres: checked
-    });
+  _cambiarVista(event, value) {
+    switch (value) {
+    case 'todos':
+      this.setState({
+        verTodos: true,
+        verRegulares: false,
+        verLibres: false
+      });
+      break;
+    case 'regulares':
+      this.setState({
+        verTodos: false,
+        verRegulares: true,
+        verLibres: false
+      });
+      break;
+    case 'libres':
+      this.setState({
+        verTodos: true,
+        verRegulares: false,
+        verLibres: true
+      });
+      break;
+    default:
+      break;
+    }
   }
 
   render() {
@@ -159,119 +185,143 @@ class CargaParcial extends React.Component {
 
     return (
       <div>
-        <div className="col-sm-10 col-sm-offset-1 text-center">
-          <div className="block-header">
-            <h2>{this.state.Carrera} - {this.state.Materia}</h2>
+        <div className="row">
+          <div className="col-sm-10 col-sm-offset-1 text-center">
+              <div className="block-header">
+                <h2>{this.state.Carrera} - {this.state.Materia}</h2>
+              </div>
           </div>
         </div>
-      <div className="col-sm-6 col-sm-offset-1">
-        <div className="card">
-          <div className="card-header ch-alt m-b-20">
-            <h2>
-              Notas de {this.props.params.parcial}
-              <small>Curso: {this.state.Nombre}</small>
-            </h2>
-            <ul className="actions">
-              <li>
-                <a href="#" onClick={this._exit.bind(this)}>
-                  <i className="zmdi zmdi-close"></i>
+        <div className="row">
+          <div className="col-sm-6 col-sm-offset-1">
+            <div className="card">
+              <div className="card-header ch-alt m-b-20">
+                <h2>
+                  Notas de {this.props.params.parcial}
+                  <small>Curso: {this.state.Nombre}</small>
+                </h2>
+                <ul className="actions">
+                  <li>
+                    <a href="#" onClick={this._exit.bind(this)}>
+                      <i className="zmdi zmdi-close"></i>
+                    </a>
+                  </li>
+                </ul>
+                <a href="#"
+                   onClick={this._imprimirPlanilla.bind(this)}
+                   className="btn bgm-red btn-float waves-effect waves-circle waves-float">
+                  <i className="zmdi zmdi-print"></i>
                 </a>
-              </li>
-            </ul>
-            <a href="#"
-               onClick={this._imprimirPlanilla.bind(this)}
-               className="btn bgm-red btn-float waves-effect waves-circle waves-float">
-              <i className="zmdi zmdi-print"></i>
-            </a>
-          </div>
-          <div className="card-body">
-            <div className="row">
-              <div className="col-md-4">
+              </div>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-md-4">
 
+                  </div>
+                </div>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Alumno</th>
+                      <th>Nota</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this._getAlumnos().map((alumno) => {
+                      if (!this.state.verTodos && !this.state.verLibres && alumno.Libre) {
+                        return null;
+                      }
+
+                      if (!this.state.verTodos && !this.state.verRegulares && alumno.Regular) {
+                        return null;
+                      }
+
+                      return (
+                        <tr key={alumno.CursadaId}>
+                          <td>
+                            <p style={{marginBottom: 0}}>
+                              {alumno.Alumno}
+                            </p>
+                            <small>
+                              {alumno.Documento}
+                            </small>
+                          </td>
+                          <td>
+                            <UISelect
+                              options={notas}
+                              emptyText="Inserte Nota"
+                              defaultValue={alumno.Nota}
+                              onChange={
+                                this._cambiarNota.bind(
+                                  this, alumno.CursadaId,
+                                  this.props.params.parcial
+                                )
+                              }
+                            />
+                          </td>
+                        </tr>
+                        );
+                    })}
+                  </tbody>
+                </table>
               </div>
             </div>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Alumno</th>
-                  <th>Nota</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this._getAlumnos().map((alumno) => {
-                  if (alumno.Libre && !this.state.mostrarLibres) {
-                    return null;
-                  }
+          </div>
+          <div className="col-sm-3">
+            <div className="mini-charts-item bgm-lightgreen">
+              <div className="clearfix">
+                <div className="chart stats-line">
+                 <i className="zmdi zmdi-calendar zmdi-hc-5x"
+                   style={{width: '85px', height: '45px', padding: '5px 15px 0', color: '#FFF'}}>
+                 </i>
+                </div>
+                <div className="count">
+                  <DatePicker
+                    floatingLabelText="Modificar fecha"
+                    hintText="Modificar fecha"
+                    name="FECHA"
+                    value={this.state.Fecha}
+                    defaultDate={null}
+                    formatDate={this._formatDate}
+                    DateTimeFormat={Intl.DateTimeFormat}
+                    locale="es-ES"
+                    autoOk={true}
+                    onChange={this._setFecha.bind(this)}
+                    inputStyle={this.estilosFecha.inputStyle}
+                    floatingLabelStyle={this.estilosFecha.floatingLabelStyle}
+                    wordings={{ok: 'OK', cancel: 'Cancelar'}}
+                    />
+                </div>
 
-                  return (
-                    <tr key={alumno.CursadaId}>
-                      <td>{alumno.Alumno}</td>
-                      <td>
-                        <UISelect
-                          options={notas}
-                          emptyText="Inserte Nota"
-                          defaultValue={alumno.Nota}
-                          onChange={
-                            this._cambiarNota.bind(
-                              this, alumno.CursadaId,
-                              this.props.params.parcial
-                            )
-                          }
-                        />
-                      </td>
-                    </tr>
-                    );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div className="col-sm-3">
-        <div className="mini-charts-item bgm-lightgreen">
-          <div className="clearfix">
-            <div className="chart stats-line">
-             <i className="zmdi zmdi-calendar zmdi-hc-5x"
-               style={{width: '85px', height: '45px', padding: '5px 15px 0', color: '#FFF'}}>
-             </i>
             </div>
-            <div className="count">
-              <DatePicker
-                floatingLabelText="Modificar fecha"
-                hintText="Modificar fecha"
-                name="FECHA"
-                value={this.state.Fecha}
-                defaultDate={null}
-                formatDate={this._formatDate}
-                DateTimeFormat={Intl.DateTimeFormat}
-                locale="es-ES"
-                autoOk={true}
-                onChange={this._setFecha.bind(this)}
-                inputStyle={this.estilosFecha.inputStyle}
-                floatingLabelStyle={this.estilosFecha.floatingLabelStyle}
-                wordings={{ok: 'OK', cancel: 'Cancelar'}}
-                />
+          </div>
+        </div>
+        <div className="col-sm-3">
+          <div className="card">
+            <div className="card-body card-padding">
+                <RadioButtonGroup name="vistas"
+                  defaultSelected="todos"
+                  onChange={this._cambiarVista.bind(this)}>
+                <RadioButton
+                  value="todos"
+                  label="Ver Todos"/>
+                <RadioButton
+                  value="regulares"
+                  label="Ver Regulares"/>
+                <RadioButton
+                  value="libres"
+                  label="Ver Libres"/>
+                </RadioButtonGroup>
             </div>
-
           </div>
         </div>
-      </div>
-      <div className="col-sm-3">
-        <div className="card">
-          <div className="card-body card-padding">
-            <Checkbox
-              name="mostrarLibres"
-              label="Mostrar Libres"
-              onCheck={this._mostrarLibres.bind(this)}/>
-          </div>
-        </div>
-      </div>
-      <div className="col-sm-3">
-        <div className="epc-item bgm-orange">
-          <div className="easy-pie main-pie" ref="porcentajeChart"
-            data-percent={this.state.porcentaje}>
-            <div className="percent">{this.state.porcentaje}</div>
-            <div className="pie-title">Total de Aprobados</div>
+        <div className="col-sm-3">
+          <div className="epc-item bgm-orange">
+            <div className="easy-pie main-pie" ref="porcentajeChart"
+              data-percent={this.state.porcentaje}>
+              <div className="percent">{this.state.porcentaje}</div>
+              <div className="pie-title">Total de Aprobados</div>
+            </div>
           </div>
         </div>
       </div>

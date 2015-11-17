@@ -344,7 +344,7 @@ namespace ColegioTerciario.Controllers
 
             ViewBag.alumnos = cursadas.ToList();
             ViewBag.HORARIOS = _db.Horas.ToList();
-            var selectListMaterias = new SelectList(materiasSelectList,"Key", "Value", curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE);
+            var selectListMaterias = new SelectList(materiasSelectList,"Key", "Value", curso.ID);
             ViewBag.MATERIAS = selectListMaterias;
 
             ViewBag.lunes = diaToArray(curso.MATERIA_X_CURSO_HORARIOS_LUNES);

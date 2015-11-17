@@ -165,6 +165,7 @@ namespace ColegioTerciario.Controllers.Api
                 alumnos.Add(new AlumnoEnCursadaViewModel {
                     CursadaId = cursada.ID,
                     Alumno = cursada.CURSADA_ALUMNO.PERSONA_APELLIDO + ", " + cursada.CURSADA_ALUMNO.PERSONA_NOMBRE,
+                    Documento = cursada.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO,
                     Nota = nota,
                     Libre = cursada.CURSADA_ESTADO_ACADEMICO == "Libre" || cursada.CURSADA_ESTADO_ASISTENCIA == "Libre" || cursada.CURSADA_ESTADO_DEFINITIVO == "Libre",
                     Regular = regular
