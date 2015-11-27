@@ -5,9 +5,10 @@ import CursosActions from '../../actions/cursosActions';
 import UISelect from '../UI/Select';
 import _ from 'lodash';
 import Notification from 'Notification';
-import {DatePicker, RadioButtonGroup, RadioButton} from 'material-ui';
+import {RadioButtonGroup, RadioButton} from 'material-ui';
 import EasyPieChart from 'easy-pie-chart/dist/easypiechart.js';
 import reactMixin from 'react-mixin';
+import DateInput from '../UI/DateInput';
 
 const ParcialesValidos = ['P1', 'P2', 'R1', 'R2'];
 
@@ -111,6 +112,33 @@ class CargaParcial extends React.Component {
     return formattedDate;
   }
 
+  _parseMDY(str) {
+    const parts = str.split('/');
+    const day = parts[0];
+    const month = parts[1];
+    const year = parts[2];
+
+    if (parts.length === 3) {
+      return `${month}/${day}/${year}`;
+    }
+  }
+
+  _setFecha(value) {
+    if (value === null) {
+      Notification.error('Fecha invalida');
+    } else if (value.length === 10) {
+      CursosActions.cambiarFecha(
+        this.props.params.idCurso,
+        this.props.params.parcial + '_FECHA',
+        this._parseMDY(value)
+      );
+      this.setState({
+        Fecha: value
+      });
+    }
+  }
+
+  /*
   _setFecha(nill, value) {
     CursosActions.cambiarFecha(
       this.props.params.idCurso,
@@ -120,6 +148,7 @@ class CargaParcial extends React.Component {
       Fecha: value
     });
   }
+  */
 
   _actualizarPorcentajeAprobados() {
     const notasCargadas = _.compact(_.map(_.pluck(this.state.alumnos, 'Nota'),
@@ -181,7 +210,6 @@ class CargaParcial extends React.Component {
       {payload: '9', text: '9'},
       {payload: '10', text: '10'}
     ];
-
 
     return (
       <div>
@@ -276,6 +304,9 @@ class CargaParcial extends React.Component {
                  </i>
                 </div>
                 <div className="count">
+                  <DateInput onInputValidDate={this._setFecha.bind(this)} value={this.state.Fecha}/>
+
+                  {/*
                   <DatePicker
                     floatingLabelText="Modificar fecha"
                     hintText="Modificar fecha"
@@ -291,6 +322,7 @@ class CargaParcial extends React.Component {
                     floatingLabelStyle={this.estilosFecha.floatingLabelStyle}
                     wordings={{ok: 'OK', cancel: 'Cancelar'}}
                     />
+                  */}
                 </div>
 
             </div>

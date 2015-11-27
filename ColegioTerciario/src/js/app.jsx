@@ -5,28 +5,15 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import UISidebar from './components/UI/Sidebar';
 import UIHeader from './components/UI/Header';
 import $ from 'jquery';
-import Layout from './components/layout';
+import routes from './routes';
+// import Root from './containers/Root';
+// import configureStore from './store/configureStore';
 
 require('jquery.nicescroll/jquery.nicescroll');
-require('../less/terciario.less');
+require('../less/terciario.scss');
 require('react-select/dist/default.css');
 
-// Needed for onTouchTap
-// Can go away when react 1.0 release
-// Check this repo:
-// https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
-
-const rootRoute = {
-  component: Layout,
-  childRoutes: [
-    require('./routes/inicio'),
-    require('./routes/perfil'),
-    require('./routes/equivalencias'),
-    require('./routes/areaDocentes'),
-    require('./routes/inscripcionesAdmin')
-  ]
-};
 
 function run() {
   $('html').niceScroll({
@@ -36,12 +23,25 @@ function run() {
     cursorwidth: '5px',
     bouncescroll: true,
     mousescrollstep: 100
-    // autohidemode: false
   });
 
+  const target = document.getElementById('appContainer');
+
   // Router.render(routes, (Root, state) => {
-  if (document.getElementById('appContainer')) {
-    ReactDOM.render(<Router routes={rootRoute}/>, document.getElementById('appContainer'));
+  if (target) {
+    ReactDOM.render(<Router routes={routes}/>, target);
+
+    /*
+    const store = configureStore(window.__INITIAL_STATE__, __DEBUG__);
+
+    const node = (
+      <Root store={store}
+            debug={__DEBUG__}
+            debugExternal={__DEBUG_NW__} />
+    );
+
+    ReactDOM.render(node, target);
+    */
   }
 
   if (document.getElementById('sidebarComponent')) {
@@ -49,9 +49,7 @@ function run() {
   }
 
   ReactDOM.render(<UIHeader title="Cent11"/>, document.getElementById('headerComponent'));
-  // });
 }
-
 
 if (window.addEventListener) {
   window.addEventListener('DOMContentLoaded', run);

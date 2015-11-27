@@ -158,6 +158,50 @@ namespace ColegioTerciario.Controllers.Api
             return Ok(persona);
         }
 
+        public AjaxCollectionResponseViewModel GetAlumnosQueAdeudanTituloSecundario([FromUri] AjaxCollectionParamViewModel param)
+        {
+            var personas = _db.Personas
+                .Where(p => p.PERSONA_ES_ALUMNO.Value && p.PERSONA_TITULO_SECUNDARIO == "No")
+                .OrderBy(p => p.ID)
+                .Skip(param.Pagina * param.RegistrosPorPagina)
+                .Take(param.RegistrosPorPagina)
+                .Select(p =>
+                new
+                {
+                    p.ID,
+                    p.PERSONA_APELLIDO,
+                    p.PERSONA_NOMBRE,
+                    p.PERSONA_DOCUMENTO_NUMERO
+                }
+                );
+
+            if (param.OrdenarPorColumna != null)
+            {
+                switch (param.OrdenarPorColumna)
+                {
+                    case "PERSONA_APELLIDO":
+                        personas = param.OrdenarAsc ? personas.OrderBy(p => p.PERSONA_APELLIDO) : personas.OrderByDescending(p => p.PERSONA_APELLIDO);
+                        break;
+                    case "PERSONA_NOMBRE":
+                        personas = param.OrdenarAsc ? personas.OrderBy(p => p.PERSONA_NOMBRE) : personas.OrderByDescending(p => p.PERSONA_NOMBRE);
+                        break;
+                    case "PERSONA_DOCUMENTO_NUMERO":
+                        personas = param.OrdenarAsc ? personas.OrderBy(p => p.PERSONA_DOCUMENTO_NUMERO) : personas.OrderByDescending(p => p.PERSONA_DOCUMENTO_NUMERO);
+                        break;
+                }
+            }
+            else
+            {
+                personas = param.OrdenarAsc ? personas.OrderBy(p => p.ID) : personas.OrderByDescending(p => p.ID);
+            }
+            AjaxCollectionResponseViewModel rvm = new AjaxCollectionResponseViewModel
+            {
+                Resultados = personas,
+                CantidadResultados = _db.Personas.Count(p => p.PERSONA_ES_ALUMNO.Value && p.PERSONA_TITULO_SECUNDARIO == "No")
+            };
+            return rvm;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -63,6 +63,16 @@ body#inscripciones {
   color: inherit !important;
 }
 
+.top-menu > li > a.tm-settings.dark {
+  background-image: url("../img/icons/ellipsis-dark.png");
+}
+
+/* GRIDDLE */
+
+.griddle .top-section {
+  margin: 0 30px;
+}
+
 /* PRINT */
 
 body.print {

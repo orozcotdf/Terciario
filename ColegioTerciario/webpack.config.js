@@ -35,21 +35,21 @@ module.exports = {
     loaders: [
       {
         test: /\.css$/,
-        loader: 'style!css?importLoaders=1!postcss'
+        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss')
       }, {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css!postcss!less?compress')
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css!sass')
       }, {
         test: /(webfont|)\.(otf|eot|ttf|woff|woff2|svg)(\?.+|)$/,
         loader: 'url-loader?limit=8192'
       }, {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file?hash=sha512&digest=hex&name=img/[hash].[ext]',
+          'file?hash=sha512&digest=hex&name=dist/[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       }, {
-        test: /\.jsx/,
+        test: /\.(jsx|js)/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel'
       }],
@@ -57,7 +57,7 @@ module.exports = {
   },
   resolve: {
     root: path.resolve(path.dirname(), './src'),
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.scss'],
     // Tell webpack to look for required files in bower and node
     modulesDirectories: ['bower_components', 'node_modules'],
     alias: {

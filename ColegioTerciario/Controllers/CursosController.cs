@@ -66,6 +66,10 @@ namespace ColegioTerciario.Controllers
                             var nuevaCursada = new Cursada
                             {
                                 CURSADA_ALUMNOS_ID = personaId,
+                                //CURSADA_NOTA_P1 = "Ausente",
+                                //CURSADA_NOTA_P2 = "Ausente",
+                                //CURSADA_NOTA_R1 = "Ausente",
+                                //CURSADA_NOTA_R2 = "Ausente",
                                 CURSADA_MATERIAS_X_CURSOS_ID = materiaXCursoId
                             };
                             _db.Cursadas.Add(nuevaCursada);
@@ -119,7 +123,11 @@ namespace ColegioTerciario.Controllers
                             var nuevaCursada = new Cursada
                             {
                                 CURSADA_ALUMNOS_ID = alumnoId,
-                                CURSADA_MATERIAS_X_CURSOS_ID = curso.ID
+                                CURSADA_MATERIAS_X_CURSOS_ID = curso.ID,
+                                //CURSADA_NOTA_P1 = "Ausente",
+                                //CURSADA_NOTA_P2 = "Ausente",
+                                //CURSADA_NOTA_R1 = "Ausente",
+                                //CURSADA_NOTA_R2 = "Ausente",
                             };
                             _db.Cursadas.Add(nuevaCursada);
                             _db.SaveChanges();

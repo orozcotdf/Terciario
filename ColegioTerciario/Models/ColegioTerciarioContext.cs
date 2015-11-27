@@ -110,11 +110,17 @@ namespace ColegioTerciario.Models
             .Map(m => m.Requires("IsDeleted").HasValue(false))
             .Ignore(m => m.IsDeleted);
             modelBuilder.Entity<Equivalencia_Detalle>()
-            .Map(m => m.Requires("IsDeleted").HasValue(false))
-            .Ignore(m => m.IsDeleted);
+                .Map(m => m.Requires("IsDeleted").HasValue(false))
+                .Ignore(m => m.IsDeleted);
             modelBuilder.Entity<Inscripciones>()
-            .Map(m => m.Requires("IsDeleted").HasValue(false))
-            .Ignore(m => m.IsDeleted);
+                .Map(m => m.Requires("IsDeleted").HasValue(false))
+                .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<InscripcionesCarrera>()
+                .Map(m => m.Requires("IsDeleted").HasValue(false))
+                .Ignore(m => m.IsDeleted);
+            modelBuilder.Entity<InscripcionesConfig>()
+                .Map(m => m.Requires("IsDeleted").HasValue(false))
+                .Ignore(m => m.IsDeleted);
             base.OnModelCreating(modelBuilder);
         }
 

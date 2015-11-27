@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.SqlServer;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -31,10 +32,18 @@ namespace ColegioTerciario.Controllers.Api
                     .Include(a => a.ACTA_EXAMEN_VOCAL1)
                     .Include(a => a.ACTA_EXAMEN_VOCAL2);
 
+            
+            DateTime fecha = new DateTime();
+            // DateTime fechaBusqueda = DateTime.ParseExact(param.sSearch, "dd/MM/yyyy", CultureInfo.InvariantCulture);//
+
+            bool esFecha = DateTime.TryParseExact(param.sSearch, "dd/MM/yyyy",
+                System.Globalization.CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out fecha);
 
             // Busqueda
             IEnumerable<Acta_Examen> actasFiltradas = actas.Where(
                 c => param.sSearch == null || 
+                    c.ACTA_EXAMEN_FECHA == fecha ||
                     c.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
                     c.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE.ToLower().Contains(param.sSearch.ToLower()) ||
                     c.ACTA_EXAMEN_FOLIO.ToLower().Contains(param.sSearch.ToLower()) ||

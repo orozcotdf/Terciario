@@ -42,5 +42,7 @@ namespace ColegioTerciario.Models.ViewModels
         public string Nota { get; set; }
         public string Estado { get; set; }
         public string Anio { get; set; }
+        public string Folio { get; set; }
+        public string Libro { get; set; }
     }
 }

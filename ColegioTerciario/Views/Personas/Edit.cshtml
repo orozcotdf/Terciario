@@ -126,6 +126,7 @@
                                 }
                             </div>
                             <div id="finales" class="tab-pane">
+                                @Html.ActionLink("Imprimir Analitico", "ImprimirAnalitico", new { id = Model.ID}, new {@class = "btn btn-primary"})
                                 @foreach (ColegioTerciario.Models.ViewModels.SituacionFinalesViewModel situacion in ViewBag.FINALES)
                                 {
                                     <h2>@situacion.Carrera</h2>
@@ -136,25 +137,25 @@
 
                                         <table class="table table-condensed table-striped">
                                             <thead>
-                                                <tr>
-                                                    <th>Acta</th>
-                                                    <th>Fecha</th>
-                                                    <th>Materia</th>
-                                                    <th>Nota</th>
-                                                    <th>Estado</th>
-                                                </tr>
+                                            <tr>
+                                                <th>Acta</th>
+                                                <th>Fecha</th>
+                                                <th>Materia</th>
+                                                <th>Nota</th>
+                                                <th>Estado</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (ColegioTerciario.Models.ViewModels.ExamenesFinalesViewModel examen in final.Examenes)
-                                                {
-                                                    <tr>
-                                                        <td>@Html.ActionLink("Ir a Acta", "Edit", "ActaExamen", new { id = examen.ActaId }, null)</td>
-                                                        <td>@String.Format("{0:dd/MM/yyyy}",@examen.Fecha)</td>
-                                                        <td>@examen.Materia</td>
-                                                        <td>@examen.Nota</td>
-                                                        <td>@examen.Estado</td>
-                                                    </tr>
-                                                }
+                                            @foreach (ColegioTerciario.Models.ViewModels.ExamenesFinalesViewModel examen in final.Examenes)
+                                            {
+                                                <tr>
+                                                    <td>@Html.ActionLink("Ir a Acta", "Edit", "ActaExamen", new {id = examen.ActaId}, null)</td>
+                                                    <td>@String.Format("{0:dd/MM/yyyy}", @examen.Fecha)</td>
+                                                    <td>@examen.Materia</td>
+                                                    <td>@examen.Nota</td>
+                                                    <td>@examen.Estado</td>
+                                                </tr>
+                                            }
                                             </tbody>
                                         </table>
                                     }

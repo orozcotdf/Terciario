@@ -1,0 +1,23 @@
+@import "~material-design-iconic-font/dist/css/material-design-iconic-font.css";
+@import "~select2/select2.css";
+@import "~eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css";
+@import "./app.css";
+@import "../css/bootstrap-editable.css";
+@import "./overrides.css";
+
+.mini-charts-item {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #fff;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    #fff;
+     opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    #fff;
+     opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color:    #fff;
+  }
+}

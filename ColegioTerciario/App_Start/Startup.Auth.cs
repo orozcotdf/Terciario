@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using ColegioTerciario.Models;
 using ColegioTerciario.Models.User;
+using Microsoft.Owin.Security.OAuth;
 
 namespace ColegioTerciario
 {

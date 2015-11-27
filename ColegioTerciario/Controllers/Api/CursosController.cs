@@ -321,7 +321,7 @@ namespace ColegioTerciario.Controllers.Api
                     Nombre = curso.MATERIA_X_CURSO_CURSO_NOMBRE,
                     Carrera = curso.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE,
                     Materia = curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE,
-                    Fecha = fecha
+                    Fecha = fecha != null ? fecha.Value.ToString("dd/MM/yyyy") : ""
                 };
                 return Ok(vm);
             }

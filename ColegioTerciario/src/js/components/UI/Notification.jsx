@@ -1,6 +1,7 @@
 import 'toastr/build/toastr.min.css';
 import './Notification.css';
 import toastr from 'toastr';
+
 export default class Notificaciones {
   static success(message, remove) {
     if (remove) {

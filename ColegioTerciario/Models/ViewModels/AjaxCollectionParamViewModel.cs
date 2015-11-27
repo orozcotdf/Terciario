@@ -13,5 +13,6 @@ namespace ColegioTerciario.Models.ViewModels
         public string OrdenarPorColumna { get; set; }
 
         public bool OrdenarAsc { get; set; }
+        public string Filtro { get; set; }
     }
 }

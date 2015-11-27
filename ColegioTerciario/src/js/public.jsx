@@ -6,7 +6,7 @@ import $ from 'jquery';
 import Layout from './components/layout';
 
 require('jquery.nicescroll/jquery.nicescroll');
-require('../less/terciario.less');
+require('../less/terciario.scss');
 require('react-select/dist/default.css');
 
 // Needed for onTouchTap

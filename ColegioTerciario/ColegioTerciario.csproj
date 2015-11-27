@@ -68,6 +68,14 @@
     <Reference Include="Glimpse.Mvc5">
       <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.4\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.4\lib\itextsharp.xmlworker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -137,6 +145,14 @@
       <HintPath>..\packages\RazorEngine.3.7.3\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RazorPDF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorPDF2.2.0.0\lib\net40\RazorPDF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorPDF.Legacy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorPDF2.2.0.0\lib\net40\RazorPDF.Legacy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
       <Private>True</Private>
@@ -202,6 +218,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -218,6 +235,7 @@
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Reporting, Version=9.0.15.225, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" />
     <Reference Include="TrackerEnabledDbContext.Common, Version=3.4.0.0, Culture=neutral, PublicKeyToken=4f92af0b908c4a0a, processorArchitecture=MSIL">
       <HintPath>..\packages\TrackerEnabledDbContext.Common.3.4\lib\net45\TrackerEnabledDbContext.Common.dll</HintPath>
       <Private>True</Private>
@@ -286,6 +304,13 @@
     <Compile Include="Areas\Publico\PublicoAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActaExamenController.cs" />
+    <Compile Include="Models\Analitico.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Models\Analitico.Designer.cs">
+      <DependentUpon>Analitico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\AnaliticoViewModel.cs" />
     <Compile Include="Controllers\Api\AccountsController.cs" />
     <Compile Include="Controllers\Api\ActasController.cs" />
     <Compile Include="Controllers\Api\EquivalenciaDetalleController.cs" />
@@ -717,6 +742,8 @@
     <None Include="Views\Home\Ver2.cshtml" />
     <None Include="Views\InscribirAlumnos\GuardarInscripciones.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Personas\ImprimirAnalitico.cshtml" />
+    <Content Include="Views\Personas\ImprimirAnalitico2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -817,6 +844,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511132220042_Regularidad de Parciales.resx">
       <DependentUpon>201511132220042_Regularidad de Parciales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Analitico.resx">
+      <DependentUpon>Analitico.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

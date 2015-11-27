@@ -11,6 +11,7 @@ namespace ColegioTerciario.Models.ViewModels.Api
         public string INSCRIPCIONES_CARRERA { get; set; }
         public string INSCRIPCIONES_NOMBRE { get; set; }
         public string INSCRIPCIONES_DOCUMENTO_NUMERO { get; set; }
+        public Guid ID { get; set; }
     }
 
     public class InscripcionesViewModel

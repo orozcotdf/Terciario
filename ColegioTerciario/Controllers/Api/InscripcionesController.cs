@@ -33,20 +33,31 @@ namespace ColegioTerciario.Controllers.Api
         // GET: api/Inscripciones
         public AjaxCollectionResponseViewModel GetInscripciones([FromUri] AjaxCollectionParamViewModel param)
         {
-            IQueryable<InscripcionResumenVM> inscripciones = db.Inscripciones
+            IQueryable<Inscripciones> inscripciones = db.Inscripciones
                 .OrderByDescending(e => e.ID)
                 .Skip(param.Pagina*param.RegistrosPorPagina)
-                .Take(param.RegistrosPorPagina)
-                .Select(i => new InscripcionResumenVM
+                .Take(param.RegistrosPorPagina);
+
+            if (param.Filtro != null)
+            {
+                inscripciones = inscripciones.Where(i =>
+                    i.INSCRIPCIONES_DOCUMENTO_NUMERO.Contains(param.Filtro) ||
+                    i.INSCRIPCIONES_APELLIDO.Contains(param.Filtro) ||
+                    i.INSCRIPCIONES_NOMBRE.Contains(param.Filtro)
+                );
+            }
+
+            IQueryable<InscripcionResumenVM> vm = inscripciones.Select(i => new InscripcionResumenVM
                 {
+                    ID = i.ID,
                     INSCRIPCIONES_CARRERA = i.INSCRIPCIONES_CARRERA.CARRERA_NOMBRE,
                     INSCRIPCIONES_DOCUMENTO_NUMERO = i.INSCRIPCIONES_DOCUMENTO_NUMERO,
-                    INSCRIPCIONES_NOMBRE = String.Format("{0}, {1}", i.INSCRIPCIONES_APELLIDO, i.INSCRIPCIONES_NOMBRE)
+                    INSCRIPCIONES_NOMBRE = i.INSCRIPCIONES_APELLIDO +", " + i.INSCRIPCIONES_NOMBRE
                 });
 
             AjaxCollectionResponseViewModel rvm = new AjaxCollectionResponseViewModel
             {
-                Resultados = inscripciones,
+                Resultados = vm,
                 CantidadResultados = db.Equivalencias.Count(),
             };
 

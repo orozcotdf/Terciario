@@ -58,19 +58,27 @@ const UIHeader = React.createClass({
       'sidebar-toggled': this.state.navigation.sidebarActive
     });
 
+    const lineStyle = {
+      backgroundColor: '#aaa'
+    };
+
 
     return (
-      <header id="header" className={classes}>
+      <header id="header" className={classes} style={{backgroundColor: 'white'}}>
         <ul className="header-inner">
           <li id="menu-trigger" data-trigger="#sidebar" onClick={NavigationActions.toggleSidebar}>
               <div className="line-wrap">
-                  <div className="line top"></div>
-                  <div className="line center"></div>
-                  <div className="line bottom"></div>
+                  <div className="line top" style={lineStyle}></div>
+                  <div className="line center" style={lineStyle}></div>
+                  <div className="line bottom" style={lineStyle}></div>
               </div>
           </li>
-          <li className="logo hidden-xs">
-              <a href="/#/">{this.props.title}</a>
+          <li className="logo hidden-xs" style={{marginTop: '-7px'}}>
+            <a href="/#/">
+              <img
+                src="http://cent11.tierradelfuego.gov.ar/Content/CENT_LOGO_TRANSP.png"
+                alt="Cent 11" title="Cent 11"/>
+            </a>
           </li>
           <li className="pull-right">
             <ul className="top-menu">
@@ -86,7 +94,7 @@ const UIHeader = React.createClass({
               </li>
               */}
               <li className="dropdown">
-                <a data-toggle="dropdown" className="tm-settings" href=""></a>
+                <a data-toggle="dropdown" className="tm-settings dark" href=""></a>
                 <ul className="dropdown-menu dm-icon pull-right">
                   <li className="hidden-xs">
                     <a data-action="fullscreen" href="" onClick={this._launchIntoFullscreen}>

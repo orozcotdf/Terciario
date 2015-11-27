@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"r",
+				"rcl	reactClass"
+			],
+			[
+				"RadioBut",
+				"RadioButtonGroup"
+			],
+			[
 				"parcialesValid",
 				"ParcialesValidos"
 			]
@@ -12,34 +20,34 @@
 	"buffers":
 	[
 		{
-			"file": "ColegioTerciario/webpack.config.js",
-			"settings":
-			{
-				"buffer_size": 1937,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "ColegioTerciario/webpack.development.config.js",
 			"settings":
 			{
-				"buffer_size": 2131,
+				"buffer_size": 2509,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "ColegioTerciario/src/js/routes/equivalencias.jsx",
+			"file": "/C/Users/-Nahue-/Downloads/materialAdmin/1-5-1/jquery/js/functions.js",
 			"settings":
 			{
-				"buffer_size": 724,
+				"buffer_size": 25361,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ColegioTerciario/src/js/components/UI/DateInput.jsx",
+			"settings":
+			{
+				"buffer_size": 462,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "ColegioTerciario/src/js/components/lib/GriddleActionsComponent.jsx",
+			"file": "ColegioTerciario/src/js/components/AreaDocentes/CargaParcial.jsx",
 			"settings":
 			{
-				"buffer_size": 1416,
+				"buffer_size": 10544,
 				"line_ending": "Unix"
 			}
 		}
@@ -51,8 +59,8 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 185.0,
-		"last_filter": "install",
+		"height": 35.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -86,39 +94,58 @@
 	},
 	"expanded_folders":
 	[
-		"/C/terciario/ColegioTerciario",
+		"/C/terciario/ColegioTerciario/Scripts/DataTables-1.10.3",
+		"/C/terciario/ColegioTerciario/Scripts/dist",
+		"/C/terciario/ColegioTerciario/src/js",
 		"/C/terciario/ColegioTerciario/src",
 		"/C/terciario/ColegioTerciario/src/js",
-		"/C/terciario/ColegioTerciario/src/js/components",
-		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes",
-		"/C/terciario/ColegioTerciario/src/js/components/Component",
-		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias",
-		"/C/terciario/ColegioTerciario/src/js/routes"
+		"/C/terciario/ColegioTerciario/src/js/components/UI",
+		"/C/terciario/ColegioTerciario/src/js/lib",
+		"/C/terciario/ColegioTerciario/src/js/utils"
 	],
 	"file_history":
 	[
-		"/C/terciario/ColegioTerciario/webpack.development.config.js",
+		"/C/terciario/ColegioTerciario/src/js/components/UI/DateInput.jsx",
+		"/C/Users/-Nahue-/Downloads/materialAdmin/1-5-1/jquery/form-components.html",
+		"/C/terciario/ColegioTerciario/src/js/containers/Root.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/inicio.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/index.jsx",
 		"/C/terciario/ColegioTerciario/src/js/app.jsx",
+		"/C/terciario/ColegioTerciario/src/js/utils/index.js",
+		"/C/terciario/ColegioTerciario/package.json",
+		"/C/terciario/ColegioTerciario/src/js/reducers/index.jsx",
+		"/C/terciario/ColegioTerciario/src/js/reducers/counter.jsx",
+		"/C/terciario/ColegioTerciario/src/js/containers/DevToolsWindow.jsx",
+		"/C/terciario/ColegioTerciario/src/js/store/configureStore.jsx",
+		"/C/terciario/ColegioTerciario/src/js/constants/counter.jsx",
+		"/C/terciario/ColegioTerciario/src/fonts/counter.jsx",
+		"/C/terciario/ColegioTerciario/src/js/containers/DevTools.jsx",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/CargaParcial.jsx",
+		"/C/terciario/ColegioTerciario/.eslintrc",
+		"/C/terciario/ColegioTerciario/src/js/utils/redux.js",
+		"/C/terciario/ColegioTerciario/src/js/routes/areaDocentes.jsx",
+		"/C/terciario/ColegioTerciario/webpack.development.config.js",
+		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/container.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/inscripciones.jsx",
+		"/C/terciario/ColegioTerciario/webpack.config.js",
+		"/C/terciario/ColegioTerciario/Scripts/dist/init.js.map",
+		"/C/terciario/ColegioTerciario/Scripts/dist/init.js",
+		"/C/terciario/ColegioTerciario/src/js/components/lib/GriddleActionsComponent.jsx",
+		"/C/terciario/ColegioTerciario/src/js/routes/equivalencias.jsx",
 		"/C/terciario/ColegioTerciario/src/js/routes/inscripcionesAdmin.jsx",
 		"/C/terciario/terciario.sublime-project",
 		"/C/terciario/ColegioTerciario/src/js/public.jsx",
-		"/C/terciario/ColegioTerciario/src/js/routes/inscripciones.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/Main/main.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/main.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/lib/GriddleWithCallback.jsx",
-		"/C/terciario/ColegioTerciario/src/js/components/lib/GriddleActionsComponent.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/Edita.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/EditForm.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/container.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/Agrega.jsx",
-		"/C/terciario/ColegioTerciario/src/js/routes/equivalencias.jsx",
 		"/C/terciario/ColegioTerciario/src/js/routes/equivalenciasAgrega.jsx",
 		"/C/terciario/ColegioTerciario/src/js/routes/equivalenciasEdita.jsx",
 		"/C/terciario/ColegioTerciario/src/js/routes/perfil.jsx",
-		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/CargaParcial.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/layout.jsx",
-		"/C/terciario/ColegioTerciario/src/js/routes/areaDocentes.jsx",
-		"/C/terciario/ColegioTerciario/src/js/routes/inicio.jsx",
 		"/C/terciario/ColegioTerciario/src/js/routes/areaDocentesCargaParcial.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/CargaParcial/CargaParcial.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Inscripciones/index.jsx",
@@ -129,11 +156,8 @@
 		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/Cursos/index.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/AreaDocentes/Cursos/main.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Inicio/index.jsx",
-		"/C/terciario/ColegioTerciario/package.json",
 		"/C/terciario/ColegioTerciario/src/js/components/Inicio/Inicio.jsx",
 		"/C/terciario/ColegioTerciario/.babelrc",
-		"/C/terciario/ColegioTerciario/.eslintrc",
-		"/C/terciario/ColegioTerciario/webpack.config.js",
 		"/C/terciario/.editorconfig",
 		"/C/terciario/ColegioTerciario/src/js/config/routes.jsx",
 		"/C/terciario/ColegioTerciario/src/js/components/Equivalencias/main.jsx",
@@ -168,6 +192,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"mask",
+			"input",
+			"redux",
+			"Window",
+			"babel",
+			"map",
 			"GriddleCustomPagination",
 			"GriddleActionsComponent",
 			"editId",
@@ -206,24 +236,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "ColegioTerciario/webpack.config.js",
+					"file": "ColegioTerciario/webpack.development.config.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1937,
+						"buffer_size": 2509,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								242,
-								242
+								2413,
+								2413
 							]
 						],
 						"settings":
@@ -236,8 +266,8 @@
 							"translate_tabs_to_spaces": true,
 							"trim_trailing_white_space_on_save": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 794.0,
+						"translation.x": 0.0,
+						"translation.y": 841.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -245,19 +275,50 @@
 				},
 				{
 					"buffer": 1,
-					"file": "ColegioTerciario/webpack.development.config.js",
+					"file": "/C/Users/-Nahue-/Downloads/materialAdmin/1-5-1/jquery/js/functions.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2131,
+						"buffer_size": 25361,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								949,
-								949
+								15003,
+								15003
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"syntax": "Packages/Babel/JavaScript (Babel).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7130.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ColegioTerciario/src/js/components/UI/DateInput.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 462,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								368,
+								368
 							]
 						],
 						"settings":
@@ -271,27 +332,27 @@
 							"trim_trailing_white_space_on_save": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 120.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "ColegioTerciario/src/js/routes/equivalencias.jsx",
+					"buffer": 3,
+					"file": "ColegioTerciario/src/js/components/AreaDocentes/CargaParcial.jsx",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 724,
+						"buffer_size": 10544,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								646,
-								646
+								8279,
+								8279
 							]
 						],
 						"settings":
@@ -305,44 +366,10 @@
 							"trim_trailing_white_space_on_save": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3980.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "ColegioTerciario/src/js/components/lib/GriddleActionsComponent.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1416,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								62,
-								62
-							]
-						],
-						"settings":
-						{
-							"apply_syntax_touched": true,
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/Babel/JavaScript (Babel).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -396,6 +423,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"webpack.dev",
+				"ColegioTerciario\\webpack.development.config.js"
+			],
+			[
+				"packag",
+				"ColegioTerciario\\package.json"
+			]
 		],
 		"width": 0.0
 	},

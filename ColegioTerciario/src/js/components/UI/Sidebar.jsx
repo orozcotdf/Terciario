@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Reflux from 'reflux';
 import classNames from 'classnames';
+import NavigationActions from '../../actions/navigationActions';
 import NavigationStore from '../../stores/navigationStore';
 import UserStore from '../../stores/userStore';
 import Gravatar from 'react-gravatar';
@@ -57,7 +58,13 @@ const UISidebar = React.createClass({
       role: 'Bedel'
     }, {
       id: 5,
-      title: 'Inscripciones',
+      title: 'Inscripcion a Finales',
+      url: '/inscribiralumnos',
+      icon: 'zmdi-view-list',
+      role: 'Bedel'
+    }, {
+      id: 6,
+      title: 'Inscripcion a Cursada',
       url: '/#/inscripciones',
       icon: 'zmdi-view-list',
       role: 'Bedel'
@@ -65,14 +72,14 @@ const UISidebar = React.createClass({
 
     if (User.isInRole('Admin')) {
       items.push({
-        id: 6,
+        id: 7,
         title: 'Usuarios',
         url: '/Admin/Usuarios',
         icon: 'zmdi-account'
       });
 
       items.push({
-        id: 7,
+        id: 8,
         title: 'Roles',
         url: '/Admin/Roles',
         icon: 'zmdi-accounts'
@@ -88,6 +95,10 @@ const UISidebar = React.createClass({
     });
 
     $(ReactDOM.findDOMNode(this.refs.mainmenu)).slideToggle(200);
+  },
+
+  _toggleSidebar() {
+    NavigationActions.toggleSidebar();
   },
 
   _logout(e) {
@@ -144,7 +155,7 @@ const UISidebar = React.createClass({
               if (this.state.user.isInRole(result.role)) {
                 return (
                   <li key={result.id}>
-                    <a href={result.url}>
+                    <a href={result.url} onClick={this._toggleSidebar}>
                       <i className={iconClass}></i>
                       {result.title}
                     </a>

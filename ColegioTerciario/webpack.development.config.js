@@ -1,6 +1,9 @@
 const path = require('path'); // eslint-disable-line no-unused-vars
+const argv = require('yargs').argv;
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const env = process.env.NODE_ENV;
 
 module.exports = {
   entry: {
@@ -50,10 +53,10 @@ module.exports = {
     loaders: [
       {
         test: /\.css$/,
-        loader: 'style!css?importLoaders=1!postcss'
+        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss')
       }, {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css!postcss!less')
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css!sass')
       }, {
         test: /(webfont|)\.(otf|eot|ttf|woff|woff2|svg)(\?.+|)$/,
         loader: 'url-loader?limit=8192'
@@ -72,7 +75,7 @@ module.exports = {
   },
   resolve: {
     root: path.resolve(path.dirname(), './src'),
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.scss'],
     // Tell webpack to look for required files in bower and node
     modulesDirectories: ['bower_components', 'node_modules'],
     alias: {
@@ -82,7 +85,13 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('init.js'),
-    new ExtractTextPlugin('cent11-2.0.css')
+    new ExtractTextPlugin('cent11-2.0.css'),
+    new webpack.DefinePlugin({
+      __DEV__: env === 'development',
+      __PROD__: env === 'production',
+      __DEBUG__: env === 'development' && !argv.no_debug,
+      __DEBUG_NW__: !!argv.nw
+    })
   ],
   eslint: {
     configFile: './.eslintrc'

@@ -209,6 +209,7 @@ var GriddleWithCallback = React.createClass({
       externalLoadingComponent={loadingComponent} externalIsLoading={this.state.isLoading}
       nextText="Siguiente" previousText="Anterior"
       useCustomPagerComponent="true"
+      filterPlaceholderText="Filtrar Resultados"
       customPagerComponent={GriddleCustomPagination}/>
   }
 });

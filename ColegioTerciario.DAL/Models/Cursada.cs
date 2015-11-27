@@ -15,9 +15,13 @@ namespace ColegioTerciario.DAL.Models
     public class Cursada : EntityBase
     {
         public int ID { get; set; }
+        [DefaultValue("Ausente")]
         public string CURSADA_NOTA_P1 { get; set; }
+        [DefaultValue("Ausente")]
         public string CURSADA_NOTA_P2 { get; set; }
+        [DefaultValue("Ausente")]
         public string CURSADA_NOTA_R1 { get; set; }
+        [DefaultValue("Ausente")]
         public string CURSADA_NOTA_R2 { get; set; }
         [DefaultValue(false)]
         public bool CURSADA_P1_REGULAR { get; set; }

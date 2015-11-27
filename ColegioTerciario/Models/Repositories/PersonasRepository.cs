@@ -137,6 +137,34 @@ namespace ColegioTerciario.Models.Repositories
             return actas;
         }
 
+        public SituacionFinalesViewModel GetAnalitico(Persona persona)
+        {
+            var actas = from a in _dbContext.Actas_Examenes_Detalles
+                        where a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID
+                        group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA into carreras
+                        select new SituacionFinalesViewModel
+                        {
+                            Persona = persona.PERSONA_NOMBRE_COMPLETO,
+                            Carrera = carreras.Key.CARRERA_NOMBRE,
+                            Finales = carreras.GroupBy(c => c.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO).Select(a => new FinalesViewModel
+                            {
+                                Anio = a.Key == "1" ? "2012" : a.Key == "2" ? "2013" : a.Key == "3" ? "2014" : "",
+                                Examenes = a.Select(f => new ExamenesFinalesViewModel
+                                {
+                                    ActaId = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ID,
+                                    Anio = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO,
+                                    Fecha = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FECHA,
+                                    Materia = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE,
+                                    Nota = f.ACTA_EXAMEN_DETALLE_NOTA,
+                                    Estado = f.ACTA_EXAMEN_DETALLE_ESTADO,
+                                    Libro = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_LIBRO,
+                                    Folio = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FOLIO
+                                })
+                            })
+                        };
+            return actas.First();
+        }
+
         public bool EsAlumnoRegular(Persona persona)
         {
             var corriente = DateTime.Now.Year.ToString(CultureInfo.InvariantCulture);

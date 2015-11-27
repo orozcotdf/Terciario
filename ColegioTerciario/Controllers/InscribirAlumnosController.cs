@@ -26,13 +26,24 @@ namespace ColegioTerciario.Controllers
         [HttpPost]
         public ActionResult Index(string dni)
         {
-
+            Persona alumno;
             // TRAER MATERIAS APROBADAS
             // TRAER FECHAS DE EXAMEN DE MI CARRERA
 
             var actas_examenes = new List<Acta_Examen>();
+            try
+            {
+                alumno =
+                    db.Personas.Include("PERSONA_CURSADAS.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA")
+                        .SingleOrDefault(p => p.PERSONA_DOCUMENTO_NUMERO == dni);
 
-            var alumno = db.Personas.Include("PERSONA_CURSADAS.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA").SingleOrDefault(p => p.PERSONA_DOCUMENTO_NUMERO == dni);
+            }
+            catch (InvalidOperationException e)
+            {
+                Flash.Instance.Error("El alumno esta duplicado, avise a los administradores");
+                return View();
+            }
+
             var carreras = alumno.PERSONA_CURSADAS.Select(
                     c => c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CARRERA
                 ).Distinct().ToList();
@@ -57,8 +68,8 @@ namespace ColegioTerciario.Controllers
 
 
             ViewBag.TURNOS = turnos.ToList();
-            ViewBag.ALUMNO = alumno.ID;
-            return View("BuscaAlumnos");
+            // ViewBag.ALUMNO = alumno.ID;
+            return View("BuscaAlumnos", alumno);
         }
 
         [HttpPost]
@@ -101,7 +112,8 @@ namespace ColegioTerciario.Controllers
 
                             if (parciales == null)
                             {
-                                Flash.Instance.Success("Inscripcion", mesa.MESA + " Incompatible");
+                                // NUNCA RINDIO PARCIAL
+                                Flash.Instance.Success("Inscripcion", mesa.MESA + " Incompatible, No Rindio " + codigo);
                                 resultado.Add(new ErrorViewModel
                                 {
                                     MESA = mesa.MESA,
@@ -111,7 +123,7 @@ namespace ColegioTerciario.Controllers
                             }
                             else if (parciales.CURSADA_ESTADO_ACADEMICO != "Regular")
                             {
-                                Flash.Instance.Success("Inscripcion", mesa.MESA + " Incompatible");
+                                Flash.Instance.Success("Inscripcion", mesa.MESA + " Incompatible, Mesa Reprobada");
                                 resultado.Add(new ErrorViewModel
                                 {
                                     MESA = mesa.MESA,
@@ -151,7 +163,7 @@ namespace ColegioTerciario.Controllers
             }
 
             ViewBag.INSCRIPCIONES = inscripciones;
-            ViewBag.PERSONA_NOMBRE_COMPLETO = db.Personas.SingleOrDefault(a => a.ID == idAlumno).PERSONA_NOMBRE_COMPLETO;
+            ViewBag.PERSONA_NOMBRE_COMPLETO = db.Personas.Single(a => a.ID == idAlumno).PERSONA_NOMBRE_COMPLETO;
 
 
             return new ViewAsPdf("ConstanciaDeInscripcion");

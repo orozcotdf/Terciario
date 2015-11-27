@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ColegioTerciario.Models.Types;
 
 namespace ColegioTerciario.DAL.Models
 {
     [Table("Actas_Examenes_Detalles")]
+    [TrackChanges]
     public class Acta_Examen_Detalle : EntityBase
     {
         public int ID { get; set; }
