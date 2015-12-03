@@ -150,7 +150,12 @@
                                     }
                                     <ul>
                                         <li>@cursada.AlumnoApellido, @cursada.AlumnoNombre</li>
-                                        <li>@cursada.DocumentoNumero</li>
+                                        <li>
+                                            <a href="@Url.Action("Edit", "Personas", new { id = cursada.AlumnoID })" target="_blank">
+                                                @cursada.DocumentoNumero
+                                            </a>
+                                            
+                                        </li>
                                     </ul>
                                 </th>
                                 <td>

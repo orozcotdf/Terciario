@@ -137,7 +137,12 @@
                                     <i class="zmdi zmdi-close"></i>
                                 </a>
                             </td>
-                            <td>@detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_DOCUMENTO_NUMERO - @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO, @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_NOMBRE</td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Personas", new { id = detalle.ACTA_EXAMEN_DETALLE_ALUMNO.ID})" target="_blank">
+                                    @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_DOCUMENTO_NUMERO
+                                </a>
+                                - @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_APELLIDO, @detalle.ACTA_EXAMEN_DETALLE_ALUMNO.PERSONA_NOMBRE
+                            </td>
                             @{ var detalleId = detalle.ID; }
                             <td>
 

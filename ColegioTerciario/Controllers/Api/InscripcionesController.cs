@@ -34,20 +34,22 @@ namespace ColegioTerciario.Controllers.Api
         public AjaxCollectionResponseViewModel GetInscripciones([FromUri] AjaxCollectionParamViewModel param)
         {
             IQueryable<Inscripciones> inscripciones = db.Inscripciones
-                .OrderByDescending(e => e.ID)
-                .Skip(param.Pagina*param.RegistrosPorPagina)
-                .Take(param.RegistrosPorPagina);
+                .OrderByDescending(e => e.ID);
+                
 
             if (param.Filtro != null)
             {
                 inscripciones = inscripciones.Where(i =>
-                    i.INSCRIPCIONES_DOCUMENTO_NUMERO.Contains(param.Filtro) ||
-                    i.INSCRIPCIONES_APELLIDO.Contains(param.Filtro) ||
-                    i.INSCRIPCIONES_NOMBRE.Contains(param.Filtro)
+                    i.INSCRIPCIONES_DOCUMENTO_NUMERO.ToLower().Contains(param.Filtro.ToLower()) ||
+                    i.INSCRIPCIONES_APELLIDO.ToLower().Contains(param.Filtro.ToLower()) ||
+                    i.INSCRIPCIONES_NOMBRE.ToLower().Contains(param.Filtro.ToLower())
                 );
             }
 
-            IQueryable<InscripcionResumenVM> vm = inscripciones.Select(i => new InscripcionResumenVM
+            IQueryable<InscripcionResumenVM> vm = inscripciones
+                .Skip(param.Pagina*param.RegistrosPorPagina)
+                .Take(param.RegistrosPorPagina).
+                Select(i => new InscripcionResumenVM
                 {
                     ID = i.ID,
                     INSCRIPCIONES_CARRERA = i.INSCRIPCIONES_CARRERA.CARRERA_NOMBRE,
@@ -58,7 +60,7 @@ namespace ColegioTerciario.Controllers.Api
             AjaxCollectionResponseViewModel rvm = new AjaxCollectionResponseViewModel
             {
                 Resultados = vm,
-                CantidadResultados = db.Equivalencias.Count(),
+                CantidadResultados = param.Filtro != null ? vm.Count() : db.Inscripciones.Count(),
             };
 
             return rvm;

@@ -6,6 +6,7 @@ import UISidebar from './components/UI/Sidebar';
 import UIHeader from './components/UI/Header';
 import $ from 'jquery';
 import routes from './routes';
+import { createStore, combineReducers, bindActionCreators } from 'redux';
 // import Root from './containers/Root';
 // import configureStore from './store/configureStore';
 

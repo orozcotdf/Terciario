@@ -140,15 +140,25 @@ namespace ColegioTerciario.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ACTA_EXAMEN_FECHA,ACTA_EXAMEN_LIBRO,ACTA_EXAMEN_FOLIO,ACTA_EXAMEN_TURNOS_EXAMENES_ID,ACTA_EXAMEN_CARRERAS_ID,ACTA_EXAMEN_MATERIAS_ID,ACTA_EXAMEN_PRESIDENTE_ID,ACTA_EXAMEN_VOCAL1_ID,ACTA_EXAMEN_VOCAL2_ID")] Acta_Examen acta_Examen)
         {
+            ViewBag.CARRERAS = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
+            ViewBag.PERSONAS = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE");
+            ViewBag.TURNOS = new SelectList(db.Turnos_Examenes.Include(t => t.TURNO_EXAMEN_CICLO), "ID", "TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR");
+            
             if (ModelState.IsValid)
             {
+                var actasExistentes = db.Actas_Examenes.Any(
+                    a => a.ACTA_EXAMEN_TURNOS_EXAMENES_ID == acta_Examen.ACTA_EXAMEN_TURNOS_EXAMENES_ID &&
+                         a.ACTA_EXAMEN_MATERIAS_ID == acta_Examen.ACTA_EXAMEN_MATERIAS_ID
+                    );
+                if (actasExistentes)
+                {
+                    ModelState.AddModelError("ACTA_EXAMEN_FECHA", "Ya existe una mesa de esta materia para el turno seleccionado.");
+                    return View(acta_Examen);
+                }
                 db.Actas_Examenes.Add(acta_Examen);
                 db.SaveChanges();
                 return RedirectToAction("Edit", new{id=acta_Examen.ID});
             }
-            ViewBag.CARRERAS = new SelectList(db.Carreras, "ID", "CARRERA_NOMBRE");
-            ViewBag.PERSONAS = new SelectList(db.Personas, "ID", "PERSONA_NOMBRE");
-            ViewBag.TURNOS = new SelectList(db.Turnos_Examenes.Include(t => t.TURNO_EXAMEN_CICLO), "ID", "TURNO_EXAMEN_NOMBRE_PARA_MOSTRAR");
             return View(acta_Examen);
         }
 

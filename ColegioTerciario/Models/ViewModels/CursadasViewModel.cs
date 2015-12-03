@@ -27,5 +27,6 @@ namespace ColegioTerciario.Models.ViewModels
         public string NotaP2 { get; set; }
 
         public string NotaR2 { get; set; }
+        public int AlumnoID { get; set; }
     }
 }

@@ -340,6 +340,7 @@ namespace ColegioTerciario.Controllers
                     ID = c.ID,
                     AlumnoApellido = c.CURSADA_ALUMNO.PERSONA_APELLIDO,
                     AlumnoNombre = c.CURSADA_ALUMNO.PERSONA_NOMBRE,
+                    AlumnoID = c.CURSADA_ALUMNO.ID,
                     DocumentoNumero = c.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO,
                     EstadoAcademico = c.CURSADA_ESTADO_ACADEMICO,
                     EstadoAsistencia = c.CURSADA_ESTADO_ASISTENCIA,
