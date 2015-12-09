@@ -235,7 +235,6 @@
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Telerik.Reporting, Version=9.0.15.225, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" />
     <Reference Include="TrackerEnabledDbContext.Common, Version=3.4.0.0, Culture=neutral, PublicKeyToken=4f92af0b908c4a0a, processorArchitecture=MSIL">
       <HintPath>..\packages\TrackerEnabledDbContext.Common.3.4\lib\net45\TrackerEnabledDbContext.Common.dll</HintPath>
       <Private>True</Private>
@@ -304,12 +303,6 @@
     <Compile Include="Areas\Publico\PublicoAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActaExamenController.cs" />
-    <Compile Include="Models\Analitico.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Models\Analitico.Designer.cs">
-      <DependentUpon>Analitico.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\ViewModels\AnaliticoViewModel.cs" />
     <Compile Include="Controllers\Api\AccountsController.cs" />
     <Compile Include="Controllers\Api\ActasController.cs" />
@@ -844,9 +837,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511132220042_Regularidad de Parciales.resx">
       <DependentUpon>201511132220042_Regularidad de Parciales.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\Analitico.resx">
-      <DependentUpon>Analitico.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

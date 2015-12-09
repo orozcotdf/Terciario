@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import Select from 'react-select';
 import {DatePicker, TextField, FlatButton} from 'material-ui';
-import 'react-select/dist/default.css';
+import 'react-select/dist/react-select.css';
 
 const AgregaEquivalencia = React.createClass({
   propTypes: {

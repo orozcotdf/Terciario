@@ -6,13 +6,13 @@ import UISidebar from './components/UI/Sidebar';
 import UIHeader from './components/UI/Header';
 import $ from 'jquery';
 import routes from './routes';
-import { createStore, combineReducers, bindActionCreators } from 'redux';
+// import { createStore, combineReducers, bindActionCreators } from 'redux';
 // import Root from './containers/Root';
 // import configureStore from './store/configureStore';
 
 require('jquery.nicescroll/jquery.nicescroll');
 require('../less/terciario.scss');
-require('react-select/dist/default.css');
+require('react-select/dist/react-select.css');
 
 injectTapEventPlugin();
 
@@ -28,21 +28,8 @@ function run() {
 
   const target = document.getElementById('appContainer');
 
-  // Router.render(routes, (Root, state) => {
   if (target) {
     ReactDOM.render(<Router routes={routes}/>, target);
-
-    /*
-    const store = configureStore(window.__INITIAL_STATE__, __DEBUG__);
-
-    const node = (
-      <Root store={store}
-            debug={__DEBUG__}
-            debugExternal={__DEBUG_NW__} />
-    );
-
-    ReactDOM.render(node, target);
-    */
   }
 
   if (document.getElementById('sidebarComponent')) {

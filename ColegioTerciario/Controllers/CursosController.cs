@@ -334,7 +334,7 @@ namespace ColegioTerciario.Controllers
 
             var cursadas = from c in _db.Cursadas
                 orderby c.CURSADA_ALUMNO.PERSONA_APELLIDO
-                where c.CURSADA_MATERIAS_X_CURSOS_ID == id
+                where c.CURSADA_MATERIAS_X_CURSOS_ID == id && c.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO != null
                 select new CursadasViewModel()
                 {
                     ID = c.ID,

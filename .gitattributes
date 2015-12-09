@@ -62,3 +62,8 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 * text eol=lf
+
+*.png binary
+*.gif binary
+*.jpg binary
+*.jpeg binary

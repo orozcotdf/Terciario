@@ -146,7 +146,7 @@
                                 <th>
                                     @if (!User.IsInRole("Docente") && !Model.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO)
                                     {
-                                        <a href="#" class="eliminar-integrante" data-id="@cursada.ID"><i class="fa fa-remove"></i></a>
+                                        <a href="#" class="eliminar-integrante" data-id="@cursada.ID"><i class="zmdi zmdi-close"></i></a>
                                     }
                                     <ul>
                                         <li>@cursada.AlumnoApellido, @cursada.AlumnoNombre</li>

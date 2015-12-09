@@ -32,12 +32,13 @@ module.exports = {
     chunkFilename: '[id].chunk.js',
     publicPath: '/'
   },
-  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
     inline: true,
     progress: true,
+    colors: true,
+    debug: true,
     proxy: {
       '*': {
         target: 'http://localhost:63440/'
@@ -45,11 +46,11 @@ module.exports = {
     }
   },
   module: {
-    preLoaders: [{
+    /*preLoaders: [{
       test: /\.jsx$/,
       loader: 'eslint-loader',
       exclude: /(node_modules|bower_components)/
-    }],
+    }],*/
     loaders: [
       {
         test: /\.css$/,
@@ -92,8 +93,15 @@ module.exports = {
       __DEBUG__: env === 'development' && !argv.no_debug,
       __DEBUG_NW__: !!argv.nw
     })
-  ],
+  ],/*
+  externals: [
+    /^react(\/.*)?$/,
+    /^reflux(\/.*)?$/,
+    'superagent',
+    'async'
+  ],*/
   eslint: {
-    configFile: './.eslintrc'
+    configFile: './.eslintrc',
+    failOnError: true
   }
 };
