@@ -63,9 +63,11 @@ namespace ColegioTerciario.Models.Repositories
                                Carrera = grp.Key,
                                Cursadas = grp.GroupBy(m => m.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CICLO).Select(g => new SituacionAcademicaCursadasViewModel()
                                {
+                                   
                                    Ciclo = g.Key.CICLO_NOMBRE,
                                    Materias = g.Select(c => new SituacionAcademicaMateriasViewModel()
                                    {
+                                       MateriaXCursoID = c.CURSADA_MATERIA_X_CURSO.ID,
                                        MateriaNombre = c.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE,
                                        P1 = c.CURSADA_NOTA_P1,
                                        R1 = c.CURSADA_NOTA_R1,
@@ -95,6 +97,7 @@ namespace ColegioTerciario.Models.Repositories
                                     Materia = c.Key.MATERIA_NOMBRE,
                                     Cursadas = c.Select(cursada => new SituacionAcademicaMateriasViewModel()
                                     {
+                                        MateriaXCursoID = cursada.CURSADA_MATERIA_X_CURSO.ID,
                                         MateriaNombre  = cursada.CURSADA_MATERIA_X_CURSO.MATERIA_X_CURSO_CICLO.CICLO_NOMBRE,
                                         P1 = cursada.CURSADA_NOTA_P1,
                                         R1 = cursada.CURSADA_NOTA_R1,
@@ -114,8 +117,8 @@ namespace ColegioTerciario.Models.Repositories
         public IQueryable<SituacionFinalesViewModel> GetFinales(Persona persona)
         {
             var actas = from a in _dbContext.Actas_Examenes_Detalles
-                    where a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID
-                    group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA into carreras
+                        where a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID
+                        group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA into carreras
                         select new SituacionFinalesViewModel
                     {
                         Persona = persona.PERSONA_NOMBRE_COMPLETO,
@@ -128,10 +131,11 @@ namespace ColegioTerciario.Models.Repositories
                                 ActaId = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ID,
                                 Anio = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO,
                                 Fecha = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FECHA,
+                                CodigoMateria = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_CODIGO,
                                 Materia = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE,
                                 Nota = f.ACTA_EXAMEN_DETALLE_NOTA,
                                 Estado = f.ACTA_EXAMEN_DETALLE_ESTADO
-                            })
+                            }).OrderBy(f => new { f.CodigoMateria, f.Fecha })
                         })
                     };
             return actas;

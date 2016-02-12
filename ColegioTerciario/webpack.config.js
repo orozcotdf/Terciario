@@ -30,7 +30,6 @@ module.exports = {
     chunkFilename: '[id].chunk.js',
     publicPath: '/Scripts/dist/'
   },
-  devtool: 'source-map',
   module: {
     loaders: [
       {

@@ -25,7 +25,7 @@ namespace ColegioTerciario.Controllers.Api
                     {
                         label = c.PAIS_NAME,
                         value = c.ID.ToString()
-                    }).Take(5);
+                    });
         }
         [HttpGet]
         public IQueryable<ReactSelectViewModel> Provincias([FromUri]string busqueda)
@@ -39,7 +39,7 @@ namespace ColegioTerciario.Controllers.Api
                     {
                         label = c.PROVINCIA_NAME,
                         value = c.ID.ToString()
-                    }).Take(5);
+                    });
         }
         [HttpGet]
         public IQueryable<ReactSelectViewModel> Ciudades([FromUri]string busqueda)
@@ -53,7 +53,7 @@ namespace ColegioTerciario.Controllers.Api
                     {
                         label = c.CIUDAD_NAME,
                         value = c.ID.ToString()
-                    }).Take(5);
+                    });
         }
 
         [HttpGet]

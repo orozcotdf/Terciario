@@ -33,37 +33,36 @@ const UISidebar = React.createClass({
   },
   sidebarItems() {
     const items = [{
-      id: 1,
-      title: 'Personas',
+      title: 'Alumnos',
+      url: '/#/alumnos',
+      icon: 'zmdi-accounts-list',
+      role: 'Bedel'
+    }, {
+      title: 'Docentes y Bedeles',
       url: '/Personas',
       icon: 'zmdi-accounts-list',
       role: 'Bedel'
     }, {
-      id: 2,
       title: 'Cursos',
       url: '/Cursos',
       icon: 'zmdi-calendar-note',
       role: 'Bedel'
     }, {
-      id: 3,
       title: 'Finales',
       url: '/ActaExamen',
       icon: 'zmdi-graduation-cap',
       role: 'Bedel'
     }, {
-      id: 4,
       title: 'Equivalencias',
       url: '/#/equivalencias',
       icon: 'zmdi-view-list',
       role: 'Bedel'
     }, {
-      id: 5,
       title: 'Inscripcion a Finales',
       url: '/inscribiralumnos',
       icon: 'zmdi-view-list',
       role: 'Bedel'
     }, {
-      id: 6,
       title: 'Inscripcion a Cursada',
       url: '/#/inscripciones',
       icon: 'zmdi-view-list',
@@ -72,19 +71,22 @@ const UISidebar = React.createClass({
 
     if (User.isInRole('Admin')) {
       items.push({
-        id: 7,
         title: 'Usuarios',
         url: '/Admin/Usuarios',
         icon: 'zmdi-account'
       });
 
       items.push({
-        id: 8,
         title: 'Roles',
         url: '/Admin/Roles',
         icon: 'zmdi-accounts'
       });
     }
+
+    for (var index = 0; index < items.length; index++) {
+      items[index].id = index;
+    }
+
     return items;
   },
 
@@ -107,6 +109,7 @@ const UISidebar = React.createClass({
   },
 
   render() {
+    const sidebarItemID = 0;
     const classes = classNames({
       toggled: this.state.navigation.sidebarActive
     });
@@ -151,7 +154,6 @@ const UISidebar = React.createClass({
           <ul className="main-menu">
             {this.sidebarItems().map((result) => {
               const iconClass = `zmdi ${result.icon}`;
-
               if (this.state.user.isInRole(result.role)) {
                 return (
                   <li key={result.id}>
@@ -161,7 +163,8 @@ const UISidebar = React.createClass({
                     </a>
                   </li>
                 );
-              }
+              };
+
             })}
 
           </ul>

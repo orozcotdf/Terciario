@@ -14,6 +14,42 @@ namespace ColegioTerciario.Controllers.Api
     {
         private readonly ColegioTerciarioContext _db = new ColegioTerciarioContext();
 
+        public AjaxCollectionResponseViewModel GetAlumnos([FromUri]AjaxCollectionParamViewModel param) {
+            IQueryable<Persona> personas = _db.Personas
+                .Where(p => p.PERSONA_ES_ALUMNO == true)
+                .OrderByDescending(e => e.ID);
+
+            if (param.Filtro != null)
+            {
+                personas = personas.Where(i =>
+                    i.PERSONA_DOCUMENTO_NUMERO.ToLower().Contains(param.Filtro.ToLower()) ||
+                    i.PERSONA_NOMBRE.ToLower().Contains(param.Filtro.ToLower()) ||
+                    i.PERSONA_APELLIDO.ToLower().Contains(param.Filtro.ToLower()) ||
+                    i.PERSONA_TELEFONO.ToLower().Contains(param.Filtro.ToLower())
+                );
+            }
+
+            IQueryable<object> vm = personas
+                .Skip(param.Pagina * param.RegistrosPorPagina)
+                .Take(param.RegistrosPorPagina)
+                .Select(p => new
+                {
+                    PERSONA_DOCUMENTO_NUMERO = p.PERSONA_DOCUMENTO_NUMERO,
+                    PERSONA_NOMBRE = p.PERSONA_NOMBRE,
+                    PERSONA_APELLIDO = p.PERSONA_APELLIDO,
+                    PERSONA_TELEFONO = p.PERSONA_TELEFONO,
+                    ID = p.ID
+                });
+
+            AjaxCollectionResponseViewModel rvm = new AjaxCollectionResponseViewModel
+            {
+                Resultados = vm,
+                CantidadResultados = param.Filtro != null ? vm.Count() : _db.Personas.Count(),
+            };
+
+            return rvm;
+        }
+
         // GET: api/Personas
         [HttpGet]
         public object GetPersonas([FromUri]DataTableParamModel param)

@@ -40,6 +40,9 @@ namespace ColegioTerciario.Areas.Publico.Controllers
         public ActionResult VerInscripcion(string id)
         {
             var inscripcion = db.Inscripciones.Find(Guid.Parse(id));
+            var cantidadInscriptosConfirmados = db.Inscripciones.Count(i => i.INSCRIPCIONES_CARRERA_ID == inscripcion.INSCRIPCIONES_CARRERA_ID && i.INSCRIPCIONES_PRESENTO_DOCUMENTACION);
+            ViewBag.LISTA_DE_ESPERA = cantidadInscriptosConfirmados >= 100 ? true : false;
+
             if (inscripcion != null)
             {
                 return View(inscripcion);

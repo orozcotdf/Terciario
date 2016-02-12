@@ -7,6 +7,7 @@ module.exports = {
     require('./perfil'),
     require('./equivalencias'),
     require('./areaDocentes'),
-    require('./inscripcionesAdmin')
+    require('./inscripcionesAdmin'),
+    require('./alumnos')
   ]
 };

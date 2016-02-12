@@ -76,6 +76,11 @@ body#inscripciones {
   background-image: url("../img/icons/ellipsis-dark.png");
 }
 
+#toast-container {
+  top: 45px;
+  right: 20px;
+}
+
 /* GRIDDLE */
 
 .griddle .top-section {

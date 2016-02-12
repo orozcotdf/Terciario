@@ -45,6 +45,7 @@ module.exports = {
       }
     }
   },
+  devTool: 'source-map',
   module: {
     /*preLoaders: [{
       test: /\.jsx$/,
@@ -54,10 +55,12 @@ module.exports = {
     loaders: [
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss')
+        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1')
       }, {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style', 'css!sass')
+        //loaders: ['style', 'css', 'sass']
+
       }, {
         test: /(webfont|)\.(otf|eot|ttf|woff|woff2|svg)(\?.+|)$/,
         loader: 'url-loader?limit=8192'

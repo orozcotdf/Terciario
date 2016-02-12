@@ -39,9 +39,9 @@ class DateInput extends React.Component {
       <div className="fg-line">
         <MaskedInput {...this.props} placeholder="Fecha"
           mask="99/99/9999"
-          style={inputStyle}
           size={10}
           onChange={this._onChange.bind(this)}
+          className={this.props.inputClass}
         />
       </div>
     );

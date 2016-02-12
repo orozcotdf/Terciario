@@ -59,7 +59,7 @@
                                                 @foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaMateriasViewModel materia in cursada.Materias)
                                                 {
                                                     <tr>
-                                                        <td>@materia.MateriaNombre</td>
+                                                        <td>@Html.ActionLink(materia.MateriaNombre, "Edit", "Cursos", new { id = materia.MateriaXCursoID }, null)</td>
                                                         <td><b>@materia.P1</b></td>
                                                         <td>@String.Format("{0:dd/MM/yyyy}", materia.P1Fecha)</td>
                                                         <td><b>@materia.R1</b></td>
@@ -92,7 +92,7 @@
                                         <table class="table table-condensed table-hover table-bordered situacion-academica">
                                             <thead>
                                                 <tr>
-                                                    <th>Materia</th>
+                                                    <th>Ciclo</th>
                                                     <th>P1</th>
                                                     <th>Fecha</th>
                                                     <th>R1</th>
@@ -107,7 +107,7 @@
                                                 @foreach (ColegioTerciario.Models.ViewModels.SituacionAcademicaMateriasViewModel materia in cursada.Cursadas)
                                                 {
                                                     <tr>
-                                                        <td>@materia.MateriaNombre</td>
+                                                        <td>@Html.ActionLink(materia.MateriaNombre, "Edit", "Cursos", new { id = materia.MateriaXCursoID }, null)</td>
                                                         <td><b>@materia.P1</b></td>
                                                         <td>@String.Format("{0:dd/MM/yyyy}", materia.P1Fecha)</td>
                                                         <td><b>@materia.R1</b></td>
@@ -151,7 +151,7 @@
                                                 <tr>
                                                     <td>@Html.ActionLink("Ir a Acta", "Edit", "ActaExamen", new {id = examen.ActaId}, null)</td>
                                                     <td>@String.Format("{0:dd/MM/yyyy}", @examen.Fecha)</td>
-                                                    <td>@examen.Materia</td>
+                                                    <td><strong>@examen.CodigoMateria</strong> - @examen.Materia</td>
                                                     <td>@examen.Nota</td>
                                                     <td>@examen.Estado</td>
                                                 </tr>

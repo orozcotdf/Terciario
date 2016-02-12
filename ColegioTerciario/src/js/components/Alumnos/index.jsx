@@ -1,10 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
-import store from '../stores/adminInscripcionesStore';
-import GriddleWithCallback from '../../lib/GriddleWithCallback';
+import GriddleWithCallback from '../lib/GriddleWithCallback';
 import axios from 'axios';
-import {Toggle} from 'material-ui';
-import Notification from 'Notification';
 
 class AccionesComponent extends React.Component {
   render() {
@@ -18,9 +15,9 @@ class AccionesComponent extends React.Component {
         <ul className="dropdown-menu pull-right bgm-bluegray">
           <li>
             <a
-              href={`/Publico/Inscripciones/ImprimirInscripcion/${this.props.data}`}
+              href={`/Personas/Edit/${this.props.data}`}
               target="_blank">
-              Imprimir
+              Editar
             </a>
           </li>
         </ul>
@@ -33,42 +30,10 @@ AccionesComponent.propTypes = {
   data: React.PropTypes.string
 };
 
-class PresentoDocComponent extends React.Component {
-  _onToggle(event, toggled) {
-    const inscripcionID = this.props.rowData.ID;
-    console.log(`Set toggled: ${toggled} for ${inscripcionID} `);
-    axios.post(
-      `/api/Inscripciones/CambiarEstadoDeDocumentacion/${inscripcionID}`
-    ).then((response) => {
-      this.refs.toggle.setToggled(toggled);
-    }).catch((response) => {
-      this.refs.toggle.setToggled(!toggled);
-      Notification.error("Ocurrio un error, intente nuevamente.");
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <Toggle
-          ref="toggle"
-          defaultToggled={this.props.data}
-          onToggle={this._onToggle.bind(this)}
-        />
-      </div>
-    )
-  }
-}
-
-PresentoDocComponent.propTypes = {
-  data: React.PropTypes.bool
-}
-
-const AdminInscripcionesIndex = React.createClass({
-  mixins: [Reflux.connect(store)],
+class Alumnos extends React.Component {
   _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
     axios({
-      url: `/api/Inscripciones/GetInscripciones`,
+      url: `/api/Personas/GetAlumnos`,
       params: {
         Pagina: page,
         RegistrosPorPagina: pageSize,
@@ -84,30 +49,30 @@ const AdminInscripcionesIndex = React.createClass({
         });
       }
     );
-  },
+  }
+
   render() {
     const columns = [
-      'INSCRIPCIONES_CARRERA',
-      'INSCRIPCIONES_NOMBRE',
-      'INSCRIPCIONES_DOCUMENTO_NUMERO',
-      'INSCRIPCIONES_PRESENTO_DOCUMENTACION',
+      'PERSONA_DOCUMENTO_NUMERO',
+      'PERSONA_NOMBRE',
+      'PERSONA_APELLIDO',
+      'PERSONA_TELEFONO',
       'ID'
     ];
 
     const columnMeta = [
       {
-        columnName: 'INSCRIPCIONES_CARRERA',
-        displayName: 'Carrera'
-      }, {
-        columnName: 'INSCRIPCIONES_NOMBRE',
-        displayName: 'Nombre'
-      }, {
-        columnName: 'INSCRIPCIONES_DOCUMENTO_NUMERO',
+        columnName: 'PERSONA_DOCUMENTO_NUMERO',
         displayName: 'Documento'
       }, {
-        columnName: 'INSCRIPCIONES_PRESENTO_DOCUMENTACION',
-        displayName: 'Presento Doc.',
-        customComponent: PresentoDocComponent
+        columnName: 'PERSONA_NOMBRE',
+        displayName: 'Nombre'
+      }, {
+        columnName: 'PERSONA_APELLIDO',
+        displayName: 'Apellido'
+      }, {
+        columnName: 'PERSONA_TELEFONO',
+        displayName: 'Telefono'
       }, {
         columnName: 'ID',
         displayName: '',
@@ -118,8 +83,12 @@ const AdminInscripcionesIndex = React.createClass({
     return (
       <div>
         <div className="card">
-          <div className="card-header">
-            <h2>Administrar Inscripciones</h2>
+          <div className="card-header ch-alt">
+            <h2>Administrar Alumnos</h2>
+            <a href="/Personas/Create"
+              className="btn bgm-cyan btn-float waves-effect waves-circle waves-float">
+              <i className="zmdi zmdi-plus"></i>
+            </a>
           </div>
           <div className="card-body">
             <GriddleWithCallback ref="w"
@@ -138,6 +107,6 @@ const AdminInscripcionesIndex = React.createClass({
       </div>
     );
   }
-});
+}
 
-export default AdminInscripcionesIndex;
+export default Alumnos;

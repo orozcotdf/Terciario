@@ -54,7 +54,8 @@ namespace ColegioTerciario.Controllers.Api
                     ID = i.ID,
                     INSCRIPCIONES_CARRERA = i.INSCRIPCIONES_CARRERA.CARRERA_NOMBRE,
                     INSCRIPCIONES_DOCUMENTO_NUMERO = i.INSCRIPCIONES_DOCUMENTO_NUMERO,
-                    INSCRIPCIONES_NOMBRE = i.INSCRIPCIONES_APELLIDO +", " + i.INSCRIPCIONES_NOMBRE
+                    INSCRIPCIONES_NOMBRE = i.INSCRIPCIONES_APELLIDO +", " + i.INSCRIPCIONES_NOMBRE,
+                    INSCRIPCIONES_PRESENTO_DOCUMENTACION = i.INSCRIPCIONES_PRESENTO_DOCUMENTACION
                 });
 
             AjaxCollectionResponseViewModel rvm = new AjaxCollectionResponseViewModel
@@ -114,13 +115,13 @@ namespace ColegioTerciario.Controllers.Api
             
             var limite = config == null ? 100 : int.Parse(config.CONFIG_VALOR);
 
-            var count = db.Inscripciones.Count(i => i.INSCRIPCIONES_CARRERA_ID == id);
+            var count = db.Inscripciones.Count(i => i.INSCRIPCIONES_CARRERA_ID == id && i.INSCRIPCIONES_PRESENTO_DOCUMENTACION);
             if (count >= limite)
             {
                 //return Ok("Se ha superado el limite de inscripciones para esta carrera. Usted se esta por inscribir en lista de espera");
-                return BadRequest();
+                return BadRequest("Se ha superado el limite de inscripciones: " + count);
             }
-            return Ok();
+            return Ok(count);
         }
 
         // PUT: api/Inscripciones/5
@@ -251,6 +252,27 @@ namespace ColegioTerciario.Controllers.Api
             else
                 // Puede inscribirse
                 return Ok();
+        }
+
+        public IHttpActionResult CambiarEstadoDeDocumentacion(Guid id)
+        {
+            Inscripciones inscripciones = db.Inscripciones.Find(id);
+            if (inscripciones == null)
+            {
+                return NotFound();
+            }
+            inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION = !inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION;
+            if (!inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION == true)
+            {
+                inscripciones.INSCRIPCIONES_FECHA_PRESENTO_DOCUMENTACION = new DateTime();
+            }
+            else
+            {
+                inscripciones.INSCRIPCIONES_FECHA_PRESENTO_DOCUMENTACION = null;
+            }
+            db.SaveChanges();
+
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

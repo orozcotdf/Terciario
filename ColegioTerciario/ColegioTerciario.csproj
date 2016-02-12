@@ -303,6 +303,14 @@
     <Compile Include="Areas\Publico\PublicoAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActaExamenController.cs" />
+    <Compile Include="Migrations\201512142140461_Presento Documentacion para Inscripcion.cs" />
+    <Compile Include="Migrations\201512142140461_Presento Documentacion para Inscripcion.Designer.cs">
+      <DependentUpon>201512142140461_Presento Documentacion para Inscripcion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512162334158_Fecha de presentacion de documentacion para inscripcion.cs" />
+    <Compile Include="Migrations\201512162334158_Fecha de presentacion de documentacion para inscripcion.Designer.cs">
+      <DependentUpon>201512162334158_Fecha de presentacion de documentacion para inscripcion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\AnaliticoViewModel.cs" />
     <Compile Include="Controllers\Api\AccountsController.cs" />
     <Compile Include="Controllers\Api\ActasController.cs" />
@@ -606,10 +614,6 @@
     <Content Include="Areas\Publico\Views\Inscripciones\Index.cshtml" />
     <Content Include="Areas\Publico\Views\Inscripciones\VerInscripcion.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
-    <Content Include="Scripts\dist\App.js.map" />
-    <Content Include="Scripts\dist\cent11-2.0.css.map" />
-    <Content Include="Scripts\dist\vendor.js.map" />
-    <Content Include="Scripts\dist\init.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="gulpfile.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
@@ -837,6 +841,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511132220042_Regularidad de Parciales.resx">
       <DependentUpon>201511132220042_Regularidad de Parciales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512142140461_Presento Documentacion para Inscripcion.resx">
+      <DependentUpon>201512142140461_Presento Documentacion para Inscripcion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512162334158_Fecha de presentacion de documentacion para inscripcion.resx">
+      <DependentUpon>201512162334158_Fecha de presentacion de documentacion para inscripcion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ColegioTerciario.Models.Types;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace ColegioTerciario.DAL.Models.Inscripciones
 {
@@ -52,6 +53,9 @@ namespace ColegioTerciario.DAL.Models.Inscripciones
         public int? INSCRIPCIONES_NACIMIENTO_PROVINCIA_ID { get; set; }
         public int? INSCRIPCIONES_NACIMIENTO_CIUDAD_ID { get; set; }
         public int? INSCRIPCIONES_NACIMIENTO_BARRIO_ID { get; set; }
+        [DefaultValue(false)]
+        public bool INSCRIPCIONES_PRESENTO_DOCUMENTACION { get; set; }
+        public DateTime? INSCRIPCIONES_FECHA_PRESENTO_DOCUMENTACION { get; set; }
         public int? INSCRIPCIONES_CARRERA_ID { get; set; }
         [ForeignKey("INSCRIPCIONES_NACIMIENTO_PAIS_ID")]
         [JsonIgnore]

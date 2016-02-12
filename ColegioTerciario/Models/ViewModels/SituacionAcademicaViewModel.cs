@@ -40,6 +40,8 @@ namespace ColegioTerciario.Models.ViewModels
         public DateTime? R1Fecha { get; set; }
         public DateTime? P2Fecha { get; set; }
         public DateTime? R2Fecha { get; set; }
+
+        public int MateriaXCursoID { get; set; }
     }
 
 

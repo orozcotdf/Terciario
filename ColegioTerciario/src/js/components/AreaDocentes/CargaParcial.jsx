@@ -210,6 +210,14 @@ class CargaParcial extends React.Component {
       {payload: '9', text: '9'},
       {payload: '10', text: '10'}
     ];
+    const dateInputStyle = {
+      background: 'none',
+      color: 'white',
+      border: 'none',
+      borderBottom: '1px solid white',
+      marginTop: '20px',
+      fontSize: '22px'
+    };
 
     return (
       <div>
@@ -304,7 +312,7 @@ class CargaParcial extends React.Component {
                  </i>
                 </div>
                 <div className="count">
-                  <DateInput onInputValidDate={this._setFecha.bind(this)} value={this.state.Fecha}/>
+                  <DateInput style={dateInputStyle} onInputValidDate={this._setFecha.bind(this)} value={this.state.Fecha}/>
 
                   {/*
                   <DatePicker
