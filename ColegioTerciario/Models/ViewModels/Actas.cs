@@ -19,8 +19,11 @@ namespace ColegioTerciario.Models.ViewModels
         public string Vocal2 { get; set; }
     }
 
+    
+
     public class SituacionFinalesViewModel
     {
+        public int CarreraID { get; set; }
         public string Persona { get; set; }
         public string Carrera { get; set; }
         public IEnumerable<FinalesViewModel> Finales { get; set; }

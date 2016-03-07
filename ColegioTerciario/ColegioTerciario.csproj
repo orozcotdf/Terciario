@@ -303,6 +303,7 @@
     <Compile Include="Areas\Publico\PublicoAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActaExamenController.cs" />
+    <Compile Include="Controllers\Api\FinalesController.cs" />
     <Compile Include="Migrations\201512142140461_Presento Documentacion para Inscripcion.cs" />
     <Compile Include="Migrations\201512142140461_Presento Documentacion para Inscripcion.Designer.cs">
       <DependentUpon>201512142140461_Presento Documentacion para Inscripcion.cs</DependentUpon>
@@ -310,6 +311,10 @@
     <Compile Include="Migrations\201512162334158_Fecha de presentacion de documentacion para inscripcion.cs" />
     <Compile Include="Migrations\201512162334158_Fecha de presentacion de documentacion para inscripcion.Designer.cs">
       <DependentUpon>201512162334158_Fecha de presentacion de documentacion para inscripcion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602172332407_Agrega comentarios a ActaExamen.cs" />
+    <Compile Include="Migrations\201602172332407_Agrega comentarios a ActaExamen.Designer.cs">
+      <DependentUpon>201602172332407_Agrega comentarios a ActaExamen.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\AnaliticoViewModel.cs" />
     <Compile Include="Controllers\Api\AccountsController.cs" />
@@ -847,6 +852,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512162334158_Fecha de presentacion de documentacion para inscripcion.resx">
       <DependentUpon>201512162334158_Fecha de presentacion de documentacion para inscripcion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602172332407_Agrega comentarios a ActaExamen.resx">
+      <DependentUpon>201602172332407_Agrega comentarios a ActaExamen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

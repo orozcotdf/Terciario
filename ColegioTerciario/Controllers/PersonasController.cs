@@ -16,6 +16,7 @@ using MvcFlash.Core.Extensions;
 using PagedList;
 using Rotativa.MVC;
 using RazorPDF;
+using Rotativa.Core.Options;
 
 namespace ColegioTerciario.Controllers
 {
@@ -291,7 +292,7 @@ namespace ColegioTerciario.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ImprimirAnalitico(int? id)
+        public ActionResult ImprimirAnalitico(int? id, int? carreraID)
         {
             if (id == null)
             {
@@ -302,15 +303,25 @@ namespace ColegioTerciario.Controllers
             {
                 return HttpNotFound();
             }
-            var finales = _repo.GetAnalitico(persona);
+            var finales = _repo.GetAnalitico(persona, carreraID);
             var model = new AnaliticoViewModel
             {
                 Persona = persona,
-                Analitico = finales
+                Analitico = finales,
+                Carrera = _db.Carreras.SingleOrDefault(c => c.ID == carreraID).CARRERA_NOMBRE
             };
 
-            ViewBag.MEMBRETE = "Las Islas Malvinas, Georgias y Sandwich del Sur son y serán Argentinas";
-            return new ViewAsPdf(model);
+            ViewBag.MEMBRETE = "2016, Año del Bicentenario de la Declaración de la Independencia Nacional.";
+
+            return new ViewAsPdf("ImprimirAnalitico")
+            {
+                Model = model,
+                RotativaOptions =
+                {
+                    //PageMargins = { Top = 5 },
+                    PageSize = Size.Legal
+                }
+            };
         }
         protected override void Dispose(bool disposing)
         {

@@ -1,11 +1,9 @@
 ﻿@using ColegioTerciario.Models
 @using Glimpse.Mvc.AlternateType
 @model ColegioTerciario.DAL.Models.Persona
-
 @{
     ViewBag.Title = "Edit";
 }
-
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light">
@@ -16,14 +14,12 @@
                 @if (Model.PERSONA_ES_ALUMNO == true)
                 {
                     <div class="tabbable-line">
-
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#datos-personales" aria-controls="datos-personales" role="tab" data-toggle="tab">Datos Personales</a></li>
                             <li role="presentation"><a href="#cursadas_x_ciclos" aria-controls="cursadas" role="tab" data-toggle="tab">Cursadas Por Ciclos</a></li>
                             <li role="presentation"><a href="#cursadas_x_materias" aria-controls="cursadas" role="tab" data-toggle="tab">Cursadas Por Materias</a></li>
                             <li role="presentation"><a href="#finales" aria-controls="finales" role="tab" data-toggle="tab">Finales</a></li>
                         </ul>
-
 
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="datos-personales">
@@ -126,7 +122,41 @@
                                 }
                             </div>
                             <div id="finales" class="tab-pane">
-                                @Html.ActionLink("Imprimir Analitico", "ImprimirAnalitico", new { id = Model.ID}, new {@class = "btn btn-primary"})
+
+                                @if (ViewBag.FINALES.Count == 0)
+                                {
+                                    
+                                }    
+                                else if (ViewBag.FINALES.Count > 1)
+                                {
+                                    using (Html.BeginForm("ImprimirAnalitico", "Personas", new { id = Model.ID }))
+                                    {
+                                        <input type="hidden" name="ID" value="@Model.ID" />
+                                        <select name="carreraID">
+                                            @foreach (ColegioTerciario.Models.ViewModels.SituacionFinalesViewModel situacion in ViewBag.FINALES)
+                                            {
+                                                <option value="@situacion.CarreraID">@situacion.Carrera</option>
+                                            }
+                                        </select>
+                                        <button type="submit" class="btn btn-primary">
+                                            Imprimir Analitico
+                                        </button>
+                                    }
+                                }
+                                else
+                                {
+                                    using (Html.BeginForm("ImprimirAnalitico", "Personas", new { id = Model.ID }))
+                                    {
+                                        <input type="hidden" name="ID" value="@Model.ID" />
+                                        <input type="hidden" name="carreraID" value="@(ViewBag.FINALES[0].CarreraID)" />
+                                        
+                                        <button type="submit" class="btn btn-primary">
+                                            Imprimir Analitico
+                                        </button>
+                                    }
+                                }
+
+
                                 @foreach (ColegioTerciario.Models.ViewModels.SituacionFinalesViewModel situacion in ViewBag.FINALES)
                                 {
                                     <h2>@situacion.Carrera</h2>
@@ -137,25 +167,25 @@
 
                                         <table class="table table-condensed table-striped">
                                             <thead>
-                                            <tr>
-                                                <th>Acta</th>
-                                                <th>Fecha</th>
-                                                <th>Materia</th>
-                                                <th>Nota</th>
-                                                <th>Estado</th>
-                                            </tr>
+                                                <tr>
+                                                    <th>Acta</th>
+                                                    <th>Fecha</th>
+                                                    <th>Materia</th>
+                                                    <th>Nota</th>
+                                                    <th>Estado</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach (ColegioTerciario.Models.ViewModels.ExamenesFinalesViewModel examen in final.Examenes)
-                                            {
-                                                <tr>
-                                                    <td>@Html.ActionLink("Ir a Acta", "Edit", "ActaExamen", new {id = examen.ActaId}, null)</td>
-                                                    <td>@String.Format("{0:dd/MM/yyyy}", @examen.Fecha)</td>
-                                                    <td><strong>@examen.CodigoMateria</strong> - @examen.Materia</td>
-                                                    <td>@examen.Nota</td>
-                                                    <td>@examen.Estado</td>
-                                                </tr>
-                                            }
+                                                @foreach (ColegioTerciario.Models.ViewModels.ExamenesFinalesViewModel examen in final.Examenes)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.ActionLink("Ir a Acta", "Edit", "ActaExamen", new { id = examen.ActaId }, null)</td>
+                                                        <td>@String.Format("{0:dd/MM/yyyy}", @examen.Fecha)</td>
+                                                        <td><strong>@examen.CodigoMateria</strong> - @examen.Materia</td>
+                                                        <td>@examen.Nota</td>
+                                                        <td>@examen.Estado</td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
                                     }
@@ -169,19 +199,16 @@
                 {
                     @Html.Partial("_PersonaForm", Model)
                 }
-                
-                    @Html.ActionLink("Volver a la lista", "Index") |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID })
-                
+
+                @Html.ActionLink("Volver a la lista", "Index") |
+                @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID })
+
             </div>
         </div>
     </div>
 </div>
 
-
-
 @section Scripts {
-
     <script type="text/javascript">
         var pageSize = 20;
         $(document).ready(function () {

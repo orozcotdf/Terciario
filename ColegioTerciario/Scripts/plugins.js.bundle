@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bundle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://vswebessentials.com/schemas/v1/bundle.xsd">
+  <settings>
+    <!--Determines if the bundle file should be automatically optimized after creation/update.-->
+    <minify>true</minify>
+    <!--Determine whether to generate/re-generate this bundle on building the solution.-->
+    <runOnBuild>true</runOnBuild>
+    <!--Specifies a custom subfolder to save files to. By default, compiled output will be placed in the same folder and nested under the original file.-->
+    <outputDirectory />
+  </settings>
+  <!--The order of the <file> elements determines the order of the files in the bundle.-->
+  <files>
+    <file>/Scripts/bootstrap.js</file>
+    <file>/Scripts/bootstrap-switch.min.js</file>
+    <file>/Scripts/bootbox.js</file>
+    <file>/Scripts/respond.js</file>                      
+    <file>/Scripts/bootstrap-editable.js</file>
+    <file>/Scripts/select2.js</file>
+    <file>/Scripts/Select2-locales/select2_locale_es.js</file>
+    <file>/Scripts/moment-with-locales.js</file>
+    <file>/Scripts/DataTables-1.10.3/jquery.dataTables.js</file>
+    <file>/Scripts/DataTables-1.10.3/dataTables.bootstrap.js</file>
+    <file>/Scripts/cent11.js</file>
+  </files>
+</bundle>

@@ -123,6 +123,7 @@ namespace ColegioTerciario.Models.Repositories
                     {
                         Persona = persona.PERSONA_NOMBRE_COMPLETO,
                         Carrera = carreras.Key.CARRERA_NOMBRE,
+                        CarreraID = carreras.Key.ID,
                         Finales = carreras.GroupBy(c => c.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO).Select(a => new FinalesViewModel
                         {
                             Anio = a.Key == "1" ? "2012" : a.Key == "2" ? "2013" : a.Key == "3" ? "2014" : "",
@@ -141,19 +142,69 @@ namespace ColegioTerciario.Models.Repositories
             return actas;
         }
 
-        public SituacionFinalesViewModel GetAnalitico(Persona persona)
+        private string CalcularCiclo(string anio)
         {
+            return (int.Parse(anio, NumberStyles.Number) + 2011).ToString();
+        }
+
+        public List<ListaAnaliticoViewModel> GetAnalitico(Persona persona, int? carreraID)
+        {
+            var actas2 = /*_dbContext.Actas_Examenes_Detalles.Where(a => 
+                    a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID && a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERAS_ID == carreraID).
+                    GroupBy(a => a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO).Select(
+                        a => new ListaAnaliticoViewModel {
+                            Anio = a.Key,
+                            Finales = a.OrderBy(b => b.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_CODIGO)
+                                        .Select(b => new AnaliticoFinalesViewModel
+                                        {
+                                            ActaId = b.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ID
+                                        })
+                        }
+                    );*/
+                
+                from a in _dbContext.Actas_Examenes_Detalles
+                         where a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID
+                            && a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERAS_ID == carreraID
+                         group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO into anios
+
+                         select new ListaAnaliticoViewModel
+                         {
+                             Anio = anios.Key,
+                             Finales = from anio in anios
+                                       orderby new
+                                       {
+                                           anio.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_CODIGO,
+                                           anio.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FECHA
+                                       }
+
+                                       group anio by anio.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_CODIGO into finales
+                                       let final = finales.OrderByDescending(b => b.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FECHA).FirstOrDefault()
+                                       select new AnaliticoFinalesViewModel
+                                       {
+                                           ActaId =  final.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ID,
+                                           Fecha = final.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FECHA,
+                                           Materia = final.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_NOMBRE,
+                                           Nota = final.ACTA_EXAMEN_DETALLE_NOTA,
+                                           Estado = final.ACTA_EXAMEN_DETALLE_ESTADO,
+                                           Libro = final.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_LIBRO.ToUpper(),
+                                           Folio = final.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_FOLIO.ToUpper()
+                                       }
+
+                         };
+            
+            return actas2.ToList();
             var actas = from a in _dbContext.Actas_Examenes_Detalles
                         where a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID
-                        group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA into carreras
+                         && a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA.ID == carreraID
+ //group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA into carreras
                         select new SituacionFinalesViewModel
                         {
                             Persona = persona.PERSONA_NOMBRE_COMPLETO,
-                            Carrera = carreras.Key.CARRERA_NOMBRE,
-                            Finales = carreras.GroupBy(c => c.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO).Select(a => new FinalesViewModel
+                            Carrera = a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA.CARRERA_NOMBRE,
+                            Finales = a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTAS_EXAMENES_DETALLES.GroupBy(c => c.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO).Select(b => new FinalesViewModel
                             {
-                                Anio = a.Key == "1" ? "2012" : a.Key == "2" ? "2013" : a.Key == "3" ? "2014" : "",
-                                Examenes = a.Select(f => new ExamenesFinalesViewModel
+                                Anio = b.Key == "1" ? "2012" : b.Key == "2" ? "2013" : b.Key == "3" ? "2014" : "",
+                                Examenes = b.Select(f => new ExamenesFinalesViewModel
                                 {
                                     ActaId = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ID,
                                     Anio = f.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_MATERIA.MATERIA_ANIO,
@@ -166,7 +217,7 @@ namespace ColegioTerciario.Models.Repositories
                                 })
                             })
                         };
-            return actas.First();
+            //return actas.First();
         }
 
         public bool EsAlumnoRegular(Persona persona)

@@ -5,7 +5,7 @@
   "repository": "",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.development.config.js --progress --profile --colors --display-error-details --display-reasons --debug",
+    "start": "webpack-dev-server --config webpack.development.config.js --progress --colors --display-error-details --display-reasons",
     "build": "set NODE_ENV=production && webpack --progress --colors",
     "dist": "set NODE_ENV=production && webpack --progress --colors --config webpack.config.production.js"
   },
@@ -43,7 +43,7 @@
     "react-bootstrap-datetimepicker": "0.0.21",
     "react-hot-loader": "^1.3.0",
     "react-mixin": "^3.0.3",
-    "react-router": "^1.0.0",
+    "react-router": "^1.0.3",
     "react-select": "^0.9.1",
     "react-tap-event-plugin": "^0.1.8",
     "reflux": "^0.3.0",
@@ -70,7 +70,9 @@
     "eslint": "^1.10.3",
     "eslint-loader": "^1.1.1",
     "eslint-plugin-react": "^3.11.2",
+    "history": "^1.17.0",
     "material-ui": "^0.13.1",
+    "moment": "^2.11.2",
     "node-sass": "^3.4.2",
     "normalize": "^0.3.1",
     "normalize.css": "^3.0.3",

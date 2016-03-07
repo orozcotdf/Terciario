@@ -8,6 +8,7 @@ module.exports = {
     require('./equivalencias'),
     require('./areaDocentes'),
     require('./inscripcionesAdmin'),
-    require('./alumnos')
+    require('./alumnos'),
+    require('./finales')
   ]
 };

@@ -42,6 +42,10 @@ namespace ColegioTerciario.DAL.Models
         [Display(Name = "Folio")]
         public string ACTA_EXAMEN_FOLIO { get; set; }
 
+        [MaxLength]
+        [Display(Name = "Comentarios")]
+        public string ACTA_EXAMEN_COMENTARIOS { get; set; }
+
         #region Foreign Keys
         [Display(Name = "Turno de Examen")]
         public int? ACTA_EXAMEN_TURNOS_EXAMENES_ID { get; set; }

@@ -117,7 +117,10 @@ namespace ColegioTerciario.Controllers
                     {
                         int id = alumnoId;
                         int cursoId = curso.ID;
-                        var cursadasConEstaPersona = _db.Cursadas.Count(c => c.CURSADA_ALUMNOS_ID == id && c.CURSADA_MATERIAS_X_CURSOS_ID == cursoId);
+                        var cursadasConEstaPersona = _db.Cursadas.Count(
+                            c => 
+                                c.CURSADA_ALUMNOS_ID == id && 
+                                c.CURSADA_MATERIAS_X_CURSOS_ID == cursoId);
                         if (cursadasConEstaPersona == 0)
                         {
                             var nuevaCursada = new Cursada

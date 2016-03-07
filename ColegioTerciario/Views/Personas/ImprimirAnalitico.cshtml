@@ -6,7 +6,7 @@
 }
 
 @section footer {
-    <footer class="row" style="margin-top: 80px;">
+    <footer class="row" style="margin-top: 40px;">
         <div class="col-xs-12 text-center">
             <i>"@ViewBag.MEMBRETE"</i>
         </div>
@@ -16,13 +16,13 @@
 
 <style type="text/css">
     p {
-        font-size: 16px;
+        font-size: 14px;
         text-align: justify;
     }
 
     body.print {
-        margin-top: 0;
-        padding-top: 0;
+        margin-top: 0 !important;
+        padding-top: 0 !important;        
     }
 
     th {
@@ -30,26 +30,28 @@
     }
 </style>
 
-<div class="row">
-    <div class="col-xs-6"></div>
+<div class="row" style="margin-bottom:10px">
+    <div class="col-xs-6" style="padding-top:1px">
+        <h3>CERTIFICADO ANALITICO</h3>
+    </div>
 
     <div class="col-xs-6">
         <img class="pull-right" src="/Content/CENT%20LOGO.png" alt="" height="50" />
     </div>
 </div>
-
+<!--
 <div class="row">
     <div class="col-xs-12 text-center">
         <h3>CERTIFICADO ANALITICO</h3>
     </div>
 </div>
-
+    -->
 <div class="row">
-    <p style="text-align: justify">
+    <p style="text-align: justify; font-size: 13px">
         --------EL RECTORADO DEL CENTRO EDUCATIVO DE NIVEL TERCIARIO N° 11 "CIUDAD DE USHUAIA", HACE CONSTAR POR LA PRESENTE
         QUE EL/LA ALUMNO/A <b>@Model.Persona.PERSONA_APELLIDO, @Model.Persona.PERSONA_NOMBRE</b> D.N.I. N° <b>@Model.Persona.PERSONA_DOCUMENTO_NUMERO</b>,
         HA CURSADO Y APROBADO LAS ASIGNATURAS QUE SE DETALLAN, SEGUN CONSTA EN EL LIBRO MATRIZ ....., FOLIO .....,
-        CORRESPONDIENTE A LA CARRERA "@Model.Analitico.Carrera", APROBADA POR RESOLUCION M.E. N° 0357/12 ------------------
+        CORRESPONDIENTE A LA CARRERA "@Model.Carrera", APROBADA POR RESOLUCION M.E. N° 0357/12 ------------------
     </p>
 </div>
 <div class="row">
@@ -64,13 +66,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var final in Model.Analitico.Finales)
+            @foreach (var instancia in Model.Analitico)
             {
                 <tr>
-                    <th colspan="5">@final.Anio</th>
+                    <th colspan="5">Año: @(instancia.Anio)º</th>
                 </tr>
 
-                foreach (var examen in final.Examenes)
+                foreach (var examen in instancia.Finales)
                 {
                     <tr>
                         <td>

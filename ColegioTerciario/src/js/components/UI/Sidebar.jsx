@@ -49,7 +49,7 @@ const UISidebar = React.createClass({
       role: 'Bedel'
     }, {
       title: 'Finales',
-      url: '/ActaExamen',
+      url: '/#/finales',
       icon: 'zmdi-graduation-cap',
       role: 'Bedel'
     }, {

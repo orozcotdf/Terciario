@@ -1,4 +1,4 @@
-INnamespace ColegioTerciario.Migrations
+namespace ColegioTerciario.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

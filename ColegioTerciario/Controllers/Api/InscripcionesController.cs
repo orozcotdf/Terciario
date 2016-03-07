@@ -261,10 +261,11 @@ namespace ColegioTerciario.Controllers.Api
             {
                 return NotFound();
             }
-            inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION = !inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION;
-            if (!inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION == true)
+            bool nuevoEstado = !inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION;
+            inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION = nuevoEstado;
+            if (inscripciones.INSCRIPCIONES_PRESENTO_DOCUMENTACION == true)
             {
-                inscripciones.INSCRIPCIONES_FECHA_PRESENTO_DOCUMENTACION = new DateTime();
+                inscripciones.INSCRIPCIONES_FECHA_PRESENTO_DOCUMENTACION = DateTime.Now;
             }
             else
             {
