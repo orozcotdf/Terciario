@@ -117,7 +117,7 @@ namespace ColegioTerciario.Models.Repositories
         public IQueryable<SituacionFinalesViewModel> GetFinales(Persona persona)
         {
             var actas = from a in _dbContext.Actas_Examenes_Detalles
-                        where a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID
+                        where (a.ACTA_EXAMEN_DETALLE_ALUMNOS_ID == persona.ID && a.DeletedAt == null)
                         group a by a.ACTA_EXAMEN_DETALLE_ACTA_EXAMEN.ACTA_EXAMEN_CARRERA into carreras
                         select new SituacionFinalesViewModel
                     {

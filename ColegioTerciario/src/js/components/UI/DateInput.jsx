@@ -37,18 +37,24 @@ class DateInput extends React.Component {
 
     return (
       <div className="fg-line">
+        {this.props.disabled == false ?
         <MaskedInput {...this.props} placeholder="Fecha"
           mask="99/99/9999"
           size={10}
           onChange={this._onChange.bind(this)}
           className={this.props.inputClass}
-        />
+        /> :
+      	<span
+          style={{background:"none",color:"white",border:"none",borderBottom:"1px solid white",marginTop:"15px",fontSize:"22px", display: "block", cursor: "default"}}
+          >{this.props.value}
+        </span> }
       </div>
     );
   }
 }
 
 DateInput.propTypes = {
+  disabled: React.PropTypes.bool,
   onInputValidDate: React.PropTypes.func.isRequired
 };
 

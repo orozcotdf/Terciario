@@ -1,6 +1,7 @@
 import React from 'react';
 import DashboardDocentes from './DashboardDocentes';
 import DashboardBedeles from './DashboardBedeles';
+import AreaDocentes from '../AreaDocentes'
 
 class InicioComponent extends React.Component {
   esDocente() {
@@ -11,7 +12,7 @@ class InicioComponent extends React.Component {
     let contenido;
 
     if (this.esDocente()) {
-      contenido = <DashboardDocentes />;
+      contenido = <AreaDocentes />;
     } else {
       contenido = <DashboardBedeles />;
     }

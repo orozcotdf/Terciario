@@ -84,7 +84,7 @@ namespace ColegioTerciario.Controllers.Api
                 .Where(
                     m => m.MATERIA_X_CURSO_DOCENTE_ID == docenteId && !m.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO
                 )
-                .OrderByDescending(m => m.ID)
+                .OrderByDescending(m => m.MATERIA_X_CURSO_CICLO.CICLO_ANIO)
                 .Skip(param.Pagina*param.RegistrosPorPagina)
                 .Take(param.RegistrosPorPagina);
             /*
@@ -98,7 +98,7 @@ namespace ColegioTerciario.Controllers.Api
                         cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_CICLO.CICLO_ANIO);
                         break;
                     case "CARRERA_NOMBRE":
-                        cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE);
+                        cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE_CORTO) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE_CORTO);
                         break;
                     case "MATERIA_X_CURSO_CURSO_NOMBRE":
                         cursos = param.OrdenarAsc ? cursos.OrderBy(c => c.MATERIA_X_CURSO_CURSO_NOMBRE) : cursos.OrderByDescending(c => c.MATERIA_X_CURSO_CURSO_NOMBRE);
@@ -122,7 +122,7 @@ namespace ColegioTerciario.Controllers.Api
                             ID = c.ID,
                             CICLO_ANIO = c.MATERIA_X_CURSO_CICLO.CICLO_ANIO,
                             MATERIA_X_CURSO_SEDES_ID = c.MATERIA_X_CURSO_SEDES_ID,
-                            CARRERA_NOMBRE = c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE : null,                       
+                            CARRERA_NOMBRE = c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE_CORTO : null,                       
                             MATERIA_X_CURSO_CURSO_NOMBRE = c.MATERIA_X_CURSO_CURSO_NOMBRE,
                             SEDE_NOMBRE = c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE,
                             MATERIA_NOMBRE = c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
@@ -321,7 +321,8 @@ namespace ColegioTerciario.Controllers.Api
                     Nombre = curso.MATERIA_X_CURSO_CURSO_NOMBRE,
                     Carrera = curso.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE,
                     Materia = curso.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE,
-                    Fecha = fecha != null ? fecha.Value.ToString("dd/MM/yyyy") : ""
+                    Fecha = fecha != null ? fecha.Value.ToString("dd/MM/yyyy") : "",
+                    Cerrado = curso.MATERIA_X_CURSO_DEFINITIVO_EN_LIBRO
                 };
                 return Ok(vm);
             }

@@ -6,6 +6,6 @@ module.exports = {
     //  cb(null, require('./main'));
     // });
 
-    cb(null, require('../components/AreaDocentes/CargaParcial.jsx'));
+    cb(null, require('../components/AreaDocentes/containers/CargaParcial.jsx'));
   }
 };

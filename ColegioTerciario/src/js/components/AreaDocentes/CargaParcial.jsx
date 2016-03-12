@@ -1,5 +1,6 @@
 import React from 'react';
 import CursosStore from '../../stores/cursosStore';
+import UserStore from '../../stores/userStore';
 import Reflux from 'reflux';
 import CursosActions from '../../actions/cursosActions';
 import UISelect from '../UI/Select';
@@ -31,8 +32,8 @@ class CargaParcial extends React.Component {
   }
 
   componentWillMount() {
-    CursosActions.obtenerInfo(this.props.params.idCurso, this.props.params.parcial);
-    CursosActions.obtenerAlumnos(this.props.params.idCurso, this.props.params.parcial, () => {
+    CursosActions.obtenerInfo(this.props.idCurso, this.props.parcial);
+    CursosActions.obtenerAlumnos(this.props.idCurso, this.props.parcial, () => {
       this._actualizarPorcentajeAprobados();
 
       this.chart = new EasyPieChart(this.refs.porcentajeChart, {
@@ -46,14 +47,7 @@ class CargaParcial extends React.Component {
     });
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // Chequea si se le pasa una instancia de parcial valida
-    if (nextProps) {
-      if (ParcialesValidos.indexOf(nextProps.params.parcial) < 0) {
-        this.props.history.pushState(null, '/area-docentes/cursos/');
-      }
-    }
-  }
+
 
   _getAlumnos() {
     return this.state.alumnos;
@@ -71,8 +65,8 @@ class CargaParcial extends React.Component {
 
   _mostrarPlanilla() {
     let url = '/Cursos/PDF/' +
-      this.props.params.idCurso +
-      '?instancia=' + this.props.params.parcial;
+      this.props.idCurso +
+      '?instancia=' + this.props.parcial;
 
     if (this.state.verTodos || this.state.verLibres) {
       url = url + '&mostrarLibres=true';
@@ -128,8 +122,8 @@ class CargaParcial extends React.Component {
       Notification.error('Fecha invalida');
     } else if (value.length === 10) {
       CursosActions.cambiarFecha(
-        this.props.params.idCurso,
-        this.props.params.parcial + '_FECHA',
+        this.props.idCurso,
+        this.props.parcial + '_FECHA',
         this._parseMDY(value)
       );
       this.setState({
@@ -221,19 +215,22 @@ class CargaParcial extends React.Component {
 
     return (
       <div>
-        <div className="row">
-          <div className="col-sm-10 col-sm-offset-1 text-center">
-              <div className="block-header">
-                <h2>{this.state.Carrera} - {this.state.Materia}</h2>
-              </div>
-          </div>
+        <div className="block-header">
+          <h2>
+            <strong>Profesor:</strong> {this.state.user.data.UserName}
+          </h2>
+        </div>
+        <div className="block-header">
+          <h2>
+            <strong>CARRERA:</strong> {this.props.Carrera} - <strong>MATERIA:</strong> {this.state.Materia}
+          </h2>
         </div>
         <div className="row">
-          <div className="col-sm-6 col-sm-offset-1">
+          <div className="col-sm-8">
             <div className="card">
               <div className="card-header ch-alt m-b-20">
                 <h2>
-                  Notas de {this.props.params.parcial}
+                  Notas de {this.props.parcial}
                   <small>Curso: {this.state.Nombre}</small>
                 </h2>
                 <ul className="actions">
@@ -283,6 +280,7 @@ class CargaParcial extends React.Component {
                             </small>
                           </td>
                           <td>
+                            {this.state.Cerrado == false ?
                             <UISelect
                               options={notas}
                               emptyText="Inserte Nota"
@@ -290,10 +288,11 @@ class CargaParcial extends React.Component {
                               onChange={
                                 this._cambiarNota.bind(
                                   this, alumno.CursadaId,
-                                  this.props.params.parcial
+                                  this.props.parcial
                                 )
                               }
                             />
+                            : <span>{alumno.Nota}</span> }
                           </td>
                         </tr>
                         );
@@ -312,7 +311,12 @@ class CargaParcial extends React.Component {
                  </i>
                 </div>
                 <div className="count">
-                  <DateInput style={dateInputStyle} onInputValidDate={this._setFecha.bind(this)} value={this.state.Fecha}/>
+                  <DateInput
+                    disabled={this.state.Cerrado}
+                    style={dateInputStyle}
+                    onInputValidDate={this._setFecha.bind(this)}
+                    value={this.state.Fecha}
+                  />
 
                   {/*
                   <DatePicker
@@ -372,9 +376,17 @@ class CargaParcial extends React.Component {
 
 CargaParcial.propTypes = {
   idCurso: React.PropTypes.string,
-  parcial: React.PropTypes.oneOf(ParcialesValidos),
+  //parcial: React.PropTypes.oneOf(ParcialesValidos),
   params: React.PropTypes.object,
-  history: React.PropTypes.object
+  history: React.PropTypes.object,
+  Carrera: React.PropTypes.string,
+  parcial: function(props, propName, componentName) {
+    if (['P1', 'P2', 'R1', 'R2'].indexOf(props[propName]) < 0 ) {
+      // return new Error('Validation failed!');
+
+      props.history.pushState(null, '/area-docentes/cursos/');
+    }
+  }
 };
 
 CargaParcial.contextTypes = {
@@ -382,5 +394,6 @@ CargaParcial.contextTypes = {
 };
 
 reactMixin.onClass(CargaParcial, Reflux.connect(CursosStore));
+reactMixin.onClass(CargaParcial, Reflux.connect(UserStore));
 
 export default CargaParcial;

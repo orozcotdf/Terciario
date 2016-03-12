@@ -11,5 +11,7 @@ namespace ColegioTerciario.Models.ViewModels.Api
         public string Carrera { get; set; }
         public string Materia { get; set; }
         public string Fecha { get; set; }
+
+        public bool Cerrado { get; set; }
     }
 }

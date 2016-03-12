@@ -24,7 +24,7 @@ module.exports = {
     //  cb(null, require('./main'));
     // });
     require.ensure([], (require) => {
-      cb(null, require('../components/AreaDocentes/container'));
+      cb(null, require('../components/AreaDocentes/index'));
     });
   }
 };
