@@ -9,6 +9,8 @@ import routes from './routes';
 // import { createStore, combineReducers, bindActionCreators } from 'redux';
 // import Root from './containers/Root';
 // import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+import createApiClientStore from './store/configureStore';
 
 require('jquery.nicescroll/jquery.nicescroll');
 require('../less/terciario.scss');
@@ -28,9 +30,17 @@ function run() {
 
   const target = document.getElementById('appContainer');
 
+  /*if (target) {
+    ReactDOM.render(<Router routes={routes}/>, target);
+  }*/
+
+  // Import the store created in init.js
+  const store = createApiClientStore();
+
   if (target) {
     ReactDOM.render(<Router routes={routes}/>, target);
   }
+
 
   if (document.getElementById('sidebarComponent')) {
     ReactDOM.render(<UISidebar/>, document.getElementById('sidebarComponent'));

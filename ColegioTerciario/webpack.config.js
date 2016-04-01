@@ -21,7 +21,9 @@ module.exports = {
       'griddle-react',
       'classnames',
       'toastr',
-      'axios'
+      'axios',
+      'redux',
+      'redux-logger'
     ]
   },
   output: {

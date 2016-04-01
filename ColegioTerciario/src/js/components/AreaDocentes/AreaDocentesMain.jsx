@@ -6,9 +6,10 @@ import UserStore from '../../stores/userStore';
 import Reflux from 'reflux';
 import AuthorizationMixin from '../../core/AuthorizationMixin';
 import reactMixin from 'react-mixin';
+import { connect } from 'react-redux';
 
 
-class CursosDeDocente extends React.Component {
+class AreaDocentesMain extends React.Component {
 
   _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
     $.get(`/api/Cursos/ObtenerCursos?docenteId=${this.state.user.data.Persona}`,
@@ -25,6 +26,10 @@ class CursosDeDocente extends React.Component {
           pageSize
         });
       });
+  }
+
+  _rowClick(rowData, event) {
+    this.props.dispatch({type: "CHANGE_SELECTED_COURSE", course: rowData.props.data.ID})
   }
 
   render() {
@@ -72,14 +77,18 @@ class CursosDeDocente extends React.Component {
                   loadingText = "Cargando..."
                   tableClassName = "table table-vmiddle"
                   noDataMessage = "No se encontraron resultados"
-                  nextText="Siguiente"/>
+                  nextText="Siguiente"
+                  onRowClick={this._rowClick.bind(this)}/>
         </div>
       </div>
     );
   }
 }
 
-reactMixin.onClass(CursosDeDocente, Reflux.connect(UserStore));
-reactMixin.onClass(CursosDeDocente, AuthorizationMixin);
+reactMixin.onClass(AreaDocentesMain, Reflux.connect(UserStore));
+reactMixin.onClass(AreaDocentesMain, AuthorizationMixin);
 
-export default CursosDeDocente;
+
+//export default AreaDocentesMain;
+
+export default connect()(AreaDocentesMain);

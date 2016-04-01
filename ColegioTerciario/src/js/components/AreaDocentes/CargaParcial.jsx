@@ -47,8 +47,6 @@ class CargaParcial extends React.Component {
     });
   }
 
-
-
   _getAlumnos() {
     return this.state.alumnos;
   }
@@ -132,18 +130,6 @@ class CargaParcial extends React.Component {
     }
   }
 
-  /*
-  _setFecha(nill, value) {
-    CursosActions.cambiarFecha(
-      this.props.params.idCurso,
-      this.props.params.parcial + '_FECHA',
-      value);
-    this.setState({
-      Fecha: value
-    });
-  }
-  */
-
   _actualizarPorcentajeAprobados() {
     const notasCargadas = _.compact(_.map(_.pluck(this.state.alumnos, 'Nota'),
         function (value) { return value === 'Ausente' ? null : value; })
@@ -213,6 +199,18 @@ class CargaParcial extends React.Component {
       fontSize: '22px'
     };
 
+    const headerClass = [
+      'card-header',
+      'ch-alt',
+      'm-b-20'
+    ]
+
+    if (this.state.Cerrado) {
+      headerClass.push('bgm-red');
+    } else {
+      headerClass.push('bgm-cyan');
+    }
+
     return (
       <div>
         <div className="block-header">
@@ -228,12 +226,14 @@ class CargaParcial extends React.Component {
         <div className="row">
           <div className="col-sm-8">
             <div className="card">
-              <div className="card-header ch-alt m-b-20">
+              <div className={headerClass.join(' ')}>
                 <h2>
                   Notas de {this.props.parcial}
+                  {this.state.Cerrado == false ? null :
+                    <span style={{float: 'right', marginRight: '40px'}}>NOTAS CERRADAS (modo solo lectura)</span> }
                   <small>Curso: {this.state.Nombre}</small>
                 </h2>
-                <ul className="actions">
+                <ul className="actions actions-alt">
                   <li>
                     <a href="#" onClick={this._exit.bind(this)}>
                       <i className="zmdi zmdi-close"></i>
@@ -242,7 +242,7 @@ class CargaParcial extends React.Component {
                 </ul>
                 <a href="#"
                    onClick={this._imprimirPlanilla.bind(this)}
-                   className="btn bgm-red btn-float waves-effect waves-circle waves-float">
+                   className="btn btn-float bgm-white waves-effect waves-circle waves-float">
                   <i className="zmdi zmdi-print"></i>
                 </a>
               </div>
@@ -317,24 +317,6 @@ class CargaParcial extends React.Component {
                     onInputValidDate={this._setFecha.bind(this)}
                     value={this.state.Fecha}
                   />
-
-                  {/*
-                  <DatePicker
-                    floatingLabelText="Modificar fecha"
-                    hintText="Modificar fecha"
-                    name="FECHA"
-                    value={this.state.Fecha}
-                    defaultDate={null}
-                    formatDate={this._formatDate}
-                    DateTimeFormat={Intl.DateTimeFormat}
-                    locale="es-ES"
-                    autoOk={true}
-                    onChange={this._setFecha.bind(this)}
-                    inputStyle={this.estilosFecha.inputStyle}
-                    floatingLabelStyle={this.estilosFecha.floatingLabelStyle}
-                    wordings={{ok: 'OK', cancel: 'Cancelar'}}
-                    />
-                  */}
                 </div>
 
             </div>

@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import {routerStateReducer} from 'redux-router';
 import counter from './counter';
+import areaDocentes from './AreaDocentesReducer';
 
 export default combineReducers({
   counter,
-  router: routerStateReducer
+  areaDocentes
 });

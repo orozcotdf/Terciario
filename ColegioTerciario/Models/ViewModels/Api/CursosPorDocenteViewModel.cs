@@ -11,5 +11,7 @@
         public string MATERIA_NOMBRE { get; set; }
 
         public int ID { get; set; }
+
+        public int? CANTIDAD_PARCIALES { get; set; }
     }
 }

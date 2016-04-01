@@ -3,6 +3,8 @@ import {Link} from 'react-router';
 
 class GriddleActionsComponent extends React.Component {
   render() {
+    var cantidad_parciales = this.props.rowData.CANTIDAD_PARCIALES;
+    console.log(cantidad_parciales);
     return (
       <div className="dropdown">
         <a href="#" className="dropdown-toggle btn btn-link btn-icon waves-effect"

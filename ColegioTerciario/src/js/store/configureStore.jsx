@@ -1,43 +1,19 @@
-import rootReducer from '../reducers';
-import thunk from 'redux-thunk';
-import routes from '../routes';
-import {reduxReactRouter} from 'redux-router';
-import createHistory from 'history/lib/createBrowserHistory';
-import DevTools from '../containers/DevTools';
-import {
-  applyMiddleware,
-  compose,
-  createStore
-} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+import reducer from '../reducers';
 
-export default function configureStore(initialState, debug = false) {
-  let createStoreWithMiddleware;
+// Use redux-logger only in dev mode
+const __DEV__ = true// SOME TYPE OF ENV VARIABLE;
+const logger = createLogger({
+  predicate: (getState, action) => __DEV__
+});
 
-  const middleware = applyMiddleware(thunk);
+const createStoreWithMiddleware = applyMiddleware(
+  thunkMiddleware,
+  logger
+)(createStore);
 
-  if (debug) {
-    createStoreWithMiddleware = compose(
-      middleware,
-      reduxReactRouter({routes, createHistory}),
-      DevTools.instrument()
-    );
-  } else {
-    createStoreWithMiddleware = compose(
-      middleware,
-      reduxReactRouter({routes, createHistory})
-    );
-  }
-
-  const store = createStoreWithMiddleware(createStore)(
-    rootReducer, initialState
-  );
-
-  if (module.hot) {
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers/index');
-
-      store.replaceReducer(nextRootReducer);
-    });
-  }
-  return store;
+export default function createApiClientStore(initialState) {
+  return createStoreWithMiddleware(reducer, initialState);
 }

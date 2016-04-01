@@ -125,7 +125,8 @@ namespace ColegioTerciario.Controllers.Api
                             CARRERA_NOMBRE = c.MATERIA_X_CURSO_CARRERA != null ? c.MATERIA_X_CURSO_CARRERA.CARRERA_NOMBRE_CORTO : null,                       
                             MATERIA_X_CURSO_CURSO_NOMBRE = c.MATERIA_X_CURSO_CURSO_NOMBRE,
                             SEDE_NOMBRE = c.MATERIA_X_CURSO_SEDE.SEDE_NOMBRE,
-                            MATERIA_NOMBRE = c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE
+                            MATERIA_NOMBRE = c.MATERIA_X_CURSO_MATERIA.MATERIA_NOMBRE,
+                            CANTIDAD_PARCIALES = c.MATERIA_X_CURSO_CANTIDAD_PARCIALES
                         })
             };
         }
@@ -136,6 +137,7 @@ namespace ColegioTerciario.Controllers.Api
             var alumnos = new List<AlumnoEnCursadaViewModel>();
             string nota = "";
             bool regular = false;
+            bool incluirEnResultado = true;
 
             var cursadas = _db.Cursadas.Include("CURSADA_ALUMNO")
                 .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
