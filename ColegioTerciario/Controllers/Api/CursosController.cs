@@ -273,6 +273,23 @@ namespace ColegioTerciario.Controllers.Api
         }
 
         [HttpPost]
+        public IHttpActionResult HabilitarSegundoParcial(int id)
+        {
+            try
+            {
+                var curso = _db.Materias_X_Cursos.Find(id);
+                curso.MATERIA_X_CURSO_CANTIDAD_PARCIALES = 2;
+                _db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
         public object SetearTurno([FromBody]string value, [FromBody]int pk) {
             return new {};
         }

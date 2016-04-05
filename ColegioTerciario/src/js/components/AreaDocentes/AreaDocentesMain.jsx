@@ -7,10 +7,18 @@ import Reflux from 'reflux';
 import AuthorizationMixin from '../../core/AuthorizationMixin';
 import reactMixin from 'react-mixin';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as AreaDocentesActions from '../../actions/areaDocentesActions';
 
 
 class AreaDocentesMain extends React.Component {
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.areaDocentes.refreshCourseList == false) {
+      return false
+    }
+    return true;
+  }
   _getJsonData(filterString, sortColumn, sortAscending, page, pageSize, callback) {
     $.get(`/api/Cursos/ObtenerCursos?docenteId=${this.state.user.data.Persona}`,
       {
@@ -29,7 +37,10 @@ class AreaDocentesMain extends React.Component {
   }
 
   _rowClick(rowData, event) {
-    this.props.dispatch({type: "CHANGE_SELECTED_COURSE", course: rowData.props.data.ID})
+    this.props.actions.changeSelectedCourse({
+      id: rowData.props.data.ID,
+      amountExams: rowData.props.data.CANTIDAD_PARCIALES
+    });
   }
 
   render() {
@@ -89,6 +100,15 @@ reactMixin.onClass(AreaDocentesMain, Reflux.connect(UserStore));
 reactMixin.onClass(AreaDocentesMain, AuthorizationMixin);
 
 
-//export default AreaDocentesMain;
+const mapStateToProps = function(store) {
+  return {
+    areaDocentes: store.areaDocentes
+  };
+}
 
-export default connect()(AreaDocentesMain);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(AreaDocentesActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AreaDocentesMain);

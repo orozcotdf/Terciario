@@ -10,7 +10,6 @@ import routes from './routes';
 // import Root from './containers/Root';
 // import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
-import createApiClientStore from './store/configureStore';
 
 require('jquery.nicescroll/jquery.nicescroll');
 require('../less/terciario.scss');
@@ -33,9 +32,6 @@ function run() {
   /*if (target) {
     ReactDOM.render(<Router routes={routes}/>, target);
   }*/
-
-  // Import the store created in init.js
-  const store = createApiClientStore();
 
   if (target) {
     ReactDOM.render(<Router routes={routes}/>, target);

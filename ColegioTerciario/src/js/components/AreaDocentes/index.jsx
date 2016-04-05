@@ -3,12 +3,12 @@ import AreaDocentesMain from './AreaDocentesMain';
 import ElegirInstanciaModal from './ElegirInstanciaModal';
 import UserStore from '../../stores/userStore';
 import Reflux from 'reflux';
-import createApiClientStore from '../../store/configureStore';
+import configureStore from '../../store/configureStore';
 import { Provider } from 'react-redux';
 
 
 // Import the store created in init.js
-const store = createApiClientStore();
+const store = configureStore();
 
 export default React.createClass({
   propTypes: {
@@ -43,3 +43,5 @@ export default React.createClass({
     );
   }
 });
+
+
