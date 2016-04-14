@@ -70,8 +70,7 @@ class AreaDocentesMain extends React.Component {
         displayName: 'Sede'
       }, {
         columnName: 'ID',
-        displayName: null,
-        customComponent: GriddleActionsComponent
+        "visible": false
       }
     ];
 
@@ -83,11 +82,11 @@ class AreaDocentesMain extends React.Component {
         <div className="card-body">
           <GriddleWithCallback ref="w"
                   getExternalResults={this._getJsonData.bind(this)}
-                  columnMetadata = {columnMeta}
+                  columnMetadata={columnMeta}
                   columns={columns}
-                  loadingText = "Cargando..."
-                  tableClassName = "table table-vmiddle"
-                  noDataMessage = "No se encontraron resultados"
+                  loadingText="Cargando..."
+                  tableClassName="table table-vmiddle"
+                  noDataMessage="No se encontraron resultados"
                   nextText="Siguiente"
                   onRowClick={this._rowClick.bind(this)}/>
         </div>

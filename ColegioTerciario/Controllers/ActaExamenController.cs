@@ -148,7 +148,8 @@ namespace ColegioTerciario.Controllers
             {
                 var actasExistentes = db.Actas_Examenes.Any(
                     a => a.ACTA_EXAMEN_TURNOS_EXAMENES_ID == acta_Examen.ACTA_EXAMEN_TURNOS_EXAMENES_ID &&
-                         a.ACTA_EXAMEN_MATERIAS_ID == acta_Examen.ACTA_EXAMEN_MATERIAS_ID
+                         a.ACTA_EXAMEN_MATERIAS_ID == acta_Examen.ACTA_EXAMEN_MATERIAS_ID &&
+                         a.ACTA_EXAMEN_FECHA == acta_Examen.ACTA_EXAMEN_FECHA
                     );
                 if (actasExistentes)
                 {

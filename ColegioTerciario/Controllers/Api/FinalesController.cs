@@ -19,6 +19,7 @@ namespace ColegioTerciario.Controllers.Api
 
         public AjaxCollectionResponseViewModel GetFinales([FromUri]AjaxCollectionParamViewModel param)
         {
+            int cantidadRegistros = 0;
             IQueryable<Acta_Examen> actas = _db.Actas_Examenes
                 .OrderByDescending(e => e.ACTA_EXAMEN_FECHA);
 
@@ -37,6 +38,7 @@ namespace ColegioTerciario.Controllers.Api
                         c.ACTA_EXAMEN_FECHA.Value.Day == fecha.Day &&
                         c.ACTA_EXAMEN_FECHA.Value.Month == fecha.Month &&
                         c.ACTA_EXAMEN_FECHA.Value.Year == fecha.Year);
+                    cantidadRegistros = actas.Count();
                 }
                 else {
 
@@ -62,8 +64,14 @@ namespace ColegioTerciario.Controllers.Api
                             c.ACTA_EXAMEN_LIBRO.ToLower().Contains(param.Filtro.ToLower())
                         );
                     }
+
+                    cantidadRegistros = actas.Count();
                     
                 }
+            }
+            else
+            {
+                cantidadRegistros = actas.Count();
             }
 
 
@@ -82,10 +90,11 @@ namespace ColegioTerciario.Controllers.Api
                     ID = a.ID
                 });
 
+
             AjaxCollectionResponseViewModel rvm = new AjaxCollectionResponseViewModel
             {
                 Resultados = vm,
-                CantidadResultados = param.Filtro != null ? vm.Count() : _db.Actas_Examenes.Count(),
+                CantidadResultados = cantidadRegistros
             };
 
             return rvm;

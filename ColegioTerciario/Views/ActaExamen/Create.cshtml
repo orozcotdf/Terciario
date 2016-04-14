@@ -60,8 +60,9 @@
                             @Html.LabelFor(model => model.ACTA_EXAMEN_MATERIAS_ID, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
                                 <select id="ACTA_EXAMEN_MATERIAS_ID" name="ACTA_EXAMEN_MATERIAS_ID" class="form-control">
-                                    <option val="0">Elija una carrera</option>
+                                    <option val="0">Elija una materia</option>
                                 </select>
+                                @Html.ValidationMessageFor(model => model.ACTA_EXAMEN_MATERIAS_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
 

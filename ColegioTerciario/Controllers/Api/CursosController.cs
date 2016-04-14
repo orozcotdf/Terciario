@@ -136,7 +136,7 @@ namespace ColegioTerciario.Controllers.Api
         {
             var alumnos = new List<AlumnoEnCursadaViewModel>();
             string nota = "";
-            bool regular = false;
+            bool es_regular = false;
             bool incluirEnResultado = true;
 
             var cursadas = _db.Cursadas.Include("CURSADA_ALUMNO")
@@ -148,30 +148,76 @@ namespace ColegioTerciario.Controllers.Api
 
             foreach (var cursada in cursadas)
             {
+                incluirEnResultado = true;
                 switch (parcial)
                 {
                     case "P1":
-                        regular = cursada.CURSADA_P1_REGULAR;
                         nota = cursada.CURSADA_NOTA_P1;break;
-                    case "P2":
-                        regular = cursada.CURSADA_P2_REGULAR;
-                        nota = cursada.CURSADA_NOTA_P2;break;
+                    case "P2":/*
+                        if (cursada.CURSADA_NOTA_P1 == null)
+                        {
+                            es_regular = false;
+                        }
+                        else
+                        {
+                            if (int.Parse(cursada.CURSADA_NOTA_P1) > 6)
+                            {
+                                es_regular = true;
+                            }
+                            else if (int.Parse(cursada.CURSADA_NOTA_R1) > 6)
+                            {
+                                es_regular = true;
+                            }
+                            else
+                            {
+                                es_regular = false;
+                            }
+                        }*/
+                        incluirEnResultado = cursada.CURSADA_P1_REGULAR;
+                        nota = cursada.CURSADA_NOTA_P2;
+                        break;
                     case "R1":
-                        regular = cursada.CURSADA_P1_REGULAR;
-                        nota = cursada.CURSADA_NOTA_R1;break;
+                        incluirEnResultado = !cursada.CURSADA_P1_REGULAR;
+                        nota = cursada.CURSADA_NOTA_R1;
+                        //if (cursada.CURSADA_NOTA_P1 == "Ausente" || cursada.CURSADA_NOTA_P1 == null)
+                        //{
+                        //    incluirEnResultado = false;
+                        //}
+                        //else if (int.Parse(cursada.CURSADA_NOTA_P1) > 6)
+                        //{
+                        //    incluirEnResultado = false;
+                        //}
+                        
+                        break;
                     case "R2":
-                        regular = cursada.CURSADA_P2_REGULAR;
+                        incluirEnResultado = !cursada.CURSADA_P2_REGULAR;
+                        //if (cursada.CURSADA_NOTA_P2 == "Ausente" || cursada.CURSADA_NOTA_P2 == null)
+                        //{
+                        //    incluirEnResultado = false;
+                        //}
+                        //else if (int.Parse(cursada.CURSADA_NOTA_P2) > 6)
+                        //{
+                        //    incluirEnResultado = false;
+                        //}
+
+
+
                         nota = cursada.CURSADA_NOTA_R2;break;
 
                 }
-                alumnos.Add(new AlumnoEnCursadaViewModel {
-                    CursadaId = cursada.ID,
-                    Alumno = cursada.CURSADA_ALUMNO.PERSONA_APELLIDO + ", " + cursada.CURSADA_ALUMNO.PERSONA_NOMBRE,
-                    Documento = cursada.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO,
-                    Nota = nota,
-                    Libre = cursada.CURSADA_ESTADO_ACADEMICO == "Libre" || cursada.CURSADA_ESTADO_ASISTENCIA == "Libre" || cursada.CURSADA_ESTADO_DEFINITIVO == "Libre",
-                    Regular = regular
-                });
+
+                if (incluirEnResultado)
+                {
+                    alumnos.Add(new AlumnoEnCursadaViewModel
+                    {
+                        CursadaId = cursada.ID,
+                        Alumno = cursada.CURSADA_ALUMNO.PERSONA_APELLIDO + ", " + cursada.CURSADA_ALUMNO.PERSONA_NOMBRE,
+                        Documento = cursada.CURSADA_ALUMNO.PERSONA_DOCUMENTO_NUMERO,
+                        Nota = nota,
+                        Libre = cursada.CURSADA_ESTADO_ACADEMICO == "Libre" || cursada.CURSADA_ESTADO_ASISTENCIA == "Libre" || cursada.CURSADA_ESTADO_DEFINITIVO == "Libre",
+                    });
+                }
+                
             }
             return Ok(alumnos);
         }

@@ -316,6 +316,10 @@
     <Compile Include="Migrations\201602172332407_Agrega comentarios a ActaExamen.Designer.cs">
       <DependentUpon>201602172332407_Agrega comentarios a ActaExamen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604112352313_Docente suplente en cursos.cs" />
+    <Compile Include="Migrations\201604112352313_Docente suplente en cursos.Designer.cs">
+      <DependentUpon>201604112352313_Docente suplente en cursos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\AnaliticoViewModel.cs" />
     <Compile Include="Controllers\Api\AccountsController.cs" />
     <Compile Include="Controllers\Api\ActasController.cs" />
@@ -855,6 +859,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602172332407_Agrega comentarios a ActaExamen.resx">
       <DependentUpon>201602172332407_Agrega comentarios a ActaExamen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604112352313_Docente suplente en cursos.resx">
+      <DependentUpon>201604112352313_Docente suplente en cursos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

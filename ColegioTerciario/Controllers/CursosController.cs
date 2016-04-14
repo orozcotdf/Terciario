@@ -199,6 +199,9 @@ namespace ColegioTerciario.Controllers
                     case ("MATERIA_X_CURSO_DOCENTE_ID"):
                         matXCurso.MATERIA_X_CURSO_DOCENTE_ID = int.Parse(value);
                         break;
+                    case ("MATERIA_X_CURSO_DOCENTE_SUPLENTE_ID"):
+                        matXCurso.MATERIA_X_CURSO_DOCENTE_SUPLENTE_ID = int.Parse(value);
+                        break;
                     case ("MATERIA_X_CURSO_TURNO"):
                         matXCurso.MATERIA_X_CURSO_TURNO = value;
                         break;
@@ -317,6 +320,7 @@ namespace ColegioTerciario.Controllers
                 .Include("MATERIA_X_CURSO_MATERIA")
                 .Include("MATERIA_X_CURSO_CICLO")
                 .Include("MATERIA_X_CURSO_DOCENTE")
+                .Include("MATERIA_X_CURSO_DOCENTE_SUPLENTE")
                 .FirstOrDefault(c => c.ID == id);
 
             var materias = _db.Materias_X_Cursos.Include("MATERIA_X_CURSO_CICLO").Include("MATERIA_X_CURSO_MATERIA").Where(

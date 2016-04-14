@@ -15,6 +15,9 @@
                         Docente: <a href="@Url.Action("EditarCurso", new { ciclo = Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre = Model.MATERIA_X_CURSO_CURSO_NOMBRE })" id="MATERIA_X_CURSO_DOCENTE_ID" name="MATERIA_X_CURSO_DOCENTE_ID" data-value="@Model.MATERIA_X_CURSO_DOCENTE_ID">
                             @(Model.MATERIA_X_CURSO_DOCENTE != null ? Model.MATERIA_X_CURSO_DOCENTE.PERSONA_NOMBRE_COMPLETO : "")
                         </a>
+                        Suplente: <a href="@Url.Action("EditarCurso", new { ciclo = Model.MATERIA_X_CURSO_CICLO.CICLO_ANIO, nombre = Model.MATERIA_X_CURSO_CURSO_NOMBRE })" id="MATERIA_X_CURSO_DOCENTE_SUPLENTE_ID" name="MATERIA_X_CURSO_DOCENTE_SUPLENTE_ID" data-value="@Model.MATERIA_X_CURSO_DOCENTE_SUPLENTE_ID">
+                            @(Model.MATERIA_X_CURSO_DOCENTE_SUPLENTE != null ? Model.MATERIA_X_CURSO_DOCENTE_SUPLENTE.PERSONA_NOMBRE_COMPLETO : "")
+                        </a>
                         Turno: <a href="#" id="MATERIA_X_CURSO_TURNO" data-value="@Model.MATERIA_X_CURSO_TURNO">
                             @(Model.MATERIA_X_CURSO_TURNO ?? "SELECCIONE UN TURNO")
                         </a>
@@ -474,7 +477,7 @@
             }
         });
 
-        $("#MATERIA_X_CURSO_DOCENTE_ID").editable({
+            $("#MATERIA_X_CURSO_DOCENTE_ID, #MATERIA_X_CURSO_DOCENTE_SUPLENTE_ID").editable({
             type: 'select2',
             pk: @Model.ID,
             url: "/Cursos/Set",
