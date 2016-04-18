@@ -359,6 +359,26 @@ namespace ColegioTerciario.Controllers.Api
         }
 
         [HttpGet]
+        public IHttpActionResult GetAlumnos(int id)
+        {
+            List<object> alumnos = new List<object>();
+            IEnumerable<Cursada> cursadas = _db.Cursadas
+                .Include("CURSADA_ALUMNO")
+                .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
+                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == id && c.CURSADA_ALUMNO != null).ToList();
+            foreach (Cursada cursada in cursadas)
+            {
+                alumnos.Add(new
+                {
+                    ID = cursada.CURSADA_ALUMNOS_ID,
+                    NOMBRE = cursada.CURSADA_ALUMNO.PERSONA_NOMBRE
+                });
+            }
+
+            return Ok(alumnos);
+        }
+
+        [HttpGet]
         public IHttpActionResult Info(int id, string instancia)
         {
             DateTime? fecha = new DateTime();

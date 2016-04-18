@@ -106,7 +106,7 @@ namespace ColegioTerciario.Controllers
             IEnumerable<Cursada> cursadas = db.Cursadas
                 .Include("CURSADA_ALUMNO")
                 .OrderBy(c => c.CURSADA_ALUMNO.PERSONA_APELLIDO)
-                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == curso.ID).ToList();
+                .Where(c => c.CURSADA_MATERIAS_X_CURSOS_ID == curso.ID && c.CURSADA_ALUMNO != null).ToList();
 
             foreach (Cursada cursada in cursadas)
             {

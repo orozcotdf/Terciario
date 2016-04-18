@@ -9,6 +9,7 @@ module.exports = {
     require('./areaDocentes'),
     require('./inscripcionesAdmin'),
     require('./alumnos'),
-    require('./finales')
+    require('./finales'),
+    require('./asistencias')
   ]
 };

@@ -69,23 +69,20 @@ namespace ColegioTerciario.Lib
         {
             try
             {
-                using (SmtpClient smtp = new SmtpClient("smtp.office365.com"))
+                using (SmtpClient mailClient = new SmtpClient("smtp.office365.com", 587))
                 {
                     //Your SmtpClient gets set to the SMTP Settings you found in the "POP, IMAP, and SMTP access" section from Web Outlook  
-                    SmtpClient mailClient = new SmtpClient("smtp.office365.com");
                     //Your Port gets set to what you found in the "POP, IMAP, and SMTP access" section from Web Outlook  
                     mailClient.Port = 587;
                     //Set EnableSsl to true so you can connect via TLS
                     mailClient.EnableSsl = true;
                     //Your network credentials are going to be the Office 365 email address and the password
-                    System.Net.NetworkCredential cred = new System.Net.NetworkCredential("administracion@cent11.edu.ar", "Pa$$word00");
-                    mailClient.Credentials = cred;
-                    MailMessage message = new MailMessage();
-                    //This DOES NOT work  
-                    message.From = new MailAddress("administracion@cent11.edu.ar");
-                    //This DOES work  
-                    message.From = new MailAddress("administracion@cent11.edu.ar", "Administracion Cent11");
-                    message.To.Add(email);
+                    mailClient.Credentials = new System.Net.NetworkCredential("administracion@cent11.edu.ar", "Admin2016");
+                    var from = new MailAddress("administracion@cent11.edu.ar", "Administracion Cent11", System.Text.Encoding.UTF8);
+                    var to = new MailAddress(email);
+
+                    MailMessage message = new MailMessage(from, to);
+
                     message.Subject = "Restablecer contraseña";
                     message.IsBodyHtml = true;
                     message.Body = "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>";
