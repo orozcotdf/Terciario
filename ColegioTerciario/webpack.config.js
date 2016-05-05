@@ -57,7 +57,7 @@ module.exports = {
     noParse: /\.min\.js/
   },
   resolve: {
-    root: path.resolve(path.dirname(), './src'),
+    root: path.resolve('./src'),
     extensions: ['', '.js', '.jsx', '.scss'],
     // Tell webpack to look for required files in bower and node
     modulesDirectories: ['bower_components', 'node_modules'],
